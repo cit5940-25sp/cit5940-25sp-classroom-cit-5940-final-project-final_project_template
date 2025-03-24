@@ -8,4 +8,9 @@ public class HelloWorldTest {
     public void testSayHello() {
         assertEquals("Hello, World!", HelloWorld.sayHello());
     }
+
+    @Test
+    public void testNothing() {
+        assertEquals("Hello, World!", HelloWorld.sayHello());
+    }
 }
