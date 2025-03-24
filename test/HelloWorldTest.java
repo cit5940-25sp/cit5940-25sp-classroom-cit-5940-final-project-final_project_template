@@ -13,4 +13,9 @@ public class HelloWorldTest {
     public void testNothing() {
         assertEquals(3, 4);
     }
+
+    @Test
+    public void testSomething() {
+        assertEquals(8, 4);
+    }
 }
