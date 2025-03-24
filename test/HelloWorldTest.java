@@ -16,6 +16,6 @@ public class HelloWorldTest {
 
     @Test
     public void testSomething() {
-        assertEquals(10, 4);
+        assertEquals(9.5, 4);
     }
 }
