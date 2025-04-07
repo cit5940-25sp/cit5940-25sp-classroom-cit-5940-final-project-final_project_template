@@ -11,6 +11,14 @@ public class HelloWorldTest {
 
     @Test
     public void testNothing() {
+
         assertEquals("Hello, World!", HelloWorld.sayHello());
+
+        assertEquals(3, 4);
+    }
+
+    @Test
+    public void testSomething() {
+        assertEquals(9.5, 4);
     }
 }
