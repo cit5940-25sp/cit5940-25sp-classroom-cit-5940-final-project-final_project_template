@@ -1,5 +1,5 @@
 # Movie Name Game - Testing Documentation
-
+Erlang 
 ## Overview
 This document outlines the testing strategy and implementation for the Movie Name Game project. The testing framework is designed to ensure robustness, correctness, and performance of all game components.
 
