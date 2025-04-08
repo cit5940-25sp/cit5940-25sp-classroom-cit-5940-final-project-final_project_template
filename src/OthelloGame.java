@@ -12,6 +12,11 @@ public class OthelloGame {
             System.out.println("Current Player: " + currentPlayer);
 
             // TODO: Connect to GUI or AI to obtain move input
+            // simulate move at (2,3) for testing
+            // Move move = new Move(2, 3, currentPlayer);
+            // if (board.isValidMove(move, currentPlayer)) {
+            //     board.applyMove(move);
+            // }
 
             switchPlayer();
         }
