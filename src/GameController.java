@@ -7,13 +7,16 @@ public class GameController {
     private Map<String, Integer> connectionTypes;
     private MovieDatabase movieDatabase;
     private Movie currentMovie;
+    private int timeLimit; // Time limit in seconds
 
     // === Constructor ===
-    public GameController(Queue<Player> players, MovieDatabase movieDatabase) {
+    public GameController(Queue<Player> players, MovieDatabase movieDatabase, Movie startMovie, int timeLimit) {
         this.players = players;
         this.usedMovies = new HashSet<>();
         this.connectionTypes = new HashMap<>();
         this.movieDatabase = movieDatabase;
+        this.currentMovie = startMovie;
+        this.timeLimit = timeLimit;
     }
 
     // === Methods ===
@@ -33,7 +36,7 @@ public class GameController {
         if (current != null) {
             players.offer(current);
         }
-        // Start timer logic here if needed
+        startTimer();
     }
 
     /**
@@ -62,10 +65,17 @@ public class GameController {
     }
 
     /**
-     * Applies a time limit for the current player's turn.
+     * Starts a timer for the current player's turn.
      */
-    public void applyTimeLimit() {
-        // Implement timer logic here
+    private void startTimer() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Time's up!");
+                switchTurn(); // Automatically switch turn when time is up
+            }
+        }, timeLimit * 1000);
     }
 
     // Additional methods for game logic can be added here
