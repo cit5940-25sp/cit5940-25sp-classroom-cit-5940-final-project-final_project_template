@@ -1,8 +1,8 @@
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class MovieTest {
 
@@ -10,7 +10,7 @@ public class MovieTest {
     private Movie movie2;
     private Movie movie3;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         movie1 = new Movie(
                 "Inception",
