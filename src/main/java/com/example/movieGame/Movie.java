@@ -1,8 +1,10 @@
+package com.example.movieGame;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * Movie Object
+ * main.java.com.example.movieGame.Movie Object
  *
  */
 public class Movie {

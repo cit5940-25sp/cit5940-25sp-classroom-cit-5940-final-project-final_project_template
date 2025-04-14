@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Game</title>
+</head>
+<body>
+<h1>Movie Connection Game</h1>
+<form action="/submitMove" method="post">
+    <input type="text" name="move" placeholder="Enter movie" />
+    <button type="submit">Submit</button>
+</form>
+<p th:text="${response}"></p>
+</body>
+</html>

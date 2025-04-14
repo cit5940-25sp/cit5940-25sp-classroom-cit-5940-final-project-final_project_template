@@ -14,3 +14,23 @@ This is an example of a project directory for you to start working from. Please 
 |--- test
     |----- *Test.java (unit test files)
 ```
+
+Here is the current project file structure being used (to employ Spring Boot)
+```text
+cit-5940-final-project-group-11/
+├── pom.xml
+└── src/
+└── main/
+├── java/
+│   └── com/example/moviegame/
+│       ├── RunGame.java
+│       └── ControllerGamePlay.java
+│       └── Movie.java
+│       └── Player.java
+│       └── SingleConnection.java
+└── resources/
+├── templates/
+│   └── ViewUI.html
+└── application.properties
+
+```

@@ -1,5 +1,7 @@
+package com.example.movieGame;
+
 /**
- * Player object to track Player 1 and Player 2
+ * main.java.com.example.movieGame.Player object to track main.java.com.example.movieGame.Player 1 and main.java.com.example.movieGame.Player 2
  *
  */
 public class Player {
@@ -18,7 +20,7 @@ public class Player {
     }
 
     /**
-     * Return Player's username
+     * Return main.java.com.example.movieGame.Player's username
      *
      * @return player's username
      */

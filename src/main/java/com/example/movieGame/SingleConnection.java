@@ -1,3 +1,5 @@
+package com.example.movieGame;
+
 /**
  * tracks connections between movies (ex: Actor - Leo DiCaprio; Genre - horror, etc.)
  *
