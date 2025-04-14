@@ -2,13 +2,129 @@
 <html>
 <head>
     <title>Movie Game</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f9f9f9;
+        }
+        .screen {
+            display: none;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .visible {
+            display: flex;
+        }
+        .setup-container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+        .section {
+            width: 45%;
+            padding: 1em;
+        }
+        .section h2 {
+            margin-bottom: 0.5em;
+        }
+        button {
+            padding: 0.5em 1em;
+            margin: 0.5em;
+        }
+        .bottom-right {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+
+    <script>
+        let selectedWinCondition = "";
+
+        function showScreen(id) {
+            ['initialScreen', 'setupScreen', 'gameScreen'].forEach(screenId => {
+                document.getElementById(screenId).classList.remove('visible');
+            });
+            document.getElementById(id).classList.add('visible');
+        }
+
+        function selectWinCondition(value) {
+            selectedWinCondition = value;
+            document.querySelectorAll('.win-button').forEach(btn => btn.style.backgroundColor = '');
+            document.getElementById("win-" + value).style.backgroundColor = '#d1e7dd';
+        }
+
+        function submitSetup() {
+            const player1 = document.getElementById("player1Name").value;
+            const player2 = document.getElementById("player2Name").value;
+
+            if (!player1 || !player2 || !selectedWinCondition) {
+                alert("Please enter both names and select a win condition.");
+                return;
+            }
+
+            fetch("/setup", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}&winCondition=${encodeURIComponent(selectedWinCondition)}`
+            })
+                .then(response => {
+                    if (response.ok) {
+                        showScreen('gameScreen');
+                    } else {
+                        alert("There was an error. Please try again.");
+                    }
+                });
+        }
+    </script>
 </head>
+
 <body>
-<h1>Movie Connection Game</h1>
-<form action="/submitMove" method="post">
-    <input type="text" name="move" placeholder="Enter movie" />
-    <button type="submit">Submit</button>
-</form>
-<p th:text="${response}"></p>
+
+<!-- Initial Screen -->
+<div id="initialScreen" class="screen visible">
+    <h1>Movie Connections Game</h1>
+    <button onclick="showScreen('setupScreen')">Play</button>
+</div>
+
+<!-- Setup Screen -->
+<div id="setupScreen" class="screen">
+    <div class="setup-container">
+        <!-- Left Side: Win Conditions -->
+        <div class="section">
+            <h2>Select the win condition:</h2>
+            <button id="win-horror" class="win-button" onclick="selectWinCondition('horror')">Name four horror movies</button><br>
+            <button id="win-comedy" class="win-button" onclick="selectWinCondition('comedy')">Name four comedies</button><br>
+            <button id="win-action" class="win-button" onclick="selectWinCondition('action')">Name four action movies</button><br>
+            <button id="win-sciFi" class="win-button" onclick="selectWinCondition('sciFi')">Name four science fiction movies</button>
+            <br>
+            <button id="win-drama" class="win-button" onclick="selectWinCondition('drama')">Name four dramas</button>
+        </div>
+
+        <!-- Right Side: Player Name -->
+        <div class="section">
+            <h2>Enter the name of Player #1:</h2>
+            <input type="text" id="player1Name" placeholder="Player 1 Name" />
+            <h2>Enter the name of Player #2:</h2>
+            <input type="text" id="player2Name" placeholder="Player 2 Name" />
+
+            <!-- Button inside this section -->
+            <div style="margin-top: 1em;">
+                <br>
+                <br>
+                <button onclick="submitSetup()">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Game Screen -->
+<div id="gameScreen" class="screen">
+    <h2>Game Screen (Coming Soon)</h2>
+</div>
+
 </body>
 </html>
