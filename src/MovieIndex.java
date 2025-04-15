@@ -64,7 +64,8 @@ public class MovieIndex {
             connectedMovies.addAll(writerMap.getOrDefault(writer, new HashSet<>()));
         }
         for (String cinematographer : movie.getCinematographers()) {
-            connectedMovies.addAll(cinematographerMap.getOrDefault(cinematographer, new HashSet<>()));
+            connectedMovies.addAll(
+                    cinematographerMap.getOrDefault(cinematographer, new HashSet<>()));
         }
         // Remove the movie itself from the connected movies
         connectedMovies.remove(movie);
