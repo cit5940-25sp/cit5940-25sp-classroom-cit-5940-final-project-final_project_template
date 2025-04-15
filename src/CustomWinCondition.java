@@ -1,7 +1,7 @@
 import java.util.List;
 import java.util.function.Function;
 
-public class CustomWinCondition implements WinCondition{
+public class CustomWinCondition implements WinCondition {
     private Function<List<Movie>, Boolean> condition;
 
     public CustomWinCondition(Function<List<Movie>, Boolean> condition) {

@@ -7,7 +7,7 @@ public class GenreWinCondition implements WinCondition {
 
     @Override
     public boolean checkWin(Player player) {
-       for (Movie movie : player.getMoviesPlayed()) {
+        for (Movie movie : player.getMoviesPlayed()) {
             if (movie.getGenres().contains(genre)) {
                 return true;
             }
