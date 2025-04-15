@@ -1,27 +1,25 @@
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Movie {
     private String title;
     private int releaseYear;
     private Set<String> genres;
-    private List<String> actors;
-    private List<String> directors;
-    private List<String> composers;
-    private List<String> writers;
-    private List<String> cinematographers;
+    private Set<String> actors;
+    private Set<String> directors;
+    private Set<String> composers;
+    private Set<String> writers;
+    private Set<String> cinematographers;
 
     public Movie(String title, int releaseYear) {
         this.title = title;
         this.releaseYear = releaseYear;
         genres = new HashSet<>();
-        actors = new ArrayList<>();
-        directors = new ArrayList<>();
-        composers = new ArrayList<>();
-        writers = new ArrayList<>();
-        cinematographers = new ArrayList<>();
+        actors = new HashSet<>();
+        directors = new HashSet<>();
+        composers = new HashSet<>();
+        writers = new HashSet<>();
+        cinematographers = new HashSet<>();
     }
 
     public String getTitle() {
@@ -36,23 +34,23 @@ public class Movie {
         return genres;
     }
 
-    public List<String> getActors() {
+    public Set<String> getActors() {
         return actors;
     }
 
-    public List<String> getDirectors() {
+    public Set<String> getDirectors() {
         return directors;
     }
 
-    public List<String> getComposers() {
+    public Set<String> getComposers() {
         return composers;
     }
 
-    public List<String> getWriters() {
+    public Set<String> getWriters() {
         return writers;
     }
 
-    public List<String> getCinematographers() {
+    public Set<String> getCinematographers() {
         return cinematographers;
     }
 
