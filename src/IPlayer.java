@@ -32,4 +32,10 @@ public interface IPlayer {
     returns the player's win condition strategy object
      */
     public IWinConditionStrategy getWinConditionStrategy();
+
+    /*
+    returns the player's score
+     */
+
+    public int getScore();
 }
