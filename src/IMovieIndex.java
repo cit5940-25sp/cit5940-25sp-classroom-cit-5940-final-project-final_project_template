@@ -5,7 +5,7 @@ public interface IMovieIndex {
     /*
     loading movies into the index from a datasource
      */
-    public void loadMovies(List<IMovie> movies);
+    public void loadMovies(List<IMovie> movieList);
 
     /*
     retrieves movie by exact title
