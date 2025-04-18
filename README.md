@@ -14,3 +14,8 @@ This is an example of a project directory for you to start working from. Please 
 |--- test
     |----- *Test.java (unit test files)
 ```
+
+
+Deps jar
+1. https://mvnrepository.com/artifact/org.apache.commons/commons-csv/1.9.0
+2. https://mvnrepository.com/artifact/com.google.code.gson/gson/2.10.1
