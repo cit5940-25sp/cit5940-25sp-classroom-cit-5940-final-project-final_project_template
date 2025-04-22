@@ -9,7 +9,7 @@ public class Player {
     private final String winGenre; // The genre the player is trying to collect
     private final int winThreshold; // How many movies of that genre are required to win
 
-    private final Set<String> usedMovies; // Prevents movie reuse
+    private final Set<Integer> usedMovies; // Prevents movie reuse
     private final Map<String, Integer> genreCount; // Tracks how many times a genre has been played
 
     private boolean hasBlocked; // Tracks whether block power-up was used
@@ -31,8 +31,11 @@ public class Player {
         return name;
     }
 
-    public boolean hasUsedMovie(String movieTitle) {
-        return usedMovies.contains(movieTitle.toLowerCase());
+    /**
+     * Checks if the player has already used a movie with the given ID.
+     */
+    public boolean hasUsedMovie(int movieId) {
+        return usedMovies.contains(movieId);
     }
 
     public boolean isSkipped() {
@@ -47,14 +50,17 @@ public class Player {
 
     /**
      * Adds a movie to the player's history and updates genre count.
+     * @param movie The movie to add
      */
-    public void addMovie(String movieTitle, String genre) {
-        String lowerTitle = movieTitle.toLowerCase();
-        if (usedMovies.contains(lowerTitle)) return;
+    public void addMovie(Movie movie) {
+        Integer id = movie.getId();
+        if (usedMovies.contains(id)) return;
 
-        usedMovies.add(lowerTitle);
-        genre = genre.toLowerCase();
-        genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
+        usedMovies.add(id);
+        for (String genre : movie.getGenre()) {
+            String lowerGenre = genre.toLowerCase();
+            genreCount.put(lowerGenre, genreCount.getOrDefault(lowerGenre, 0) + 1);
+        }
     }
 
     /**

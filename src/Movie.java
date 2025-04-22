@@ -6,28 +6,29 @@ import java.util.Set;
 public class Movie {
     // === Attributes ===
     private final String title;
+    private final int id;
     private final int releaseYear;
-    private final String genre;
-    private final Set<String> actors;
-    private final String director;
-    private final String writer;
-    private final String cinematographer;
-    private final String composer;
+    private final Set<String> genre;
+    private final List<Tuple<String, Integer>> cast;
+    private final List<Tuple<String, Integer>> crew;
+    
 
     // === Constructor ===
-    public Movie(String title, int releaseYear, String genre, List<String> actors,
-                 String director, String writer, String cinematographer, String composer) {
+    public Movie(String title, int id, int releaseYear, Set<String> genre, List<Tuple<String, Integer>> cast,
+                    List<Tuple<String, Integer>> crew) {
         this.title = title;
+        this.id = id;
         this.releaseYear = releaseYear;
         this.genre = genre;
-        this.actors = new HashSet<>(actors); // Convert list to HashSet for O(1) lookups
-        this.director = director;
-        this.writer = writer;
-        this.cinematographer = cinematographer;
-        this.composer = composer;
+        this.cast = cast; // Convert list to HashSet for O(1) lookups
+        this.crew = crew;
     }
 
     // === Getters ===
+    public int getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -36,37 +37,40 @@ public class Movie {
         return releaseYear;
     }
 
-    public String getGenre() {
+    public Set<String> getGenre() {
         return genre;
     }
 
-    public Set<String> getActors() {
-        return new HashSet<>(actors); // Return copy to protect internal set
+    public List<Tuple<String, Integer>> getCasts() {
+        return cast; // Return copy to protect internal set
     }
 
-    public String getDirector() {
-        return director;
+    public List<Tuple<String, Integer>> getCrew() {
+        return crew;
     }
 
-    public String getWriter() {
-        return writer;
-    }
-
-    public String getCinematographer() {
-        return cinematographer;
-    }
-
-    public String getComposer() {
-        return composer;
-    }
 
     // === Functional Methods ===
 
     /**
      * Checks if the movie has a given actor.
      */
-    public boolean hasActor(String actorName) {
-        return actors.contains(actorName);
+    public boolean hasCast(int castId) {
+        for (Tuple<String, Integer> tuple : cast) {
+            if (tuple.getRight() == castId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasCrew(int crewId) {
+        for (Tuple<String, Integer> tuple : crew) {
+            if (tuple.getRight() == crewId) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -75,32 +79,33 @@ public class Movie {
     public boolean isConnectedTo(Movie other) {
         if (other == null) return false;
 
-        // Check actor intersection
-        for (String actor : this.actors) {
-            if (other.actors.contains(actor)) return true;
+        // Check cast intersection
+        for (Tuple<String, Integer> castMember : this.cast) {
+            if (other.hasCast(castMember.getRight())) return true;
         }
 
-        // Check other connection types
-        return Objects.equals(this.director, other.director) ||
-                Objects.equals(this.writer, other.writer) ||
-                Objects.equals(this.cinematographer, other.cinematographer) ||
-                Objects.equals(this.composer, other.composer);
+        // Check crew intersection
+        for (Tuple<String, Integer> crewMember : this.crew) {
+            if (other.hasCrew(crewMember.getRight())) return true;
+        }
+
+        return false;
     }
 
     @Override
     public String toString() {
-        return title + " (" + releaseYear + ") - Genre: " + genre;
+        return title + " (" + releaseYear + ")";
     }
 
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Movie)) return false;
         Movie other = (Movie) obj;
-        return this.title.equalsIgnoreCase(other.title) && this.releaseYear == other.releaseYear;
+        return this.id == other.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title.toLowerCase(), releaseYear);
+        return Objects.hash(id);
     }
 }
