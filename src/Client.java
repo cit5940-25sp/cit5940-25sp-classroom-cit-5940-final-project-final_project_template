@@ -3,7 +3,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Player {
+public class Client {
     // === Attributes ===
     private final String name;
     private final String winGenre; // The genre the player is trying to collect
@@ -16,7 +16,7 @@ public class Player {
     private boolean isSkipped;  // Flag to indicate if player loses next turn
 
     // === Constructor ===
-    public Player(String name, String winGenre, int winThreshold) {
+    public Client(String name, String winGenre, int winThreshold) {
         this.name = name;
         this.winGenre = winGenre.toLowerCase();
         this.winThreshold = winThreshold;

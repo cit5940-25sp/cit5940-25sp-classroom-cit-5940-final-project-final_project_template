@@ -3,9 +3,9 @@ import org.junit.Test;
 import java.util.*;
 import static org.junit.Assert.*;
 
-public class PlayerTest {
+public class ClientTest {
 
-    private Player player;
+    private Client player;
     private Movie inception;
     private Movie interstellar;
     private Movie matrix;
@@ -33,7 +33,7 @@ public class PlayerTest {
         matrix = new Movie("The Matrix", 3, 1999, new HashSet<>(Arrays.asList("Sci-Fi")), new ArrayList<>(cast3), new ArrayList<>(crew3));
 
         // Create player Alice, aiming to collect 3 Sci-Fi movies
-        player = new Player("Alice", "Sci-Fi", 3);
+        player = new Client("Alice", "Sci-Fi", 3);
     }
 
     @Test
