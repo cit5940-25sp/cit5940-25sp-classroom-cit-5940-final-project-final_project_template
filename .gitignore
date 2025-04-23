@@ -29,6 +29,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
+*.iml
 
 ### Eclipse ###
 .apt_generated
@@ -56,3 +57,6 @@ bin/
 .DS_Store
 
 target/
+*.bak
+*.numbers
+__pycache__/
