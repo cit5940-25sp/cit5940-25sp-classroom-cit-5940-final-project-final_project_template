@@ -1,0 +1,9 @@
+function add(a, b) {
+    return a + b;
+}
+
+function entry() {
+  var x <- 1;
+  var y <- 2;
+  return add(x, y);
+}

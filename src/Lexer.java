@@ -24,7 +24,12 @@ public class Lexer {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             // read character by character
             StringBuilder curr = new StringBuilder();
-            while ((this.c = br.read()) != -1) {
+            boolean skipNextChar = false;
+            while ((this.c = br.read()) != -1 || skipNextChar) {
+                if (skipNextChar) {
+                    skipNextChar = false;
+                    continue;
+                }
                 char ch = (char) c;
                 // if it's a whitespace then continue reading
                 if (Character.isWhitespace(ch)) {
@@ -40,6 +45,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isDigit(nextCh)) {
                             br.reset();
+                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
@@ -60,6 +66,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isAlphabetic(nextCh)) {
                             br.reset();
+                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
