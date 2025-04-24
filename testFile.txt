@@ -1,7 +1,7 @@
 function add(a, b) {
     return a + b;
 }
-
+var x + y; ---this is comment
 function entry() {
   var x <- 1;
   var y <- 2;

@@ -87,9 +87,20 @@ public class Lexer {
                         tokens.add(new Token(tokenMap.get('+'),"+"));
                         break;
                     case '-':
-                        tokenMap.put('-',TokenType.MINUS);
-                        tokens.add(new Token(tokenMap.get('-'),"-"));
-                        break;
+                        br.mark(1);
+                        int nextIntComment = br.read();
+                        char nextComment = (char) nextIntComment;
+                        if (nextComment == '-') {
+                            String comment = "--" + br.readLine();
+                            tokenMap.put(comment,TokenType.COMMENT);
+                            tokens.add(new Token(tokenMap.get(comment),comment));
+                            break;
+                        } else {
+                            tokenMap.put('-',TokenType.MINUS);
+                            tokens.add(new Token(tokenMap.get('-'),"-"));
+                            br.reset();
+                            break;
+                        }
                     case '*':
                         tokenMap.put('*',TokenType.STAR);
                         tokens.add(new Token(tokenMap.get('*'),"*"));
