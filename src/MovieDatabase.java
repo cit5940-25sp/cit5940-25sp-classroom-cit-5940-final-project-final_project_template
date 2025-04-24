@@ -1,30 +1,21 @@
 import java.util.*;
 
-/**
- * Manages a collection of movies and provides lookup features.
- */
 public class MovieDatabase {
+    private TMDBClient tmdb;
 
-    /**
-     * Finds all movies connected to the given movie via shared attributes.
-     *
-     * @param movie the movie to find connections from
-     * @return list of connected movies
-     */
-    public List<Movie> findConnections(Movie movie);
+    public MovieDatabase(String apiKey) {
+        this.tmdb = new TMDBClient(apiKey);
+    }
 
-    /**
-     * Finds all movies featuring the specified actor.
-     *
-     * @param actor the actor's name
-     * @return list of movies with the given actor
-     */
-    public List<Movie> findByActor(String actor);
+    public Movie findByTitle(String title) {
+        return tmdb.fetchMovieByTitle(title);
+    }
 
-    /**
-     * Adds a movie to the database.
-     *
-     * @param movie the movie to add
-     */
-    public void addMovie(Movie movie);
+    public List<Movie> findConnections(Movie movie) {
+        return tmdb.fetchSimilarMovies(movie);
+    }
+
+    public List<Movie> findByActor(String actor) {
+        return tmdb.fetchMoviesByActor(actor);
+    }
 }
