@@ -16,7 +16,7 @@ public class PlayerTest {
     public void setUp() {
         player = new Player("Yo");
         movie1 = new Movie(
-                1,
+                1L,
                 "Inception",
                 2010,
                 new HashSet<>(Arrays.asList("Sci-Fi")),
@@ -28,7 +28,7 @@ public class PlayerTest {
         );
 
         movie2 = new Movie(
-                2,
+                2L,
                 "Titanic",
                 1997,
                 new HashSet<>(Arrays.asList("Romance")),
