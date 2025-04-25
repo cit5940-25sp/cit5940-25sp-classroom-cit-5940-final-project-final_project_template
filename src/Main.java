@@ -4,13 +4,13 @@ public class Main {
 
         Movie movie = client.fetchMovieByTitle("Inception");
         if (movie != null) {
-            System.out.println("✔️ 成功連線！電影名稱：" + movie.getTitle());
-            System.out.println("上映年份：" + movie.getYear());
-            System.out.println("導演：" + movie.getDirectors());
-            System.out.println("演員：" + movie.getActors());
-            System.out.println("類型：" + movie.getGenres());
+            System.out.println("Connected！movie name：" + movie.getTitle());
+            System.out.println("year of movie：" + movie.getYear());
+            System.out.println("director：" + movie.getDirectors());
+            System.out.println("actor：" + movie.getActors());
+            System.out.println("genre：" + movie.getGenres());
         } else {
-            System.out.println("❌ 無法取得電影資訊，可能是 API Key 錯誤或未連線。");
+            System.out.println("failed");
         }
     }
 }

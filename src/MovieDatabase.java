@@ -10,9 +10,6 @@ public class MovieDatabase {
         this.tmdb = new TMDBClient();
     }
 
-    /**
-     * 查找電影（快取機制）
-     */
     public Movie findByTitle(String title) {
         if (movieCache.containsKey(title)) {
             return movieCache.get(title);
@@ -26,9 +23,6 @@ public class MovieDatabase {
         return movie;
     }
 
-    /**
-     * 查找與指定電影類似的電影（快取機制）
-     */
     public List<Movie> findConnections(Movie movie) {
         if (similarCache.containsKey(movie.getMovieId())) {
             return similarCache.get(movie.getMovieId());
@@ -42,9 +36,7 @@ public class MovieDatabase {
         return similar;
     }
 
-    /**
-     * 根據演員查找電影（快取機制）
-     */
+
     public List<Movie> findByActor(String actor) {
         if (actorCache.containsKey(actor)) {
             return actorCache.get(actor);
@@ -58,9 +50,7 @@ public class MovieDatabase {
         return movies;
     }
 
-    /**
-     * 清除所有快取（測試或重設用）
-     */
+
     public void clearCache() {
         movieCache.clear();
         actorCache.clear();

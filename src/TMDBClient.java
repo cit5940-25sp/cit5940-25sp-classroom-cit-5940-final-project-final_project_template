@@ -79,13 +79,65 @@ public class TMDBClient {
                 }
             }
 
-            // ⚠️ 根據你的 Movie 類別建構子來調整這裡
+
             return new Movie(id, title, year, genres, actors, directors, Set.of(), Set.of(), Set.of());
         } catch (Exception e) {
             System.err.println("fetchMovieDetailsById error: " + e.getMessage());
         }
         return null;
     }
+    public List<Movie> fetchSimilarMovies(Movie movie) {
+        List<Movie> list = new ArrayList<>();
+        try {
+            long movieId = movie.getMovieId();
+            String url = BASE_URL + "/movie/" + movieId + "/similar?api_key=" + apiKey;
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            JsonNode results = mapper.readTree(response.body()).path("results");
+            for (JsonNode node : results) {
+                long id = node.get("id").asLong();
+                Movie similar = fetchMovieDetailsById(id);
+                if (similar != null) list.add(similar);
+            }
+        } catch (Exception e) {
+            System.err.println("fetchSimilarMovies error: " + e.getMessage());
+        }
+        return list;
+    }
+    public List<Movie> fetchMoviesByActor(String actorName) {
+        List<Movie> movies = new ArrayList<>();
+        try {
+            String encoded = URLEncoder.encode(actorName, StandardCharsets.UTF_8);
+            String searchUrl = BASE_URL + "/search/person?query=" + encoded + "&api_key=" + apiKey;
+            HttpRequest searchRequest = HttpRequest.newBuilder().uri(URI.create(searchUrl)).build();
+            HttpResponse<String> searchResponse = client.send(searchRequest, HttpResponse.BodyHandlers.ofString());
+
+            JsonNode results = mapper.readTree(searchResponse.body()).path("results");
+            if (results.size() == 0) return movies;
+
+            long personId = results.get(0).get("id").asLong();
+
+            String creditsUrl = BASE_URL + "/person/" + personId + "/movie_credits?api_key=" + apiKey;
+            HttpRequest creditsRequest = HttpRequest.newBuilder().uri(URI.create(creditsUrl)).build();
+            HttpResponse<String> creditsResponse = client.send(creditsRequest, HttpResponse.BodyHandlers.ofString());
+
+            JsonNode cast = mapper.readTree(creditsResponse.body()).path("cast");
+            for (JsonNode movieNode : cast) {
+                long movieId = movieNode.get("id").asLong();
+                Movie m = fetchMovieDetailsById(movieId);
+                if (m != null) {
+                    movies.add(m);
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("fetchMoviesByActor error: " + e.getMessage());
+        }
+        return movies;
+    }
+
+
 
 }
 

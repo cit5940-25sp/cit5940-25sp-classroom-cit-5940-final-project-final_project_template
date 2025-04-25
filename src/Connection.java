@@ -6,8 +6,12 @@ public class Connection {
     private String name;
 
     @Override
-    public boolean equals(Object obj);
+    public boolean equals(Object obj){
+        return true;
+    }
 
     @Override
-    public int hashCode();
+    public int hashCode(){
+        return 0;
+    }
 }

@@ -4,8 +4,12 @@
 public class FiveHorrorMoviesWin implements WinCondition {
 
     @Override
-    public boolean checkVictory(Player player);
+    public boolean checkVictory(Player player){
+        return true;
+    }
 
     @Override
-    public String description();
+    public String description(){
+        return "Five Horror Movies";
+    }
 }
