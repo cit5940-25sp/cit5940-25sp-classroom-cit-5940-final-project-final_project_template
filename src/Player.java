@@ -43,7 +43,7 @@ public class Player {
      * @return the set of guessed movies
      */
     public Set<Movie> getMoviesGuessed() {
-        return Set.copyOf(moviesGuessed);
+        return Set.copyOf(moviesGuessed); // creates an unmodifiable Set
     }
 
     /**
