@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Represents a connection between two movies based on shared attributes like actor or director.
  */
@@ -18,5 +20,21 @@ public class Connection {
         return type;
     }
 
-    // Optional: override equals() and hashCode() if you need to use this in Sets or Maps
+    // Two Connection objects are considered equal iff both personName and type match
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true; // same object reference
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false; // null or different class
+        }
+        Connection that = (Connection) o;
+        return Objects.equals(personName, that.personName) && type == that.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personName, type);
+    }
 }

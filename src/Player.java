@@ -28,20 +28,12 @@ public class Player {
         moviesGuessed.add(movie);
     }
 
-    /**
-     * Returns the player's name.
-     *
-     * @return the name of the player
-     */
+    // ======== Getters ========
+
     public String getName() {
         return name;
     }
 
-    /**
-     * Returns an unmodifiable view of the movies guessed by the player.
-     *
-     * @return the set of guessed movies
-     */
     public Set<Movie> getMoviesGuessed() {
         return Set.copyOf(moviesGuessed); // creates an unmodifiable Set
     }
