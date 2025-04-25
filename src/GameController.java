@@ -1,12 +1,5 @@
+import java.io.IOException;
 import java.util.*;
-// import java.util.concurrent.*; // No longer needed for simplified timeout
-
-// --- Required Classes (Actual imports depend on project structure) ---
-// Need: Movie, Player, MovieIndex, HistoryEntry, GameView, WinCondition
-// Example (if in src/model and src/view):
-// import src.model.*;
-// import src.view.GameView;
-// -------------------------------------------------------------------
 
 public class GameController {
 
@@ -29,9 +22,9 @@ public class GameController {
         this.player1 = p1;
         this.player2 = p2;
         this.index = movieIndex;
-        this.view = gameView; // TODO: Ensure GameView is defined/imported
+        this.view = gameView;
         // Ensure players have win conditions set before passing them here
-        if (p1.getWinCondition() == null || p2.getWinCondition() == null) { // TODO: Ensure Player has getWinCondition()
+        if (p1.getWinCondition() == null || p2.getWinCondition() == null) {
             throw new IllegalArgumentException("Players must have a WinCondition set.");
         }
         // Use non-blocking scanner if possible, or manage input differently for timeout
@@ -57,7 +50,7 @@ public class GameController {
         this.connectionUsageMap = new HashMap<>();
 
         // Select starting movie using getRandomMovie()
-        // this.currentMovie = index.getRandomMovie(); // Replaced getAllMovies logic
+        this.currentMovie = index.getRandomMovie();
 
         if (this.currentMovie == null) {
             System.err.println("Error: Failed to select a starting movie from the index.");
@@ -65,12 +58,12 @@ public class GameController {
             return;
         }
 
-        this.usedMovies.add(this.currentMovie); // TODO: Ensure Movie has equals/hashCode
+        this.usedMovies.add(this.currentMovie);
 
         this.currentPlayer = player1; // Player 1 starts
 
         System.out.println("--- Game Start ---");
-        System.out.println("Starting movie: " + this.currentMovie.getTitle()); // TODO: Ensure Movie has getTitle()
+        System.out.println("Starting movie: " + this.currentMovie.getTitle());
 
         // Start the game loop (now iterative for robustness)
         runGameLoop();
@@ -88,73 +81,64 @@ public class GameController {
 
     // Process a single turn
     public void processTurn() { // Made public for potential external control/testing if needed, was private
-         if (gameEnded) return; // Exit if game ended during opponent's turn or async event
+        if (gameEnded)
+            return; // Exit if game ended during opponent's turn or async event
 
         // Display current state using GameView
-        // TODO: Ensure GameView has displayGameState method
         view.displayGameState(player1, player2, currentMovie, round);
 
-        System.out.println("
---- Round " + round + " ---"); // Fixed newline placement
-        // TODO: Ensure Player has getName() and Movie has getTitle()
+        System.out.println(" --- Round " + round + " ---");
         System.out.println(currentPlayer.getName() + "'s turn. Connect to: '" + currentMovie.getTitle() + "'");
         System.out.println("You have " + TIME_LIMIT_SECONDS + " seconds.");
 
         String input = getInputWithSimplifiedTimeout(TIME_LIMIT_SECONDS);
 
         if (input == null) {
-            System.out.println("
-Time's up! " + currentPlayer.getName() + " loses."); // Fixed newline placement
+            System.out.println(" Time's up! " + currentPlayer.getName() + " loses.");
             endGame(getOpponent(currentPlayer));
             return; // Exit turn processing
         }
 
         // Find the movie entered by the player
-        // TODO: Ensure MovieIndex has getMovieByTitle(String)
         Movie nextMovie = index.getMovieByTitle(input.trim());
 
         if (nextMovie == null) {
-            System.out.println("
-Movie '" + input.trim() + "' not found in the database."); // Fixed newline placement
-            view.displayInvalidMove(); // TODO: Ensure GameView has displayInvalidMove()
+            System.out.println(" Movie '" + input.trim() + "' not found in the database."); // Fixed newline placement
+            view.displayInvalidMove();
             System.out.println(currentPlayer.getName() + " loses due to invalid input.");
             endGame(getOpponent(currentPlayer));
             return; // Exit turn processing
         }
 
-        // TODO: Ensure Movie has equals/hashCode for Set contains check
         if (usedMovies.contains(nextMovie)) {
-            System.out.println("
-Movie '" + nextMovie.getTitle() + "' has already been used."); // Fixed newline placement
-            view.displayInvalidMove(); 
+            System.out.println(" Movie '" + nextMovie.getTitle() + "' has already been used.");
+            view.displayInvalidMove();
             System.out.println(currentPlayer.getName() + " loses by repeating a movie.");
             endGame(getOpponent(currentPlayer));
             return; // Exit turn processing
         }
-        
+
         // Simplified connection check: Find a usable reason directly
         String reason = findConnectionReason(currentMovie, nextMovie);
 
         if (reason == null) {
-             // Handles both "no connection" and "connection types used up"
-             System.out.println("
-No usable connection found between '" + currentMovie.getTitle() + "' and '" + nextMovie.getTitle() + "'."); // Fixed newline placement
-             view.displayInvalidMove();
-             System.out.println(currentPlayer.getName() + " loses (failed connection or usage limit).");
-             endGame(getOpponent(currentPlayer));
-             return; // Exit turn processing
+            // Handles both "no connection" and "connection types used up"
+            System.out.println(" No usable connection found between '" + currentMovie.getTitle() + "' and '"
+                    + nextMovie.getTitle() + "'."); // Fixed newline placement
+            view.displayInvalidMove();
+            System.out.println(currentPlayer.getName() + " loses (failed connection or usage limit).");
+            endGame(getOpponent(currentPlayer));
+            return; // Exit turn processing
         }
 
         // --- Valid move ---
-        System.out.println("
-Valid connection: " + reason); // Fixed newline placement
+        System.out.println(" Valid connection: " + reason); // Fixed newline placement
         recordMove(nextMovie, reason);
 
         // Check win condition for the current player
-        // TODO: Ensure Player has getWinCondition() and WinCondition has checkWin(Player)
+        // checkWin(Player)
         if (currentPlayer.getWinCondition().checkWin(currentPlayer)) {
-            System.out.println("
-" + currentPlayer.getName() + " fulfills the win condition!"); // Fixed newline placement
+            System.out.println(" " + currentPlayer.getName() + " fulfills the win condition!");
             endGame(currentPlayer);
             return; // Exit turn processing (game ended)
         }
@@ -169,23 +153,6 @@ Valid connection: " + reason); // Fixed newline placement
     // Helper to get the opponent
     private Player getOpponent(Player player) {
         return (player == player1) ? player2 : player1;
-    }
-
-    // Method removed as findConnectionReason now handles the check
-    // public boolean validateConnection(Movie from, Movie to) { ... }
-
-    // Helper function to check for common elements in two collections
-    private boolean hasSharedElement(Collection<String> c1, Collection<String> c2) {
-        if (c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty())
-            return false;
-        Set<String> set1 = (c1 instanceof Set) ? (Set<String>) c1 : new HashSet<>(c1);
-        for (String item : c2) {
-            // TODO: Consider case-insensitivity if needed for item comparison
-            if (set1.contains(item)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // Finds a valid connection reason (one that hasn't been used 3 times)
@@ -280,18 +247,18 @@ Valid connection: " + reason); // Fixed newline placement
         if (gameEnded)
             return;
 
-        usedMovies.add(movie); // TODO: Ensure Movie has equals/hashCode
+        usedMovies.add(movie);
         history.addLast(new HistoryEntry(movie, reason));
         connectionUsageMap.put(reason, connectionUsageMap.getOrDefault(reason, 0) + 1);
 
         currentPlayer.addMovie(movie);
 
-        // Optional logging:
-        // System.out.println("Move recorded: " + currentPlayer.getName() + " played '"
-        // + movie.getTitle() + "' connected via " + reason);
-        // System.out.println("Connection '" + reason + "' used " +
-        // connectionUsageMap.get(reason) + " times.");
-        // System.out.println("Movies used: " + usedMovies.size());
+        // logging:
+        System.out.println("Move recorded: " + currentPlayer.getName() + " played '"
+        + movie.getTitle() + "' connected via " + reason);
+        System.out.println("Connection '" + reason + "' used " +
+        connectionUsageMap.get(reason) + " times.");
+        System.out.println("Movies used: " + usedMovies.size());
     }
 
     // Helper method to end the game and announce winner
@@ -300,7 +267,7 @@ Valid connection: " + reason); // Fixed newline placement
             return;
         gameEnded = true;
         System.out.println("--- Game Over ---"); // Fixed newline placement
-        view.displayWin(winner); // TODO: Ensure GameView has displayWin(Player)
+        view.displayWin(winner);
 
         System.out.println("Final history:");
         for (HistoryEntry entry : history) {

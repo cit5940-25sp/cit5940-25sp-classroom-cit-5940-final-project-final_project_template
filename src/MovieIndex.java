@@ -6,7 +6,8 @@ public class MovieIndex {
     private Map<String, Set<Movie>> composerMap;
     private Map<String, Set<Movie>> writerMap;
     private Map<String, Set<Movie>> cinematographerMap;
-    //private MovieTrie movieTrie;
+    private MovieTrie movieTrie;
+    private Set<Movie> allMovies = new HashSet<>();
 
     public MovieIndex() {
         // Initialize the maps
@@ -15,7 +16,7 @@ public class MovieIndex {
         composerMap = new HashMap<>();
         writerMap = new HashMap<>();
         cinematographerMap = new HashMap<>();
-        //movieTrie = new MovieTrie();
+        movieTrie = new MovieTrie();
     }
 
     private void addToMap(Map<String, Set<Movie>> map, String key, Movie movie) {
@@ -78,6 +79,40 @@ public class MovieIndex {
         // Use the movieTrie to get suggestions based on the partial title
         // suggestions = movieTrie.getSuggestions(partialTitle);
         return suggestions;
+    }
+
+    public void getAllMovies() {
+        // create a set of all movies
+        for (Set<Movie> movies : actorMap.values()) {
+            allMovies.addAll(movies);
+        }
+    }
+
+    public Movie getRandomMovie() {
+        // if there are no movies, return null
+        if (allMovies.isEmpty()) {
+            return null;
+        }
+
+        // get a random index
+        int randomIndex = (int) (Math.random() * allMovies.size());
+
+        // convert the set to a list, so we can access the movie by index
+        List<Movie> movieList = new ArrayList<>(allMovies);
+
+        return movieList.get(randomIndex);
+    }
+
+    public Movie getMovieByTitle(String title) {
+        // iterate through all movies, find the one that matches the title
+        for (Movie movie : allMovies) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                return movie;
+            }
+        }
+
+        // if no movie is found, return null
+        return null;
     }
 
 }
