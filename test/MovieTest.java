@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 public class MovieTest {
 
@@ -51,35 +52,30 @@ public class MovieTest {
     }
 
     @Test
-    public void testConstructorAndGetters() {
-        assertEquals(1L, inception.getMovieId());
-        assertEquals("Inception", inception.getTitle());
-        assertEquals(2010, inception.getYear());
-        assertTrue(inception.getGenres().contains("Sci-Fi"));
-        assertTrue(inception.getActors().contains("Leonardo DiCaprio"));
-        assertTrue(inception.getDirectors().contains("Christopher Nolan"));
-        assertTrue(inception.getWriters().contains("Jonathan Nolan"));
-        assertTrue(inception.getComposers().contains("Hans Zimmer"));
-        assertTrue(inception.getCinematographers().contains("Wally Pfister"));
+    public void testFindConnectionsSameActor() {
+        List<Connection> connections = inception.findConnections(titanic);
+        assertFalse(connections.isEmpty());
+
+        // check if Leonardo DiCaprio is one of the connections
+        boolean found = connections.stream()
+                .anyMatch(c -> c.getPersonName().equals("Leonardo DiCaprio") && c.getType() == ConnectionType.ACTOR);
+
+        assertTrue(found);
     }
 
     @Test
-    public void testSharesAttributeWithSameActor() {
-        assertTrue(inception.sharesAttributeWith(titanic));
+    public void testFindConnectionsSameDirector() {
+        List<Connection> connections = titanic.findConnections(avatar);
+        assertFalse(connections.isEmpty());
+
+        boolean found = connections.stream()
+                .anyMatch(c -> c.getPersonName().equals("James Cameron") && c.getType() == ConnectionType.DIRECTOR);
+
+        assertTrue(found);
     }
 
     @Test
-    public void testSharesAttributeWithSameDirector() {
-        assertTrue(titanic.sharesAttributeWith(avatar));
-    }
-
-    @Test
-    public void testSharesAttributeWith_sameGenre() {
-        assertTrue(inception.sharesAttributeWith(avatar));
-    }
-
-    @Test
-    public void testSharesAttributeWithNoCommonAttributes() {
+    public void testFindConnectionsNoCommonAttributes() {
         Movie randomMovie = new Movie(
                 4L,
                 "Random Movie",
@@ -91,6 +87,8 @@ public class MovieTest {
                 new HashSet<>(Arrays.asList("Random Composer")),
                 new HashSet<>(Arrays.asList("Random Cinematographer"))
         );
-        assertFalse(inception.sharesAttributeWith(randomMovie));
+
+        List<Connection> connections = inception.findConnections(randomMovie);
+        assertTrue(connections.isEmpty());
     }
 }

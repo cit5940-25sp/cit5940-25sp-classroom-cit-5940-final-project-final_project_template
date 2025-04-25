@@ -2,16 +2,21 @@
  * Represents a connection between two movies based on shared attributes like actor or director.
  */
 public class Connection {
+    private String personName;
     private ConnectionType type;
-    private String name;
 
-    @Override
-    public boolean equals(Object obj){
-        return true;
+    public Connection(String personName, ConnectionType type) {
+        this.personName = personName;
+        this.type = type;
     }
 
-    @Override
-    public int hashCode(){
-        return 0;
+    public String getPersonName() {
+        return personName;
     }
+
+    public ConnectionType getType() {
+        return type;
+    }
+
+    // Optional: override equals() and hashCode() if you need to use this in Sets or Maps
 }

@@ -37,16 +37,45 @@ public class Movie {
     }
 
     /**
-     * Checks whether this movie shares any attribute (e.g., actor, director)
-     * with another movie.
+     * Finds all shared connections between this movie and another movie.
+     *
+     * @param other the other movie to compare with
+     * @return a list of connections (person + type) that connect the two movies
      */
-    public boolean sharesAttributeWith(Movie other) {
-        return !Collections.disjoint(this.actors, other.actors)
-            || !Collections.disjoint(this.directors, other.directors)
-            || !Collections.disjoint(this.writers, other.writers)
-            || !Collections.disjoint(this.composers, other.composers)
-            || !Collections.disjoint(this.cinematographers, other.cinematographers)
-            || !Collections.disjoint(this.genres, other.genres);
+    public List<Connection> findConnections(Movie other) {
+        List<Connection> connections = new ArrayList<>();
+
+        for (String actor : actors) {
+            if (other.actors.contains(actor)) {
+                connections.add(new Connection(actor, ConnectionType.ACTOR));
+            }
+        }
+
+        for (String director : directors) {
+            if (other.directors.contains(director)) {
+                connections.add(new Connection(director, ConnectionType.DIRECTOR));
+            }
+        }
+
+        for (String writer : writers) {
+            if (other.writers.contains(writer)) {
+                connections.add(new Connection(writer, ConnectionType.WRITER));
+            }
+        }
+
+        for (String composer : composers) {
+            if (other.composers.contains(composer)) {
+                connections.add(new Connection(composer, ConnectionType.COMPOSER));
+            }
+        }
+
+        for (String cinematographer : cinematographers) {
+            if (other.cinematographers.contains(cinematographer)) {
+                connections.add(new Connection(cinematographer, ConnectionType.CINEMATOGRAPHER));
+            }
+        }
+
+        return connections;
     }
 
     // ======== Getters ========
