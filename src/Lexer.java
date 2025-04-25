@@ -24,7 +24,12 @@ public class Lexer {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             // read character by character
             StringBuilder curr = new StringBuilder();
-            while ((this.c = br.read()) != -1) {
+            boolean skipNextChar = false;
+            while ((this.c = br.read()) != -1 || skipNextChar) {
+                if (skipNextChar) {
+                    skipNextChar = false;
+                    continue;
+                }
                 char ch = (char) c;
                 // if it's a whitespace then continue reading
                 if (Character.isWhitespace(ch)) {
@@ -40,6 +45,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isDigit(nextCh)) {
                             br.reset();
+                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
@@ -60,6 +66,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isAlphabetic(nextCh)) {
                             br.reset();
+                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
@@ -80,9 +87,20 @@ public class Lexer {
                         tokens.add(new Token(tokenMap.get('+'),"+"));
                         break;
                     case '-':
-                        tokenMap.put('-',TokenType.MINUS);
-                        tokens.add(new Token(tokenMap.get('-'),"-"));
-                        break;
+                        br.mark(1);
+                        int nextIntComment = br.read();
+                        char nextComment = (char) nextIntComment;
+                        if (nextComment == '-') {
+                            String comment = "--" + br.readLine();
+                            tokenMap.put(comment,TokenType.COMMENT);
+                            tokens.add(new Token(tokenMap.get(comment),comment));
+                            break;
+                        } else {
+                            tokenMap.put('-',TokenType.MINUS);
+                            tokens.add(new Token(tokenMap.get('-'),"-"));
+                            br.reset();
+                            break;
+                        }
                     case '*':
                         tokenMap.put('*',TokenType.STAR);
                         tokens.add(new Token(tokenMap.get('*'),"*"));

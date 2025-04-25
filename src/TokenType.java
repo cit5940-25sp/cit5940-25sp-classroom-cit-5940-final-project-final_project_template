@@ -19,6 +19,9 @@ public enum TokenType {
     COMMA, SEMICOLON,                   // , ;
 
     // End of input
-    EOF
+    EOF,
+
+    // Comment
+    COMMENT
 
 }
