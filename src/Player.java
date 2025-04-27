@@ -35,6 +35,13 @@ public class Player implements IPlayer {
         return this.winConditionStrategy.checkWin(this.playedMovies);
     }
 
+    public void setWinConditionStrategy(IWinConditionStrategy winConditionStrategy) {
+        this.winConditionStrategy = winConditionStrategy;
+    }
+
+    public void increaseScore(int score) {
+        this.score++;
+    }
     @Override
     public String getWinConditionDescription() {
         return this.winConditionStrategy.getDescription();

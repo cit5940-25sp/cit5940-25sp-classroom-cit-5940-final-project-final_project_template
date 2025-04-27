@@ -1,9 +1,13 @@
+import java.io.IOException;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 // Orchestrates the game loop: player input -> validation -> update state -> update view (controller)
 public class GameController implements IGameController {
@@ -18,6 +22,10 @@ public class GameController implements IGameController {
     private long turnStartTime;
     private boolean gameOver;
     private GameView gameView;
+    private GameModel gameModel;
+    private ScheduledExecutorService scheduler;
+    private boolean timerRunning;
+    private int secondsRemaining;
 
     public GameController(Player player1, Player player2, Clock clock, List<IMovie> movieList, GameView gameView) {
         this.player1 = player1;
@@ -27,6 +35,8 @@ public class GameController implements IGameController {
         this.currentPlayer = player1;
         this.movieList = movieList;
         this.gameView = gameView;
+        this.gameModel = new GameModel(new MovieIndex());
+        gameModel.loadMovieData(movieList);
     }
 
     @Override
@@ -37,11 +47,9 @@ public class GameController implements IGameController {
         Random random = new Random();
         IMovie startingMovie = movieList.get(random.nextInt(movieList.size())); // randomly generate movie
 
-        player1 = new Player(" ");
-        player2 = new Player(" ");
-
         currentPlayer = player1;
-
+        player1.setWinConditionStrategy(new ActorWinCondition()); // how to populate
+        player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg")); // how to populate
         usedMovies.add(startingMovie);
         // what else is there to initialize game?
     }
@@ -52,44 +60,45 @@ public class GameController implements IGameController {
         gameOver = false;
         gameView.showWelcomeMessage();
         gameView.showWinConditions(List.of(player1, player2));
+
+        secondsRemaining = 30;
+        timerRunning = true;
+        startTimer();
     }
 
+    private void startTimer() {
+        scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            if (timerRunning && secondsRemaining > 0) {
+                secondsRemaining--;
+                gameView.updateScreen(secondsRemaining); // need method to show timer
+            }
+            if (secondsRemaining == 0) {
+                timerRunning = false;
+                handleTimeout();
+            }
+        }, 1, 1, TimeUnit.SECONDS);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
     @Override
     public void handlePlayerInput(String input) {
         long elapsedTime = clock.millis() - turnStartTime;
         if (elapsedTime > ROUND_DURATION_MS) {
             handleTimeout();
+            return;
         }
-        ConnectionValidator connectionValidator = new ConnectionValidator();
-        String movieTitle = input.trim().toLowerCase();
-        IMovie selectedMovie = null;
 
-        // checks input by finding it in the list of movies
-        for (IMovie movie : movieList) {
-            if (movie.getTitle().toLowerCase().equals(movieTitle)) {
-                selectedMovie = movie;
-                break;
-            }
-        }
-        // ensures input exists in movie list and has value
-        if (selectedMovie == null) {
-            System.out.println("Movie not found");
+        if (!gameModel.isValidMove(input)) {
+            gameView.showInvalidMove(input);
             return;
         }
-        // ensures movie is not repeated
-        if (usedMovies.contains(selectedMovie)) {
-            System.out.println("Movie already used");
-            return;
-        }
-        IMovie lastMovie = usedMovies.get(usedMovies.size() - 1);
-        if (!connectionValidator.isValidConnection(lastMovie, selectedMovie)) {
-            System.out.println("not valid connection");
-            return;
-        }
-        // if we made it here, input is valid and counts as a point for the player
 
-        usedMovies.add(selectedMovie); // add it to used movies
-        currentPlayer.addPlayedMovie(selectedMovie); // add to list of movies specific player played
+        gameModel.makeMove(input);
+        gameView.showMoveSuccess(input, currentPlayer);
     }
 
     @Override
@@ -111,6 +120,10 @@ public class GameController implements IGameController {
 
     @Override
     public void endGame() {
+        timerRunning = false;
+        if (scheduler != null) {
+            scheduler.shutdown();
+        }
         if (currentPlayer.equals(player1)) {
             gameView.showWinner(player2);
         } else {

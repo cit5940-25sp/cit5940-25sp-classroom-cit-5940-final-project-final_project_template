@@ -7,6 +7,10 @@ public class GameView implements IGameView {
 
     }
 
+    public void updateScreen (int secondsRemaining) {
+        System.out.println("Seconds remaining: " + secondsRemaining);
+    }
+
     @Override
     public void showWinConditions(List<IPlayer> players) {
 

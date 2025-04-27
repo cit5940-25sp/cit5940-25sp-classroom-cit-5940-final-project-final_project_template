@@ -6,6 +6,7 @@ public class DirectorWinCondition implements IWinConditionStrategy {
     public DirectorWinCondition(String selectedDirector) {
         this.selectedDirector = selectedDirector;
     }
+
     @Override
     public boolean checkWin(List<IMovie> playedMovies) {
             for (IMovie movie : playedMovies) {

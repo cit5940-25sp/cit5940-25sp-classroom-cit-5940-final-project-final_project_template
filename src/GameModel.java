@@ -11,12 +11,14 @@ public class GameModel implements IGameModel {
     private Set<String> usedMovies;
     private IPlayer winner;
     private int roundCount;
+    private ConnectionValidator connectionValidator;
 
     public GameModel(IMovieIndex movieIndex) {
         this.movieIndex = movieIndex;
         this.recentHistory = new ArrayList<>();
         this.usedMovies = new HashSet<>();
         this.roundCount = 0;
+        this.connectionValidator = new ConnectionValidator();
     }
 
     @Override
@@ -73,6 +75,10 @@ public class GameModel implements IGameModel {
         if (movie == null) {
             return;
         }
+
+
+        List<String> sharedConnections = connectionValidator.getSharedConnections(currentMovie, movie);
+        connectionValidator.recordConnectionUse(sharedConnections);
 
         usedMovies.add(movie.getTitle().toLowerCase());
         recentHistory.add(movie);
