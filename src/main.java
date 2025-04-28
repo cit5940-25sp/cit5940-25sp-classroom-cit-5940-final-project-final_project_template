@@ -1,14 +1,15 @@
-import java.util.Scanner;
+import ast.*;
+
+import java.util.List;
 
 public class main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Lexer lexer = new Lexer("testFile.txt");
+        List<Token> tokens = lexer.tokenize("testFile.txt");
+        System.out.println(tokens);
 
-        while (true) {
-            System.out.println("Please enter the file name");
-            String line = sc.nextLine();
-            break;
-
-        }
+        Parser parser = new Parser(tokens);
+        Program p = parser.parseProgram();
+        System.out.println(p);
     }
 }
