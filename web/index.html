@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电影连接游戏</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>电影连接游戏</h1>
+        </header>
+        
+        <main>
+            <section id="game-setup">
+                <h2>游戏设置</h2>
+                <div class="player-setup">
+                    <div class="player">
+                        <h3>玩家 1</h3>
+                        <div class="form-group">
+                            <label for="player1-name">名称:</label>
+                            <input type="text" id="player1-name" value="玩家1">
+                        </div>
+                        <div class="form-group">
+                            <label for="player1-genre">目标类型:</label>
+                            <select id="player1-genre">
+                                <option value="sci-fi">科幻</option>
+                                <option value="action">动作</option>
+                                <option value="drama">剧情</option>
+                                <option value="comedy">喜剧</option>
+                                <option value="horror">恐怖</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="player">
+                        <h3>玩家 2</h3>
+                        <div class="form-group">
+                            <label for="player2-name">名称:</label>
+                            <input type="text" id="player2-name" value="玩家2">
+                        </div>
+                        <div class="form-group">
+                            <label for="player2-genre">目标类型:</label>
+                            <select id="player2-genre">
+                                <option value="action">动作</option>
+                                <option value="sci-fi">科幻</option>
+                                <option value="drama">剧情</option>
+                                <option value="comedy">喜剧</option>
+                                <option value="horror">恐怖</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-options">
+                    <div class="form-group">
+                        <label for="win-threshold">胜利条件 (收集电影数):</label>
+                        <input type="number" id="win-threshold" min="1" max="10" value="3">
+                    </div>
+                </div>
+                
+                <button id="start-game" class="btn btn-primary">开始游戏</button>
+            </section>
+            
+            <section id="game-board" class="hidden">
+                <div class="game-status">
+                    <div id="current-player"></div>
+                    <div id="turn-counter">回合: 1</div>
+                </div>
+                
+                <div class="players-status">
+                    <div id="player1-status" class="player-status"></div>
+                    <div id="player2-status" class="player-status"></div>
+                </div>
+                
+                <div class="game-actions">
+                    <div class="movie-selection">
+                        <h3>选择电影</h3>
+                        <input type="text" id="movie-search" placeholder="搜索电影...">
+                        <div id="movie-results"></div>
+                    </div>
+                    
+                    <div class="power-ups">
+                        <button id="skip-turn" class="btn">跳过对手回合</button>
+                        <button id="block-action" class="btn">阻止对手行动</button>
+                    </div>
+                </div>
+                
+                <div id="game-log">
+                    <h3>游戏日志</h3>
+                    <div id="log-entries"></div>
+                </div>
+            </section>
+            
+            <section id="game-over" class="hidden">
+                <h2>游戏结束!</h2>
+                <div id="winner-display"></div>
+                <button id="new-game" class="btn btn-primary">新游戏</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>CIT-5940 期末项目 - 电影连接游戏</p>
+        </footer>
+    </div>
+    
+    <script src="js/game.js"></script>
+</body>
+</html>
