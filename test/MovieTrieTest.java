@@ -36,7 +36,7 @@ public class MovieTrieTest {
     }
 
     @Test
-    public void getSuggestions() {
+    public void testGetSuggestions() {
         MovieTrie movieTrie = new MovieTrie();
         movieTrie.buildTrie();
         assertEquals(10, movieTrie.getSuggestions("a").size());
