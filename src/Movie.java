@@ -16,11 +16,103 @@ public class Movie {
     private Set<String> cinematographers;
 
     /**
-     * Checks whether this movie shares any attribute (e.g., actor, director)
-     * with another movie.
-     *
-     * @param other the other movie to compare attributes with
-     * @return true if there is a shared attribute; false otherwise
+     * Constructor for full metadata
      */
-    public boolean sharesAttributeWith(Movie other);
+    public Movie(long movieId, String title, int year,
+                 Set<String> genres,
+                 Set<String> actors,
+                 Set<String> directors,
+                 Set<String> writers,
+                 Set<String> composers,
+                 Set<String> cinematographers) {
+        this.movieId = movieId;
+        this.title = title;
+        this.year = year;
+        this.genres = (genres != null) ? genres : new HashSet<>();
+        this.actors = (actors != null) ? actors : new HashSet<>();
+        this.directors = (directors != null) ? directors : new HashSet<>();
+        this.writers = (writers != null) ? writers : new HashSet<>();
+        this.composers = (composers != null) ? composers : new HashSet<>();
+        this.cinematographers = (cinematographers != null) ? cinematographers : new HashSet<>();
+    }
+
+    /**
+     * Finds all shared connections between this movie and another movie.
+     *
+     * @param other the other movie to compare with
+     * @return a list of connections (person + type) that connect the two movies
+     */
+    public List<Connection> findConnections(Movie other) {
+        List<Connection> connections = new ArrayList<>();
+
+        for (String actor : actors) {
+            if (other.actors.contains(actor)) {
+                connections.add(new Connection(actor, ConnectionType.ACTOR));
+            }
+        }
+
+        for (String director : directors) {
+            if (other.directors.contains(director)) {
+                connections.add(new Connection(director, ConnectionType.DIRECTOR));
+            }
+        }
+
+        for (String writer : writers) {
+            if (other.writers.contains(writer)) {
+                connections.add(new Connection(writer, ConnectionType.WRITER));
+            }
+        }
+
+        for (String composer : composers) {
+            if (other.composers.contains(composer)) {
+                connections.add(new Connection(composer, ConnectionType.COMPOSER));
+            }
+        }
+
+        for (String cinematographer : cinematographers) {
+            if (other.cinematographers.contains(cinematographer)) {
+                connections.add(new Connection(cinematographer, ConnectionType.CINEMATOGRAPHER));
+            }
+        }
+
+        return connections;
+    }
+
+    // ======== Getters ========
+
+    public long getMovieId() {
+        return movieId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public Set<String> getGenres() {
+        return genres;
+    }
+
+    public Set<String> getActors() {
+        return actors;
+    }
+
+    public Set<String> getDirectors() {
+        return directors;
+    }
+
+    public Set<String> getWriters() {
+        return writers;
+    }
+
+    public Set<String> getComposers() {
+        return composers;
+    }
+
+    public Set<String> getCinematographers() {
+        return cinematographers;
+    }
 }

@@ -23,3 +23,11 @@
 hs_err_pid*
 replay_pid*
 /.idea/
+
+# Maven
+target/
+.idea/
+*.iml
+
+# API key config
+src/config.properties
