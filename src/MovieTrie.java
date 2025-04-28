@@ -11,25 +11,56 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * This class represents a Trie data structure for movie information.
+ * It loads movie data from two CSV files: "tmdb_5000_credits.csv" and "tmdb_5000_movies.csv".
+ * The Trie can be used to search for movies by title prefix and get movie suggestions.
+ *
  * @author Ashley Wang
  */
 public class MovieTrie {
+    /**
+     * The filename of the credits CSV file.
+     */
     public static String CREDITS_FILENAME = "tmdb_5000_credits.csv";
+    /**
+     * The filename of the movies CSV file.
+     */
     public static String MOVIES_FILENAME = "tmdb_5000_movies.csv";
 
+    /**
+     * The root node of the Trie.
+     */
     private TrieNode root;
+    /**
+     * The maximum number of suggestions to return.
+     */
     private int limit = 10;
+    /**
+     * A map that stores movie information with movie ID as the key.
+     */
     private Map<String, Movie> movieMap = new HashMap<>();
 
-
+    /**
+     * Constructs a new MovieTrie object and initializes the root node.
+     */
     public MovieTrie() {
         root = new TrieNode();
     }
 
+    /**
+     * Sets the maximum number of suggestions to return.
+     *
+     * @param limit the maximum number of suggestions
+     */
     public void setLimit(int limit) {
         this.limit = limit;
     }
 
+    /**
+     * Loads movie credits data from the specified CSV file.
+     *
+     * @param fileName the name of the credits CSV file
+     */
     private void loadTMDBCredits(String fileName) {
         Gson gson = new Gson();
 
@@ -90,6 +121,11 @@ public class MovieTrie {
         }
     }
 
+    /**
+     * Loads movie information data from the specified CSV file.
+     *
+     * @param fileName the name of the movies CSV file
+     */
     private void loadTMDBMoives(String fileName) {
         Gson gson = new Gson();
 
@@ -127,10 +163,21 @@ public class MovieTrie {
         }
     }
 
+    /**
+     * Normalizes a string by removing non-alphanumeric characters and converting to lowercase.
+     *
+     * @param s the input string
+     * @return the normalized string
+     */
     private String getNormalizdString(String s) {
         return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 
+    /**
+     * Builds the Trie by loading movie data from CSV files and inserting movie titles into the Trie.
+     *
+     * @return the root node of the Trie
+     */
     public TrieNode buildTrie() {
         loadTMDBCredits(CREDITS_FILENAME);
         loadTMDBMoives(MOVIES_FILENAME);
@@ -141,6 +188,12 @@ public class MovieTrie {
         return root;
     }
 
+    /**
+     * Inserts a movie title and its corresponding movie object into the Trie.
+     *
+     * @param title the normalized movie title
+     * @param movie the movie object
+     */
     public void insert(String title, Movie movie) {
         TrieNode node = root;
         for (char c : title.toCharArray()) {
@@ -153,6 +206,12 @@ public class MovieTrie {
         node.addMovieReference(movie);
     }
 
+    /**
+     * Searches for a movie title in the Trie.
+     *
+     * @param word the movie title to search for
+     * @return true if the movie title is found, false otherwise
+     */
     public boolean search(String word) {
         TrieNode node = root;
         for (char c : getNormalizdString(word).toCharArray()) {
@@ -164,6 +223,12 @@ public class MovieTrie {
         return node.isEndOfWord();
     }
 
+    /**
+     * Gets a list of movie title suggestions based on the given prefix.
+     *
+     * @param prefix the prefix to search for
+     * @return a list of movie title suggestions
+     */
     public List<String> getSuggestions(String prefix) {
         List<Movie> suggestions = new ArrayList<>();
         TrieNode node = root;
@@ -184,6 +249,12 @@ public class MovieTrie {
         return result;
     }
 
+    /**
+     * Performs a depth-first search on the Trie to find all movies starting from the given node.
+     *
+     * @param node        the starting node for the search
+     * @param suggestions the list to store the found movies
+     */
     private void dfs(TrieNode node, List<Movie> suggestions) {
         if (node.isEndOfWord()) {
             suggestions.addAll(node.getMovieReference());
@@ -193,6 +264,12 @@ public class MovieTrie {
         }
     }
 
+    /**
+     * Gets a list of all movie objects based on the given prefix.
+     *
+     * @param prefix the prefix to search for
+     * @return a list of movie objects
+     */
     public List<Movie> getAllMovieSuggestions(String prefix) {
         List<Movie> movies = new ArrayList<>();
         TrieNode node = root;
@@ -206,6 +283,12 @@ public class MovieTrie {
         return movies;
     }
 
+    /**
+     * Performs a depth-first search on the Trie to find all movie objects starting from the given node.
+     *
+     * @param node   the starting node for the search
+     * @param movies the list to store the found movie objects
+     */
     private void dfsForMovies(TrieNode node, List<Movie> movies) {
         if (node.isEndOfWord() && node.getMovieReference() != null) {
             movies.addAll(node.getMovieReference());
@@ -215,6 +298,11 @@ public class MovieTrie {
         }
     }
 
+    /**
+     * Gets the root node of the Trie.
+     *
+     * @return the root node of the Trie
+     */
     public TrieNode getRoot() {
         return root;
     }
