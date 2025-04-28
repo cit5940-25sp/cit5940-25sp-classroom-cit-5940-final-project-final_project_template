@@ -17,7 +17,7 @@ public class FiveHorrorMoviesWin implements WinCondition {
     @Override
     public boolean checkVictory(Player player) {
         int horrorCount = 0;
-        Set<Movie> guessedMovies = player.getMoviesGuessed(); // Assumes you have a getter for movieGuessed
+        Set<Movie> guessedMovies = player.getMoviesGuessed();
 
         for (Movie movie : guessedMovies) {
             if (movie.getGenres().contains(TARGET_GENRE)) {

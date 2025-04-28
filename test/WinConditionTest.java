@@ -13,7 +13,7 @@ public class WinConditionTest {
     }
 
     @Test
-    public void testFiveHorrorMoviesWin_NotEnoughMovies() {
+    public void testFiveHorrorMoviesWinNotEnoughMovies() {
         player.addGuessedMovie(makeHorrorMovie(1));
         player.addGuessedMovie(makeHorrorMovie(2));
         player.addGuessedMovie(makeNonHorrorMovie(3));
@@ -23,7 +23,7 @@ public class WinConditionTest {
     }
 
     @Test
-    public void testFiveHorrorMoviesWin_Success() {
+    public void testFiveHorrorMoviesWinSuccess() {
         for (int i = 1; i <= 5; i++) {
             player.addGuessedMovie(makeHorrorMovie(i));
         }
@@ -33,7 +33,7 @@ public class WinConditionTest {
     }
 
     @Test
-    public void testThreeNolanMoviesWin_NotEnoughMovies() {
+    public void testThreeNolanMoviesWinNotEnoughMovies() {
         player.addGuessedMovie(makeNolanMovie(1, "Inception"));
         player.addGuessedMovie(makeNonNolanMovie(2, "Pulp Fiction"));
 
@@ -42,7 +42,7 @@ public class WinConditionTest {
     }
 
     @Test
-    public void testThreeNolanMoviesWin_Success() {
+    public void testThreeNolanMoviesWinSuccess() {
         player.addGuessedMovie(makeNolanMovie(1, "Inception"));
         player.addGuessedMovie(makeNolanMovie(2, "Interstellar"));
         player.addGuessedMovie(makeNolanMovie(3, "Dunkirk"));
