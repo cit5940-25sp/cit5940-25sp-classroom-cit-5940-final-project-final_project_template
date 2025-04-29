@@ -31,7 +31,17 @@ public class GameControllerTest {
             }
         };
 
-        IWinCondition dummyWinCondition = player -> false;
+        IWinCondition dummyWinCondition = new IWinCondition() {
+            @Override
+            public boolean checkWin(Player player) {
+                return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Dummy win condition";
+            }
+        };
 
         GameController controller = new GameController(
                 new MovieIndex(List.of()),
@@ -42,4 +52,5 @@ public class GameControllerTest {
         );
         assertNotNull(controller);
     }
+
 }
