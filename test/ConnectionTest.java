@@ -15,8 +15,10 @@ public class ConnectionTest {
 
     @Test
     public void testDifferentConnectionsNotEqual() {
-        Connection actorConnection = new Connection("Leonardo DiCaprio", ConnectionType.ACTOR);
-        Connection directorConnection = new Connection("Christopher Nolan", ConnectionType.DIRECTOR);
+        Connection actorConnection = new Connection(
+                "Leonardo DiCaprio", ConnectionType.ACTOR);
+        Connection directorConnection = new Connection(
+                "Christopher Nolan", ConnectionType.DIRECTOR);
 
         assertNotEquals(actorConnection, directorConnection);
     }
