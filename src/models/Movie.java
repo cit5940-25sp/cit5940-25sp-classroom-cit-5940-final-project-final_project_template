@@ -1,3 +1,5 @@
+package models;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -19,7 +21,7 @@ public class Movie {
         this.id = id;
         this.releaseYear = releaseYear;
         this.genre = genre;
-        this.cast = cast; // Convert list to HashSet for O(1) lookups
+        this.cast = cast;
         this.crew = crew;
     }
 
@@ -41,7 +43,7 @@ public class Movie {
     }
 
     public List<Tuple<String, Integer>> getCasts() {
-        return cast; // Return copy to protect internal set
+        return cast;
     }
 
     public List<Tuple<String, Integer>> getCrew() {
