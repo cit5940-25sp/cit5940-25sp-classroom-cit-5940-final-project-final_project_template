@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,19 +12,38 @@ public class Player {
 
     /**
      * Constructs a Player with the specified name.
+     *
      * @param playerName the name of the player
      */
     public Player(String playerName) {
-        // TODO
+        this.playerName = playerName;
+        this.playedMovies = new ArrayList<>();
     }
 
-    public String getPlayerName() { return null; }
+    /**
+     * Returns the player's name.
+     *
+     * @return the name of the player
+     */
+    public String getPlayerName() {
+        return playerName;
+    }
 
-    public List<Movie> getPlayedMovies() { return null; }
+    /**
+     * Returns the list of movies played by the player.
+     *
+     * @return a list of movies
+     */
+    public List<Movie> getPlayedMovies() {
+        return playedMovies;
+    }
 
     /**
      * Adds a movie to the list of movies played by this player.
+     *
      * @param movie the movie to add
      */
-    public void addPlayedMovie(Movie movie) {}
+    public void addPlayedMovie(Movie movie) {
+        playedMovies.add(movie);
+    }
 }
