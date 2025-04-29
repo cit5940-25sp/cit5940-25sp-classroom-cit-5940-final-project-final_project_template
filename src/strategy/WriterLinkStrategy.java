@@ -3,7 +3,6 @@ package strategy;
 import model.Movie;
 import model.Person;
 import model.PersonRole;
-import model.strategy.LinkStrategy;
 
 import java.util.Collections;
 import java.util.Set;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Strategy that validates two movies share at least one writer.
  */
-public class WriterLinkStrategy implements LinkStrategy {
+public class WriterLinkStrategy implements ILinkStrategy {
     @Override
     public boolean isValidLink(Movie from, Movie to) {
         return !Collections.disjoint(
