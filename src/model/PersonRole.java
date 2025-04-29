@@ -7,5 +7,6 @@ public enum PersonRole {
     ACTOR,
     DIRECTOR,
     WRITER,
-    COMPOSER
+    COMPOSER,
+    CINEMATOGRAPHER
 }
