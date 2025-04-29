@@ -26,8 +26,7 @@ public class Player {
 
         // update progress if genre matches objectivegenre
 
-
-
+        return false;
     }
 
     public boolean hasMetObjective () {
