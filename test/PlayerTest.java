@@ -67,6 +67,6 @@ public class PlayerTest {
     public void testGetMoviesGuessedIsUnmodifiable() {
         player.addGuessedMovie(movie1);
         Set<Movie> guessed = player.getMoviesGuessed();
-        guessed.add(movie2); // should not be able to add a movie to an unmodifiable set -> exception
+        guessed.add(movie2);
     }
 }
