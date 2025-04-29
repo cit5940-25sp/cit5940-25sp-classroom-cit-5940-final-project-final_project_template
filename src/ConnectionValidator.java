@@ -16,6 +16,10 @@ public class ConnectionValidator implements IConnectionValidator {
 
     public boolean isValidConnection(IMovie movie1, IMovie movie2) {
         List<String> shared = getSharedConnections(movie1, movie2);
+
+        if (shared == null) {
+            return false;
+        }
         for (String person : shared) {
             if (getUsageCount(person) < MAX_USAGE_PER_PERSON) {
                 return true;

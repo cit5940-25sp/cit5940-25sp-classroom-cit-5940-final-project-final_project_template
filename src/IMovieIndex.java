@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 
 public interface IMovieIndex {
 
@@ -29,4 +30,6 @@ public interface IMovieIndex {
     returns whether a movie exists in the index or not
      */
     public boolean containsMovie(String title);
+
+  public Map<Integer, String> loadMovies(String movieFile);
 }
