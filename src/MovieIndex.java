@@ -184,7 +184,9 @@ public class MovieIndex implements IMovieIndex {
                     int id = Integer.parseInt(idStr);
 
 // Skip if ID not found in map
-                    if (!movieMap.containsKey(id)) return;
+                    if (!movieMap.containsKey(id)) {
+                        continue;
+                    }
                     Movie movie = (Movie) movieMap.get(id);
 
 // Find end of cast JSON: first "]}" after second comma
