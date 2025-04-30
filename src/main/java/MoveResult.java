@@ -1,5 +1,4 @@
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public class MoveResult {
@@ -7,24 +6,24 @@ public class MoveResult {
     private final String message;
     private final Set<Language> languageOptions;
     private final GameMove move;
+    private final boolean languageOverused;
 
     public MoveResult(boolean success, String message) {
-        this.success = success;
-        this.message = message;
-        this.languageOptions = Collections.emptySet();
-        this.move = null;
+        this(success, message, false);
     }
 
-    public MoveResult(boolean success, String message, Set<Language> languageOptions) {
-        this.success = success;
-        this.message = message;
-        this.languageOptions = Collections.unmodifiableSet(new HashSet<>(languageOptions));
-        this.move = null;
+    public MoveResult(boolean success, String message, boolean languageOverused) {
+        this(success, message, null, languageOverused);
     }
 
     public MoveResult(boolean success, String message, GameMove move) {
+        this(success, message, move, false);
+    }
+
+    public MoveResult(boolean success, String message, GameMove move, boolean languageOverused) {
         this.success = success;
         this.message = message;
+        this.languageOverused = false;
         this.languageOptions = Collections.emptySet();
         this.move = move;
     }
@@ -41,11 +40,11 @@ public class MoveResult {
         return languageOptions;
     }
 
-    public boolean requiresLanguageSelection() {
-        return !languageOptions.isEmpty();
-    }
-
     public GameMove getMove() {
         return move;
+    }
+
+    public boolean isLanguageOverused() {
+        return languageOverused;
     }
 }

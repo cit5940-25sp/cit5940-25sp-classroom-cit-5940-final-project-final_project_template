@@ -14,9 +14,9 @@ public class CountryLanguageManagerTest {
         URL dataResource = getClass().getClassLoader().getResource("data.csv");
         assertNotNull(dataResource);
         clm.initializeData(dataResource);
-        assertEquals(28, clm.getAllCountries().size());
-        System.out.println(clm.getAllLanguages());
+        assertEquals(37, clm.getAllCountries().size());
+//        System.out.println(clm.getAllLanguages());
         assertEquals(3, clm.getCountry("Libya").getLanguages().size());
-        System.out.println(clm.getCountry("Libya").getLanguages());
+//        System.out.println(clm.getCountry("Libya").getLanguages());
     }
 }

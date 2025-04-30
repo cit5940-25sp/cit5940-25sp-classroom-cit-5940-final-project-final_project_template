@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CountryTest.testCountryEquals" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="final_project" />
+    <option name="PACKAGE_NAME" value="" />
+    <option name="MAIN_CLASS_NAME" value="CountryTest" />
+    <option name="METHOD_NAME" value="testCountryEquals" />
+    <option name="TEST_OBJECT" value="method" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

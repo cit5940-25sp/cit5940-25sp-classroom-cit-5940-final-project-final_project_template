@@ -7,9 +7,7 @@ public class GameState {
     private Language currentLanguage;
     private int currentStreak;
     private int totalScore;
-    // For pending moves that require language selection
-    private Country pendingCountry;
-    private Set<Language> availableLanguages = new HashSet<>();
+    private final Map<Language, Integer> languageUsage = new HashMap<>();
 
     public GameState(Country startingCountry) {
         this.currentCountry = startingCountry;
@@ -17,7 +15,7 @@ public class GameState {
         this.currentStreak = 0;
         this.totalScore = 0;
 
-        // Add starting country to used countries and move history
+        // add starting country to used countries and move history
         usedCountries.add(startingCountry);
         moves.add(new GameMove(startingCountry, null, 0));
     }
@@ -67,24 +65,11 @@ public class GameState {
         return usedCountries.contains(country);
     }
 
-    public Country getPendingCountry() {
-        return pendingCountry;
+    public Map<Language, Integer> getLanguageUsage() {
+        return Collections.unmodifiableMap(languageUsage);
     }
 
-    public void setPendingCountry(Country pendingCountry) {
-        this.pendingCountry = pendingCountry;
-    }
-
-    public Set<Language> getAvailableLanguages() {
-        return Collections.unmodifiableSet(availableLanguages);
-    }
-
-    public void setAvailableLanguages(Set<Language> availableLanguages) {
-        this.availableLanguages = new HashSet<>(availableLanguages);
-    }
-
-    public void clearPendingMove() {
-        this.pendingCountry = null;
-        this.availableLanguages.clear();
+    public void incrementLanguageUsage(Language lang) {
+        languageUsage.put(lang, languageUsage.getOrDefault(lang, 0) + 1);
     }
 }

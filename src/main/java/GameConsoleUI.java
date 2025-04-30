@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-public class GameConsoleUI extends GameObserver {
+public class GameConsoleUI implements IGameObserver {
     private final GameEngine gameEngine;
     private final Scanner scanner;
 
@@ -13,60 +13,72 @@ public class GameConsoleUI extends GameObserver {
         gameEngine.addObserver(this);
     }
 
+
     public void start() {
         System.out.println("=== Language Connection Game ===");
         System.out.println("Connect countries through shared languages!");
-        System.out.println("Rarer languages earn more points. Maintain a streak for bonus points.");
-        System.out.println();
+        System.out.println("Rarer languages earn more points. " +
+                                   "Maintain a streak for bonus points.\n");
 
         gameEngine.resetGame();
 
         boolean running = true;
+        boolean waitingForCountry = false;
+        Language selectedLanguage = null;
+
         while (running) {
-            System.out.print("Enter a country name (or 'quit' to exit, 'new' for a new game): ");
-            String input = scanner.nextLine().trim();
+            GameState state = gameEngine.getGameState();
+            Country current = state.getCurrentCountry();
 
-            if (input.equalsIgnoreCase("quit")) {
-                running = false;
-            } else if (input.equalsIgnoreCase("new")) {
-                gameEngine.resetGame();
+            if (!waitingForCountry) {
+                System.out.println("Current Country: " + current.getName());
+                Set<Language> langs = current.getLanguages();
+                List<Language> langList = new ArrayList<>(langs);
+                System.out.println("Languages spoken: ");
+                for (int i = 0; i < langList.size(); i++) {
+                    System.out.println("  " + (i + 1) + ": " + langList.get(i).getName());
+                }
+
+                System.out.print("Choose a language (1-" + langList.size() + "): ");
+                try {
+                    int choice = Integer.parseInt(scanner.nextLine().trim());
+                    if (choice >= 1 && choice <= langList.size()) {
+                        selectedLanguage = langList.get(choice - 1);
+                        gameEngine.setSelectedLanguage(selectedLanguage);
+                        waitingForCountry = true;
+                    } else {
+                        System.out.println("Invalid choice. Try again.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                }
             } else {
-                MoveResult result = gameEngine.makeMove(input);
-                System.out.println(result.getMessage());
+                System.out.print("Enter a country that speaks " + selectedLanguage.getName() +
+                                         " (or 'new' to restart, 'quit' to exit): ");
+                String input = scanner.nextLine().trim();
 
-                if (result.requiresLanguageSelection()) {
-                    handleLanguageSelection(result.getLanguageOptions());
+                if (input.equalsIgnoreCase("quit")) {
+                    running = false;
+                } else if (input.equalsIgnoreCase("new")) {
+                    gameEngine.resetGame();
+                    selectedLanguage = null;
+                    waitingForCountry = false;
+                } else {
+                    MoveResult result = gameEngine.moveToCountry(input);
+                    System.out.println(result.getMessage());
+                    if (result.isSuccess() ||
+                            result.getMessage().contains("already used") && result.getMessage().contains("Please pick another language")) {
+                        // clear selected language in two cases
+                        // 1. move is successful
+                        // 2. move is unsuccessful because language has been used up to the limit
+                        selectedLanguage = null;
+                        waitingForCountry = false;
+                    }
                 }
             }
         }
 
         System.out.println("Thanks for playing!");
-    }
-
-    private void handleLanguageSelection(Set<Language> options) {
-        System.out.println("Available languages:");
-        List<Language> languages = new ArrayList<>(options);
-        for (int i = 0; i < languages.size(); i++) {
-            Language lang = languages.get(i);
-            System.out.println(
-                    (i + 1) + ": " + lang.getName() + " (" + lang.getRarityScore() + " points)");
-        }
-
-        System.out.print("Select a language (1-" + languages.size() + "): ");
-        try {
-            int selection = Integer.parseInt(scanner.nextLine().trim());
-            if (selection >= 1 && selection <= languages.size()) {
-                Language selected = languages.get(selection - 1);
-                MoveResult result = gameEngine.selectLanguage(selected);
-                System.out.println(result.getMessage());
-            } else {
-                System.out.println("Invalid selection. Please try again.");
-                handleLanguageSelection(options);
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            handleLanguageSelection(options);
-        }
     }
 
     @Override
