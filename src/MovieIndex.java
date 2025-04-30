@@ -4,10 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,11 +15,7 @@ public class MovieIndex implements IMovieIndex {
     private Map<String, Set<IMovie>> indexByContributor = new HashMap<>();
 
 
-//public Map<Integer, Movie> parseMovies(String movieFile, String peopleFile) {
-//    Map<Integer, IMovie> movieIndex = new HashMap<>();
-//}
-
-
+    //parses CSV file to get movie ID, title, year, and genre
     public Map<Integer, IMovie> loadMovies(String movieFile) {
         Map<Integer, IMovie> movieMap = new HashMap<>();
 
@@ -83,89 +76,8 @@ public class MovieIndex implements IMovieIndex {
         return movieMap;
     }
 
-//    public void loadCast(String creditFile, Map<Integer, IMovie> movieMap) {
-//      //  Map<Integer, List<String>> cast = new HashMap<>();
-//        int badRowCount = 0;
-//        int skippedCrew = 0;
-//        int skippedCast = 0;
-//        try {
-//            CSVParser parser = new CSVParserBuilder()
-//                    .withSeparator(',')
-//                    .withQuoteChar('"')
-//                    .withEscapeChar('\\')
-//                    .build();
-//
-//            CSVReader reader = new CSVReaderBuilder(new FileReader(creditFile))
-//                    .withCSVParser(parser)
-//                    .build();
-//            String[] header = reader.readNext();
-//            String[] row;
-//
-//            while ((row = reader.readNext()) != null) {
-//                if (row.length < 4) {
-//                    badRowCount++;
-//                    System.err.println("Skipping malformed row: " + Arrays.toString(row));
-//                    continue;
-//                }
-//                    int id;
-//                    try {
-//                        id = Integer.parseInt(row[0].trim());
-//                    } catch (NumberFormatException e) {
-//                        badRowCount++;
-//                        System.err.println("Skipping row with invalid ID: " + Arrays.toString(row));
-//                        continue;
-//                    }
-//
-//                    if (!movieMap.containsKey(id)) {
-//                        continue;
-//                    } else {
-//                    Movie movie = (Movie) movieMap.get(id);
-//                        String casting = row[2];
-//                        String crew = row[3];
-//
-//try {
-//                    JSONArray castArray = new JSONArray(casting);
-//                    for (int i = 0; i < castArray.length(); i++ ) {
-//                        String name = castArray.getJSONObject(i).optString("name");
-//                        if (!name.isEmpty()) {
-//                            movie.addActor(name);
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                skippedCast++;
-//    System.err.println("Skipping invalid cast JSON for movie ID: " + id);
-//}
-//
-//
-//
-//                    try {
-//                    JSONArray crewArray = new JSONArray(crew);
-//                    for (int i = 0; i < crewArray.length(); i++ ) {
-//                        String nameCrew = crewArray.getJSONObject(i).optString("name");
-//                       if (!nameCrew.isEmpty()) {
-//                           movie.addContributor(nameCrew);
-//                       }
-//
-//                    }
-//                    } catch (Exception e) {
-//                        skippedCrew++;
-//                        System.err.println("Skipping invalid cast JSON for movie ID: " + id);
-//                    }
-//                }
-//                System.out.println("Finished loading cast and crew.");
-//                System.out.println("Skipped " + skippedCast + " invalid cast entries.");
-//                System.out.println("Skipped " + skippedCrew + " invalid crew entries.");
-//                System.out.println("Skipped " + badRowCount + " malformed or incomplete CSV rows.");
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        } catch (CsvValidationException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
+// associates cast and crew with the movies loaded (all under contributors)
+    //used for queries when connecting movies
     public void loadCast(String creditFile, Map<Integer, IMovie> movieMap) {
         int skippedLines = 0;
         int castErrors = 0;
@@ -235,32 +147,25 @@ public class MovieIndex implements IMovieIndex {
                 }
             }
 
-            System.out.println("Finished loading cast and crew.");
-            System.out.println("Skipped rows: " + skippedLines);
-            System.out.println("Cast JSON errors: " + castErrors);
-            System.out.println("Crew JSON errors: " + crewErrors);
-
         } catch (Exception e) {
             throw new RuntimeException("Failed to process cast file", e);
         }
+        for (IMovie movie : movieMap.values()) {
+            indexByTitle.put(movie.getTitle().toLowerCase(), movie);
+
+            for (String contributor : movie.getAllContributors()) {
+                if (!indexByContributor.containsKey(contributor.toLowerCase())) {
+                    indexByContributor.put(contributor.toLowerCase(), new HashSet<>());
+                }
+                indexByContributor.get(contributor.toLowerCase()).add(movie);
+            }
+        }
     }
 
+    //
     @Override
     public IMovie getMovieByTitle(String title) {
         return indexByTitle.get(title.toLowerCase());
-    }
-
-    @Override
-    public List<String> autocomplete(String input) {
-        String inputLowerCase = input.toLowerCase();
-        List<String> results = new ArrayList<>();
-
-        for (String title : indexByTitle.keySet()) {
-            if (title.startsWith(inputLowerCase)) {
-                results.add(indexByTitle.get(title).getTitle());
-            }
-        }
-        return results;
     }
 
     @Override
