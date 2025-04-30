@@ -40,8 +40,8 @@ public class GameController implements IGameController {
     @Override
     public void initializeGame() {
         MovieIndex movieIndex = new MovieIndex();
-        Map<Integer, IMovie> movies = movieIndex.loadMovies("/Users/melodyhashemi/IdeaProjects/Final Project -594/tmdb_5000_movies.csv"); // loads the movies
-        movieIndex.loadCast("/Users/melodyhashemi/IdeaProjects/Final Project -594/tmdb_5000_credits.csv", movies);
+        Map<Integer, IMovie> movies = movieIndex.loadMovies("tmdb_5000_movies.csv"); // loads the movies
+        movieIndex.loadCast("tmdb_5000_credits.csv", movies);
 
         Random random = new Random();
         movieList = new ArrayList<>(movies.values());
@@ -139,5 +139,9 @@ public class GameController implements IGameController {
         this.gameOver = true;
         gameView.showTimeout(currentPlayer);
         endGame();
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }
