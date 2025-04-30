@@ -4,11 +4,15 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         MovieIndex parser = new MovieIndex();
-        Map<Integer, String> movies = parser.loadMovies("/Users/melodyhashemi/IdeaProjects/Final Project -594/tmdb_5000_movies.csv");
+        Map<Integer, IMovie> movies = parser.loadMovies("/Users/melodyhashemi/IdeaProjects/Final Project -594/tmdb_5000_movies.csv");
+        parser.loadCast("/Users/melodyhashemi/IdeaProjects/Final Project -594/tmdb_5000_credits.csv", movies);
         System.out.println("Loaded " + movies.size() + " movies.");
-        for (Map.Entry<Integer, String> entry : movies.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+////        for (Map.Entry<Integer, IMovie> entry : movies.entrySet()) {
+//            System.out.println(entry.getKey() + " -> " + entry.getValue());
+//        }
+//    }
+        for (Map.Entry<Integer, IMovie> entry : movies.entrySet()) {
+            System.out.println(entry.getValue());  // this uses your toString()
         }
     }
-
 }

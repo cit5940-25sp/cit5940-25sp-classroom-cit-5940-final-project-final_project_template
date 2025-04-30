@@ -29,10 +29,10 @@ public class GameModel implements IGameModel {
 
     @Override
     public void loadMovieData(List<IMovie> movieList) {
-        movieIndex.loadMovies(movieList);
-        this.currentMovie = movieList.get(new Random().nextInt(movieList.size()));
-        recentHistory.add(currentMovie);
-        usedMovies.add(currentMovie.getTitle().toLowerCase());
+//        movieIndex.loadMovies(movieList);
+//        this.currentMovie = movieList.get(new Random().nextInt(movieList.size()));
+//        recentHistory.add(currentMovie);
+//        usedMovies.add(currentMovie.getTitle().toLowerCase());
     }
 
     @Override

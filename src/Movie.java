@@ -13,17 +13,18 @@ public class Movie implements IMovie {
     private List<String> writers;
     private List<String> composers;
     private List<String> cinematographers;
+    private Set<String> contributors;
 
-    public Movie(String title, int year, List<String> genres, List<String> actors,
-                 List<String> directors, List<String> writers, List<String> composers) {
+    public Movie(String title, int year, List<String> genres) {
         this.title = title;
         this.year = year;
         this.genres = genres;
-        this.actors = actors;
-        this.directors = directors;
-        this.writers = writers;
-        this.composers = composers;
-        this.cinematographers = cinematographers;
+        this.actors = new ArrayList<>();
+        this.directors = new ArrayList<>();
+        this.writers = new ArrayList<>();
+        this.composers = new ArrayList<>();
+        this.cinematographers = new ArrayList<>();
+        this.contributors = new HashSet<>();
     }
 
     @Override
@@ -46,6 +47,31 @@ public class Movie implements IMovie {
         return actors;
     }
 
+    public void addActor(String name) {
+        actors.add(name);
+        contributors.add(name);
+    }
+
+    public void addDirector(String name) {
+        directors.add(name);
+        contributors.add(name);
+    }
+
+    public void addWriter(String name) {
+        writers.add(name);
+        contributors.add(name);
+    }
+
+    public void addComposer(String name) {
+        composers.add(name);
+        contributors.add(name);
+    }
+
+    public void addCinematographer(String name) {
+        cinematographers.add(name);
+        contributors.add(name);
+    }
+
     @Override
     public List<String> getDirectors() {
         return directors;
@@ -66,14 +92,15 @@ public class Movie implements IMovie {
         return cinematographers;
     }
 
+    public void addContributor(String name) {
+        contributors.add(name);
+    }
     @Override
     public Set<String> getAllContributors() {
-        Set<String> contributors = new HashSet<>();
-        contributors.addAll(actors);
-        contributors.addAll(directors);
-        contributors.addAll(writers);
-        contributors.addAll(composers);
-        contributors.addAll(cinematographers);
         return contributors;
+    }
+    @Override
+    public String toString() {
+        return getTitle() + " | Genres: " + getGenres() + " | Contributors: " + getAllContributors();
     }
 }

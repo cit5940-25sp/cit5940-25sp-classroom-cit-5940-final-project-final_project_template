@@ -3,10 +3,7 @@ import java.util.Map;
 
 public interface IMovieIndex {
 
-    /*
-    loading movies into the index from a datasource
-     */
-    public void loadMovies(List<IMovie> movieList);
+
 
     /*
     retrieves movie by exact title
@@ -31,5 +28,4 @@ public interface IMovieIndex {
      */
     public boolean containsMovie(String title);
 
-  public Map<Integer, String> loadMovies(String movieFile);
 }
