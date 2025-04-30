@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Comparator;
 
 public class Autocomplete {
     // Trie 节点类
@@ -45,6 +46,11 @@ public class Autocomplete {
 
     // 根据前缀搜索匹配的电影
     public List<Movie> search(String prefix) {
+        return search(prefix, 1); // 默认返回1个结果
+    }
+
+    // 根据前缀搜索匹配的电影，限制返回数量
+    public List<Movie> search(String prefix, int limit) {
         List<Movie> results = new ArrayList<>();
         TrieNode current = root;
         String lowerPrefix = prefix.toLowerCase();
@@ -61,7 +67,10 @@ public class Autocomplete {
 
         // 从该节点开始，收集所有可能的电影
         collectMovies(current, results);
-        return results;
+
+        // 按匹配度排序并限制返回数量
+        results.sort(new MovieComparator(prefix));
+        return results.subList(0, Math.min(limit, results.size()));
     }
 
     // 递归收集所有可能的电影
@@ -76,6 +85,33 @@ public class Autocomplete {
 
         for (TrieNode child : node.children.values()) {
             collectMovies(child, results);
+        }
+    }
+
+    // 电影比较器，用于按匹配度排序
+    private static class MovieComparator implements Comparator<Movie> {
+        private final String prefix;
+
+        public MovieComparator(String prefix) {
+            this.prefix = prefix.toLowerCase();
+        }
+
+        @Override
+        public int compare(Movie m1, Movie m2) {
+            String title1 = m1.getTitle().toLowerCase();
+            String title2 = m2.getTitle().toLowerCase();
+
+            // 如果前缀完全匹配，优先返回
+            if (title1.startsWith(prefix) && !title2.startsWith(prefix)) {
+                return -1;
+            }
+            if (!title1.startsWith(prefix) && title2.startsWith(prefix)) {
+                return 1;
+            }
+
+            // 如果都完全匹配或都不完全匹配，按标题长度排序
+            // 标题更短的优先（通常更接近用户想要的结果）
+            return Integer.compare(title1.length(), title2.length());
         }
     }
 
