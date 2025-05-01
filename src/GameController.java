@@ -32,8 +32,14 @@ public class GameController implements IGameController {
 
     @Override
     public void initializeGame() {
+
         Random rand = new Random();
         IMovie start = movieList.get(rand.nextInt(movieList.size()));
+
+        MovieIndex movieIndex = new MovieIndex();
+        Map<Integer, IMovie> movies = movieIndex.loadMovies("tmdb_5000_movies.csv"); // loads the movies
+        movieIndex.loadCast("tmdb_5000_credits.csv", movies);
+
 
         player1.setWinConditionStrategy(new ActorWinCondition());
         player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg"));
@@ -111,4 +117,12 @@ public class GameController implements IGameController {
         }
         gameView.showWinner(other);
     }
+
 }
+
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+}
+
