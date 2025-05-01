@@ -32,7 +32,7 @@ public class GameControllerTest {
         Player p1 = new Player("Alice");
         Player p2 = new Player("Bob");
         GameState state = new GameState(p1, p2, new FiveHorrorMoviesWin(), godfather);
-        controller.setGameState(state); // 👉 你需要提供 setGameState(...) 方法
+        controller.setGameState(state);
         state.getTimer().start();
 
         controller.processTurn("Heat");
@@ -89,7 +89,7 @@ public class GameControllerTest {
 
         @Override
         public void render(GameState state) {
-            // No-op for test
+
         }
     }
 }
