@@ -43,13 +43,6 @@ public interface IGameView {
     public void showWinner(IPlayer winner);
 
     /*
-    displays a draw or timeout result when no player wins (no other options and if player 1 does not get first
-    movie)
-    don't implement for now
-     */
-    public void showDrawOrTimeout();
-
-    /*
     displays the start of the next player's turn
      */
     public void showNextTurn(IPlayer currentPlayer);

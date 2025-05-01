@@ -9,139 +9,120 @@ import java.util.concurrent.TimeUnit;
 
 // Orchestrates the game loop: player input -> validation -> update state -> update view (controller)
 public class GameController implements IGameController {
-
     private Player player1;
     private Player player2;
     private Player currentPlayer;
-    private List<IMovie> usedMovies;
     private List<IMovie> movieList;
-    private Clock clock;
-    private static final long ROUND_DURATION_MS = 30000;
-    private long turnStartTime;
-    private boolean gameOver;
-    private GameView gameView;
     private GameModel gameModel;
-    private ScheduledExecutorService scheduler;
-    private boolean timerRunning;
-    private int secondsRemaining;
+    private GameView gameView;
+    private TerminalWithSuggestions terminal;
+    private boolean gameOver;
 
-    public GameController(Player player1, Player player2, Clock clock, List<IMovie> movieList, GameView gameView) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.clock = clock;
-        this.usedMovies = new ArrayList<>();
-        this.currentPlayer = player1;
-        this.movieList = movieList;
-        this.gameView = gameView;
+    public GameController(Player p1, Player p2, List<IMovie> movies, TerminalWithSuggestions terminal) {
+        this.player1 = p1;
+        this.player2 = p2;
+        this.currentPlayer = p1;
+        this.movieList = movies;
+        this.terminal = terminal;
         this.gameModel = new GameModel(new MovieIndex());
-        gameModel.loadMovieData(movieList);
+        this.gameModel.loadMovieData(movies);
+        this.gameView = new GameView(terminal);
+        this.gameOver = false;
     }
 
     @Override
     public void initializeGame() {
+
+        Random rand = new Random();
+        IMovie start = movieList.get(rand.nextInt(movieList.size()));
+
         MovieIndex movieIndex = new MovieIndex();
         Map<Integer, IMovie> movies = movieIndex.loadMovies("tmdb_5000_movies.csv"); // loads the movies
         movieIndex.loadCast("tmdb_5000_credits.csv", movies);
 
-        Random random = new Random();
-        movieList = new ArrayList<>(movies.values());
-        IMovie startingMovie = movieList.get(random.nextInt(movieList.size())); // randomly generate movie
 
-        currentPlayer = player1;
-        player1.setWinConditionStrategy(new ActorWinCondition()); // how to populate
-        player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg")); // how to populate
+        player1.setWinConditionStrategy(new ActorWinCondition());
+        player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg"));
 
-        usedMovies = new ArrayList<IMovie>();
-        usedMovies.add(startingMovie);
-        // what else is there to initialize game?
+        gameModel.initializePlayers(Arrays.asList(player1, player2));
+        gameModel.makeMove(start.getTitle()); // start movie
+
+        gameView.showWelcomeMessage();
+        gameView.showWinConditions(Arrays.asList(player1, player2));
     }
-
 
     @Override
     public void startGame() {
-        turnStartTime = clock.millis();
-        gameOver = false;
-        gameView.showWelcomeMessage();
-        gameView.showWinConditions(List.of(player1, player2));
+        while (!gameOver) {
+            gameView.showGameStart(currentPlayer);
+            gameView.showMovieHistory(gameModel.getRecentHistory());
+            gameView.showPlayerStats(gameModel.getPlayers(), gameModel.getRoundCount());
+            gameView.promptForMovie(currentPlayer);
 
-        secondsRemaining = 30;
-        timerRunning = true;
-        startTimer();
-    }
-
-    private void startTimer() {
-        scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            if (timerRunning && secondsRemaining > 0) {
-                secondsRemaining--;
-                gameView.updateScreen(secondsRemaining); // need method to show timer
-            }
-            if (secondsRemaining == 0) {
-                timerRunning = false;
+            String input = terminal.getInputWithSuggestions(movieList, 30);
+            if (input == null || input.trim().isEmpty()) {
                 handleTimeout();
+                break;
             }
-        }, 1, 1, TimeUnit.SECONDS);
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+
+            handlePlayerInput(input);
+            if (gameModel.checkWinCondition(currentPlayer)) {
+                gameView.showWinner(currentPlayer);
+                gameOver = true;
+                break;
+            }
+
+            nextTurn();
         }
     }
+
     @Override
     public void handlePlayerInput(String input) {
-        long elapsedTime = clock.millis() - turnStartTime;
-        if (elapsedTime > ROUND_DURATION_MS) {
-            handleTimeout();
-            return;
-        }
-
         if (!gameModel.isValidMove(input)) {
             gameView.showInvalidMove(input);
-            return;
+        } else {
+            gameModel.makeMove(input);
+            gameView.showMoveSuccess(input, currentPlayer);
         }
-
-        gameModel.makeMove(input);
-        gameView.showMoveSuccess(input, currentPlayer);
     }
 
     @Override
     public void nextTurn() {
-        turnStartTime = clock.millis();
-        // this switches the current player
+        gameModel.switchToNextPlayer();
         if (currentPlayer == player1) {
             currentPlayer = player2;
         } else {
             currentPlayer = player1;
         }
-
     }
 
     @Override
     public boolean isGameOver() {
-        return this.gameOver;
+        return gameOver;
     }
 
     @Override
     public void endGame() {
-        timerRunning = false;
-        if (scheduler != null) {
-            scheduler.shutdown();
-        }
-        if (currentPlayer.equals(player1)) {
-            gameView.showWinner(player2);
-        } else {
-            gameView.showWinner(player1);
-        }
+        gameOver = true;
     }
 
     @Override
     public void handleTimeout() {
-        this.gameOver = true;
         gameView.showTimeout(currentPlayer);
-        endGame();
+        Player other;
+        if (currentPlayer == player2) {
+            other = player2;
+        } else {
+            other = player1;
+        }
+        gameView.showWinner(other);
     }
+
+}
+
 
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 }
+
