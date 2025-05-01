@@ -12,7 +12,8 @@ public class GameState {
     private final WinCondition winCondition;
     private final List<Movie> history;
     private final Set<Movie> usedMovies;
-    private final Map<String, Integer> connectionUsage; // personName → usage count
+    private final Map<String, Integer> connectionUsage;
+    private CountdownTimer timer;// personName → usage count
 
     public GameState(Player player1, Player player2,
                      WinCondition winCondition, Movie startingMovie) {
@@ -142,4 +143,9 @@ public class GameState {
     public WinCondition getWinCondition() {
         return winCondition;
     }
+
+    public CountdownTimer getTimer() {
+        return timer;
+    }
+
 }

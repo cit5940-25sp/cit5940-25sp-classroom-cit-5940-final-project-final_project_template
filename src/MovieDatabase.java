@@ -11,7 +11,7 @@ public class MovieDatabase {
     }
 
     public Movie findByTitle(String title) {
-        if (movieCache.containsKey(title)) {
+        if (movieCache.containsKey(title.toLowerCase().trim())) {
             return movieCache.get(title);
         }
 
