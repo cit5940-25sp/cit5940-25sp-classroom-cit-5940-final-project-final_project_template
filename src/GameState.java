@@ -25,6 +25,7 @@ public class GameState {
         this.history = new ArrayList<>();
         this.usedMovies = new HashSet<>();
         this.connectionUsage = new HashMap<>();
+        this.timer = new CountdownTimer(30);
 
         addMovieToHistory(startingMovie); // First movie played
         currentPlayer.addGuessedMovie(startingMovie);

@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Controls the overall game flow, coordinating interactions between
  * the model (GameState, MovieDatabase), and the view (GameView).
@@ -15,6 +17,15 @@ public class GameController {
     public GameController(String apiKey) {
         this.movieDb = new MovieDatabase(apiKey);
         this.view = new GameView();
+    }
+
+    GameController(MovieDatabase db, GameView view) {
+        this.movieDb = db;
+        this.view = view;
+    }
+
+    GameState getGameState() {
+        return gameState;
     }
 
     /**
@@ -88,14 +99,14 @@ public class GameController {
         Movie lastMovie = gameState.getCurrentMovie();
 
         Connection validConn = findValidConnection(lastMovie, guessedMovie);
-        if (validConn == null || !gameState.canUseConnection(validConn)) {
+        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
             view.displayInfo("No valid connection found between " + lastMovie.getTitle() +
                 " and " + guessedMovie.getTitle());
             return;
         }
 
         // successfully proccess
-        gameState.incrementConnectionUsage(validConn);
+        gameState.incrementConnectionUsage(validConn.getPersonName());
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
         view.displayInfo(currentPlayer.getName() + " successfully connected movies via: " +
