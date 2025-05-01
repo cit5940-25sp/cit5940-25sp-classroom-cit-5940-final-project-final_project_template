@@ -1,5 +1,6 @@
 package strategy;
 
+import model.Movie;
 import model.Player;
 
 /**
@@ -7,24 +8,33 @@ import model.Player;
  */
 public class GenreWinCondition implements IWinCondition {
     private String genre;
+    private static final int WIN_COUNT = 3;
+
 
     /**
      * Constructs a GenreWinCondition for the given genre.
      * @param genre the target genre
      */
     public GenreWinCondition(String genre) {
-        // TODO
+        this.genre = genre;
     }
 
     @Override
     public boolean checkWin(Player player) {
-        // TODO
+        int count = 0;
+        for (Movie movie : player.getPlayedMovies()) {
+            if (movie.getGenres().contains(genre)) {
+                count++;
+                if (count >= WIN_COUNT) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public String getDescription() {
-        // TODO
-        return null;
+        return "You win! - by naming " + WIN_COUNT + " number of movies in the genre: " + genre;
     }
 }
