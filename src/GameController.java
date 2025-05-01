@@ -34,6 +34,9 @@ public class GameController {
     public MovieDatabase getMovieDatabase() {
         return movieDb;
     }
+    void setGameState(GameState state) {
+        this.gameState = state;
+    }
 
 
     /**

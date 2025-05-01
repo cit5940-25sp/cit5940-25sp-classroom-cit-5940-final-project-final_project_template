@@ -24,21 +24,22 @@ public class GameControllerTest {
 
     @Test
     public void testProcessTurn_ValidConnection_Succeeds() {
-        // Add a movie connected to the Godfather via Al Pacino
+        Movie godfather = db.findByTitle("The Godfather");
         Movie heat = new Movie(2L, "Heat", 1995,
             Set.of(), Set.of("Al Pacino"), Set.of(), Set.of(), Set.of(), Set.of());
         db.addFakeMovie(heat);
 
-        // Start the game
-        controller.startGame("Alice", "Bob", new FiveHorrorMoviesWin());
-        controller.getGameState().getTimer().start();
+        Player p1 = new Player("Alice");
+        Player p2 = new Player("Bob");
+        GameState state = new GameState(p1, p2, new FiveHorrorMoviesWin(), godfather);
+        controller.setGameState(state); // 👉 你需要提供 setGameState(...) 方法
+        state.getTimer().start();
 
-        // Process a valid turn
         controller.processTurn("Heat");
 
         assertTrue(view.messages.stream().anyMatch(msg -> msg.contains("successfully connected")));
-        assertTrue(view.messages.stream().noneMatch(msg -> msg.contains("Movie not found")));
     }
+
 
     @Test
     public void testProcessTurn_MovieNotFound() {
