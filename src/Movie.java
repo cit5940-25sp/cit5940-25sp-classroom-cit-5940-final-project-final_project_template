@@ -10,6 +10,7 @@ public class Movie implements IMovie {
     private List<String> genres;
     private List<String> actors;
     private List<String> directors;
+    private List<String> crew;
     private List<String> writers;
     private List<String> composers;
     private List<String> cinematographers;
@@ -21,6 +22,7 @@ public class Movie implements IMovie {
         this.genres = genres;
         this.actors = new ArrayList<>();
         this.directors = new ArrayList<>();
+        this.crew = new ArrayList<>();
         this.writers = new ArrayList<>();
         this.composers = new ArrayList<>();
         this.cinematographers = new ArrayList<>();
@@ -47,8 +49,17 @@ public class Movie implements IMovie {
         return actors;
     }
 
+    public List<String> getCrew() {
+        return crew;
+    }
+
     public void addActor(String name) {
         actors.add(name);
+        contributors.add(name);
+    }
+
+    public void addCrew(String name) {
+        crew.add(name);
         contributors.add(name);
     }
 

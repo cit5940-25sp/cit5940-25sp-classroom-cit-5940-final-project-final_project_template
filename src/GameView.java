@@ -9,6 +9,10 @@ public class GameView implements IGameView {
         this.terminal = terminal;
     }
 
+    public GameView() {
+
+    }
+
     @Override
     public void showWelcomeMessage() {
         terminal.displayMessage("Welcome to the Movie Name Game!");

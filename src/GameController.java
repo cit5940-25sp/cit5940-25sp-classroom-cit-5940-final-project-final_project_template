@@ -1,11 +1,5 @@
-import java.io.IOException;
 import java.time.Clock;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 // Orchestrates the game loop: player input -> validation -> update state -> update view (controller)
 public class GameController implements IGameController {
@@ -30,6 +24,9 @@ public class GameController implements IGameController {
         this.gameOver = false;
     }
 
+    public GameController(Player player1, Player player2, Clock clock, List<IMovie> movies, GameView view) {
+    }
+
     @Override
     public void initializeGame() {
 
@@ -41,8 +38,38 @@ public class GameController implements IGameController {
         movieIndex.loadCast("tmdb_5000_credits.csv", movies);
 
 
-        player1.setWinConditionStrategy(new ActorWinCondition());
-        player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg"));
+        Set<String> allActors = new HashSet<>();
+        Set<String> allCrew = new HashSet<>();
+
+        for (IMovie movie : movies.values()) {
+            allActors.addAll(movie.getActors());
+            allCrew.addAll(movie.getCrew());
+        }
+
+        List<String> actorList = new ArrayList<>(allActors);
+        List<String> crewList = new ArrayList<>(allCrew);
+        Random ran = new Random();
+
+
+        boolean p1usingActor = ran.nextBoolean(); // choosing between win condition is actor or crew
+
+        if (p1usingActor && !allActors.isEmpty()) {
+            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
+            player1.setWinConditionStrategy(new ActorWinCondition(selectedActor));
+        } else if (!allCrew.isEmpty()) {
+            String selectedCrew = crewList.get(ran.nextInt(crewList.size()));
+            player1.setWinConditionStrategy(new CrewMemWinCondition(selectedCrew));
+        }
+
+        boolean p2usingActor = ran.nextBoolean();
+        if (p2usingActor && !allActors.isEmpty()) {
+            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
+            player2.setWinConditionStrategy(new ActorWinCondition(selectedActor));
+        } else if (!allCrew.isEmpty()) {
+            String selectedCrew = crewList.get(ran.nextInt(crewList.size()));
+            player2.setWinConditionStrategy(new CrewMemWinCondition(selectedCrew));
+        }
+
 
         gameModel.initializePlayers(Arrays.asList(player1, player2));
         gameModel.makeMove(start.getTitle()); // start movie
@@ -118,11 +145,9 @@ public class GameController implements IGameController {
         gameView.showWinner(other);
     }
 
-}
-
-
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 }
+
 
