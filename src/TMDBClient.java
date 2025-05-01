@@ -150,5 +150,26 @@ public class TMDBClient {
         }
         return movies;
     }
+    public List<Movie> fetchPopularMovies() {
+        List<Movie> popular = new ArrayList<>();
+        try {
+            String url = BASE_URL + "/movie/popular?api_key=" + apiKey;
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            JsonNode results = mapper.readTree(response.body()).path("results");
+
+            for (JsonNode node : results) {
+                long id = node.get("id").asLong();
+                Movie movie = fetchMovieDetailsById(id);
+                if (movie != null) {
+                    popular.add(movie);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("fetchPopularMovies error: " + e.getMessage());
+        }
+        return popular;
+    }
+
 }
 

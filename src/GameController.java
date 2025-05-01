@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +28,13 @@ public class GameController {
     GameState getGameState() {
         return gameState;
     }
+    GameView getView() {
+        return view;
+    }
+    public MovieDatabase getMovieDatabase() {
+        return movieDb;
+    }
+
 
     /**
      * Starts a new game session with the specified players and win condition.
@@ -39,13 +47,8 @@ public class GameController {
         // Create players
         Player player1 = new Player(p1);
         Player player2 = new Player(p2);
-        
-        // Find a starting movie (using "The Godfather" as a default starting movie)
-        Movie startingMovie = movieDb.findByTitle("The Godfather");
-        if (startingMovie == null) {
-            // Fallback if the first choice is not found
-            startingMovie = movieDb.findByTitle("Star Wars");
-        }
+
+        Movie startingMovie = movieDb.getRandomMovie();
         
         // Make sure we have a valid starting movie
         if (startingMovie == null) {
@@ -166,4 +169,14 @@ public class GameController {
         // No valid connections found
         return null;
     }
+    public List<String> getAutocompleteSuggestions(String input) {
+        List<String> results = new ArrayList<>();
+        for (String title : movieDb.getAllTitles()) {
+            if (title.toLowerCase().startsWith(input.toLowerCase())) {
+                results.add(title);
+            }
+        }
+        return results.stream().limit(5).toList(); // 最多顯示5個
+    }
+
 }

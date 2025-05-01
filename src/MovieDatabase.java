@@ -56,4 +56,34 @@ public class MovieDatabase {
         actorCache.clear();
         similarCache.clear();
     }
+    public Set<String> getAllTitles() {
+        return movieCache.keySet();
+    }
+    public List<String> getMatchingTitles(String prefix) {
+        String lower = prefix.toLowerCase();
+        return movieCache.keySet().stream()
+            .filter(title -> title.toLowerCase().startsWith(lower))
+            .limit(5)
+            .toList();
+    }
+
+    public void preloadPopularMovies() {
+        List<Movie> popular = tmdb.fetchPopularMovies();
+        for (Movie movie : popular) {
+            movieCache.put(movie.getTitle(), movie);
+        }
+    }
+    public Movie getRandomMovie() {
+        if (movieCache.isEmpty()) {
+            preloadPopularMovies();
+        }
+
+        if (movieCache.isEmpty()) return null;
+
+        List<Movie> all = new ArrayList<>(movieCache.values());
+        return all.get(new Random().nextInt(all.size()));
+    }
+
+
+
 }
