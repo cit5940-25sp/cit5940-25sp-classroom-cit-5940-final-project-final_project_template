@@ -26,6 +26,7 @@ public class TestGameController {
         clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         movies = new ArrayList<>();
 
+        // THIS IS ACTUALLY WRONG BECAUSE WE USED A DIFFERENT CONSTRUCTOR IN THE ACTUAL PROGRAM
         controller = new GameController(player1, player2, clock, movies, view);
     }
 
