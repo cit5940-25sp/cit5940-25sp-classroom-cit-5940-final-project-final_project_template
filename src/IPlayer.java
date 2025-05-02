@@ -38,4 +38,6 @@ public interface IPlayer {
      */
 
     public int getScore();
+
+    public void setScore(int score);
 }

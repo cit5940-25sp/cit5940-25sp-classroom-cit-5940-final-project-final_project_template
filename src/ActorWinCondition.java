@@ -29,6 +29,6 @@ public class ActorWinCondition implements IWinConditionStrategy {
 
     @Override
     public String getDescription() {
-        return "Win by playing 5 movies of the same actor";
+        return "Play 5 movies of actor " + selectedActor + ".";
     }
 }

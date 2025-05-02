@@ -7,14 +7,15 @@ public class GameModel implements IGameModel {
     private int currentPlayerIndex;
     private IMovie currentMovie;
     private List<IMovie> recentHistory;
-    private IMovieIndex movieIndex;
     private Set<String> usedMovies;
     private IPlayer winner;
     private int roundCount;
     private ConnectionValidator connectionValidator;
+    private IPlayer player1;
+    private IPlayer player2;
+    private Map<Integer, IMovie> movies;
 
-    public GameModel(IMovieIndex movieIndex) {
-        this.movieIndex = movieIndex;
+    public GameModel() {
         this.recentHistory = new ArrayList<>();
         this.usedMovies = new HashSet<>();
         this.roundCount = 0;
@@ -22,17 +23,62 @@ public class GameModel implements IGameModel {
     }
 
     @Override
-    public void initializePlayers(List<IPlayer> players) {
-        this.players = players;
+    public void initializePlayers() {
+        Player player1 = new Player("Player 1");
+        Player player2 = new Player("Player 2");
+
+        this.player1 = player1;
+        this.player2 = player2;
+        this.players = Arrays.asList(player1, player2);
+
+        Set<String> allActors = new HashSet<>();
+        Set<String> allCrew = new HashSet<>();
+
+        Map<Integer, IMovie> movies = loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv");
+        this.movies = movies;
+
+        for (IMovie movie : movies.values()) {
+            allActors.addAll(movie.getActors());
+            allCrew.addAll(movie.getCrew());
+        }
+
+        List<String> actorList = new ArrayList<>(allActors);
+        List<String> crewList = new ArrayList<>(allCrew);
+        Random ran = new Random();
+
+
+        boolean p1usingActor = ran.nextBoolean(); // choosing between win condition is actor or crew
+
+        if (p1usingActor && !allActors.isEmpty()) {
+            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
+            player1.setWinConditionStrategy(new ActorWinCondition(selectedActor));
+        } else if (!allCrew.isEmpty()) {
+            String selectedCrewMember = crewList.get(ran.nextInt(crewList.size()));
+            player1.setWinConditionStrategy(new CrewMemWinCondition(selectedCrewMember));
+        }
+
+        boolean p2usingActor = ran.nextBoolean();
+        if (p2usingActor && !allActors.isEmpty()) {
+            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
+            player2.setWinConditionStrategy(new ActorWinCondition(selectedActor));
+        } else if (!allCrew.isEmpty()) {
+            String selectedCrew = crewList.get(ran.nextInt(crewList.size()));
+            player2.setWinConditionStrategy(new CrewMemWinCondition(selectedCrew));
+        }
+
         this.currentPlayerIndex = 0;
     }
 
     @Override
-    public void loadMovieData(List<IMovie> movieList) {
-//        movieIndex.loadMovies(movieList);
-//        this.currentMovie = movieList.get(new Random().nextInt(movieList.size()));
-//        recentHistory.add(currentMovie);
-//        usedMovies.add(currentMovie.getTitle().toLowerCase());
+    public Map<Integer, IMovie> loadMovieData(String moviesCsvFile, String creditsCsvFile) {
+        MovieIndex movieIndex = new MovieIndex();
+        Map<Integer, IMovie> movies = movieIndex.loadMovies(moviesCsvFile); // loads the movies
+        movieIndex.loadCast(creditsCsvFile, movies);
+        return movies;
+    }
+
+    public void setStartingMovie(IMovie movie) {
+        this.currentMovie = movie;
     }
 
     @Override
@@ -56,9 +102,17 @@ public class GameModel implements IGameModel {
         return currentMovie;
     }
 
+    public void setCurrentMovie(IMovie currentMovie) {
+        this.currentMovie = currentMovie;
+    }
+
     @Override
     public boolean isValidMove(String movieTitle) {
+        MovieIndex movieIndex = new MovieIndex();
+        Map<Integer, IMovie> movies = movieIndex.loadMovies("tmdb_5000_movies.csv");
+        movieIndex.loadCast("tmdb_5000_credits.csv", movies);
         IMovie candidate = movieIndex.getMovieByTitle(movieTitle);
+
         if (candidate == null) {
             return false;
         }
@@ -71,23 +125,34 @@ public class GameModel implements IGameModel {
 
     @Override
     public void makeMove(String movieTitle) {
-        IMovie movie = movieIndex.getMovieByTitle(movieTitle);
-        if (movie == null) {
+        MovieIndex movieIndex = new MovieIndex();
+        Map<Integer, IMovie> loadedMovies = movieIndex.loadMovies("tmdb_5000_movies.csv");
+        movieIndex.loadCast("tmdb_5000_credits.csv", loadedMovies);
+
+        IMovie nextMovie = movieIndex.getMovieByTitle(movieTitle);
+        if (nextMovie == null || usedMovies.contains(nextMovie.getTitle().toLowerCase())) {
             return;
         }
 
-
-        List<String> sharedConnections = connectionValidator.getSharedConnections(currentMovie, movie);
+        List<String> sharedConnections = connectionValidator.getSharedConnections(currentMovie, nextMovie);
         connectionValidator.recordConnectionUse(sharedConnections);
 
-        usedMovies.add(movie.getTitle().toLowerCase());
-        recentHistory.add(movie);
-        if (recentHistory.size() > 5) {
-            recentHistory.remove(0);
+        // Add the movie that was just connected FROM to the history
+        if (currentMovie != null) {
+            recentHistory.add(currentMovie);
+            if (recentHistory.size() > 5) {
+                recentHistory.remove(0);
+            }
+            usedMovies.add(currentMovie.getTitle().toLowerCase());
         }
 
-        currentMovie = movie;
-        getCurrentPlayer().addPlayedMovie(movie);
+        currentMovie = nextMovie;
+        usedMovies.add(nextMovie.getTitle().toLowerCase());
+        getCurrentPlayer().addPlayedMovie(nextMovie);
+
+        int currentPlayerScore = getCurrentPlayer().getScore();
+        currentPlayerScore++;
+        getCurrentPlayer().setScore(currentPlayerScore);
     }
 
     @Override
@@ -130,5 +195,26 @@ public class GameModel implements IGameModel {
             }
         }
         return shared;
+    }
+
+    public IPlayer getPlayer1() {
+        return player1;
+    }
+
+    public IPlayer getPlayer2() {
+        return player2;
+    }
+
+    public Map<Integer, IMovie> getMovies() {
+        return movies;
+    }
+
+    public List<IMovie> convertMapToListOfMovies(Map<Integer, IMovie> movies) {
+        List<IMovie> movieList = new ArrayList<>();
+        for (IMovie movie : movies.values()) {
+            movieList.add(movie);
+        }
+
+        return movieList;
     }
 }

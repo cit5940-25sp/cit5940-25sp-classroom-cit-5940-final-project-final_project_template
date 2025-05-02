@@ -3,7 +3,7 @@ import java.util.List;
 public class CrewMemWinCondition implements IWinConditionStrategy{
         private String selectedCrewMember;
 
-        public CrewMemWinCondition(String selectedActor) {
+        public CrewMemWinCondition(String selectedCrewMember) {
             this.selectedCrewMember = selectedCrewMember;
         }
 
@@ -20,7 +20,7 @@ public class CrewMemWinCondition implements IWinConditionStrategy{
 
     @Override
     public String getDescription() {
-        return "return \"All of the movies played must have\" + selectedCrewMember + \"as a crew member of the movie\";";
+        return "Play 5 movies of crew member " + selectedCrewMember + ".";
     }
 }
 

@@ -36,6 +36,8 @@ public class TestConnectionValidator {
         public List<String> getCinematographers() { return new ArrayList<>(); }
         @Override
         public Set<String> getAllContributors() { return contributors; }
+        @Override
+        public List<String> getCrew() { return new ArrayList<>(); }
     }
 
     @Before

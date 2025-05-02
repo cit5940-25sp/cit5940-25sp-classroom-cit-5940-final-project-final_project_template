@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.Clock;
 import java.util.*;
 
@@ -11,96 +12,97 @@ public class GameController implements IGameController {
     private GameView gameView;
     private TerminalWithSuggestions terminal;
     private boolean gameOver;
+    private MovieIndex movieIndex;
 
-    public GameController(Player p1, Player p2, List<IMovie> movies, TerminalWithSuggestions terminal) {
+    public GameController(Player p1, Player p2, Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal) {
         this.player1 = p1;
         this.player2 = p2;
         this.currentPlayer = p1;
         this.movieList = movies;
         this.terminal = terminal;
-        this.gameModel = new GameModel(new MovieIndex());
-        this.gameModel.loadMovieData(movies);
+        this.gameModel = new GameModel();
+        this.gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv");
         this.gameView = new GameView(terminal);
         this.gameOver = false;
+        this.movieIndex = new MovieIndex();
+        Map<Integer, IMovie> loadedMovies = movieIndex.loadMovies("tmdb_5000_movies.csv");
+        movieIndex.loadCast("tmdb_5000_credits.csv", loadedMovies);
     }
 
     public GameController(Player player1, Player player2, Clock clock, List<IMovie> movies, GameView view) {
     }
 
     @Override
-    public void initializeGame() {
+    public void initializeGame(List<IMovie> movieList) {
 
         Random rand = new Random();
         IMovie start = movieList.get(rand.nextInt(movieList.size()));
 
-        MovieIndex movieIndex = new MovieIndex();
-        Map<Integer, IMovie> movies = movieIndex.loadMovies("tmdb_5000_movies.csv"); // loads the movies
-        movieIndex.loadCast("tmdb_5000_credits.csv", movies);
 
-
-        Set<String> allActors = new HashSet<>();
-        Set<String> allCrew = new HashSet<>();
-
-        for (IMovie movie : movies.values()) {
-            allActors.addAll(movie.getActors());
-            allCrew.addAll(movie.getCrew());
-        }
-
-        List<String> actorList = new ArrayList<>(allActors);
-        List<String> crewList = new ArrayList<>(allCrew);
-        Random ran = new Random();
-
-
-        boolean p1usingActor = ran.nextBoolean(); // choosing between win condition is actor or crew
-
-        if (p1usingActor && !allActors.isEmpty()) {
-            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
-            player1.setWinConditionStrategy(new ActorWinCondition(selectedActor));
-        } else if (!allCrew.isEmpty()) {
-            String selectedCrew = crewList.get(ran.nextInt(crewList.size()));
-            player1.setWinConditionStrategy(new CrewMemWinCondition(selectedCrew));
-        }
-
-        boolean p2usingActor = ran.nextBoolean();
-        if (p2usingActor && !allActors.isEmpty()) {
-            String selectedActor = actorList.get(ran.nextInt(actorList.size()));
-            player2.setWinConditionStrategy(new ActorWinCondition(selectedActor));
-        } else if (!allCrew.isEmpty()) {
-            String selectedCrew = crewList.get(ran.nextInt(crewList.size()));
-            player2.setWinConditionStrategy(new CrewMemWinCondition(selectedCrew));
-        }
-
-
-        gameModel.initializePlayers(Arrays.asList(player1, player2));
-        gameModel.makeMove(start.getTitle()); // start movie
+        gameModel.initializePlayers();
 
         gameView.showWelcomeMessage();
         gameView.showWinConditions(Arrays.asList(player1, player2));
+
+        gameModel.setCurrentMovie(start);
+        gameModel.setStartingMovie(start);
     }
 
     @Override
-    public void startGame() {
+    public void startGame() throws IOException {
         while (!gameOver) {
+            terminal.clearScreen(); // Reset screen each round
             gameView.showGameStart(currentPlayer);
             gameView.showMovieHistory(gameModel.getRecentHistory());
             gameView.showPlayerStats(gameModel.getPlayers(), gameModel.getRoundCount());
             gameView.promptForMovie(currentPlayer);
 
-            String input = terminal.getInputWithSuggestions(movieList, 30);
-            if (input == null || input.trim().isEmpty()) {
+            long start = System.currentTimeMillis();
+            int timeLimit = 30;
+            String input = "";
+            boolean moveAccepted = false;
+
+            while ((System.currentTimeMillis() - start) / 1000 < timeLimit) {
+                input = terminal.getInputWithSuggestions(movieList, gameModel.getCurrentMovie(), timeLimit - (int)((System.currentTimeMillis() - start) / 1000));
+
+                if (input == null || input.trim().isEmpty()) {
+                    continue; // Ignore empty input, continue countdown
+                }
+
+                if (!movieExists(input)) {
+                    gameView.showInvalidMove("Movie not found.");
+                } else if (!gameModel.isValidMove(input)) {
+                    gameView.showInvalidMove("Invalid connection.");
+                } else {
+                    gameModel.makeMove(input);
+                    gameView.showMoveSuccess(input, currentPlayer);
+                    moveAccepted = true;
+                    if (gameModel.checkWinCondition(currentPlayer)) {
+                        gameView.showWinner(currentPlayer);
+                        gameOver = true;
+                    }
+                    break;
+                }
+            }
+
+            if (!moveAccepted && !gameOver) {
                 handleTimeout();
-                break;
-            }
-
-            handlePlayerInput(input);
-            if (gameModel.checkWinCondition(currentPlayer)) {
-                gameView.showWinner(currentPlayer);
                 gameOver = true;
-                break;
             }
 
-            nextTurn();
+            if (!gameOver) {
+                nextTurn();
+            }
         }
+    }
+
+    private boolean movieExists(String title) {
+        for (IMovie movie : movieList) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -138,15 +140,19 @@ public class GameController implements IGameController {
         gameView.showTimeout(currentPlayer);
         Player other;
         if (currentPlayer == player2) {
-            other = player2;
-        } else {
             other = player1;
+        } else {
+            other = player2;
         }
         gameView.showWinner(other);
     }
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public List<IMovie> getMovieList() {
+        return movieList;
     }
 }
 

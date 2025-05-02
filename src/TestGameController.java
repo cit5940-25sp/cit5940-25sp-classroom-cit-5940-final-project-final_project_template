@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -17,7 +18,7 @@ public class TestGameController {
     private Clock clock;
     private List<IMovie> movies;
 
-    @Before
+    //    @Before
     public void setUp() {
         player1 = new Player("Player 1");
         player2 = new Player("Player 2");
@@ -30,12 +31,12 @@ public class TestGameController {
 
     @Test
     public void testInitializeGame() {
-        controller.initializeGame();
+        controller.initializeGame(movies);
         assertNotNull(controller);
     }
 
     @Test
-    public void testStartGame() {
+    public void testStartGame() throws IOException {
         controller.startGame();
         assertFalse(controller.isGameOver());
     }
@@ -73,6 +74,4 @@ public class TestGameController {
         controller.handleTimeout();
         assertTrue(controller.isGameOver());
     }
-
-
 }

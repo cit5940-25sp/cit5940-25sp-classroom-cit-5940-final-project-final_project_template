@@ -1,16 +1,17 @@
 import java.util.List;
+import java.util.Map;
 
 public interface IGameModel {
 
     /*
     initializes the player objects with names and win conditions
      */
-    public void initializePlayers(List<IPlayer> players);
+    public void initializePlayers();
 
     /*
     loads all movie in the model via the movie index
      */
-    public void loadMovieData(List<IMovie> movieList);
+    public Map<Integer, IMovie> loadMovieData(String moviesCsvFile, String creditsCsvFile);
 
     /*
     returns list of players in the game

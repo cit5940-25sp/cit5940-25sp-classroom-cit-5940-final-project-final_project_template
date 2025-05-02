@@ -56,4 +56,9 @@ public class Player implements IPlayer {
     public int getScore() {
         return this.score;
     }
+
+    @Override
+    public void setScore(int score) {
+        this.score = score;
+    }
 }
