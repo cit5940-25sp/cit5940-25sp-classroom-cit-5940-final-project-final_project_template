@@ -56,9 +56,13 @@ public class MovieDatabase {
         actorCache.clear();
         similarCache.clear();
     }
+
     public Set<String> getAllTitles() {
+        System.out.println("Total movie titles: " + movieCache.size());
+
         return movieCache.keySet();
     }
+
     public List<String> getMatchingTitles(String prefix) {
         String lower = prefix.toLowerCase();
         return movieCache.keySet().stream()

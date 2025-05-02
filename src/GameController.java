@@ -46,7 +46,7 @@ public class GameController {
      * @param p2   name of Player 2
      * @param cond the win condition strategy
      */
-    public void startGame(String p1, String p2, WinCondition cond){
+    public Movie startGame(String p1, String p2, WinCondition cond){
         // Create players
         Player player1 = new Player(p1);
         Player player2 = new Player(p2);
@@ -56,17 +56,14 @@ public class GameController {
         // Make sure we have a valid starting movie
         if (startingMovie == null) {
             view.displayInfo("Could not find a starting movie. Please check your database connection.");
-            return;
+            return null;
         }
         
         // Initialize game state with players, win condition, and starting movie
         gameState = new GameState(player1, player2, cond, startingMovie);
         
         // Display initial game state
-        view.displayInfo("Game started with " + p1 + " and " + p2);
-        view.displayInfo("Win condition: " + cond.description());
-        view.displayInfo("Starting movie: " + startingMovie.getTitle() + " (" + startingMovie.getYear() + ")");
-        view.render(gameState);
+        return startingMovie;
     }
 
     /**
@@ -74,58 +71,49 @@ public class GameController {
      *
      * @param movieTitle the title of the movie guessed
      */
-    public void processTurn(String movieTitle){
-        // check if time is up
+    public TurnResult processTurn(String movieTitle) {
         if (!gameState.getTimer().isRunning()) {
-            view.displayInfo("Time's up! Turn skipped.");
             gameState.switchPlayer();
-            view.render(gameState);
-            return;
+            return new TurnResult(false, "⏰ Time's up! Turn skipped.");
         }
 
-        // check if the input is valid
         if (movieTitle == null || movieTitle.trim().isEmpty()) {
-            view.displayInfo("Movie title cannot be empty.");
-            return;
+            return new TurnResult(false, "⚠️ Movie title cannot be empty.");
         }
 
         Player currentPlayer = gameState.getCurrentPlayer();
         Movie guessedMovie = movieDb.findByTitle(movieTitle);
 
         if (guessedMovie == null) {
-            view.displayInfo("Movie not found: " + movieTitle);
-            return;
+            return new TurnResult(false, "❌ Movie not found: " + movieTitle);
         }
 
         if (gameState.isMovieUsed(guessedMovie)) {
-            view.displayInfo("Movie already used: " + movieTitle);
-            return;
+            return new TurnResult(false, "⚠️ Movie already used: " + movieTitle);
         }
 
         Movie lastMovie = gameState.getCurrentMovie();
-
         Connection validConn = findValidConnection(lastMovie, guessedMovie);
+
         if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
-            view.displayInfo("No valid connection found between " + lastMovie.getTitle() +
-                " and " + guessedMovie.getTitle());
-            return;
+            return new TurnResult(false,
+                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        // successfully proccess
+        // ✅ Valid move
         gameState.incrementConnectionUsage(validConn.getPersonName());
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
-        view.displayInfo(currentPlayer.getName() + " successfully connected movies via: " +
-            validConn.getPersonName() + " (" + validConn.getType() + ")");
+
+        String msg = "✅ " + currentPlayer.getName() + " connected via " +
+                validConn.getPersonName() + " (" + validConn.getType() + ")";
 
         if (gameState.hasCurrentPlayerWon()) {
-            view.displayInfo(currentPlayer.getName() + " has won! (" +
-                gameState.getWinCondition().description() + ")");
-            return;
+            return new TurnResult(true, "🏆 " + currentPlayer.getName() + " has won the game!");
         }
 
         gameState.switchPlayer();
-        view.render(gameState);
+        return new TurnResult(true, msg);
     }
 
 
