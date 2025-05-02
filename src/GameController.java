@@ -150,10 +150,6 @@ public class GameController implements IGameController {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
-    public List<IMovie> getMovieList() {
-        return movieList;
-    }
 }
 
 
