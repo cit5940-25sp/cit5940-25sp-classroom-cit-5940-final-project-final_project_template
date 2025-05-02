@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 import factories.ServiceFactory;
 import services.MovieService;
 import utils.DataLoader;
