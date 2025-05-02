@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Comparator;
+import models.Movie;
 
 public class Autocomplete {
     // Trie 节点类
@@ -46,7 +45,7 @@ public class Autocomplete {
 
     // 根据前缀搜索匹配的电影
     public List<Movie> search(String prefix) {
-        return search(prefix, 1); // 默认返回1个结果
+        return search(prefix, 10); // 默认返回10个结果
     }
 
     // 根据前缀搜索匹配的电影，限制返回数量

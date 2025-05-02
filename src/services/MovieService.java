@@ -29,6 +29,13 @@ public class MovieService {
     }
     
     /**
+     * Get all movies
+     */
+    public List<Movie> getAllMovies() {
+        return new ArrayList<>(movieCache.values());
+    }
+    
+    /**
      * Search movies
      */
     public List<Movie> searchMovies(String query) {
