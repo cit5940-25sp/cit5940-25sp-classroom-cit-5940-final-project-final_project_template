@@ -1,14 +1,17 @@
+import java.io.IOException;
+import java.util.List;
+
 public interface IGameController {
 
     /*
     initializes the game, sets up players, loads movie data, pick randomized movie to start with
      */
-    public void initializeGame();
+    public void initializeGame(List<IMovie> movieList);
 
     /*
     starts the main game loop and handles turn-based logic
      */
-    public void startGame();
+    public void startGame() throws IOException;
 
     /*
     handles input from current player

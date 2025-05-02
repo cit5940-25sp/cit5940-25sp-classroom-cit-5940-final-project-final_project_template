@@ -24,7 +24,7 @@ public class MovieIndex implements IMovieIndex {
             reader = new CSVReader(new FileReader(movieFile));
 
             String[] header = reader.readNext();
-            System.out.println("Headers: " + Arrays.toString(header));
+            //.out.println("Headers: " + Arrays.toString(header));
             String[] row;
             while ((row = reader.readNext()) != null) {
                 if (row.length > 17) {
@@ -33,7 +33,7 @@ public class MovieIndex implements IMovieIndex {
                         continue;
                     }
                     int id = Integer.parseInt(idStr);
-                    System.out.println("ID: " + id);
+                  //  System.out.println("ID: " + id);
                     String title = row[17].trim();
                     String releaseDate = row[11].trim();
                     String genreJson = row[1].trim();
@@ -76,6 +76,7 @@ public class MovieIndex implements IMovieIndex {
         return movieMap;
     }
 
+
 // associates cast and crew with the movies loaded (all under contributors)
     //used for queries when connecting movies
     public void loadCast(String creditFile, Map<Integer, IMovie> movieMap) {
@@ -102,9 +103,9 @@ public class MovieIndex implements IMovieIndex {
                     Movie movie = (Movie) movieMap.get(id);
 
 // Find end of cast JSON: first "]}" after second comma
-                    int castStart = secondComma + 1;
+                    int castStart = line.indexOf("[{", secondComma);
                     int castEnd = line.indexOf("}]", castStart) + 2;
-                    if (castEnd <= 1) throw new Exception("Cast JSON malformed");
+                    if (castStart == -1 || castEnd <= 1) throw new Exception("Cast JSON malformed");
 
                     String castJson = line.substring(castStart, castEnd);
 
@@ -114,18 +115,21 @@ public class MovieIndex implements IMovieIndex {
 
                     String crewJson = line.substring(crewStart, crewEnd);
 
-                    System.out.println("ID: " + id);
-                    System.out.println("CAST JSON RAW: " + castJson);
-                    System.out.println("CREW JSON RAW: " + crewJson);
-                    // Parse cast
+//                    System.out.println("ID: " + id);
+//                    System.out.println("CAST JSON RAW: " + castJson);
+//                    System.out.println("CREW JSON RAW: " + crewJson);
+//                    // Parse cast
                     castJson = castJson.replaceAll("\"\"", "\"");
                     crewJson = crewJson.replaceAll("\"\"", "\"");
                     try {
                         JSONArray castArray = new JSONArray(castJson);
                         for (int i = 0; i < castArray.length(); i++) {
                             String name = castArray.getJSONObject(i).optString("name");
-                            System.out.println("Adding actor: " + name + " to " + movie.getTitle());
-                            if (!name.isEmpty()) movie.addActor(name);
+                         //   System.out.println("Adding actor: " + name + " to " + movie.getTitle());
+                            if (!name.isEmpty()) {
+                                movie.addActor(name);
+                                movie.addContributor(name);
+                            }
                         }
                     } catch (Exception e) {
                         castErrors++;
@@ -135,8 +139,11 @@ public class MovieIndex implements IMovieIndex {
                         JSONArray crewArray = new JSONArray(crewJson);
                         for (int i = 0; i < crewArray.length(); i++) {
                             String name = crewArray.getJSONObject(i).optString("name");
-                            System.out.println("Adding crew member: " + name + " to " + movie.getTitle());
-                            if (!name.isEmpty()) movie.addContributor(name);
+                          //  System.out.println("Adding crew member: " + name + " to " + movie.getTitle());
+                            if (!name.isEmpty()) {
+                                movie.addCrew(name);
+                                movie.addContributor(name);
+                            }
                         }
                     } catch (Exception e) {
                         crewErrors++;

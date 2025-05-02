@@ -20,6 +20,9 @@ public class TerminalWithSuggestions {
     private StringBuilder currentInput = new StringBuilder();
     private List<String> suggestions = new ArrayList<>();
     private int cursorPosition = 0;
+    private int currentRow = 0;
+    private String currentMovieTitle = "";
+    private String currentMovieGenres = "";
 
     // Timer variables
     private int secondsRemaining = 30;
@@ -31,26 +34,32 @@ public class TerminalWithSuggestions {
         screen.startScreen();
     }
 
-    public String getInputWithSuggestions(List<IMovie> movies, int timeLimitSeconds) {
+    public String getInputWithSuggestions(List<IMovie> movies, IMovie currentMovie, int timeLimitSeconds) throws IOException {
         dictionary.clear();
         for (IMovie movie : movies) {
             dictionary.add(movie.getTitle());
         }
+
         currentInput = new StringBuilder();
         suggestions.clear();
         cursorPosition = 2;
         secondsRemaining = timeLimitSeconds;
+        currentMovieTitle = currentMovie.getTitle();
+        currentMovieGenres = currentMovie.getGenres().toString();
 
         try {
             screen.clear();
-            printString(0, 0, "> ");
-            screen.setCursorPosition(new TerminalPosition(cursorPosition, 0));
+            printString(0, 0, "Current Movie: " + currentMovieTitle);
+            printString(0, 1, "Genres: " + currentMovieGenres);
+            printString(0, 2, "> ");
+            screen.setCursorPosition(new TerminalPosition(cursorPosition, 2));
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        long start = System.currentTimeMillis();
+        long lastSecond = System.currentTimeMillis() / 1000;
+
         while (true) {
             try {
                 KeyStroke keyStroke = terminal.pollInput();
@@ -63,7 +72,19 @@ public class TerminalWithSuggestions {
                             handleBackspace();
                             break;
                         case Enter:
-                            return currentInput.toString().trim();
+                            String finalInput = currentInput.toString().trim();
+                            if (!finalInput.isEmpty()) {
+                                if (dictionary.stream().anyMatch(title -> title.equalsIgnoreCase(finalInput))) {
+                                    return finalInput;
+                                } else {
+                                    displayMessage("Movie not found. Try again.");
+                                    currentInput.setLength(0); // Clear input
+                                    cursorPosition = 2;
+                                    updateSuggestions();
+                                    updateScreen();
+                                }
+                            }
+                            break;
                         case Escape:
                         case EOF:
                             return "";
@@ -73,8 +94,15 @@ public class TerminalWithSuggestions {
                     updateScreen();
                 }
 
-                if ((System.currentTimeMillis() - start) / 1000 >= timeLimitSeconds) {
-                    return ""; // timeout
+                long currentSecond = System.currentTimeMillis() / 1000;
+                if (currentSecond != lastSecond) {
+                    lastSecond = currentSecond;
+                    secondsRemaining--;
+                    updateScreen();
+                }
+
+                if (secondsRemaining <= 0) {
+                    return ""; // ⏰ Timeout
                 }
 
                 Thread.sleep(10);
@@ -114,21 +142,25 @@ public class TerminalWithSuggestions {
         synchronized (screen) {
             screen.clear();
 
-            // Print timer at top right
+            // Top row: Movie title (left) and timer (right)
+            printString(0, 0, "Current Movie: " + currentMovieTitle);
             String timerText = "Time: " + secondsRemaining + "s";
             TerminalSize size = screen.getTerminalSize();
             printString(size.getColumns() - timerText.length(), 0, timerText);
 
-            // Print current command line
-            printString(0, 0, "> " + currentInput.toString());
+            // Row 1: Genres
+            printString(0, 1, "Genres: " + currentMovieGenres);
 
-            // Print suggestions
-            int row = 1;
+            // Row 2: Input prompt
+            printString(0, 2, "> " + currentInput.toString());
+
+            // Row 3+: Suggestions
+            int row = 3;
             for (String suggestion : suggestions) {
                 printString(2, row++, suggestion);
             }
 
-            screen.setCursorPosition(new TerminalPosition(cursorPosition, 0));
+            screen.setCursorPosition(new TerminalPosition(cursorPosition, 2)); // Input line
             screen.refresh();
         }
     }
@@ -142,13 +174,30 @@ public class TerminalWithSuggestions {
 
     public void displayMessage(String message) {
         try {
-            screen.clear();
-            printString(0, 0, message);
-            printString(0, 2, "> " + currentInput.toString());
-            screen.setCursorPosition(new TerminalPosition(cursorPosition, 2));
+            printString(0, currentRow++, message);
             screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void clearScreen() {
+        try {
+            screen.clear();
+            currentRow = 0;
+            screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getSecondsRemaining() {
+        return secondsRemaining;
     }
 }

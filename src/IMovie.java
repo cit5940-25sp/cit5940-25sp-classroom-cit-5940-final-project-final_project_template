@@ -24,6 +24,11 @@ public interface IMovie {
     public List<String> getActors();
 
     /*
+   returns the list of crew in movie
+    */
+    public List<String> getCrew();
+
+    /*
     returns the director of the movie
      */
     public List<String> getDirectors();

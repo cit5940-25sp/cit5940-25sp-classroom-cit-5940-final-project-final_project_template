@@ -1,11 +1,6 @@
 import java.io.IOException;
 import java.time.Clock;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 // Orchestrates the game loop: player input -> validation -> update state -> update view (controller)
 public class GameController implements IGameController {
@@ -17,57 +12,97 @@ public class GameController implements IGameController {
     private GameView gameView;
     private TerminalWithSuggestions terminal;
     private boolean gameOver;
+    private MovieIndex movieIndex;
 
-    public GameController(Player p1, Player p2, List<IMovie> movies, TerminalWithSuggestions terminal) {
+    public GameController(Player p1, Player p2, Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal) {
         this.player1 = p1;
         this.player2 = p2;
         this.currentPlayer = p1;
         this.movieList = movies;
         this.terminal = terminal;
-        this.gameModel = new GameModel(new MovieIndex());
-        this.gameModel.loadMovieData(movies);
+        this.gameModel = new GameModel();
+        this.gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv");
         this.gameView = new GameView(terminal);
         this.gameOver = false;
+        this.movieIndex = new MovieIndex();
+        Map<Integer, IMovie> loadedMovies = movieIndex.loadMovies("tmdb_5000_movies.csv");
+        movieIndex.loadCast("tmdb_5000_credits.csv", loadedMovies);
+    }
+
+    public GameController(Player player1, Player player2, Clock clock, List<IMovie> movies, GameView view) {
     }
 
     @Override
-    public void initializeGame() {
+    public void initializeGame(List<IMovie> movieList) {
+
         Random rand = new Random();
         IMovie start = movieList.get(rand.nextInt(movieList.size()));
 
-        player1.setWinConditionStrategy(new ActorWinCondition());
-        player2.setWinConditionStrategy(new DirectorWinCondition("Steven Spielberg"));
 
-        gameModel.initializePlayers(Arrays.asList(player1, player2));
-        gameModel.makeMove(start.getTitle()); // start movie
+        gameModel.initializePlayers();
 
         gameView.showWelcomeMessage();
         gameView.showWinConditions(Arrays.asList(player1, player2));
+
+        gameModel.setCurrentMovie(start);
+        gameModel.setStartingMovie(start);
     }
 
     @Override
-    public void startGame() {
+    public void startGame() throws IOException {
         while (!gameOver) {
+            terminal.clearScreen(); // Reset screen each round
             gameView.showGameStart(currentPlayer);
             gameView.showMovieHistory(gameModel.getRecentHistory());
             gameView.showPlayerStats(gameModel.getPlayers(), gameModel.getRoundCount());
             gameView.promptForMovie(currentPlayer);
 
-            String input = terminal.getInputWithSuggestions(movieList, 30);
-            if (input == null || input.trim().isEmpty()) {
+            long start = System.currentTimeMillis();
+            int timeLimit = 30;
+            String input = "";
+            boolean moveAccepted = false;
+
+            while ((System.currentTimeMillis() - start) / 1000 < timeLimit) {
+                input = terminal.getInputWithSuggestions(movieList, gameModel.getCurrentMovie(), timeLimit - (int)((System.currentTimeMillis() - start) / 1000));
+
+                if (input == null || input.trim().isEmpty()) {
+                    continue; // Ignore empty input, continue countdown
+                }
+
+                if (!movieExists(input)) {
+                    gameView.showInvalidMove("Movie not found.");
+                } else if (!gameModel.isValidMove(input)) {
+                    gameView.showInvalidMove("Invalid connection.");
+                } else {
+                    gameModel.makeMove(input);
+                    gameView.showMoveSuccess(input, currentPlayer);
+                    moveAccepted = true;
+                    if (gameModel.checkWinCondition(currentPlayer)) {
+                        gameView.showWinner(currentPlayer);
+                        gameOver = true;
+                    }
+                    break;
+                }
+            }
+
+            if (!moveAccepted && !gameOver) {
                 handleTimeout();
-                break;
-            }
-
-            handlePlayerInput(input);
-            if (gameModel.checkWinCondition(currentPlayer)) {
-                gameView.showWinner(currentPlayer);
                 gameOver = true;
-                break;
             }
 
-            nextTurn();
+            if (!gameOver) {
+                nextTurn();
+            }
         }
+    }
+
+    private boolean movieExists(String title) {
+        for (IMovie movie : movieList) {
+            if (movie.getTitle().equalsIgnoreCase(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -105,10 +140,16 @@ public class GameController implements IGameController {
         gameView.showTimeout(currentPlayer);
         Player other;
         if (currentPlayer == player2) {
-            other = player2;
-        } else {
             other = player1;
+        } else {
+            other = player2;
         }
         gameView.showWinner(other);
     }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
+
+

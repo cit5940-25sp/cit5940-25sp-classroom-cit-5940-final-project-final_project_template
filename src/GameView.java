@@ -9,6 +9,10 @@ public class GameView implements IGameView {
         this.terminal = terminal;
     }
 
+    public GameView() {
+
+    }
+
     @Override
     public void showWelcomeMessage() {
         terminal.displayMessage("Welcome to the Movie Name Game!");
@@ -28,7 +32,6 @@ public class GameView implements IGameView {
     @Override
     public void showGameStart(IPlayer currentPlayer) {
         terminal.displayMessage("Round start: " + currentPlayer.getName());
-
     }
 
     @Override
@@ -76,5 +79,10 @@ public class GameView implements IGameView {
         for (IPlayer player : players) {
             terminal.displayMessage(player.getName() + " | Score: " + player.getScore());
         }
+    }
+
+    public void showCurrentMovie(IMovie currentMovie) {
+        terminal.displayMessage("Current Movie: " + currentMovie.getTitle());
+        terminal.displayMessage("Genres: " + currentMovie.getGenres());
     }
 }

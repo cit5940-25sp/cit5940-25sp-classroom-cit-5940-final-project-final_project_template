@@ -5,6 +5,9 @@ import java.util.Map;
 public class ActorWinCondition implements IWinConditionStrategy {
     private String selectedActor;
 
+    public ActorWinCondition(String selectedActor) {
+        this.selectedActor = selectedActor;
+    }
     @Override
     public boolean checkWin(List<IMovie> playedMovies) {
         Map<String, Integer>  actorCount = new HashMap<String, Integer>();
@@ -26,6 +29,6 @@ public class ActorWinCondition implements IWinConditionStrategy {
 
     @Override
     public String getDescription() {
-        return "Win by playing 5 movies of the same actor";
+        return "Play 5 movies of actor " + selectedActor + ".";
     }
 }
