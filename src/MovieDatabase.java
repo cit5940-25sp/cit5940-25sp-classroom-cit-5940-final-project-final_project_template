@@ -83,7 +83,4 @@ public class MovieDatabase {
         List<Movie> all = new ArrayList<>(movieCache.values());
         return all.get(new Random().nextInt(all.size()));
     }
-
-
-
 }
