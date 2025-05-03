@@ -2,7 +2,6 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.gui2.*;
 import com.googlecode.lanterna.input.*;
 import com.googlecode.lanterna.screen.*;
 import com.googlecode.lanterna.terminal.*;
@@ -18,14 +17,14 @@ enum InputStage {
     IN_GAME
 }
 
-
 public class TerminalWithSuggestions {
     private InputStage stage = InputStage.PLAYER1_NAME;
     private String player1Name = "";
     private String player2Name = "";
     private int winConditionIndex = 0;
     private List<WinCondition> winConditions = Arrays.asList(
-            new FiveHorrorMoviesWin()
+            new FiveHorrorMoviesWin(),
+            new ThreeNolanMoviesWin()
     );
 
     private GameController controller;
@@ -33,6 +32,7 @@ public class TerminalWithSuggestions {
     private Screen screen;
     private StringBuilder currentInput = new StringBuilder();
     private List<String> suggestions = new ArrayList<>();
+    private int selectedSuggestionIndex = -1;
     private int cursorPosition = 0;
 
     // Timer variables
@@ -85,6 +85,14 @@ public class TerminalWithSuggestions {
                     case EOF:
                         running = false;
                         break;
+                    case ArrowDown:
+                        if (!suggestions.isEmpty())
+                            selectedSuggestionIndex = (selectedSuggestionIndex + 1) % suggestions.size();
+                        break;
+                    case ArrowUp:
+                        if (!suggestions.isEmpty())
+                            selectedSuggestionIndex = (selectedSuggestionIndex - 1 + suggestions.size()) % suggestions.size();
+                        break;
                 }
                 updateSuggestions();
                 updateScreen();
@@ -130,10 +138,10 @@ public class TerminalWithSuggestions {
 
             case WIN_CONDITION_SELECTION:
                 try {
-                    int choice = Integer.parseInt(input);
-                    if (choice >= 1 && choice <= winConditions.size()) {
-                        WinCondition selected = winConditions.get(choice - 1);
-                        controller.getMovieDatabase().preloadPopularMovies();
+                    winConditionIndex = Integer.parseInt(input);
+                    if (winConditionIndex >= 1 && winConditionIndex <= winConditions.size()) {
+                        WinCondition selected = winConditions.get(winConditionIndex - 1);
+                        System.out.println("Selected win condition: " + selected.description());
                         Movie startingMovie = controller.startGame(player1Name, player2Name, selected);
                         secondsRemaining = 30;
                         controller.getGameState().getTimer().start();
@@ -151,20 +159,31 @@ public class TerminalWithSuggestions {
             case IN_GAME:
                 if (input.equalsIgnoreCase("exit")) return false;
 
+                // 🎯 First: handle selection from suggestions
+                if (selectedSuggestionIndex >= 0) {
+                    currentInput.setLength(0);
+                    currentInput.append(suggestions.get(selectedSuggestionIndex));
+                    cursorPosition = currentInput.length();
+                    selectedSuggestionIndex = -1; // reset
+                    return true; // Only populate, don’t submit yet
+                }
+
+                // ⏰ Check timer expiration
                 if (secondsRemaining <= 0) {
                     printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
                     return false;
                 }
 
+                // ✅ Submit actual guess
                 TurnResult result = controller.processTurn(input);
                 printInfo(result.getMessage());
 
                 if (!result.isSucess()) {
-                    // Invalid move — no reset or switch
+                    // ❌ Invalid move — don't switch player
                     return true;
                 }
 
-                // Valid move: reset input & timer
+                // 🎉 Valid move — reset for next player
                 currentInput.setLength(0);
                 cursorPosition = 0;
                 secondsRemaining = 30;
@@ -172,7 +191,7 @@ public class TerminalWithSuggestions {
                 return true;
         }
 
-        return true;
+            return true;
     }
 
     private void updateSuggestions() {
@@ -222,14 +241,20 @@ public class TerminalWithSuggestions {
                     printString(0, 1, "Round: " + state.getCurrRound());
                     String timerText = "Time: " + secondsRemaining + "s";
                     printString(size.getColumns() - timerText.length(), 0, timerText);
+                    printString(0, 2, "Last movie: " + state.getRecentHistory().get(0).getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
 
                     // Prompt
-                    printString(0, 3, "> " + currentInput.toString());
+                    printString(0, 4, "> " + currentInput.toString());
 
                     // Suggestions
-                    int row = 4;
-                    for (String s : suggestions) {
-                        printString(2, row++, "- " + s);
+                    int row = 5;
+                    for (int i = 0; i < suggestions.size(); i++) {
+                        String s = suggestions.get(i);
+                        if (i == selectedSuggestionIndex) {
+                            printStringColored(2, row++, "> " + s, TextColor.ANSI.BLACK, TextColor.ANSI.CYAN); // highlighted
+                        } else {
+                            printString(2, row++, "- " + s); // normal
+                        }
                     }
 
                     // Recent history
@@ -239,7 +264,7 @@ public class TerminalWithSuggestions {
                         printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
                     }
 
-                    screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 3));
+                    screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
                     break;
             }
 
@@ -252,6 +277,13 @@ public class TerminalWithSuggestions {
             screen.setCharacter(column + i, row,
                     new TextCharacter(text.charAt(i),
                             TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        }
+    }
+
+    private void printStringColored(int column, int row, String text, TextColor fg, TextColor bg) {
+        for (int i = 0; i < text.length(); i++) {
+            screen.setCharacter(column + i, row,
+                    new TextCharacter(text.charAt(i), fg, bg));
         }
     }
 
@@ -271,7 +303,6 @@ public class TerminalWithSuggestions {
         String apiKey = ConfigLoader.get("tmdb.api.key");
         GameController controller = new GameController(apiKey);
         controller.getMovieDatabase().preloadPopularMovies();
-        controller.startGame("Player 1", "Player 2", new FiveHorrorMoviesWin());
 
         try {
             new TerminalWithSuggestions(controller).run();

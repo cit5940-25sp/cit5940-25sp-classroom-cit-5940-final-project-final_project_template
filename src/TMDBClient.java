@@ -150,26 +150,30 @@ public class TMDBClient {
         }
         return movies;
     }
-    public List<Movie> fetchPopularMovies() {
+    public List<Movie> fetchPopularMovies(int maxPages) {
         List<Movie> popular = new ArrayList<>();
         try {
-            String url = BASE_URL + "/movie/popular?api_key=" + apiKey;
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            JsonNode results = mapper.readTree(response.body()).path("results");
+            for (int page = 1; page <= maxPages; page++) {
+                String url = BASE_URL + "/movie/popular?api_key=" + apiKey + "&page=" + page;
+                HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                JsonNode results = mapper.readTree(response.body()).path("results");
 
-            for (JsonNode node : results) {
-                long id = node.get("id").asLong();
-                Movie movie = fetchMovieDetailsById(id);
-                if (movie != null) {
-                    popular.add(movie);
+                for (JsonNode node : results) {
+                    long id = node.get("id").asLong();
+                    Movie movie = fetchMovieDetailsById(id);
+                    if (movie != null) {
+                        popular.add(movie);
+                    }
                 }
+
+                // TMDB only allows up to 500 results (25 pages * 20 movies)
+                if (results.isEmpty()) break;
             }
         } catch (Exception e) {
             System.err.println("fetchPopularMovies error: " + e.getMessage());
         }
         return popular;
     }
-
 }
 

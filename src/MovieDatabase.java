@@ -71,12 +71,15 @@ public class MovieDatabase {
             .toList();
     }
 
-    public void preloadPopularMovies() {
-        List<Movie> popular = tmdb.fetchPopularMovies();
+    public String preloadPopularMovies() {
+        int maxPages = 25; // up to 500 movies (TMDB limit)
+        List<Movie> popular = tmdb.fetchPopularMovies(maxPages);
         for (Movie movie : popular) {
             movieCache.put(movie.getTitle(), movie);
         }
+        return "Preloaded " + popular.size() + " movies into cache.";
     }
+
     public Movie getRandomMovie() {
         if (movieCache.isEmpty()) {
             preloadPopularMovies();
