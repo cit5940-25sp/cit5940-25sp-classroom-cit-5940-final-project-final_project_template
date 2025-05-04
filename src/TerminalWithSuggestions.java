@@ -18,6 +18,8 @@ enum InputStage {
 }
 
 public class TerminalWithSuggestions {
+    private final int TIME_LIMIT = 60;
+
     private InputStage stage = InputStage.PLAYER1_NAME;
     private String player1Name = "";
     private String player2Name = "";
@@ -36,8 +38,9 @@ public class TerminalWithSuggestions {
     private int cursorPosition = 0;
 
     // Timer variables
-    private int secondsRemaining = 30;
+    private int secondsRemaining = TIME_LIMIT;
     private boolean timerRunning = true;
+    private volatile boolean turnInProgress = false;
     private ScheduledExecutorService scheduler;
 
     public TerminalWithSuggestions(GameController controller) throws IOException {
@@ -50,20 +53,22 @@ public class TerminalWithSuggestions {
         scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
             if (stage == InputStage.IN_GAME && timerRunning && secondsRemaining > 0) {
+                if (turnInProgress) return;  // Wait until turn is done
+
                 secondsRemaining--;
                 try {
                     updateScreen();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 if (secondsRemaining == 0) {
                     timerRunning = false;
                     try {
                         printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
-                        // Thread.sleep(3000); // pause so player sees the message
                         screen.close();
                         terminal.close();
-                        System.exit(0); // clean exit
+                        System.exit(0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -155,7 +160,7 @@ public class TerminalWithSuggestions {
                         WinCondition selected = winConditions.get(winConditionIndex - 1);
                         System.out.println("Selected win condition: " + selected.description());
                         controller.startGame(player1Name, player2Name, selected);
-                        secondsRemaining = 30;
+                        secondsRemaining = TIME_LIMIT;
                         controller.getGameState().getTimer().start();
                         stage = InputStage.IN_GAME;
                     } else {
@@ -171,35 +176,31 @@ public class TerminalWithSuggestions {
             case IN_GAME:
                 if (input.equalsIgnoreCase("exit")) return false;
 
-                // 🎯 First: handle selection from suggestions
+                // 🎯 Handle suggestion selection
                 if (selectedSuggestionIndex >= 0) {
                     currentInput.setLength(0);
                     currentInput.append(suggestions.get(selectedSuggestionIndex));
                     cursorPosition = currentInput.length();
-                    selectedSuggestionIndex = -1; // reset
-                    return true; // Only populate, don’t submit yet
-                }
-
-                // ⏰ Check timer expiration
-                if (secondsRemaining <= 0) {
-                    printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
-                    return false;
-                }
-
-                // ✅ Submit actual guess
-                TurnResult result = controller.processTurn(input);
-                printInfo(result.getMessage());
-
-                if (!result.isSucess()) {
-                    // ❌ Invalid move — don't switch player
+                    selectedSuggestionIndex = -1;
                     return true;
                 }
 
-                // 🎉 Valid move — reset for next player
+                // ✅ Mark that we're processing a turn
+                turnInProgress = true;
+
+                TurnResult result = controller.processTurn(input);
+                printInfo(result.getMessage());
+
+                turnInProgress = false;
+
+                if (!result.isSucess()) {
+                    return true;
+                }
+
                 currentInput.setLength(0);
                 cursorPosition = 0;
-                secondsRemaining = 30;
-                controller.getGameState().getTimer().start();
+                secondsRemaining = TIME_LIMIT;
+                resumeTimer();
                 return true;
         }
 
@@ -253,7 +254,7 @@ public class TerminalWithSuggestions {
                     printString(0, 1, "Round: " + state.getCurrRound());
                     String timerText = "Time: " + secondsRemaining + "s";
                     printString(size.getColumns() - timerText.length(), 0, timerText);
-                    printString(0, 2, "Last movie: " + state.getRecentHistory().get(-1).getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
+                    printString(0, 2, "Last movie: " + state.getRecentHistory().getLast().getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
 
                     // Prompt
                     printString(0, 4, "> " + currentInput.toString());
@@ -301,13 +302,34 @@ public class TerminalWithSuggestions {
 
     private void printInfo(String msg) {
         try {
+            pauseTimer(); // ⏸ pause the timer while showing info
+
             screen.clear();
             printString(0, 0, msg);
             screen.refresh();
-            Thread.sleep(3000);
+
+            long start = System.currentTimeMillis();
+            while (System.currentTimeMillis() - start < 3000) {
+                KeyStroke key = terminal.pollInput();  // consume input
+                if (key != null && key.getKeyType() == KeyType.EOF) break;
+                Thread.sleep(50);
+            }
+
+            // ✅ only resume if game is still in play
+            if (stage == InputStage.IN_GAME) {
+                resumeTimer();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void pauseTimer() {
+        timerRunning = false;
+    }
+
+    private void resumeTimer() {
+        timerRunning = true;
     }
 
     // Launcher

@@ -72,10 +72,6 @@ public class GameController {
      * @param movieTitle the title of the movie guessed
      */
     public TurnResult processTurn(String movieTitle) {
-        if (!gameState.getTimer().isRunning()) {
-            gameState.switchPlayer();
-            return new TurnResult(false, "⏰ Time's up! Turn skipped.");
-        }
 
         if (movieTitle == null || movieTitle.trim().isEmpty()) {
             return new TurnResult(false, "⚠️ Movie title cannot be empty.");
