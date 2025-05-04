@@ -8,7 +8,7 @@ import java.net.URL;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         CountryLanguageManager dataService = new CountryLanguageManager();
-        String resourcePath = "data.csv";
+        String resourcePath = "langSpoken.csv";
         ClassLoader loader = CountryLanguageManager.class.getClassLoader();
         URL data = loader.getResource(resourcePath);
 
