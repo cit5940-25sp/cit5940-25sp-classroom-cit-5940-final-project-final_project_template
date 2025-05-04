@@ -49,18 +49,31 @@ public class TerminalWithSuggestions {
         // Initialize timer thread
         scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
-            if (timerRunning && secondsRemaining > 0) {
+            if (stage == InputStage.IN_GAME && timerRunning && secondsRemaining > 0) {
                 secondsRemaining--;
                 try {
                     updateScreen();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                if (secondsRemaining == 0) {
+                    timerRunning = false;
+                    try {
+                        printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
+                        Thread.sleep(3000); // pause so player sees the message
+                        screen.close();
+                        terminal.close();
+                        System.exit(0); // clean exit
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }, 1, 1, TimeUnit.SECONDS);
     }
 
     public void run() throws IOException, InterruptedException {
+        controller.getMovieDatabase().preloadPopularMovies();
         boolean running = true;
 
         // Initial screen
@@ -302,7 +315,6 @@ public class TerminalWithSuggestions {
     public static void main(String[] args) {
         String apiKey = ConfigLoader.get("tmdb.api.key");
         GameController controller = new GameController(apiKey);
-        controller.getMovieDatabase().preloadPopularMovies();
 
         try {
             new TerminalWithSuggestions(controller).run();
