@@ -15,6 +15,15 @@ public class Movie {
     private Set<String> composers;
     private Set<String> cinematographers;
 
+    public Movie() {
+        this.genres = new HashSet<>();
+        this.actors = new HashSet<>();
+        this.directors = new HashSet<>();
+        this.writers = new HashSet<>();
+        this.composers = new HashSet<>();
+        this.cinematographers = new HashSet<>();
+    }
+
     /**
      * Constructor for full metadata
      */
