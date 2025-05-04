@@ -1,0 +1,5001 @@
+[ {
+  "movieId" : 1233069,
+  "title" : "Exterritorial",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Emanuel Fellmer", "Dougray Scott", "Annabelle Mandeng", "Lera Abova", "Jeanne Goursaud" ],
+  "directors" : [ "Christian Zübert" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1197306,
+  "title" : "A Working Man",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Merab Ninidze", "Cokey Falkow", "Jason Flemyng", "Maximilian Osinski", "Jason Statham" ],
+  "directors" : [ "David Ayer" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1471014,
+  "title" : "Van Gogh by Vincent",
+  "year" : 2025,
+  "genres" : [ "Documentary" ],
+  "actors" : [ "Frances Christie", "Neil Lebeter", "Zahra Ahmadi", "Jack Etchells", "Adam Woolley" ],
+  "directors" : [ "Richard Shaw" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 668489,
+  "title" : "Havoc",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Jessie Mei Li", "Forest Whitaker", "Justin Cornwell", "Timothy Olyphant", "Tom Hardy" ],
+  "directors" : [ "Gareth Evans" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 950387,
+  "title" : "A Minecraft Movie",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Fantasy", "Family", "Comedy" ],
+  "actors" : [ "Jason Momoa", "Danielle Brooks", "Jack Black", "Sebastian Eugene Hansen", "Emma Myers" ],
+  "directors" : [ "Jared Hess" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 986056,
+  "title" : "Thunderbolts*",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Sebastian Stan", "Lewis Pullman", "David Harbour", "Julia Louis-Dreyfus", "Florence Pugh" ],
+  "directors" : [ "Jake Schreier" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1225915,
+  "title" : "Jewel Thief: The Heist Begins",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Nikita Dutta", "Kunal Kapoor", "Jaideep Ahlawat", "Saif Ali Khan", "Kulbhushan Kharbanda" ],
+  "directors" : [ "Robby Grewal", "Kookie Gulati" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 324544,
+  "title" : "In the Lost Lands",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Amara Okereke", "Fraser James", "Milla Jovovich", "Dave Bautista", "Arly Jover" ],
+  "directors" : [ "Paul W. S. Anderson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 822119,
+  "title" : "Captain America: Brave New World",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Science Fiction" ],
+  "actors" : [ "Shira Haas", "Harrison Ford", "Anthony Mackie", "Danny Ramirez", "Tim Blake Nelson" ],
+  "directors" : [ "Julius Onah" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1153714,
+  "title" : "Death of a Unicorn",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Horror", "Fantasy", "Comedy" ],
+  "actors" : [ "Will Poulter", "Téa Leoni", "Jenna Ortega", "Paul Rudd", "Richard E. Grant" ],
+  "directors" : [ "Alex Scharfman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1180906,
+  "title" : "Desert Dawn",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime", "Mystery" ],
+  "actors" : [ "Chad Michael Collins", "Kellan Lutz", "Cam Gigandet" ],
+  "directors" : [ "Marty Murray" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1414048,
+  "title" : "Day of Reckoning",
+  "year" : 2025,
+  "genres" : [ "Western", "Action" ],
+  "actors" : [ "Zach Roerig", "Billy Zane", "Scott Adkins", "Trace Adkins", "Cara Jade Myers" ],
+  "directors" : [ "Shaun Silva" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1356236,
+  "title" : "Saint Catherine",
+  "year" : 2025,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Julia Kraiselburd", "Emilia Mayo", "Pachi Lucas", "Raymond E. Lee" ],
+  "directors" : [ "Gonzalo Mellid" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1233413,
+  "title" : "Sinners",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Music" ],
+  "actors" : [ "Michael B. Jordan", "Jack O'Connell", "Hailee Steinfeld", "Miles Caton", "Wunmi Mosaku" ],
+  "directors" : [ "Ryan Coogler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1124620,
+  "title" : "The Monkey",
+  "year" : 2025,
+  "genres" : [ "Horror", "Comedy" ],
+  "actors" : [ "Colin O'Brien", "Tatiana Maslany", "Adam Scott", "Theo James", "Christian Convery" ],
+  "directors" : [ "Osgood Perkins" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1276073,
+  "title" : "Bullet Train Explosion",
+  "year" : 2025,
+  "genres" : [ "Action", "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Jun Kaname", "Machiko Ono", "Kanata Hosoda", "Non", "Tsuyoshi Kusanagi" ],
+  "directors" : [ "Shinji Higuchi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 348,
+  "title" : "Alien",
+  "year" : 1979,
+  "genres" : [ "Horror", "Science Fiction" ],
+  "actors" : [ "Tom Skerritt", "Harry Dean Stanton", "Veronica Cartwright", "John Hurt", "Sigourney Weaver" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 769,
+  "title" : "GoodFellas",
+  "year" : 1990,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Robert De Niro", "Ray Liotta", "Joe Pesci", "Lorraine Bracco", "Paul Sorvino" ],
+  "directors" : [ "Martin Scorsese" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 974573,
+  "title" : "Another Simple Favor",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Crime", "Comedy" ],
+  "actors" : [ "Anna Kendrick", "Henry Golding", "Allison Janney", "Blake Lively", "Michele Morrone" ],
+  "directors" : [ "Paul Feig" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 299537,
+  "title" : "Captain Marvel",
+  "year" : 2019,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Annette Bening", "Samuel L. Jackson", "Jude Law", "Brie Larson", "Ben Mendelsohn" ],
+  "directors" : [ "Anna Boden", "Ryan Fleck" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 374720,
+  "title" : "Dunkirk",
+  "year" : 2017,
+  "genres" : [ "Action", "Drama", "War" ],
+  "actors" : [ "Mark Rylance", "Kenneth Branagh", "Tom Hardy", "Fionn Whitehead", "Cillian Murphy" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 335984,
+  "title" : "Blade Runner 2049",
+  "year" : 2017,
+  "genres" : [ "Drama", "Science Fiction" ],
+  "actors" : [ "Harrison Ford", "Ryan Gosling", "Ana de Armas", "Dave Bautista", "Robin Wright" ],
+  "directors" : [ "Denis Villeneuve" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 297762,
+  "title" : "Wonder Woman",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Danny Huston", "Chris Pine", "Connie Nielsen", "Robin Wright", "Gal Gadot" ],
+  "directors" : [ "Patty Jenkins" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 497698,
+  "title" : "Black Widow",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Rachel Weisz", "David Harbour", "Ray Winstone", "Scarlett Johansson", "Florence Pugh" ],
+  "directors" : [ "Cate Shortland" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1092899,
+  "title" : "The Siege",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Byron Gibson", "Steven Blades", "Daniel Stisen", "Yennis Cheung", "Lauren Okadigbo" ],
+  "directors" : [ "Brad Watson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1249213,
+  "title" : "Drop",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Mystery" ],
+  "actors" : [ "Violett Beane", "Jacob Robinson", "Brandon Sklenar", "Reed Diamond", "Meghann Fahy" ],
+  "directors" : [ "Christopher Landon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1045938,
+  "title" : "G20",
+  "year" : 2025,
+  "genres" : [ "Action", "Drama", "Mystery" ],
+  "actors" : [ "Viola Davis", "Antony Starr", "Anthony Anderson", "Marsai Martin", "Ramón Rodríguez" ],
+  "directors" : [ "Patricia Riggen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1195506,
+  "title" : "Novocaine",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Comedy" ],
+  "actors" : [ "Betty Gabriel", "Amber Midthunder", "Jack Quaid", "Ray Nicholson", "Jacob Batalon" ],
+  "directors" : [ "Dan Berk", "Robert Olsen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1403735,
+  "title" : "Laila",
+  "year" : 2025,
+  "genres" : [ "Romance", "Comedy" ],
+  "actors" : [ "Abhimanyu Singh", "Vineet Kumar", "Babloo Prithiveeraj", "Akanksha Sharma", "Vishwak Sen" ],
+  "directors" : [ "Ram Narayan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 762509,
+  "title" : "Mufasa: The Lion King",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Family", "Animation" ],
+  "actors" : [ "Preston Nyman", "Kelvin Harrison, Jr.", "Kagiso Lediga", "Aaron Pierre", "Tiffany Boone" ],
+  "directors" : [ "Barry Jenkins" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 870028,
+  "title" : "The Accountant²",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Cynthia Addai-Robinson", "Daniella Pineda", "J.K. Simmons", "Jon Bernthal", "Ben Affleck" ],
+  "directors" : [ "Gavin O'Connor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 974576,
+  "title" : "Conclave",
+  "year" : 2024,
+  "genres" : [ "Drama", "Thriller", "Mystery" ],
+  "actors" : [ "Isabella Rossellini", "Lucian Msamati", "Stanley Tucci", "John Lithgow", "Ralph Fiennes" ],
+  "directors" : [ "Edward Berger" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1241982,
+  "title" : "Moana 2",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Hualālai Chung", "Rose Matafeo", "Auliʻi Cravalho", "Dwayne Johnson", "David Fane" ],
+  "directors" : [ "David G. Derrick Jr.", "Jason Hand", "Dana Ledoux Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 346672,
+  "title" : "Underworld: Blood Wars",
+  "year" : 2016,
+  "genres" : [ "Action", "Thriller", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Kate Beckinsale", "Tobias Menzies", "Lara Pulver", "Theo James", "Bradley James" ],
+  "directors" : [ "Anna Foerster" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 931349,
+  "title" : "Ash",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Science Fiction" ],
+  "actors" : [ "Iko Uwais", "Beulah Koale", "Aaron Paul", "Eiza González", "Kate Elliott" ],
+  "directors" : [ "Flying Lotus" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 39843,
+  "title" : "Red to Kill",
+  "year" : 1994,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Bobby Yip Kin-Sang", "Hui Sze-Man", "Money Lo Man-Yee", "Ben Ng Ngai-Cheung", "Lily Chung Suk-Wai" ],
+  "directors" : [ "Billy Tang" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 939243,
+  "title" : "Sonic the Hedgehog 3",
+  "year" : 2024,
+  "genres" : [ "Action", "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Jim Carrey", "Idris Elba", "Keanu Reeves", "Ben Schwartz", "Colleen O'Shaughnessey" ],
+  "directors" : [ "Jeff Fowler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 37799,
+  "title" : "The Social Network",
+  "year" : 2010,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Armie Hammer", "Jesse Eisenberg", "Justin Timberlake", "Andrew Garfield", "Josh Pence" ],
+  "directors" : [ "David Fincher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 339967,
+  "title" : "Colossal",
+  "year" : 2017,
+  "genres" : [ "Drama", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Jason Sudeikis", "Anne Hathaway", "Dan Stevens", "Austin Stowell", "Tim Blake Nelson" ],
+  "directors" : [ "Nacho Vigalondo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 38575,
+  "title" : "The Karate Kid",
+  "year" : 2010,
+  "genres" : [ "Action", "Adventure", "Drama", "Family" ],
+  "actors" : [ "Wenwen Han", "Jaden Smith", "Wang ZhenWei", "Jackie Chan", "Taraji P. Henson" ],
+  "directors" : [ "Harald Zwart" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1293286,
+  "title" : "Gunslingers",
+  "year" : 2025,
+  "genres" : [ "Western", "Action" ],
+  "actors" : [ "Stephen Dorff", "Nicolas Cage", "Randall Batinkoff", "Cooper Barnes", "Heather Graham" ],
+  "directors" : [ "Brian Skiba" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1307520,
+  "title" : "The Biggest Fan",
+  "year" : 2025,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Daniel Raymont", "Hugo Catalán", "Diana Bovio", "Kate del Castillo", "Gabriel Nuncio" ],
+  "directors" : [ "María Torres" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1244944,
+  "title" : "The Woman in the Yard",
+  "year" : 2025,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Peyton Jackson", "Russell Hornsby", "Okwui Okpokwasili", "Estella Kahiha", "Danielle Deadwyler" ],
+  "directors" : [ "Jaume Collet-Serra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 38575,
+  "title" : "The Karate Kid",
+  "year" : 2010,
+  "genres" : [ "Action", "Adventure", "Drama", "Family" ],
+  "actors" : [ "Wenwen Han", "Jaden Smith", "Wang ZhenWei", "Jackie Chan", "Taraji P. Henson" ],
+  "directors" : [ "Harald Zwart" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 37799,
+  "title" : "The Social Network",
+  "year" : 2010,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Armie Hammer", "Jesse Eisenberg", "Justin Timberlake", "Andrew Garfield", "Josh Pence" ],
+  "directors" : [ "David Fincher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1125899,
+  "title" : "Cleaner",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Flavia Watson", "Taz Skylar", "Clive Owen", "Daisy Ridley", "Ray Fearon" ],
+  "directors" : [ "Martin Campbell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1232546,
+  "title" : "Until Dawn",
+  "year" : 2025,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Michael Cimino", "Ji-young Yoo", "Ella Rubin", "Belmont Cameli", "Odessa A'zion" ],
+  "directors" : [ "David F. Sandberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 346685,
+  "title" : "The Girl on the Train",
+  "year" : 2016,
+  "genres" : [ "Drama", "Thriller", "Crime", "Mystery" ],
+  "actors" : [ "Justin Theroux", "Emily Blunt", "Haley Bennett", "Rebecca Ferguson", "Luke Evans" ],
+  "directors" : [ "Tate Taylor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 950396,
+  "title" : "The Gorge",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Romance", "Science Fiction" ],
+  "actors" : [ "Anya Taylor-Joy", "Sigourney Weaver", "William Houston", "Sope Dirisu", "Miles Teller" ],
+  "directors" : [ "Scott Derrickson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 650033,
+  "title" : "Free Fall",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Science Fiction" ],
+  "actors" : [ "Anya Chipovskaya", "Andrey Merzlikin", "Aleksandr Kuznetsov" ],
+  "directors" : [ "Oleg Urazaykin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 700391,
+  "title" : "65",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Adam Driver", "Brian Dare", "Ariana Greenblatt", "Chloe Coleman", "Nika King" ],
+  "directors" : [ "Bryan Woods", "Scott Beck" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1083968,
+  "title" : "Locked",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Bill Skarsgård", "Michael Eklund", "Ashley Cartwright", "Navid Charkhi", "Anthony Hopkins" ],
+  "directors" : [ "David Yarovesky" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 302946,
+  "title" : "The Accountant",
+  "year" : 2016,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Cynthia Addai-Robinson", "Anna Kendrick", "J.K. Simmons", "Jon Bernthal", "Ben Affleck" ],
+  "directors" : [ "Gavin O'Connor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1055451,
+  "title" : "Founders Day",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller", "Comedy" ],
+  "actors" : [ "Devin Druid", "Catherine Curtin", "Naomi Grace", "William Russ", "Amy Hargreaves" ],
+  "directors" : [ "Erik Bloomquist" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1252309,
+  "title" : "Ask Me What You Want",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Gabriela Andrada", "David Solans", "Alba Ribas", "Celia Freijeiro", "Mario Ermito" ],
+  "directors" : [ "Lucía Alemany" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1010581,
+  "title" : "My Fault",
+  "year" : 2023,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Iván Sánchez", "Eva Ruiz", "Marta Hazas", "Gabriel Guevara", "Nicole Wallace" ],
+  "directors" : [ "Domingo González" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 339967,
+  "title" : "Colossal",
+  "year" : 2017,
+  "genres" : [ "Drama", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Jason Sudeikis", "Anne Hathaway", "Dan Stevens", "Austin Stowell", "Tim Blake Nelson" ],
+  "directors" : [ "Nacho Vigalondo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1126166,
+  "title" : "Flight Risk",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Topher Grace", "Mark Wahlberg", "Leah Remini", "Maaz Ali", "Michelle Dockery" ],
+  "directors" : [ "Mel Gibson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 343674,
+  "title" : "Gerald's Game",
+  "year" : 2017,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Carla Gugino", "Kate Siegel", "Chiara Aurelia", "Bruce Greenwood", "Henry Thomas" ],
+  "directors" : [ "Mike Flanagan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 912649,
+  "title" : "Venom: The Last Dance",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Rhys Ifans", "Juno Temple", "Chiwetel Ejiofor", "Tom Hardy", "Stephen Graham" ],
+  "directors" : [ "Kelly Marcel" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 514593,
+  "title" : "You Should Have Left",
+  "year" : 2020,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Lowri Ann Richards", "Amanda Seyfried", "Colin Blumenau", "Kevin Bacon", "Avery Tiiu Essex" ],
+  "directors" : [ "David Koepp" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 696506,
+  "title" : "Mickey 17",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Comedy", "Science Fiction" ],
+  "actors" : [ "Mark Ruffalo", "Toni Collette", "Steven Yeun", "Naomi Ackie", "Robert Pattinson" ],
+  "directors" : [ "Bong Joon Ho" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1010581,
+  "title" : "My Fault",
+  "year" : 2023,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Iván Sánchez", "Eva Ruiz", "Marta Hazas", "Gabriel Guevara", "Nicole Wallace" ],
+  "directors" : [ "Domingo González" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 912649,
+  "title" : "Venom: The Last Dance",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Rhys Ifans", "Juno Temple", "Chiwetel Ejiofor", "Tom Hardy", "Stephen Graham" ],
+  "directors" : [ "Kelly Marcel" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 650033,
+  "title" : "Free Fall",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Science Fiction" ],
+  "actors" : [ "Anya Chipovskaya", "Andrey Merzlikin", "Aleksandr Kuznetsov" ],
+  "directors" : [ "Oleg Urazaykin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1321952,
+  "title" : "Sofia, the Possession",
+  "year" : 2024,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Sara Jiménez", "Lara Boedo", "Oti Manzano", "Magdalena Brotto", "Ángela Arellano" ],
+  "directors" : [ "Guillermo Barreira Pérez" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 533535,
+  "title" : "Deadpool & Wolverine",
+  "year" : 2024,
+  "genres" : [ "Action", "Comedy", "Science Fiction" ],
+  "actors" : [ "Ryan Reynolds", "Matthew Macfadyen", "Dafne Keen", "Emma Corrin", "Hugh Jackman" ],
+  "directors" : [ "Shawn Levy" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1373723,
+  "title" : "The Codes of War",
+  "year" : 2025,
+  "genres" : [ "Action", "War" ],
+  "actors" : [ "Michael Grant", "Noah Gray-Cabey" ],
+  "directors" : [ "Paul Anderson", "Joshua DeFour", "Marielle Woods" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 447273,
+  "title" : "Snow White",
+  "year" : 2025,
+  "genres" : [ "Fantasy", "Family" ],
+  "actors" : [ "Jeremy Swift", "Rachel Zegler", "Andrew Burnap", "Jason Kravits", "Gal Gadot" ],
+  "directors" : [ "Marc Webb" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 376867,
+  "title" : "Moonlight",
+  "year" : 2016,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Jharrel Jerome", "Trevante Rhodes", "Ashton Sanders", "Janelle Monáe", "André Holland" ],
+  "directors" : [ "Barry Jenkins" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 377,
+  "title" : "A Nightmare on Elm Street",
+  "year" : 1984,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Johnny Depp", "Heather Langenkamp", "Robert Englund", "John Saxon", "Ronee Blakley" ],
+  "directors" : [ "Wes Craven" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 279,
+  "title" : "Amadeus",
+  "year" : 1984,
+  "genres" : [ "Drama", "Music", "History" ],
+  "actors" : [ "Tom Hulce", "F. Murray Abraham", "Elizabeth Berridge", "Simon Callow", "Roy Dotrice" ],
+  "directors" : [ "Miloš Forman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1356039,
+  "title" : "Counterattack",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Thriller" ],
+  "actors" : [ "Guillermo Nava", "Noé Hernández", "Luis Alberti", "Leonardo Alonso", "Luis Curiel" ],
+  "directors" : [ "Chava Cartas" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 519182,
+  "title" : "Despicable Me 4",
+  "year" : 2024,
+  "genres" : [ "Animation", "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Sofía Vergara", "Steve Carell", "Miranda Cosgrove", "Kristen Wiig", "Will Ferrell" ],
+  "directors" : [ "Chris Renaud" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1229730,
+  "title" : "Carjackers",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure" ],
+  "actors" : [ "Alassane Diong", "Zoé Marchal", "Franck Gastambide", "Bosh", "Mareva Ranarivelo" ],
+  "directors" : [ "Kamel Guemra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 539972,
+  "title" : "Kraven the Hunter",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Thriller" ],
+  "actors" : [ "Fred Hechinger", "Alessandro Nivola", "Aaron Taylor-Johnson", "Christopher Abbott", "Ariana DeBose" ],
+  "directors" : [ "J.C. Chandor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 423204,
+  "title" : "Angel Has Fallen",
+  "year" : 2019,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Morgan Freeman", "Nick Nolte", "Jada Pinkett Smith", "Danny Huston", "Gerard Butler" ],
+  "directors" : [ "Ric Roman Waugh" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1585,
+  "title" : "It's a Wonderful Life",
+  "year" : 1946,
+  "genres" : [ "Drama", "Fantasy", "Family" ],
+  "actors" : [ "Donna Reed", "Henry Travers", "Lionel Barrymore", "Thomas Mitchell", "James Stewart" ],
+  "directors" : [ "Frank Capra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1064486,
+  "title" : "Memoir of a Snail",
+  "year" : 2024,
+  "genres" : [ "Drama", "Animation", "Comedy" ],
+  "actors" : [ "Kodi Smit-McPhee", "Sarah Snook", "Dominique Pinon", "Magda Szubanski", "Jacki Weaver" ],
+  "directors" : [ "Adam Elliot" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 473,
+  "title" : "Pi",
+  "year" : 1998,
+  "genres" : [ "Drama", "Thriller", "Mystery" ],
+  "actors" : [ "Sean Gullette", "Stephen Pearlman", "Ben Shenkman", "Mark Margolis", "Pamela Hart" ],
+  "directors" : [ "Darren Aronofsky" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 299536,
+  "title" : "Avengers: Infinity War",
+  "year" : 2018,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Mark Ruffalo", "Robert Downey Jr.", "Josh Brolin", "Chris Evans" ],
+  "directors" : [ "Anthony Russo", "Joe Russo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1101401,
+  "title" : "Sugar Baby",
+  "year" : 2024,
+  "genres" : [ "Thriller", "Comedy" ],
+  "actors" : [ "Theo Germaine", "Paige Collins", "Nina Bloomgarden", "James Tupper", "Mary Beth Barone" ],
+  "directors" : [ "Lauren Garroni" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 575265,
+  "title" : "Mission: Impossible - The Final Reckoning",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Thriller" ],
+  "actors" : [ "Ving Rhames", "Hayley Atwell", "Esai Morales", "Tom Cruise", "Simon Pegg" ],
+  "directors" : [ "Christopher McQuarrie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 933260,
+  "title" : "The Substance",
+  "year" : 2024,
+  "genres" : [ "Horror", "Science Fiction" ],
+  "actors" : [ "Demi Moore", "Gore Abrams", "Margaret Qualley", "Dennis Quaid", "Edward Hamilton-Clark" ],
+  "directors" : [ "Coralie Fargeat" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 10925,
+  "title" : "The Return of the Living Dead",
+  "year" : 1985,
+  "genres" : [ "Horror", "Comedy", "Science Fiction" ],
+  "actors" : [ "James Karen", "Thom Mathews", "Beverly Randolph", "Don Calfa", "Clu Gulager" ],
+  "directors" : [ "Dan O'Bannon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 447332,
+  "title" : "A Quiet Place",
+  "year" : 2018,
+  "genres" : [ "Horror", "Drama", "Science Fiction" ],
+  "actors" : [ "Millicent Simmonds", "Emily Blunt", "Cade Woodward", "John Krasinski", "Noah Jupe" ],
+  "directors" : [ "John Krasinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 238,
+  "title" : "The Godfather",
+  "year" : 1972,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Al Pacino", "Robert Duvall", "James Caan", "Richard S. Castellano", "Marlon Brando" ],
+  "directors" : [ "Francis Ford Coppola" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 558449,
+  "title" : "Gladiator II",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Drama" ],
+  "actors" : [ "Denzel Washington", "Pedro Pascal", "Joseph Quinn", "Paul Mescal", "Connie Nielsen" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 17473,
+  "title" : "The Room",
+  "year" : 2003,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Greg Sestero", "Philip Haldiman", "Carolyn Minnott", "Tommy Wiseau", "Juliette Danielle" ],
+  "directors" : [ "Tommy Wiseau" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 823219,
+  "title" : "Flow",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ ],
+  "directors" : [ "Gints Zilbalodis" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1294947,
+  "title" : "Déjame estar contigo",
+  "year" : 2025,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Andrea Sutton Chávez", "Johanna Murillo", "Silvia Navarro", "Anna Díaz", "Aksel Gomez" ],
+  "directors" : [ "Isaac Cherem" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1184918,
+  "title" : "The Wild Robot",
+  "year" : 2024,
+  "genres" : [ "Animation", "Family", "Science Fiction" ],
+  "actors" : [ "Kit Connor", "Stephanie Hsu", "Pedro Pascal", "Bill Nighy", "Lupita Nyong'o" ],
+  "directors" : [ "Chris Sanders" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1353117,
+  "title" : "Home Sweet Home: Rebirth",
+  "year" : 2025,
+  "genres" : [ "Action", "Horror", "Thriller", "Fantasy", "Mystery" ],
+  "actors" : [ "Ting Sue", "Urassaya Sperbund", "Alexander", "William Moseley", "Michele Morrone" ],
+  "directors" : [ "Steffen Hacker", "Alexander Kiesl" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1307520,
+  "title" : "The Biggest Fan",
+  "year" : 2025,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Daniel Raymont", "Hugo Catalán", "Diana Bovio", "Kate del Castillo", "Gabriel Nuncio" ],
+  "directors" : [ "María Torres" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1208808,
+  "title" : "Turno nocturno",
+  "year" : 2024,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Paulina Gaitán", "Fernanda Echevarría del Rivero", "Enoc Leaño", "Tony Dalton", "Patricia Reyes Spíndola" ],
+  "directors" : [ "Rigoberto Castañeda" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1297763,
+  "title" : "Batman Ninja vs. Yakuza League",
+  "year" : 2025,
+  "genres" : [ "Action", "Animation" ],
+  "actors" : [ "Akira Ishida", "Daisuke Ono", "Kengo Kawanishi", "Koichi Yamadera", "Yuki Kaji" ],
+  "directors" : [ "Jumpei Mizusaki", "Shinji Takagi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 574475,
+  "title" : "Final Destination Bloodlines",
+  "year" : 2025,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Kaitlyn Santa Juana", "Teo Briones", "Owen Patrick Joyner", "Rya Kihlstedt", "Richard Harmon" ],
+  "directors" : [ "Zach Lipovsky", "Adam B. Stein" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 950784,
+  "title" : "Flame of Recca: Final Burning",
+  "year" : 2004,
+  "genres" : [ "Action", "Animation" ],
+  "actors" : [ "Motoko Kumai", "Akiko Hiramatsu", "Hikaru Midorikawa", "Nobuo Tobita", "Kousuke Okano" ],
+  "directors" : [ "Waruo Suzuki" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 927342,
+  "title" : "Amaran",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Drama", "War" ],
+  "actors" : [ "Sai Pallavi", "Lallu Prasath", "Bhuvan Arora", "Sivakarthikeyan", "Rahul Bose" ],
+  "directors" : [ "Rajkumar Periasamy" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1201176,
+  "title" : "Easter Bloody Easter",
+  "year" : 2024,
+  "genres" : [ "Horror", "Fantasy", "Comedy" ],
+  "actors" : [ "Diane Foster", "D'Andre Noiré", "Kelly Grant", "Allison Lobel", "Zuri Starks" ],
+  "directors" : [ "Diane Foster" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1087891,
+  "title" : "The Amateur",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Holt McCallany", "Rami Malek", "Rachel Brosnahan", "Michael Stuhlbarg", "Danny Sapani" ],
+  "directors" : [ "James Hawes" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 335,
+  "title" : "Once Upon a Time in the West",
+  "year" : 1968,
+  "genres" : [ "Western", "Drama" ],
+  "actors" : [ "Charles Bronson", "Claudia Cardinale", "Jason Robards", "Gabriele Ferzetti", "Henry Fonda" ],
+  "directors" : [ "Sergio Leone" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1377424,
+  "title" : "Victoria",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Darsana Vikas", "Steeja Mary", "Sreeshma Chandran", "Meenakshi Jayan", "Jolly Chirayath" ],
+  "directors" : [ "Sivaranjini" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 597,
+  "title" : "Titanic",
+  "year" : 1997,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Leonardo DiCaprio", "Billy Zane", "Kate Winslet", "Frances Fisher", "Kathy Bates" ],
+  "directors" : [ "James Cameron" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1022789,
+  "title" : "Inside Out 2",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Amy Poehler", "Kensington Tallman", "Maya Hawke", "Liza Lapira", "Tony Hale" ],
+  "directors" : [ "Kelsey Mann" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1195430,
+  "title" : "Deva",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime", "Mystery" ],
+  "actors" : [ "Girish Kulkarni", "Pooja Hegde", "Shahid Kapoor", "Pavail Gulati", "Pravessh Rana" ],
+  "directors" : [ "Rosshan Andrrews" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1156593,
+  "title" : "Your Fault",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Iván Sánchez", "Eva Ruiz", "Marta Hazas", "Gabriel Guevara", "Nicole Wallace" ],
+  "directors" : [ "Domingo González" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1136721,
+  "title" : "The Glenarma Tapes",
+  "year" : 2023,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Sophie Hill", "Warren McCook", "Emily Lamey", "Rían Early", "Colette Lennon Dougal" ],
+  "directors" : [ "Tony Devlin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 29882,
+  "title" : "The Black Swan",
+  "year" : 1942,
+  "genres" : [ "Adventure", "Romance" ],
+  "actors" : [ "Laird Cregar", "Thomas Mitchell", "George Sanders", "Tyrone Power", "Maureen O'Hara" ],
+  "directors" : [ "Henry King" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1096838,
+  "title" : "Here After",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Tommaso Basili", "Giovanni Cirfiera", "Babetida Sadjo", "Connie Britton", "Syama Rayner" ],
+  "directors" : [ "Robert Salerno" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 229,
+  "title" : "Bride of Frankenstein",
+  "year" : 1935,
+  "genres" : [ "Horror", "Science Fiction" ],
+  "actors" : [ "Valerie Hobson", "Boris Karloff", "Elsa Lanchester", "Colin Clive", "Ernest Thesiger" ],
+  "directors" : [ "James Whale" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1405338,
+  "title" : "Demon City",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime", "Fantasy" ],
+  "actors" : [ "Masahiro Higashide", "Miou Tanaka", "Ami Touma", "Toma Ikuta", "Taro Suruga" ],
+  "directors" : [ "Seiji Tanaka" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1104845,
+  "title" : "Plankton: The Movie",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Mr. Lawrence", "Jill Talley", "Bill Fagerbakke", "Tom Kenny", "Rodger Bumpass" ],
+  "directors" : [ "Dave Needham" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1084199,
+  "title" : "Companion",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Science Fiction" ],
+  "actors" : [ "Lukas Gage", "Megan Suri", "Jack Quaid", "Sophie Thatcher", "Harvey Guillén" ],
+  "directors" : [ "Drew Hancock" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1165067,
+  "title" : "Cosmic Chaos",
+  "year" : 2023,
+  "genres" : [ "Thriller", "Science Fiction" ],
+  "actors" : [ "Samantha Neale", "Curtis Bechdholt", "Ken Godmere", "Jeananne Goossen", "Caroline Dhavernas" ],
+  "directors" : [ ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 945961,
+  "title" : "Alien: Romulus",
+  "year" : 2024,
+  "genres" : [ "Horror", "Science Fiction" ],
+  "actors" : [ "Cailee Spaeny", "Archie Renaux", "Spike Fearn", "Isabela Merced", "David Jonsson" ],
+  "directors" : [ "Fede Álvarez" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1303236,
+  "title" : "GATAO: Like Father Like Son",
+  "year" : 2024,
+  "genres" : [ "Action", "Crime" ],
+  "actors" : [ "Tsai Chen-Nan", "Harry Chang", "Sunny Wang", "Lung Tien-Hsiang", "Rexen Cheng Jen-Shuo" ],
+  "directors" : [ "Jui-Chih Chiang", "Yao Hung-I" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 7451,
+  "title" : "xXx",
+  "year" : 2002,
+  "genres" : [ "Action", "Adventure", "Thriller", "Crime" ],
+  "actors" : [ "Marton Csokas", "Michael Roof", "Asia Argento", "Vin Diesel", "Samuel L. Jackson" ],
+  "directors" : [ "Rob Cohen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1312833,
+  "title" : "A Knight's War",
+  "year" : 2025,
+  "genres" : [ "Action", "Horror", "Fantasy" ],
+  "actors" : [ "Sasha Ormond", "Matthew Ninaber", "Kristen Kaster", "Jeremy Ninaber", "Kristen MacCulloch" ],
+  "directors" : [ "Matthew Ninaber" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1294203,
+  "title" : "My Fault: London",
+  "year" : 2025,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Asha Banks", "Eve Macklin", "Enva Lewis", "Matthew Broome", "Ray Fearon" ],
+  "directors" : [ "Charlotte Fassler", "Dani Girdwood" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1195585,
+  "title" : "The Hard Hit",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Brian Ronan Mulroy", "Malachi Durant", "Trae Ireland", "Jamie Ohlsen", "Rob LaColla Jr." ],
+  "directors" : [ "Darien Smith", "Omie Blue" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 19971,
+  "title" : "The Little Girl Who Lives Down the Lane",
+  "year" : 1976,
+  "genres" : [ "Drama", "Thriller", "Mystery" ],
+  "actors" : [ "Alexis Smith", "Jodie Foster", "Martin Sheen", "Mort Shuman", "Scott Jacoby" ],
+  "directors" : [ "Nicolas Gessner" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 774370,
+  "title" : "Dog Man",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Family", "Animation", "Comedy" ],
+  "actors" : [ "Peter Hastings", "Lucas Hopkins Calderon", "Pete Davidson", "Isla Fisher", "Lil Rel Howery" ],
+  "directors" : [ "Peter Hastings" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 278,
+  "title" : "The Shawshank Redemption",
+  "year" : 1994,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Morgan Freeman", "Tim Robbins", "William Sadler", "Bob Gunton", "Clancy Brown" ],
+  "directors" : [ "Frank Darabont" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 21735,
+  "title" : "49th Parallel",
+  "year" : 1941,
+  "genres" : [ "Thriller", "War" ],
+  "actors" : [ "Raymond Massey", "Leslie Howard", "Anton Walbrook", "Laurence Olivier", "Eric Portman" ],
+  "directors" : [ "Michael Powell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1160956,
+  "title" : "Panda Plan",
+  "year" : 2024,
+  "genres" : [ "Action", "Comedy" ],
+  "actors" : [ "Shi Ce", "Han Yanbo", "Jackie Chan", "Danny Ray", "Wei Xiang" ],
+  "directors" : [ "Zhang Luan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 315635,
+  "title" : "Spider-Man: Homecoming",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Drama", "Science Fiction" ],
+  "actors" : [ "Marisa Tomei", "Michael Keaton", "Jon Favreau", "Robert Downey Jr.", "Tom Holland" ],
+  "directors" : [ "Jon Watts" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 420818,
+  "title" : "The Lion King",
+  "year" : 2019,
+  "genres" : [ "Adventure", "Drama", "Family", "Animation" ],
+  "actors" : [ "Donald Glover", "Chiwetel Ejiofor", "John Oliver", "John Kani", "James Earl Jones" ],
+  "directors" : [ "Jon Favreau" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 372058,
+  "title" : "Your Name.",
+  "year" : 2016,
+  "genres" : [ "Drama", "Animation", "Romance" ],
+  "actors" : [ "Ryo Narita", "Aoi Yuki", "Ryunosuke Kamiki", "Mone Kamishiraishi", "Nobunaga Shimazaki" ],
+  "directors" : [ "Makoto Shinkai" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1212855,
+  "title" : "Fight or Flight",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Comedy" ],
+  "actors" : [ "Marko Zaror", "Charithra Chandran", "Julian Kostov", "Katee Sackhoff", "Josh Hartnett" ],
+  "directors" : [ "James Madigan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 671,
+  "title" : "Harry Potter and the Philosopher's Stone",
+  "year" : 2001,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Tom Felton", "Richard Harris" ],
+  "directors" : [ "Chris Columbus" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 808,
+  "title" : "Shrek",
+  "year" : 2001,
+  "genres" : [ "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Eddie Murphy", "John Lithgow", "Vincent Cassel", "Mike Myers", "Cameron Diaz" ],
+  "directors" : [ "Vicky Jenson", "Andrew Adamson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1086548,
+  "title" : "Vera and the Pleasure of Others",
+  "year" : 2024,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Estefanía Nicoló", "Inés Estévez", "David Zoela", "Luciana Grasso", "Carlos Resta" ],
+  "directors" : [ "Romina Tamburello", "Federico Actis" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 411,
+  "title" : "The Chronicles of Narnia: The Lion, the Witch and the Wardrobe",
+  "year" : 2005,
+  "genres" : [ "Adventure", "Fantasy", "Family" ],
+  "actors" : [ "Anna Popplewell", "Skandar Keynes", "Georgie Henley", "William Moseley", "Liam Neeson" ],
+  "directors" : [ "Andrew Adamson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 829557,
+  "title" : "365 Days: This Day",
+  "year" : 2022,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Simone Susinna", "Magdalena Lamparska", "Anna-Maria Sieklucka", "Otar Saralidze", "Michele Morrone" ],
+  "directors" : [ "Barbara Białowąs", "Tomasz Mandes" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 484247,
+  "title" : "A Simple Favor",
+  "year" : 2018,
+  "genres" : [ "Thriller", "Crime", "Comedy" ],
+  "actors" : [ "Rupert Friend", "Anna Kendrick", "Henry Golding", "Linda Cardellini", "Blake Lively" ],
+  "directors" : [ "Paul Feig" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 845781,
+  "title" : "Red One",
+  "year" : 2024,
+  "genres" : [ "Action", "Fantasy", "Comedy" ],
+  "actors" : [ "J.K. Simmons", "Kiernan Shipka", "Dwayne Johnson", "Chris Evans", "Lucy Liu" ],
+  "directors" : [ "Jake Kasdan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 603,
+  "title" : "The Matrix",
+  "year" : 1999,
+  "genres" : [ "Action", "Science Fiction" ],
+  "actors" : [ "Gloria Foster", "Hugo Weaving", "Carrie-Anne Moss", "Keanu Reeves", "Laurence Fishburne" ],
+  "directors" : [ "Lana Wachowski", "Lilly Wachowski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1261050,
+  "title" : "The Quiet Ones",
+  "year" : 2024,
+  "genres" : [ "Action", "Drama" ],
+  "actors" : [ "Gustav Dyekjær Giese", "Jens Hultén", "Reda Kateb", "Amanda Collin", "Christopher Wagelin" ],
+  "directors" : [ "Frederik Louis Hviid" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1371202,
+  "title" : "iHostage",
+  "year" : 2025,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Fockeline Ouwerkerk", "Admir Šehović", "Emmanuel Ohene Boafo", "Soufiane Moussouli", "Roosmarijn van der Hoek" ],
+  "directors" : [ "Bobby Boermans" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1147416,
+  "title" : "Miraculous World: London, At the Edge of Time",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Thierry Kazazian", "Benjamin Bollen", "Annouck Hautbois", "Marie Nonnenmacher", "Adeline Chetail" ],
+  "directors" : [ "Thomas Astruc" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 2667,
+  "title" : "The Blair Witch Project",
+  "year" : 1999,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Jim King", "Joshua Leonard", "Bob Griffin", "Michael C. Williams", "Rei Hance" ],
+  "directors" : [ "Daniel Myrick", "Eduardo Sánchez" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 667216,
+  "title" : "Infinity Pool",
+  "year" : 2023,
+  "genres" : [ "Horror", "Science Fiction" ],
+  "actors" : [ "Jalil Lespert", "Mia Goth", "Alexander Skarsgård", "Cleopatra Coleman", "Adam Boncz" ],
+  "directors" : [ "Brandon Cronenberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 98,
+  "title" : "Gladiator",
+  "year" : 2000,
+  "genres" : [ "Action", "Adventure", "Drama" ],
+  "actors" : [ "Russell Crowe", "Oliver Reed", "Joaquin Phoenix", "Richard Harris", "Connie Nielsen" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 496243,
+  "title" : "Parasite",
+  "year" : 2019,
+  "genres" : [ "Drama", "Thriller", "Comedy" ],
+  "actors" : [ "Lee Sun-kyun", "Park So-dam", "Song Kang-ho", "Cho Yeo-jeong", "Choi Woo-shik" ],
+  "directors" : [ "Bong Joon Ho" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 573435,
+  "title" : "Bad Boys: Ride or Die",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Thriller", "Crime", "Comedy" ],
+  "actors" : [ "Vanessa Hudgens", "Paola Nuñez", "Will Smith", "Alexander Ludwig", "Martin Lawrence" ],
+  "directors" : [ "Bilall Fallah", "Adil El Arbi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 28597,
+  "title" : "Problem Child 2",
+  "year" : 1991,
+  "genres" : [ "Family", "Comedy" ],
+  "actors" : [ "Amy Yasbeck", "Michael J. Oliver", "Laraine Newman", "Jack Warden", "John Ritter" ],
+  "directors" : [ "Brian Levant" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 634649,
+  "title" : "Spider-Man: No Way Home",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Jon Favreau", "Tom Holland", "Benedict Cumberbatch", "Jacob Batalon", "Zendaya" ],
+  "directors" : [ "Jon Watts" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1064213,
+  "title" : "Anora",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Mikey Madison", "Karren Karagulian", "Mark Eydelshteyn", "Vache Tovmasyan", "Yura Borisov" ],
+  "directors" : [ "Sean Baker" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1086497,
+  "title" : "The Penguin Lessons",
+  "year" : 2025,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Jonathan Pryce", "Björn Gustafsson", "Alfonsina Carrocio", "Vivian El Jaber", "Steve Coogan" ],
+  "directors" : [ "Peter Cattaneo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1020414,
+  "title" : "Peter Pan's Neverland Nightmare",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Fantasy" ],
+  "actors" : [ "Charity Kase", "Peter DeSouza-Feighoney", "Megan Placito", "Martin Portlock", "Kit Green" ],
+  "directors" : [ "Scott Chambers" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 141052,
+  "title" : "Justice League",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Amy Adams", "Ezra Miller", "Henry Cavill", "Ben Affleck", "Gal Gadot" ],
+  "directors" : [ "Zack Snyder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1140535,
+  "title" : "Presence",
+  "year" : 2025,
+  "genres" : [ "Horror", "Drama", "Thriller" ],
+  "actors" : [ "Chris Sullivan", "Callina Liang", "Eddy Maday", "West Mulholland", "Lucy Liu" ],
+  "directors" : [ "Steven Soderbergh" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 872585,
+  "title" : "Oppenheimer",
+  "year" : 2023,
+  "genres" : [ "Drama", "History" ],
+  "actors" : [ "Emily Blunt", "Matt Damon", "Robert Downey Jr.", "Florence Pugh", "Cillian Murphy" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 28966,
+  "title" : "Wings",
+  "year" : 1927,
+  "genres" : [ "Action", "Drama", "War", "Romance" ],
+  "actors" : [ "Clara Bow", "Charles \"Buddy\" Rogers", "Richard Arlen", "Jobyna Ralston", "El Brendel" ],
+  "directors" : [ "William A. Wellman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1304594,
+  "title" : "Una pequeña confusión",
+  "year" : 2024,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Diana Bovio", "Vico Escorcia", "Ana de la Reguera", "Juanpa Zurita", "Cristo Fernández" ],
+  "directors" : [ "Ariel Winograd" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 157336,
+  "title" : "Interstellar",
+  "year" : 2014,
+  "genres" : [ "Adventure", "Drama", "Science Fiction" ],
+  "actors" : [ "Michael Caine", "Jessica Chastain", "Matthew McConaughey", "Anne Hathaway", "Casey Affleck" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 11,
+  "title" : "Star Wars",
+  "year" : 1977,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Alec Guinness", "Harrison Ford", "Peter Cushing", "Mark Hamill", "Carrie Fisher" ],
+  "directors" : [ "George Lucas" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 968171,
+  "title" : "Sex Education Mistresses",
+  "year" : 1973,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Hiroshi Ichimura", "Yasuhiko Ishizu", "Yūko Katagiri", "Michiko Tsukasa", "Rie Nakagawa" ],
+  "directors" : [ "Akira Kato" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 359246,
+  "title" : "Hell House LLC",
+  "year" : 2015,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Ryan Jennifer Jones", "Jared Hacker", "Danny Bellini", "Adam Schneider", "Gore Abrams" ],
+  "directors" : [ "Stephen Cognetti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 872585,
+  "title" : "Oppenheimer",
+  "year" : 2023,
+  "genres" : [ "Drama", "History" ],
+  "actors" : [ "Emily Blunt", "Matt Damon", "Robert Downey Jr.", "Florence Pugh", "Cillian Murphy" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 76600,
+  "title" : "Avatar: The Way of Water",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Kate Winslet", "Stephen Lang", "Zoe Saldaña", "Sigourney Weaver", "Sam Worthington" ],
+  "directors" : [ "James Cameron" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 21735,
+  "title" : "49th Parallel",
+  "year" : 1941,
+  "genres" : [ "Thriller", "War" ],
+  "actors" : [ "Raymond Massey", "Leslie Howard", "Anton Walbrook", "Laurence Olivier", "Eric Portman" ],
+  "directors" : [ "Michael Powell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1249289,
+  "title" : "Alarum",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Willa Fitzgerald", "D.W. Moffett", "Sylvester Stallone", "Scott Eastwood", "Mike Colter" ],
+  "directors" : [ "Michael Polish" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 496243,
+  "title" : "Parasite",
+  "year" : 2019,
+  "genres" : [ "Drama", "Thriller", "Comedy" ],
+  "actors" : [ "Lee Sun-kyun", "Park So-dam", "Song Kang-ho", "Cho Yeo-jeong", "Choi Woo-shik" ],
+  "directors" : [ "Bong Joon Ho" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 862,
+  "title" : "Toy Story",
+  "year" : 1995,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Tom Hanks", "Don Rickles", "Tim Allen", "Jim Varney", "Wallace Shawn" ],
+  "directors" : [ "John Lasseter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 19971,
+  "title" : "The Little Girl Who Lives Down the Lane",
+  "year" : 1976,
+  "genres" : [ "Drama", "Thriller", "Mystery" ],
+  "actors" : [ "Alexis Smith", "Jodie Foster", "Martin Sheen", "Mort Shuman", "Scott Jacoby" ],
+  "directors" : [ "Nicolas Gessner" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1895,
+  "title" : "Star Wars: Episode III - Revenge of the Sith",
+  "year" : 2005,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Hayden Christensen", "Ian McDiarmid", "Natalie Portman", "Samuel L. Jackson", "Ewan McGregor" ],
+  "directors" : [ "George Lucas" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1371202,
+  "title" : "iHostage",
+  "year" : 2025,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Fockeline Ouwerkerk", "Admir Šehović", "Emmanuel Ohene Boafo", "Soufiane Moussouli", "Roosmarijn van der Hoek" ],
+  "directors" : [ "Bobby Boermans" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1029880,
+  "title" : "Nightwatch: Demons Are Forever",
+  "year" : 2023,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Nikolaj Coster-Waldau", "Kim Bodnia", "Fanny Leander Bornedal", "Sonja Richter", "Ulf Pilgaard" ],
+  "directors" : [ "Ole Bornedal" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 552524,
+  "title" : "Lilo & Stitch",
+  "year" : 2025,
+  "genres" : [ "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Chris Sanders", "Tia Carrere", "Sydney Agudong", "Billy Magnussen", "Maia Kealoha" ],
+  "directors" : [ "Dean Fleischer Camp" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 372058,
+  "title" : "Your Name.",
+  "year" : 2016,
+  "genres" : [ "Drama", "Animation", "Romance" ],
+  "actors" : [ "Ryo Narita", "Aoi Yuki", "Ryunosuke Kamiki", "Mone Kamishiraishi", "Nobunaga Shimazaki" ],
+  "directors" : [ "Makoto Shinkai" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 28597,
+  "title" : "Problem Child 2",
+  "year" : 1991,
+  "genres" : [ "Family", "Comedy" ],
+  "actors" : [ "Amy Yasbeck", "Michael J. Oliver", "Laraine Newman", "Jack Warden", "John Ritter" ],
+  "directors" : [ "Brian Levant" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1357633,
+  "title" : "Solo Leveling -ReAwakening-",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Daisuke Hirakawa", "Taito Ban", "Reina Ueda", "Genta Nakamura", "Haruna Mikawa" ],
+  "directors" : [ "Shunsuke Nakashige" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 28966,
+  "title" : "Wings",
+  "year" : 1927,
+  "genres" : [ "Action", "Drama", "War", "Romance" ],
+  "actors" : [ "Clara Bow", "Charles \"Buddy\" Rogers", "Richard Arlen", "Jobyna Ralston", "El Brendel" ],
+  "directors" : [ "William A. Wellman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 502356,
+  "title" : "The Super Mario Bros. Movie",
+  "year" : 2023,
+  "genres" : [ "Adventure", "Family", "Animation", "Comedy" ],
+  "actors" : [ "Anya Taylor-Joy", "Jack Black", "Keegan-Michael Key", "Chris Pratt", "Charlie Day" ],
+  "directors" : [ "Michael Jelenic", "Aaron Horvath" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 550,
+  "title" : "Fight Club",
+  "year" : 1999,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Brad Pitt", "Helena Bonham Carter", "Jared Leto", "Meat Loaf", "Edward Norton" ],
+  "directors" : [ "David Fincher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 424,
+  "title" : "Schindler's List",
+  "year" : 1993,
+  "genres" : [ "Drama", "War", "History" ],
+  "actors" : [ "Caroline Goodall", "Jonathan Sagall", "Liam Neeson", "Ben Kingsley", "Ralph Fiennes" ],
+  "directors" : [ "Steven Spielberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 557,
+  "title" : "Spider-Man",
+  "year" : 2002,
+  "genres" : [ "Action", "Science Fiction" ],
+  "actors" : [ "Willem Dafoe", "Tobey Maguire", "Kirsten Dunst", "Cliff Robertson", "James Franco" ],
+  "directors" : [ "Sam Raimi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 497,
+  "title" : "The Green Mile",
+  "year" : 1999,
+  "genres" : [ "Drama", "Crime", "Fantasy" ],
+  "actors" : [ "Tom Hanks", "David Morse", "James Cromwell", "Michael Clarke Duncan", "Bonnie Hunt" ],
+  "directors" : [ "Frank Darabont" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 198663,
+  "title" : "The Maze Runner",
+  "year" : 2014,
+  "genres" : [ "Action", "Thriller", "Mystery", "Science Fiction" ],
+  "actors" : [ "Aml Ameen", "Kaya Scodelario", "Ki Hong Lee", "Dylan O'Brien", "Thomas Brodie-Sangster" ],
+  "directors" : [ "Wes Ball" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 48650,
+  "title" : "Room in Rome",
+  "year" : 2010,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Elena Anaya", "Najwa Nimri", "Ander Malles", "Enrico Lo Verso", "Natasha Yarovenko" ],
+  "directors" : [ "Julio Medem" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 155,
+  "title" : "The Dark Knight",
+  "year" : 2008,
+  "genres" : [ "Action", "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Christian Bale", "Michael Caine", "Maggie Gyllenhaal", "Heath Ledger", "Aaron Eckhart" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 592695,
+  "title" : "Pleasure",
+  "year" : 2021,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Chris Cock", "Evelyn Claire", "Sofia Kappel", "Tee Reel", "Zelda Morrison" ],
+  "directors" : [ "Ninja Thyberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1208983,
+  "title" : "Neighborhood Watch",
+  "year" : 2025,
+  "genres" : [ "Thriller", "Crime" ],
+  "actors" : [ "Malin Åkerman", "Krishna Sistla Ward", "Jack Quaid", "Jeffrey Dean Morgan", "Cecile Cubiló" ],
+  "directors" : [ "Duncan Skiles" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 673,
+  "title" : "Harry Potter and the Prisoner of Azkaban",
+  "year" : 2004,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Robbie Coltrane", "Michael Gambon" ],
+  "directors" : [ "Alfonso Cuarón" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 569094,
+  "title" : "Spider-Man: Across the Spider-Verse",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Animation", "Science Fiction" ],
+  "actors" : [ "Luna Lauren Velez", "Shameik Moore", "Hailee Steinfeld", "Jake Johnson", "Brian Tyree Henry" ],
+  "directors" : [ "Justin K. Thompson", "Joaquim Dos Santos", "Kemp Powers" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 603692,
+  "title" : "John Wick: Chapter 4",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Donnie Yen", "Bill Skarsgård", "Ian McShane", "Keanu Reeves", "Laurence Fishburne" ],
+  "directors" : [ "Chad Stahelski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 675353,
+  "title" : "Sonic the Hedgehog 2",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Family", "Comedy" ],
+  "actors" : [ "James Marsden", "Idris Elba", "Tika Sumpter", "Ben Schwartz", "Colleen O'Shaughnessey" ],
+  "directors" : [ "Jeff Fowler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1282980,
+  "title" : "825 Forest Road",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Mike Sutton", "Joe Bandelli", "Elizabeth Vermilyea", "Lorenzo Beronilla", "Brian Anthony Wilson" ],
+  "directors" : [ "Stephen Cognetti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 672,
+  "title" : "Harry Potter and the Chamber of Secrets",
+  "year" : 2002,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Toby Jones", "Kenneth Branagh" ],
+  "directors" : [ "Chris Columbus" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 426063,
+  "title" : "Nosferatu",
+  "year" : 2024,
+  "genres" : [ "Horror", "Fantasy" ],
+  "actors" : [ "Bill Skarsgård", "Willem Dafoe", "Aaron Taylor-Johnson", "Nicholas Hoult", "Lily-Rose Depp" ],
+  "directors" : [ "Robert Eggers" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1028769,
+  "title" : "Stormskerry Maja",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Tobias Zilliacus", "Amanda Jansson", "Amanda Kilpeläinen Arvidsson", "Linus Troedsson", "Jonna Järnefelt" ],
+  "directors" : [ "Tiina Lymi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 299534,
+  "title" : "Avengers: Endgame",
+  "year" : 2019,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Mark Ruffalo", "Chris Hemsworth", "Robert Downey Jr.", "Chris Evans", "Scarlett Johansson" ],
+  "directors" : [ "Anthony Russo", "Joe Russo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1088570,
+  "title" : "Karaoke",
+  "year" : 2024,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Jochen Hägele", "Sébastien Chassagne", "Michèle Laroque", "Claudia Tagbo", "David Mora" ],
+  "directors" : [ "Stéphane Ben Lahcene" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 807,
+  "title" : "Se7en",
+  "year" : 1995,
+  "genres" : [ "Thriller", "Crime", "Mystery" ],
+  "actors" : [ "Brad Pitt", "Morgan Freeman", "Peter Crombie", "John Cassini", "Gwyneth Paltrow" ],
+  "directors" : [ "David Fincher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1834,
+  "title" : "Murder, My Sweet",
+  "year" : 1944,
+  "genres" : [ "Drama", "Mystery" ],
+  "actors" : [ "Mike Mazurki", "Dick Powell", "Claire Trevor", "Anne Shirley", "Otto Kruger" ],
+  "directors" : [ "Edward Dmytryk" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 993710,
+  "title" : "Back in Action",
+  "year" : 2025,
+  "genres" : [ "Action", "Comedy" ],
+  "actors" : [ "Rylan Jackson", "Jamie Foxx", "McKenna Roberts", "Kyle Chandler", "Cameron Diaz" ],
+  "directors" : [ "Seth Gordon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 926670,
+  "title" : "Henry Danger: The Movie",
+  "year" : 2025,
+  "genres" : [ "Action", "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Jace Norman", "Ella Anderson", "Michael D. Cohen", "Frankie Grande", "Sean Ryan Fox" ],
+  "directors" : [ "Joe Menendez" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 674,
+  "title" : "Harry Potter and the Goblet of Fire",
+  "year" : 2005,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Brendan Gleeson", "Emma Watson", "Michael Gambon" ],
+  "directors" : [ "Mike Newell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1097549,
+  "title" : "Babygirl",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Antonio Banderas", "Harris Dickinson", "Nicole Kidman", "Sophie Wilde", "Esther-Rose McGregor" ],
+  "directors" : [ "Halina Reijn" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 993710,
+  "title" : "Back in Action",
+  "year" : 2025,
+  "genres" : [ "Action", "Comedy" ],
+  "actors" : [ "Rylan Jackson", "Jamie Foxx", "McKenna Roberts", "Kyle Chandler", "Cameron Diaz" ],
+  "directors" : [ "Seth Gordon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 126889,
+  "title" : "Alien: Covenant",
+  "year" : 2017,
+  "genres" : [ "Horror", "Thriller", "Science Fiction" ],
+  "actors" : [ "Danny McBride", "Katherine Waterston", "Michael Fassbender", "Billy Crudup", "Demián Bichir" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1226406,
+  "title" : "Love Hurts",
+  "year" : 2025,
+  "genres" : [ "Action", "Romance", "Comedy" ],
+  "actors" : [ "Ke Huy Quan", "Daniel Wu", "Mustafa Shakir", "Lio Tipton", "Ariana DeBose" ],
+  "directors" : [ "Jonathan Eusebio" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 839033,
+  "title" : "The Lord of the Rings: The War of the Rohirrim",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Lorraine Ashbourne", "Luke Pasqualino", "Brian Cox", "Laurence Ubong Williams", "Gaia Wise" ],
+  "directors" : [ "Kenji Kamiyama" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 8587,
+  "title" : "The Lion King",
+  "year" : 1994,
+  "genres" : [ "Drama", "Family", "Animation" ],
+  "actors" : [ "Moira Kelly", "Ernie Sabella", "James Earl Jones", "Matthew Broderick", "Nathan Lane" ],
+  "directors" : [ "Rob Minkoff", "Roger Allers" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 13765,
+  "title" : "Scrooge",
+  "year" : 1970,
+  "genres" : [ "Drama", "Fantasy", "Family" ],
+  "actors" : [ "Alec Guinness", "Albert Finney", "Kenneth More", "Edith Evans", "Laurence Naismith" ],
+  "directors" : [ "Ronald Neame" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1302916,
+  "title" : "Heart Eyes",
+  "year" : 2025,
+  "genres" : [ "Horror", "Romance", "Comedy" ],
+  "actors" : [ "Michaela Watkins", "Olivia Holt", "Mason Gooding", "Gigi Zumbado", "Devon Sawa" ],
+  "directors" : [ "Josh Ruben" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1012290,
+  "title" : "South Park: The 25th Anniversary Concert",
+  "year" : 2022,
+  "genres" : [ "Documentary", "Music", "Comedy" ],
+  "actors" : [ "Trey Parker", "Tim Alexander", "Les Claypool", "Matt Stone", "Larry Lalonde" ],
+  "directors" : [ "Alex Coletti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 48650,
+  "title" : "Room in Rome",
+  "year" : 2010,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Elena Anaya", "Najwa Nimri", "Ander Malles", "Enrico Lo Verso", "Natasha Yarovenko" ],
+  "directors" : [ "Julio Medem" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 259872,
+  "title" : "Skin. Like. Sun.",
+  "year" : 2009,
+  "genres" : [ "Romance" ],
+  "actors" : [ "Wim van Damme", "Floor Wyns" ],
+  "directors" : [ "Jennifer Lyon Bell", "Murielle Scherre" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 4348,
+  "title" : "Pride & Prejudice",
+  "year" : 2005,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Matthew Macfadyen", "Keira Knightley", "Carey Mulligan", "Brenda Blethyn", "Rosamund Pike" ],
+  "directors" : [ "Joe Wright" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 748783,
+  "title" : "The Garfield Movie",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Family", "Animation", "Comedy" ],
+  "actors" : [ "Ving Rhames", "Hannah Waddingham", "Samuel L. Jackson", "Nicholas Hoult", "Chris Pratt" ],
+  "directors" : [ "Mark Dindal" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 926670,
+  "title" : "Henry Danger: The Movie",
+  "year" : 2025,
+  "genres" : [ "Action", "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Jace Norman", "Ella Anderson", "Michael D. Cohen", "Frankie Grande", "Sean Ryan Fox" ],
+  "directors" : [ "Joe Menendez" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 603692,
+  "title" : "John Wick: Chapter 4",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Donnie Yen", "Bill Skarsgård", "Ian McShane", "Keanu Reeves", "Laurence Fishburne" ],
+  "directors" : [ "Chad Stahelski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 220882,
+  "title" : "London Fields",
+  "year" : 2018,
+  "genres" : [ "Thriller", "Crime" ],
+  "actors" : [ "Jim Sturgess", "Johnny Depp", "Billy Bob Thornton", "Amber Heard", "Theo James" ],
+  "directors" : [ "Mathew Cullen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1028769,
+  "title" : "Stormskerry Maja",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Tobias Zilliacus", "Amanda Jansson", "Amanda Kilpeläinen Arvidsson", "Linus Troedsson", "Jonna Järnefelt" ],
+  "directors" : [ "Tiina Lymi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 181808,
+  "title" : "Star Wars: The Last Jedi",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Adam Driver", "John Boyega", "Mark Hamill", "Carrie Fisher", "Daisy Ridley" ],
+  "directors" : [ "Rian Johnson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 8966,
+  "title" : "Twilight",
+  "year" : 2008,
+  "genres" : [ "Drama", "Fantasy", "Romance" ],
+  "actors" : [ "Kristen Stewart", "Ashley Greene", "Billy Burke", "Peter Facinelli", "Robert Pattinson" ],
+  "directors" : [ "Catherine Hardwicke" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1021679,
+  "title" : "The Rose of Versailles",
+  "year" : 2025,
+  "genres" : [ "Drama", "Animation", "Romance", "History" ],
+  "actors" : [ "Toshiyuki Toyonaga", "Shunsuke Takeuchi", "Aya Hirano", "Kazuki Kato", "Miyuki Sawashiro" ],
+  "directors" : [ "Ai Yoshimura" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 954,
+  "title" : "Mission: Impossible",
+  "year" : 1996,
+  "genres" : [ "Action", "Adventure", "Thriller" ],
+  "actors" : [ "Jean Reno", "Jon Voight", "Tom Cruise", "Henry Czerny", "Emmanuelle Béart" ],
+  "directors" : [ "Brian De Palma" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 85430,
+  "title" : "Girl Play",
+  "year" : 2004,
+  "genres" : [ "Romance", "Comedy" ],
+  "actors" : [ "Dom DeLuise", "Mink Stole", "Robin Greenspan", "Lacie Harmon", "Katherine Randolph" ],
+  "directors" : [ "Lee Friedlander" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1217379,
+  "title" : "Hellhound",
+  "year" : 2024,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Louis Mandylor", "Vithaya Pansringarm", "Panya Yimmumphai", "Winai Wiangyangkung", "Van Quattro" ],
+  "directors" : [ "Joshua Dixon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 14836,
+  "title" : "Coraline",
+  "year" : 2009,
+  "genres" : [ "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Dawn French", "Keith David", "Dakota Fanning", "Jennifer Saunders", "Teri Hatcher" ],
+  "directors" : [ "Henry Selick" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 839033,
+  "title" : "The Lord of the Rings: The War of the Rohirrim",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Lorraine Ashbourne", "Luke Pasqualino", "Brian Cox", "Laurence Ubong Williams", "Gaia Wise" ],
+  "directors" : [ "Kenji Kamiyama" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1462199,
+  "title" : "How to Tame a Silver Fox",
+  "year" : 2025,
+  "genres" : [ "Romance", "Comedy" ],
+  "actors" : [ "Jesse Morales", "Brooklyn Benson", "Stacey Marie Keba", "Tess Amelia Dinerstein", "Jade Duong" ],
+  "directors" : [ ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 359246,
+  "title" : "Hell House LLC",
+  "year" : 2015,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Ryan Jennifer Jones", "Jared Hacker", "Danny Bellini", "Adam Schneider", "Gore Abrams" ],
+  "directors" : [ "Stephen Cognetti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 346698,
+  "title" : "Barbie",
+  "year" : 2023,
+  "genres" : [ "Adventure", "Comedy" ],
+  "actors" : [ "America Ferrera", "Issa Rae", "Ryan Gosling", "Ariana Greenblatt", "Margot Robbie" ],
+  "directors" : [ "Greta Gerwig" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1382406,
+  "title" : "Striking Rescue",
+  "year" : 2024,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Tony Jaa", "Chen Duo-Yi", "Xing Yu", "Philip Keung", "Eason Hung" ],
+  "directors" : [ "Cheng Siyi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 823464,
+  "title" : "Godzilla x Kong: The New Empire",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Kaylee Hottle", "Dan Stevens", "Rebecca Hall", "Brian Tyree Henry", "Alex Ferns" ],
+  "directors" : [ "Adam Wingard" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 106646,
+  "title" : "The Wolf of Wall Street",
+  "year" : 2013,
+  "genres" : [ "Drama", "Crime", "Comedy" ],
+  "actors" : [ "Jonah Hill", "Leonardo DiCaprio", "Matthew McConaughey", "Kyle Chandler", "Margot Robbie" ],
+  "directors" : [ "Martin Scorsese" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 218,
+  "title" : "The Terminator",
+  "year" : 1984,
+  "genres" : [ "Action", "Thriller", "Science Fiction" ],
+  "actors" : [ "Arnold Schwarzenegger", "Linda Hamilton", "Michael Biehn", "Paul Winfield", "Lance Henriksen" ],
+  "directors" : [ "James Cameron" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 27449,
+  "title" : "Baby Face",
+  "year" : 1933,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Henry Kolker", "Alphonse Ethier", "Barbara Stanwyck", "George Brent", "Donald Cook" ],
+  "directors" : [ "Alfred E. Green" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 585,
+  "title" : "Monsters, Inc.",
+  "year" : 2001,
+  "genres" : [ "Animation", "Family", "Comedy" ],
+  "actors" : [ "James Coburn", "Steve Buscemi", "Billy Crystal", "Mary Gibbs", "John Goodman" ],
+  "directors" : [ "Pete Docter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 27205,
+  "title" : "Inception",
+  "year" : 2010,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Leonardo DiCaprio", "Ken Watanabe", "Joseph Gordon-Levitt", "Tom Hardy", "Elliot Page" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1077782,
+  "title" : "Old Guy",
+  "year" : 2024,
+  "genres" : [ "Action", "Comedy" ],
+  "actors" : [ "Christoph Waltz", "Karishma Navekar", "Cooper Hoffman", "Desmond Edwards", "Lucy Liu" ],
+  "directors" : [ "Simon West" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 361743,
+  "title" : "Top Gun: Maverick",
+  "year" : 2022,
+  "genres" : [ "Action", "Drama" ],
+  "actors" : [ "Lewis Pullman", "Monica Barbaro", "Jay Ellis", "Tom Cruise", "Miles Teller" ],
+  "directors" : [ "Joseph Kosinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 940551,
+  "title" : "Migration",
+  "year" : 2023,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Caspar Jennings", "Kumail Nanjiani", "Awkwafina", "Elizabeth Banks", "Tresi Gazal" ],
+  "directors" : [ "Benjamin Renner" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 76341,
+  "title" : "Mad Max: Fury Road",
+  "year" : 2015,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Josh Helman", "Hugh Keays-Byrne", "Tom Hardy", "Nicholas Hoult", "Charlize Theron" ],
+  "directors" : [ "George Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1249385,
+  "title" : "Ghost Game",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Emily Bennett", "Kia Dorsey", "Aiden Hughes", "Vienna Maas", "Zaen Haidar" ],
+  "directors" : [ "Jill Gevargizian" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 120,
+  "title" : "The Lord of the Rings: The Fellowship of the Ring",
+  "year" : 2001,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Elijah Wood", "Viggo Mortensen", "Sean Astin", "Ian McKellen", "Ian Holm" ],
+  "directors" : [ "Peter Jackson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 698687,
+  "title" : "Transformers One",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Animation", "Family", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Jon Hamm", "Brian Tyree Henry", "Keegan-Michael Key", "Scarlett Johansson" ],
+  "directors" : [ "Josh Cooley" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 957119,
+  "title" : "Sidelined: The QB and Me",
+  "year" : 2025,
+  "genres" : [ "Romance", "Comedy" ],
+  "actors" : [ "Noah Beck", "Drew Ray Tanner", "Deborah Cox", "James Van Der Beek", "Siena Agudong" ],
+  "directors" : [ "Justin Wu" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1296500,
+  "title" : "Un lío de millones",
+  "year" : 2024,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Antonio Resines", "Itzan Escamilla", "Gracia Olayo", "Clara Lago", "Alberto Olmo" ],
+  "directors" : [ "Susan Béjar" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 575264,
+  "title" : "Mission: Impossible - Dead Reckoning Part One",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure" ],
+  "actors" : [ "Ving Rhames", "Hayley Atwell", "Tom Cruise", "Simon Pegg", "Rebecca Ferguson" ],
+  "directors" : [ "Christopher McQuarrie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 167073,
+  "title" : "Brooklyn",
+  "year" : 2015,
+  "genres" : [ "Drama", "Romance", "History" ],
+  "actors" : [ "Saoirse Ronan", "Jim Broadbent", "Domhnall Gleeson", "Julie Walters", "Emory Cohen" ],
+  "directors" : [ "John Crowley" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1407861,
+  "title" : "The Bayou",
+  "year" : 2025,
+  "genres" : [ "Action", "Horror", "Thriller" ],
+  "actors" : [ "Andonis Anthony", "Elisha Applebaum", "David Newman", "Sarah Priddy", "Madalena Aragão" ],
+  "directors" : [ "Taneli Mustonen", "Brad Watson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 41264,
+  "title" : "Africa Addio",
+  "year" : 1966,
+  "genres" : [ "Documentary", "Horror" ],
+  "actors" : [ "Julius Nyerere", "Gualtiero Jacopetti", "Jomo Kenyatta", "Moïse Kapenda Tshombe", "Sergio Rossi" ],
+  "directors" : [ "Gualtiero Jacopetti", "Franco Prosperi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 537915,
+  "title" : "After",
+  "year" : 2019,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Shane Paul McGhie", "Josephine Langford", "Hero Fiennes Tiffin", "Dylan Arnold", "Khadijha Red Thunder" ],
+  "directors" : [ "Jenny Gage" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 99861,
+  "title" : "Avengers: Age of Ultron",
+  "year" : 2015,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Mark Ruffalo", "Robert Downey Jr.", "Chris Evans", "Scarlett Johansson" ],
+  "directors" : [ "Joss Whedon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1297188,
+  "title" : "Esa semana juntos",
+  "year" : 2025,
+  "genres" : [ "Romance", "Comedy" ],
+  "actors" : [ "Alejandro Müller", "Alejandro Fiore", "Magui Bravi", "Gerardo Romano", "Pablo Yotich" ],
+  "directors" : [ "Pablo Yotich" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1034541,
+  "title" : "Terrifier 3",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "David Howard Thornton", "Margaret Anne Florence", "Samantha Scaffidi", "Elliott Fullam", "Lauren LaVera" ],
+  "directors" : [ "Damien Leone" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 9532,
+  "title" : "Final Destination",
+  "year" : 2000,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Ali Larter", "Kristen Cloke", "Seann William Scott", "Devon Sawa", "Kerr Smith" ],
+  "directors" : [ "James Wong" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1056108,
+  "title" : "Summer Holiday",
+  "year" : 2023,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Arif", "Lion", "Zubayar" ],
+  "directors" : [ "Mohammad Nuruzzaman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1138194,
+  "title" : "Heretic",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Topher Grace", "Hugh Grant", "Chloe East", "Sophie Thatcher", "Elle Young" ],
+  "directors" : [ "Bryan Woods", "Scott Beck" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 38757,
+  "title" : "Tangled",
+  "year" : 2010,
+  "genres" : [ "Adventure", "Animation", "Family" ],
+  "actors" : [ "Donna Murphy", "M.C. Gainey", "Mandy Moore", "Ron Perlman", "Zachary Levi" ],
+  "directors" : [ "Byron Howard", "Nathan Greno" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 505642,
+  "title" : "Black Panther: Wakanda Forever",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Letitia Wright", "Winston Duke", "Tenoch Huerta Mejía", "Lupita Nyong'o", "Danai Gurira" ],
+  "directors" : [ "Ryan Coogler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1029235,
+  "title" : "Azrael",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror", "Thriller" ],
+  "actors" : [ "Samara Weaving", "Katariina Unt", "Vic Carmen Sonne", "Peter Christoffersen", "Nathan Stewart-Jarrett" ],
+  "directors" : [ "E.L. Katz" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 141052,
+  "title" : "Justice League",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Amy Adams", "Ezra Miller", "Henry Cavill", "Ben Affleck", "Gal Gadot" ],
+  "directors" : [ "Zack Snyder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1301650,
+  "title" : "Z Zone",
+  "year" : 2024,
+  "genres" : [ "Horror" ],
+  "actors" : [ "Bazarragchaa Byambajav", "Bilguun Chuluundorj", "Purevjargal Erdenebileg" ],
+  "directors" : [ "Bilguun Chuluundorj" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 507086,
+  "title" : "Jurassic World Dominion",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Laura Dern", "Bryce Dallas Howard", "Chris Pratt", "Sam Neill", "Jeff Goldblum" ],
+  "directors" : [ "Colin Trevorrow" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 319,
+  "title" : "True Romance",
+  "year" : 1993,
+  "genres" : [ "Action", "Crime", "Romance" ],
+  "actors" : [ "Gary Oldman", "Patricia Arquette", "Christian Slater", "Dennis Hopper", "Val Kilmer" ],
+  "directors" : [ "Tony Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 438631,
+  "title" : "Dune",
+  "year" : 2021,
+  "genres" : [ "Adventure", "Science Fiction" ],
+  "actors" : [ "Jason Momoa", "Timothée Chalamet", "Stellan Skarsgård", "Oscar Isaac", "Rebecca Ferguson" ],
+  "directors" : [ "Denis Villeneuve" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1012290,
+  "title" : "South Park: The 25th Anniversary Concert",
+  "year" : 2022,
+  "genres" : [ "Documentary", "Music", "Comedy" ],
+  "actors" : [ "Trey Parker", "Tim Alexander", "Les Claypool", "Matt Stone", "Larry Lalonde" ],
+  "directors" : [ "Alex Coletti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 18785,
+  "title" : "The Hangover",
+  "year" : 2009,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Justin Bartha", "Ed Helms", "Heather Graham", "Zach Galifianakis", "Bradley Cooper" ],
+  "directors" : [ "Todd Phillips" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 13765,
+  "title" : "Scrooge",
+  "year" : 1970,
+  "genres" : [ "Drama", "Fantasy", "Family" ],
+  "actors" : [ "Alec Guinness", "Albert Finney", "Kenneth More", "Edith Evans", "Laurence Naismith" ],
+  "directors" : [ "Ronald Neame" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 675,
+  "title" : "Harry Potter and the Order of the Phoenix",
+  "year" : 2007,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Helena Bonham Carter", "Imelda Staunton" ],
+  "directors" : [ "David Yates" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 568124,
+  "title" : "Encanto",
+  "year" : 2021,
+  "genres" : [ "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "María Cecilia Botero", "Jessica Darrow", "Stephanie Beatriz", "John Leguizamo", "Diane Guerrero" ],
+  "directors" : [ "Jared Bush", "Byron Howard" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1196470,
+  "title" : "Survive",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Émilie Dequenne", "Andreas Pietschmann", "Arben Bajraktaraj", "Lucas Ebel", "Lisa Delamar" ],
+  "directors" : [ "Frédéric Jardin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 931107,
+  "title" : "The Line",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Lewis Pullman", "Bo Mitchell", "Alex Wolff", "Austin Abrams", "Halle Bailey" ],
+  "directors" : [ "Ethan Berger" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1452267,
+  "title" : "Cocoon: Aru Natsu no Shoujo-tachi yori",
+  "year" : 2025,
+  "genres" : [ "Drama", "Animation", "War" ],
+  "actors" : [ "Marika Ito", "Chinatsu Akasaki", "Rena Motomura", "Yoko Hikasa", "Hikari Mitsushima" ],
+  "directors" : [ "Yukimitsu Ina" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 667538,
+  "title" : "Transformers: Rise of the Beasts",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Peter Cullen", "Anthony Ramos", "Ron Perlman", "Dominique Fishback", "Peter Dinklage" ],
+  "directors" : [ "Steven Caple Jr." ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 637649,
+  "title" : "Wrath of Man",
+  "year" : 2021,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Holt McCallany", "Scott Eastwood", "Jason Statham", "Josh Hartnett", "Darrell D'Silva" ],
+  "directors" : [ "Guy Ritchie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 766507,
+  "title" : "Prey",
+  "year" : 2022,
+  "genres" : [ "Action", "Thriller", "Science Fiction" ],
+  "actors" : [ "Julian Black Antelope", "Amber Midthunder", "Stormee Kipp", "Dakota Beavers", "Michelle Thrush" ],
+  "directors" : [ "Dan Trachtenberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 19995,
+  "title" : "Avatar",
+  "year" : 2009,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Stephen Lang", "Michelle Rodriguez", "Zoe Saldaña", "Sigourney Weaver", "Sam Worthington" ],
+  "directors" : [ "James Cameron" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 321612,
+  "title" : "Beauty and the Beast",
+  "year" : 2017,
+  "genres" : [ "Fantasy", "Family", "Romance" ],
+  "actors" : [ "Emma Watson", "Josh Gad", "Dan Stevens", "Kevin Kline", "Luke Evans" ],
+  "directors" : [ "Bill Condon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 516729,
+  "title" : "Paddington in Peru",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Family", "Comedy" ],
+  "actors" : [ "Hugh Bonneville", "Madeleine Harris", "Samuel Joslin", "Ben Whishaw", "Emily Mortimer" ],
+  "directors" : [ "Dougal Wilson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1078605,
+  "title" : "Weapons",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Julia Garner", "Austin Abrams", "Josh Brolin", "Alden Ehrenreich", "June Diane Raphael" ],
+  "directors" : [ "Zach Cregger" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 220882,
+  "title" : "London Fields",
+  "year" : 2018,
+  "genres" : [ "Thriller", "Crime" ],
+  "actors" : [ "Jim Sturgess", "Johnny Depp", "Billy Bob Thornton", "Amber Heard", "Theo James" ],
+  "directors" : [ "Mathew Cullen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1144577,
+  "title" : "Scissors",
+  "year" : 2025,
+  "genres" : [ "Horror", "Comedy" ],
+  "actors" : [ "Alex Coal", "Blake Blossom", "Avery Jane", "Jill Kassidy", "Lilly Bell" ],
+  "directors" : [ "Harry Sparks" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 976573,
+  "title" : "Elemental",
+  "year" : 2023,
+  "genres" : [ "Fantasy", "Animation", "Family", "Romance", "Comedy" ],
+  "actors" : [ "Ronnie del Carmen", "Wendi McLendon-Covey", "Shila Ommi", "Mamoudou Athie", "Leah Lewis" ],
+  "directors" : [ "Peter Sohn" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1143407,
+  "title" : "Sky Force",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "War", "History" ],
+  "actors" : [ "Akshay Kumar", "Veer Pahariya", "Sara Ali Khan", "Sharad Kelkar", "Nimrat Kaur" ],
+  "directors" : [ "Abhishek Kapur", "Sandeep Kewlani" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 710258,
+  "title" : "Rust",
+  "year" : 2025,
+  "genres" : [ "Western" ],
+  "actors" : [ "Alec Baldwin", "Patrick Scott McDermott", "Travis Fimmel", "Todd Bryant", "Josh Hopkins" ],
+  "directors" : [ "Joel Souza" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 269149,
+  "title" : "Zootopia",
+  "year" : 2016,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Jason Bateman", "Idris Elba", "Jenny Slate", "Ginnifer Goodwin", "Nate Torrence" ],
+  "directors" : [ "Byron Howard", "Rich Moore" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 37165,
+  "title" : "The Truman Show",
+  "year" : 1998,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Jim Carrey", "Laura Linney", "Natascha McElhone", "Noah Emmerich", "Holland Taylor" ],
+  "directors" : [ "Peter Weir" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 13,
+  "title" : "Forrest Gump",
+  "year" : 1994,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Mykelti Williamson", "Tom Hanks", "Sally Field", "Robin Wright", "Gary Sinise" ],
+  "directors" : [ "Robert Zemeckis" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1011985,
+  "title" : "Kung Fu Panda 4",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Dustin Hoffman", "Viola Davis", "Bryan Cranston", "Jack Black", "Awkwafina" ],
+  "directors" : [ "Mike Mitchell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 106,
+  "title" : "Predator",
+  "year" : 1987,
+  "genres" : [ "Action", "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Arnold Schwarzenegger", "Kevin Peter Hall", "Bill Duke", "Carl Weathers", "Elpidia Carrillo" ],
+  "directors" : [ "John McTiernan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1062276,
+  "title" : "Dark Match",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror" ],
+  "actors" : [ "Sara Canning", "Mo Jabari", "Steven Ogg", "Chris Irvine", "Ayisha Issa" ],
+  "directors" : [ "Lowell Dean" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 653346,
+  "title" : "Kingdom of the Planet of the Apes",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Drama", "Thriller", "Science Fiction" ],
+  "actors" : [ "Owen Teague", "William H. Macy", "Freya Allan", "Kevin Durand", "Peter Macon" ],
+  "directors" : [ "Wes Ball" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 156022,
+  "title" : "The Equalizer",
+  "year" : 2014,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Marton Csokas", "Denzel Washington", "Chloë Grace Moretz", "David Harbour", "Haley Bennett" ],
+  "directors" : [ "Antoine Fuqua" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 588228,
+  "title" : "The Tomorrow War",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "J.K. Simmons", "Sam Richardson", "Yvonne Strahovski", "Betty Gilpin", "Chris Pratt" ],
+  "directors" : [ "Chris McKay" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 493922,
+  "title" : "Hereditary",
+  "year" : 2018,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Toni Collette", "Alex Wolff", "Ann Dowd", "Milly Shapiro", "Gabriel Byrne" ],
+  "directors" : [ "Ari Aster" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 150540,
+  "title" : "Inside Out",
+  "year" : 2015,
+  "genres" : [ "Adventure", "Drama", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Bill Hader", "Lewis Black", "Amy Poehler", "Phyllis Smith", "Richard Kind" ],
+  "directors" : [ "Pete Docter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1226572,
+  "title" : "Superboys of Malegaon",
+  "year" : 2025,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Adarsh Gourav", "Saqib Ayub", "Shashank Arora", "Vineet Kumar Singh", "Anuj Singh Duhan" ],
+  "directors" : [ "Reema Kagti" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 38365,
+  "title" : "Grown Ups",
+  "year" : 2010,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Adam Sandler", "David Spade", "Rob Schneider", "Kevin James", "Chris Rock" ],
+  "directors" : [ "Dennis Dugan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 640,
+  "title" : "Catch Me If You Can",
+  "year" : 2002,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Christopher Walken", "Leonardo DiCaprio", "Tom Hanks", "Nathalie Baye", "Martin Sheen" ],
+  "directors" : [ "Steven Spielberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 615,
+  "title" : "The Passion of the Christ",
+  "year" : 2004,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Monica Bellucci", "Maia Morgenstern", "Jim Caviezel", "Christo Jivkov", "Francesco De Vito" ],
+  "directors" : [ "Mel Gibson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 453395,
+  "title" : "Doctor Strange in the Multiverse of Madness",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Xochitl Gomez", "Chiwetel Ejiofor", "Elizabeth Olsen", "Benedict Wong", "Benedict Cumberbatch" ],
+  "directors" : [ "Sam Raimi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 290098,
+  "title" : "The Handmaiden",
+  "year" : 2016,
+  "genres" : [ "Drama", "Thriller", "Romance" ],
+  "actors" : [ "Kim Tae-ri", "Kim Min-hee", "Cho Jin-woong", "Kim Hae-sook", "Ha Jung-woo" ],
+  "directors" : [ "Park Chan-wook" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 637649,
+  "title" : "Wrath of Man",
+  "year" : 2021,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Holt McCallany", "Scott Eastwood", "Jason Statham", "Josh Hartnett", "Darrell D'Silva" ],
+  "directors" : [ "Guy Ritchie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 809,
+  "title" : "Shrek 2",
+  "year" : 2004,
+  "genres" : [ "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Antonio Banderas", "Julie Andrews", "Eddie Murphy", "Mike Myers", "Cameron Diaz" ],
+  "directors" : [ "Kelly Asbury", "Andrew Adamson", "Conrad Vernon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 604685,
+  "title" : "Den of Thieves 2: Pantera",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Evin Ahmad", "O'Shea Jackson Jr.", "Salvatore Esposito", "Meadow Williams", "Gerard Butler" ],
+  "directors" : [ "Christian Gudegast" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 320288,
+  "title" : "Dark Phoenix",
+  "year" : 2019,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Sophie Turner", "Michael Fassbender", "James McAvoy", "Nicholas Hoult", "Tye Sheridan" ],
+  "directors" : [ "Simon Kinberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 18785,
+  "title" : "The Hangover",
+  "year" : 2009,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Justin Bartha", "Ed Helms", "Heather Graham", "Zach Galifianakis", "Bradley Cooper" ],
+  "directors" : [ "Todd Phillips" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 13,
+  "title" : "Forrest Gump",
+  "year" : 1994,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Mykelti Williamson", "Tom Hanks", "Sally Field", "Robin Wright", "Gary Sinise" ],
+  "directors" : [ "Robert Zemeckis" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1196470,
+  "title" : "Survive",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Émilie Dequenne", "Andreas Pietschmann", "Arben Bajraktaraj", "Lucas Ebel", "Lisa Delamar" ],
+  "directors" : [ "Frédéric Jardin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 58,
+  "title" : "Pirates of the Caribbean: Dead Man's Chest",
+  "year" : 2006,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Johnny Depp", "Keira Knightley", "Stellan Skarsgård", "Bill Nighy", "Orlando Bloom" ],
+  "directors" : [ "Gore Verbinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 653346,
+  "title" : "Kingdom of the Planet of the Apes",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Drama", "Thriller", "Science Fiction" ],
+  "actors" : [ "Owen Teague", "William H. Macy", "Freya Allan", "Kevin Durand", "Peter Macon" ],
+  "directors" : [ "Wes Ball" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 767,
+  "title" : "Harry Potter and the Half-Blood Prince",
+  "year" : 2009,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Jim Broadbent", "Michael Gambon" ],
+  "directors" : [ "David Yates" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 250574,
+  "title" : "Creep",
+  "year" : 2014,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Mark Duplass", "Patrick Brice", "Katie Aselton" ],
+  "directors" : [ "Patrick Brice" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1062276,
+  "title" : "Dark Match",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror" ],
+  "actors" : [ "Sara Canning", "Mo Jabari", "Steven Ogg", "Chris Irvine", "Ayisha Issa" ],
+  "directors" : [ "Lowell Dean" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 106646,
+  "title" : "The Wolf of Wall Street",
+  "year" : 2013,
+  "genres" : [ "Drama", "Crime", "Comedy" ],
+  "actors" : [ "Jonah Hill", "Leonardo DiCaprio", "Matthew McConaughey", "Kyle Chandler", "Margot Robbie" ],
+  "directors" : [ "Martin Scorsese" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 38365,
+  "title" : "Grown Ups",
+  "year" : 2010,
+  "genres" : [ "Comedy" ],
+  "actors" : [ "Adam Sandler", "David Spade", "Rob Schneider", "Kevin James", "Chris Rock" ],
+  "directors" : [ "Dennis Dugan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 710258,
+  "title" : "Rust",
+  "year" : 2025,
+  "genres" : [ "Western" ],
+  "actors" : [ "Alec Baldwin", "Patrick Scott McDermott", "Travis Fimmel", "Todd Bryant", "Josh Hopkins" ],
+  "directors" : [ "Joel Souza" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1011985,
+  "title" : "Kung Fu Panda 4",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Dustin Hoffman", "Viola Davis", "Bryan Cranston", "Jack Black", "Awkwafina" ],
+  "directors" : [ "Mike Mitchell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 11324,
+  "title" : "Shutter Island",
+  "year" : 2010,
+  "genres" : [ "Drama", "Thriller", "Mystery" ],
+  "actors" : [ "Mark Ruffalo", "Leonardo DiCaprio", "Max von Sydow", "Michelle Williams", "Ben Kingsley" ],
+  "directors" : [ "Martin Scorsese" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 791373,
+  "title" : "Zack Snyder's Justice League",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Ray Fisher", "Jason Momoa", "Henry Cavill", "Ben Affleck", "Gal Gadot" ],
+  "directors" : [ "Zack Snyder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1333100,
+  "title" : "Attack on Titan: THE LAST ATTACK",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Hiroshi Kamiya", "Yu Shimamura", "Marina Inoue", "Yui Ishikawa", "Yuki Kaji" ],
+  "directors" : [ "Yuichiro Hayashi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1029235,
+  "title" : "Azrael",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror", "Thriller" ],
+  "actors" : [ "Samara Weaving", "Katariina Unt", "Vic Carmen Sonne", "Peter Christoffersen", "Nathan Stewart-Jarrett" ],
+  "directors" : [ "E.L. Katz" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1078605,
+  "title" : "Weapons",
+  "year" : 2025,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Julia Garner", "Austin Abrams", "Josh Brolin", "Alden Ehrenreich", "June Diane Raphael" ],
+  "directors" : [ "Zach Cregger" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 75656,
+  "title" : "Now You See Me",
+  "year" : 2013,
+  "genres" : [ "Thriller", "Crime" ],
+  "actors" : [ "Mark Ruffalo", "Jesse Eisenberg", "Woody Harrelson", "Isla Fisher", "Dave Franco" ],
+  "directors" : [ "Louis Leterrier" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1013601,
+  "title" : "The Alto Knights",
+  "year" : 2025,
+  "genres" : [ "Drama", "Crime", "History" ],
+  "actors" : [ "Robert De Niro", "Debra Messing", "Michael Rispoli", "Kathrine Narducci", "Cosmo Jarvis" ],
+  "directors" : [ "Barry Levinson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 37165,
+  "title" : "The Truman Show",
+  "year" : 1998,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Jim Carrey", "Laura Linney", "Natascha McElhone", "Noah Emmerich", "Holland Taylor" ],
+  "directors" : [ "Peter Weir" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 82702,
+  "title" : "How to Train Your Dragon 2",
+  "year" : 2014,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "America Ferrera", "Cate Blanchett", "Jay Baruchel", "Gerard Butler", "Craig Ferguson" ],
+  "directors" : [ "Dean DeBlois" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 98566,
+  "title" : "Teenage Mutant Ninja Turtles",
+  "year" : 2014,
+  "genres" : [ "Action", "Adventure", "Comedy", "Science Fiction" ],
+  "actors" : [ "Noel Fisher", "Alan Ritchson", "Jeremy Howard", "Megan Fox", "Pete Ploszek" ],
+  "directors" : [ "Jonathan Liebesman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 263115,
+  "title" : "Logan",
+  "year" : 2017,
+  "genres" : [ "Action", "Drama", "Science Fiction" ],
+  "actors" : [ "Patrick Stewart", "Dafne Keen", "Elizabeth Rodriguez", "Hugh Jackman", "Boyd Holbrook" ],
+  "directors" : [ "James Mangold" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 493922,
+  "title" : "Hereditary",
+  "year" : 2018,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Toni Collette", "Alex Wolff", "Ann Dowd", "Milly Shapiro", "Gabriel Byrne" ],
+  "directors" : [ "Ari Aster" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 866398,
+  "title" : "The Beekeeper",
+  "year" : 2024,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Emmy Raver-Lampman", "Bobby Naderi", "Minnie Driver", "Jason Statham", "Josh Hutcherson" ],
+  "directors" : [ "David Ayer" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 777443,
+  "title" : "The Electric State",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Woody Norman", "Jason Alexander", "Ke Huy Quan", "Millie Bobby Brown", "Chris Pratt" ],
+  "directors" : [ "Anthony Russo", "Joe Russo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 588228,
+  "title" : "The Tomorrow War",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "J.K. Simmons", "Sam Richardson", "Yvonne Strahovski", "Betty Gilpin", "Chris Pratt" ],
+  "directors" : [ "Chris McKay" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1143407,
+  "title" : "Sky Force",
+  "year" : 2025,
+  "genres" : [ "Action", "Thriller", "War", "History" ],
+  "actors" : [ "Akshay Kumar", "Veer Pahariya", "Sara Ali Khan", "Sharad Kelkar", "Nimrat Kaur" ],
+  "directors" : [ "Abhishek Kapur", "Sandeep Kewlani" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 11036,
+  "title" : "The Notebook",
+  "year" : 2004,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Joan Allen", "Rachel McAdams", "Gena Rowlands", "James Garner", "Ryan Gosling" ],
+  "directors" : [ "Nick Cassavetes" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 466272,
+  "title" : "Once Upon a Time... in Hollywood",
+  "year" : 2019,
+  "genres" : [ "Drama", "Thriller", "Comedy" ],
+  "actors" : [ "Leonardo DiCaprio", "Brad Pitt", "Emile Hirsch", "Margaret Qualley", "Margot Robbie" ],
+  "directors" : [ "Quentin Tarantino" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 974453,
+  "title" : "Absolution",
+  "year" : 2024,
+  "genres" : [ "Action", "Thriller", "Crime", "Mystery" ],
+  "actors" : [ "Daniel Diemer", "Ron Perlman", "Liam Neeson", "Frankie Shaw", "Yolonda Ross" ],
+  "directors" : [ "Hans Petter Moland" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 370172,
+  "title" : "No Time to Die",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Thriller" ],
+  "actors" : [ "Rami Malek", "Lashana Lynch", "Léa Seydoux", "Ralph Fiennes", "Daniel Craig" ],
+  "directors" : [ "Cary Joji Fukunaga" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 546554,
+  "title" : "Knives Out",
+  "year" : 2019,
+  "genres" : [ "Crime", "Comedy", "Mystery" ],
+  "actors" : [ "Michael Shannon", "Ana de Armas", "Chris Evans", "Jamie Lee Curtis", "Daniel Craig" ],
+  "directors" : [ "Rian Johnson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 353491,
+  "title" : "The Dark Tower",
+  "year" : 2017,
+  "genres" : [ "Action", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Fran Kranz", "Tom Taylor", "Matthew McConaughey", "Idris Elba", "Claudia Kim" ],
+  "directors" : [ "Nikolaj Arcel" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 49521,
+  "title" : "Man of Steel",
+  "year" : 2013,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Amy Adams", "Russell Crowe", "Henry Cavill", "Michael Shannon", "Kevin Costner" ],
+  "directors" : [ "Zack Snyder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 889737,
+  "title" : "Joker: Folie à Deux",
+  "year" : 2024,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Brendan Gleeson", "Zazie Beetz", "Catherine Keener", "Joaquin Phoenix", "Lady Gaga" ],
+  "directors" : [ "Todd Phillips" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 889737,
+  "title" : "Joker: Folie à Deux",
+  "year" : 2024,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Brendan Gleeson", "Zazie Beetz", "Catherine Keener", "Joaquin Phoenix", "Lady Gaga" ],
+  "directors" : [ "Todd Phillips" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 49026,
+  "title" : "The Dark Knight Rises",
+  "year" : 2012,
+  "genres" : [ "Action", "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Christian Bale", "Gary Oldman", "Anne Hathaway", "Joseph Gordon-Levitt", "Tom Hardy" ],
+  "directors" : [ "Christopher Nolan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 949,
+  "title" : "Heat",
+  "year" : 1995,
+  "genres" : [ "Action", "Drama", "Crime" ],
+  "actors" : [ "Al Pacino", "Robert De Niro", "Jon Voight", "Tom Sizemore", "Val Kilmer" ],
+  "directors" : [ "Michael Mann" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 22,
+  "title" : "Pirates of the Caribbean: The Curse of the Black Pearl",
+  "year" : 2003,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Johnny Depp", "Keira Knightley", "Jack Davenport", "Geoffrey Rush", "Orlando Bloom" ],
+  "directors" : [ "Gore Verbinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1024864,
+  "title" : "Showdown in Yesteryear",
+  "year" : 2022,
+  "genres" : [ "Western", "Fantasy" ],
+  "actors" : [ "Debra Lamb", "Tim O'Hearn", "Aaron Bratcher", "Vernon Wells", "Jeff Grennell" ],
+  "directors" : [ "Aaron Bratcher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 436270,
+  "title" : "Black Adam",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Quintessa Swindell", "Sarah Shahi", "Noah Centineo", "Aldis Hodge", "Dwayne Johnson" ],
+  "directors" : [ "Jaume Collet-Serra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 335988,
+  "title" : "Transformers: The Last Knight",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Mark Wahlberg", "Erik Aadahl", "Peter Cullen", "Laura Haddock", "Anthony Hopkins" ],
+  "directors" : [ "Michael Bay" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1010335,
+  "title" : "Shufu to Sei-seikatsu",
+  "year" : 1984,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Kaoru Mizuki", "Akira Hanaue", "Masahiko Abe", "Katsumi Ôtaki", "Jun Izumi" ],
+  "directors" : [ "Yasuhiro Horiuchi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 490132,
+  "title" : "Green Book",
+  "year" : 2018,
+  "genres" : [ "Drama", "History" ],
+  "actors" : [ "Viggo Mortensen", "Mahershala Ali", "Linda Cardellini", "Sebastian Maniscalco", "Dimiter D. Marinov" ],
+  "directors" : [ "Peter Farrelly" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 799583,
+  "title" : "The Ministry of Ungentlemanly Warfare",
+  "year" : 2024,
+  "genres" : [ "Action", "War", "Comedy" ],
+  "actors" : [ "Henry Golding", "Alan Ritchson", "Henry Cavill", "Cary Elwes", "Eiza González" ],
+  "directors" : [ "Guy Ritchie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 639720,
+  "title" : "IF",
+  "year" : 2024,
+  "genres" : [ "Fantasy", "Family", "Comedy" ],
+  "actors" : [ "Steve Carell", "Ryan Reynolds", "Cailey Fleming", "Fiona Shaw", "John Krasinski" ],
+  "directors" : [ "John Krasinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1357305,
+  "title" : "Detective Chinatown 1900",
+  "year" : 2025,
+  "genres" : [ "Action", "Comedy", "Mystery" ],
+  "actors" : [ "Zhang Xincheng", "Chow Yun-Fat", "White-K", "Liu Haoran", "Wang Baoqiang" ],
+  "directors" : [ "Chen Sicheng", "Dai Mo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 150540,
+  "title" : "Inside Out",
+  "year" : 2015,
+  "genres" : [ "Adventure", "Drama", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Bill Hader", "Lewis Black", "Amy Poehler", "Phyllis Smith", "Richard Kind" ],
+  "directors" : [ "Pete Docter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 49051,
+  "title" : "The Hobbit: An Unexpected Journey",
+  "year" : 2012,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Ken Stott", "Martin Freeman", "James Nesbitt", "Richard Armitage", "Ian McKellen" ],
+  "directors" : [ "Peter Jackson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 970450,
+  "title" : "Werewolves",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror", "Thriller" ],
+  "actors" : [ "Lou Diamond Phillips", "Jimmy Cummings", "Frank Grillo", "Ilfenesh Hadera", "Katrina Law" ],
+  "directors" : [ "Steven C. Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1181107,
+  "title" : "The King of Kings",
+  "year" : 2025,
+  "genres" : [ "Drama", "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Uma Thurman", "Pierce Brosnan", "Roman Griffin Davis", "Kenneth Branagh", "Oscar Isaac" ],
+  "directors" : [ "Jang Seong-ho" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 122,
+  "title" : "The Lord of the Rings: The Return of the King",
+  "year" : 2003,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Elijah Wood", "Viggo Mortensen", "Sean Astin", "Andy Serkis", "Ian McKellen" ],
+  "directors" : [ "Peter Jackson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 156022,
+  "title" : "The Equalizer",
+  "year" : 2014,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Marton Csokas", "Denzel Washington", "Chloë Grace Moretz", "David Harbour", "Haley Bennett" ],
+  "directors" : [ "Antoine Fuqua" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 545611,
+  "title" : "Everything Everywhere All at Once",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Stephanie Hsu", "Ke Huy Quan", "Michelle Yeoh", "James Hong", "Jamie Lee Curtis" ],
+  "directors" : [ "Daniel Kwan", "Daniel Scheinert" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1241752,
+  "title" : "Rita",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Gold Aceron", "Christine Bermas", "Sahil Khan", "VR Relosa", "Josh Ivan Morales" ],
+  "directors" : [ ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 616037,
+  "title" : "Thor: Love and Thunder",
+  "year" : 2022,
+  "genres" : [ "Action", "Fantasy", "Comedy" ],
+  "actors" : [ "Chris Hemsworth", "Christian Bale", "Tessa Thompson", "Taika Waititi", "Natalie Portman" ],
+  "directors" : [ "Taika Waititi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1357305,
+  "title" : "Detective Chinatown 1900",
+  "year" : 2025,
+  "genres" : [ "Action", "Comedy", "Mystery" ],
+  "actors" : [ "Zhang Xincheng", "Chow Yun-Fat", "White-K", "Liu Haoran", "Wang Baoqiang" ],
+  "directors" : [ "Chen Sicheng", "Dai Mo" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 3080,
+  "title" : "Top Hat",
+  "year" : 1935,
+  "genres" : [ "Music", "Romance", "Comedy" ],
+  "actors" : [ "Fred Astaire", "Erik Rhodes", "Eric Blore", "Ginger Rogers", "Edward Everett Horton" ],
+  "directors" : [ "Mark Sandrich" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 87101,
+  "title" : "Terminator Genisys",
+  "year" : 2015,
+  "genres" : [ "Action", "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Jai Courtney", "Arnold Schwarzenegger", "Jason Clarke", "Matt Smith", "Emilia Clarke" ],
+  "directors" : [ "Alan Taylor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 466272,
+  "title" : "Once Upon a Time... in Hollywood",
+  "year" : 2019,
+  "genres" : [ "Drama", "Thriller", "Comedy" ],
+  "actors" : [ "Leonardo DiCaprio", "Brad Pitt", "Emile Hirsch", "Margaret Qualley", "Margot Robbie" ],
+  "directors" : [ "Quentin Tarantino" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 250574,
+  "title" : "Creep",
+  "year" : 2014,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Mark Duplass", "Patrick Brice", "Katie Aselton" ],
+  "directors" : [ "Patrick Brice" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 957452,
+  "title" : "The Crow",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror", "Fantasy" ],
+  "actors" : [ "Laura Birn", "Bill Skarsgård", "FKA twigs", "Danny Huston", "Josette Simon" ],
+  "directors" : [ "Rupert Sanders" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 284054,
+  "title" : "Black Panther",
+  "year" : 2018,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Michael B. Jordan", "Chadwick Boseman", "Martin Freeman", "Lupita Nyong'o", "Danai Gurira" ],
+  "directors" : [ "Ryan Coogler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 436270,
+  "title" : "Black Adam",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Quintessa Swindell", "Sarah Shahi", "Noah Centineo", "Aldis Hodge", "Dwayne Johnson" ],
+  "directors" : [ "Jaume Collet-Serra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 11281,
+  "title" : "Halloween II",
+  "year" : 1981,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Donald Pleasence", "Lance Guest", "Charles Cyphers", "Jeffrey Kramer", "Jamie Lee Curtis" ],
+  "directors" : [ "Rick Rosenthal" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 639720,
+  "title" : "IF",
+  "year" : 2024,
+  "genres" : [ "Fantasy", "Family", "Comedy" ],
+  "actors" : [ "Steve Carell", "Ryan Reynolds", "Cailey Fleming", "Fiona Shaw", "John Krasinski" ],
+  "directors" : [ "John Krasinski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 4935,
+  "title" : "Howl's Moving Castle",
+  "year" : 2004,
+  "genres" : [ "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Chieko Baisho", "Akihiro Miwa", "Takuya Kimura", "Ryunosuke Kamiki", "Tatsuya Gashûin" ],
+  "directors" : [ "Hayao Miyazaki" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 840705,
+  "title" : "Blink Twice",
+  "year" : 2024,
+  "genres" : [ "Thriller", "Mystery" ],
+  "actors" : [ "Simon Rex", "Channing Tatum", "Alia Shawkat", "Naomi Ackie", "Christian Slater" ],
+  "directors" : [ "Zoë Kravitz" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 545611,
+  "title" : "Everything Everywhere All at Once",
+  "year" : 2022,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Stephanie Hsu", "Ke Huy Quan", "Michelle Yeoh", "James Hong", "Jamie Lee Curtis" ],
+  "directors" : [ "Daniel Kwan", "Daniel Scheinert" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 843527,
+  "title" : "The Idea of You",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Reid Scott", "Anne Hathaway", "Annie Mumolo", "Ella Rubin", "Nicholas Galitzine" ],
+  "directors" : [ "Michael Showalter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 9286,
+  "title" : "Final Destination 3",
+  "year" : 2006,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Mary Elizabeth Winstead", "Ryan Merriman", "Alexz Johnson", "Kris Lemche", "Sam Easton" ],
+  "directors" : [ "James Wong" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 49521,
+  "title" : "Man of Steel",
+  "year" : 2013,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Amy Adams", "Russell Crowe", "Henry Cavill", "Michael Shannon", "Kevin Costner" ],
+  "directors" : [ "Zack Snyder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 324786,
+  "title" : "Hacksaw Ridge",
+  "year" : 2016,
+  "genres" : [ "Drama", "War", "History" ],
+  "actors" : [ "Luke Bracey", "Teresa Palmer", "Andrew Garfield", "Vince Vaughn", "Sam Worthington" ],
+  "directors" : [ "Mel Gibson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 979275,
+  "title" : "Mob Land",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Ashley Benson", "Stephen Dorff", "Kevin Dillon", "Shiloh Fernandez", "John Travolta" ],
+  "directors" : [ "Nicholas Maggio" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 449443,
+  "title" : "Den of Thieves",
+  "year" : 2018,
+  "genres" : [ "Action", "Thriller", "Crime" ],
+  "actors" : [ "Pablo Schreiber", "O'Shea Jackson Jr.", "Meadow Williams", "Gerard Butler", "Maurice Compte" ],
+  "directors" : [ "Christian Gudegast" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 290098,
+  "title" : "The Handmaiden",
+  "year" : 2016,
+  "genres" : [ "Drama", "Thriller", "Romance" ],
+  "actors" : [ "Kim Tae-ri", "Kim Min-hee", "Cho Jin-woong", "Kim Hae-sook", "Ha Jung-woo" ],
+  "directors" : [ "Park Chan-wook" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 82023,
+  "title" : "Hotel Desire",
+  "year" : 2011,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Palina Rojinski", "Saralisa Volm", "Jan-Gregor Kremp", "Clemens Schick", "Herbert Knaup" ],
+  "directors" : [ "Sergej Moya" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 87101,
+  "title" : "Terminator Genisys",
+  "year" : 2015,
+  "genres" : [ "Action", "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Jai Courtney", "Arnold Schwarzenegger", "Jason Clarke", "Matt Smith", "Emilia Clarke" ],
+  "directors" : [ "Alan Taylor" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 957452,
+  "title" : "The Crow",
+  "year" : 2024,
+  "genres" : [ "Action", "Horror", "Fantasy" ],
+  "actors" : [ "Laura Birn", "Bill Skarsgård", "FKA twigs", "Danny Huston", "Josette Simon" ],
+  "directors" : [ "Rupert Sanders" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 419430,
+  "title" : "Get Out",
+  "year" : 2017,
+  "genres" : [ "Horror", "Thriller", "Mystery" ],
+  "actors" : [ "Catherine Keener", "Caleb Landry Jones", "Allison Williams", "Daniel Kaluuya", "Bradley Whitford" ],
+  "directors" : [ "Jordan Peele" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1457124,
+  "title" : "Titanic: The Digital Resurrection",
+  "year" : 2025,
+  "genres" : [ "Documentary" ],
+  "actors" : [ "Josh Goodman", "Chris Hearn", "Parks Stephenson", "Jennifer Hooper", "Yasmin Khan" ],
+  "directors" : [ "Fergus Colville" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 454626,
+  "title" : "Sonic the Hedgehog",
+  "year" : 2020,
+  "genres" : [ "Action", "Family", "Comedy", "Science Fiction" ],
+  "actors" : [ "Jim Carrey", "James Marsden", "Tika Sumpter", "Ben Schwartz", "Natasha Rothwell" ],
+  "directors" : [ "Jeff Fowler" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 437665,
+  "title" : "The Wrong House",
+  "year" : 2016,
+  "genres" : [ "Thriller", "TV Movie" ],
+  "actors" : [ "Clare Kramer", "Tilky Jones", "Thomas Calabro", "Jim O'Heir", "Allison McAtee" ],
+  "directors" : [ "Sam Irvin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 744,
+  "title" : "Top Gun",
+  "year" : 1986,
+  "genres" : [ "Action", "Drama" ],
+  "actors" : [ "Kelly McGillis", "Anthony Edwards", "Tom Skerritt", "Tom Cruise", "Val Kilmer" ],
+  "directors" : [ "Tony Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 43949,
+  "title" : "Flipped",
+  "year" : 2010,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Anthony Edwards", "Madeline Carroll", "John Mahoney", "Callan McAuliffe", "Rebecca De Mornay" ],
+  "directors" : [ "Rob Reiner" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 566525,
+  "title" : "Shang-Chi and the Legend of the Ten Rings",
+  "year" : 2021,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Science Fiction" ],
+  "actors" : [ "Meng'er Zhang", "Simu Liu", "Tony Leung", "Ben Kingsley", "Awkwafina" ],
+  "directors" : [ "Destin Daniel Cretton" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1254786,
+  "title" : "The Life List",
+  "year" : 2025,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Kyle Allen", "Sebastian de Souza", "José Zúñiga", "Connie Britton", "Sofia Carson" ],
+  "directors" : [ "Adam Brooks" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1260416,
+  "title" : "Anastasia",
+  "year" : 1953,
+  "genres" : [ "Drama", "TV Movie" ],
+  "actors" : [ "Anthony Ireland", "Malcolm Russell", "Peter Cushing", "Mary Kerridge", "Michael Godfrey" ],
+  "directors" : [ ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 384018,
+  "title" : "Fast & Furious Presents: Hobbs & Shaw",
+  "year" : 2019,
+  "genres" : [ "Action", "Adventure", "Comedy" ],
+  "actors" : [ "Idris Elba", "Helen Mirren", "Dwayne Johnson", "Vanessa Kirby", "Jason Statham" ],
+  "directors" : [ "David Leitch" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1294983,
+  "title" : "Russian Romance",
+  "year" : 1993,
+  "genres" : [ "Romance" ],
+  "actors" : [ "Igor Čillík", "Aristarkh Livanov", "Yevgeniya Kryukova", "Aleksandr Fatyushin", "Nadezhda Butyrtseva" ],
+  "directors" : [ "Vladimir Makedonskiy" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 762441,
+  "title" : "A Quiet Place: Day One",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller", "Science Fiction" ],
+  "actors" : [ "Alex Wolff", "Joseph Quinn", "Djimon Hounsou", "Eliane Umuhire", "Lupita Nyong'o" ],
+  "directors" : [ "Michael Sarnoski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 408,
+  "title" : "Snow White and the Seven Dwarfs",
+  "year" : 1938,
+  "genres" : [ "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Adriana Caselotti", "Lucille La Verne", "Harry Stockwell", "Roy Atwell", "Pinto Colvig" ],
+  "directors" : [ "William Cottrell", "Ben Sharpsteen", "Perce Pearce", "David Hand", "Wilfred Jackson", "Larry Morey" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 216015,
+  "title" : "Fifty Shades of Grey",
+  "year" : 2015,
+  "genres" : [ "Drama", "Thriller", "Romance" ],
+  "actors" : [ "Dakota Johnson", "Jamie Dornan", "Jennifer Ehle", "Victor Rasuk", "Eloise Mumford" ],
+  "directors" : [ "Sam Taylor-Johnson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 549509,
+  "title" : "The Brutalist",
+  "year" : 2024,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Joe Alwyn", "Raffey Cassidy", "Felicity Jones", "Guy Pearce", "Adrien Brody" ],
+  "directors" : [ "Brady Corbet" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 840705,
+  "title" : "Blink Twice",
+  "year" : 2024,
+  "genres" : [ "Thriller", "Mystery" ],
+  "actors" : [ "Simon Rex", "Channing Tatum", "Alia Shawkat", "Naomi Ackie", "Christian Slater" ],
+  "directors" : [ "Zoë Kravitz" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 311324,
+  "title" : "The Great Wall",
+  "year" : 2016,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Willem Dafoe", "Pedro Pascal", "Matt Damon", "Jing Tian", "Andy Lau" ],
+  "directors" : [ "Zhang Yimou" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1005331,
+  "title" : "Carry-On",
+  "year" : 2024,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Jason Bateman", "Taron Egerton", "Theo Rossi", "Sofia Carson", "Danielle Deadwyler" ],
+  "directors" : [ "Jaume Collet-Serra" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1333099,
+  "title" : "Dalia and the Red Book",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Drama", "Fantasy", "Animation" ],
+  "actors" : [ "Mariana Correa", "Andrés Burecovics", "Gustavo Barrientos", "Agustina Gonzalez Cirulnik" ],
+  "directors" : [ "David Bisbano" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 567609,
+  "title" : "Ready or Not",
+  "year" : 2019,
+  "genres" : [ "Horror", "Comedy" ],
+  "actors" : [ "Samara Weaving", "Mark O'Brien", "Henry Czerny", "Adam Brody", "Andie MacDowell" ],
+  "directors" : [ "Tyler Gillett", "Matt Bettinelli-Olpin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 921436,
+  "title" : "Escape",
+  "year" : 2024,
+  "genres" : [ "Action", "Drama" ],
+  "actors" : [ "Lee Je-hoon", "Lee Sung-wook", "Koo Kyo-hwan", "Hong Xa-bin", "Seo Hyun-woo" ],
+  "directors" : [ "Lee Jong-pil" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 787699,
+  "title" : "Wonka",
+  "year" : 2023,
+  "genres" : [ "Fantasy", "Family", "Comedy" ],
+  "actors" : [ "Hugh Grant", "Calah Lane", "Timothée Chalamet", "Keegan-Michael Key", "Paterson Joseph" ],
+  "directors" : [ "Paul King" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 718930,
+  "title" : "Bullet Train",
+  "year" : 2022,
+  "genres" : [ "Action", "Thriller", "Comedy" ],
+  "actors" : [ "Brad Pitt", "Andrew Koji", "Brian Tyree Henry", "Aaron Taylor-Johnson", "Joey King" ],
+  "directors" : [ "David Leitch" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 695721,
+  "title" : "The Hunger Games: The Ballad of Songbirds & Snakes",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Drama", "Science Fiction" ],
+  "actors" : [ "Hunter Schafer", "Rachel Zegler", "Tom Blyth", "Peter Dinklage", "Jason Schwartzman" ],
+  "directors" : [ "Francis Lawrence" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 572802,
+  "title" : "Aquaman and the Lost Kingdom",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Patrick Wilson", "Jason Momoa", "Randall Park", "Yahya Abdul-Mateen II", "Amber Heard" ],
+  "directors" : [ "James Wan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 370663,
+  "title" : "Below Her Mouth",
+  "year" : 2017,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Mayko Nguyen", "Sebastian Pigott", "Tommie-Amber Pirie", "Erika Linder", "Natalie Krill" ],
+  "directors" : [ "April Mullen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 24929,
+  "title" : "Return of the Living Dead Part II",
+  "year" : 1988,
+  "genres" : [ "Horror", "Comedy" ],
+  "actors" : [ "James Karen", "Thom Mathews", "Jason Hogan", "Thor Van Lingen", "Michael Kenworthy" ],
+  "directors" : [ "Ken Wiederhorn" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 4935,
+  "title" : "Howl's Moving Castle",
+  "year" : 2004,
+  "genres" : [ "Adventure", "Fantasy", "Animation" ],
+  "actors" : [ "Chieko Baisho", "Akihiro Miwa", "Takuya Kimura", "Ryunosuke Kamiki", "Tatsuya Gashûin" ],
+  "directors" : [ "Hayao Miyazaki" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 138843,
+  "title" : "The Conjuring",
+  "year" : 2013,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Patrick Wilson", "Mackenzie Foy", "Lili Taylor", "Ron Livingston", "Vera Farmiga" ],
+  "directors" : [ "James Wan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 868759,
+  "title" : "Ghosted",
+  "year" : 2023,
+  "genres" : [ "Action", "Romance", "Comedy" ],
+  "actors" : [ "Mike Moh", "Amy Sedaris", "Adrien Brody", "Ana de Armas", "Chris Evans" ],
+  "directors" : [ "Dexter Fletcher" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 438695,
+  "title" : "Sing 2",
+  "year" : 2021,
+  "genres" : [ "Music", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Matthew McConaughey", "Bobby Cannavale", "Reese Witherspoon", "Taron Egerton", "Scarlett Johansson" ],
+  "directors" : [ "Garth Jennings" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1445276,
+  "title" : "A Love Too Captivating",
+  "year" : 2025,
+  "genres" : [ "Romance", "Animation" ],
+  "actors" : [ "Takeo Otsuka", "Chiaki Kobayashi" ],
+  "directors" : [ ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 680,
+  "title" : "Pulp Fiction",
+  "year" : 1994,
+  "genres" : [ "Thriller", "Crime" ],
+  "actors" : [ "Uma Thurman", "Ving Rhames", "Samuel L. Jackson", "Bruce Willis", "John Travolta" ],
+  "directors" : [ "Quentin Tarantino" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 55779,
+  "title" : "Final Destination 5",
+  "year" : 2011,
+  "genres" : [ "Horror", "Mystery" ],
+  "actors" : [ "Miles Fisher", "David Koechner", "Nicholas D'Agosto", "Emma Bell", "Courtney B. Vance" ],
+  "directors" : [ "Steven Quale" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 389,
+  "title" : "12 Angry Men",
+  "year" : 1957,
+  "genres" : [ "Drama" ],
+  "actors" : [ "E.G. Marshall", "John Fiedler", "Lee J. Cobb", "Martin Balsam", "Jack Klugman" ],
+  "directors" : [ "Sidney Lumet" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 8392,
+  "title" : "My Neighbor Totoro",
+  "year" : 1988,
+  "genres" : [ "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Shigesato Itoi", "Noriko Hidaka", "Hitoshi Takagi", "Chika Sakamoto", "Sumi Shimamoto" ],
+  "directors" : [ "Hayao Miyazaki" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 447365,
+  "title" : "Guardians of the Galaxy Vol. 3",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Comedy", "Science Fiction" ],
+  "actors" : [ "Karen Gillan", "Pom Klementieff", "Zoe Saldaña", "Dave Bautista", "Chris Pratt" ],
+  "directors" : [ "James Gunn" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 408,
+  "title" : "Snow White and the Seven Dwarfs",
+  "year" : 1938,
+  "genres" : [ "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Adriana Caselotti", "Lucille La Verne", "Harry Stockwell", "Roy Atwell", "Pinto Colvig" ],
+  "directors" : [ "William Cottrell", "Ben Sharpsteen", "Perce Pearce", "David Hand", "Wilfred Jackson", "Larry Morey" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 787699,
+  "title" : "Wonka",
+  "year" : 2023,
+  "genres" : [ "Fantasy", "Family", "Comedy" ],
+  "actors" : [ "Hugh Grant", "Calah Lane", "Timothée Chalamet", "Keegan-Michael Key", "Paterson Joseph" ],
+  "directors" : [ "Paul King" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 937287,
+  "title" : "Challengers",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Josh O'Connor", "Darnell Appling", "Bryan Doo", "Mike Faist", "Zendaya" ],
+  "directors" : [ "Luca Guadagnino" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 843527,
+  "title" : "The Idea of You",
+  "year" : 2024,
+  "genres" : [ "Drama", "Romance", "Comedy" ],
+  "actors" : [ "Reid Scott", "Anne Hathaway", "Annie Mumolo", "Ella Rubin", "Nicholas Galitzine" ],
+  "directors" : [ "Michael Showalter" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 2062,
+  "title" : "Ratatouille",
+  "year" : 2007,
+  "genres" : [ "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Peter Sohn", "Lou Romano", "Ian Holm", "Patton Oswalt", "Brian Dennehy" ],
+  "directors" : [ "Brad Bird" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 101,
+  "title" : "Léon: The Professional",
+  "year" : 1994,
+  "genres" : [ "Action", "Drama", "Crime" ],
+  "actors" : [ "Peter Appel", "Gary Oldman", "Danny Aiello", "Jean Reno", "Natalie Portman" ],
+  "directors" : [ "Luc Besson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 585083,
+  "title" : "Hotel Transylvania: Transformania",
+  "year" : 2022,
+  "genres" : [ "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Jim Gaffigan", "Steve Buscemi", "Kathryn Hahn", "Selena Gomez", "Andy Samberg" ],
+  "directors" : [ "Jennifer Kluska", "Derek Drymon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 293660,
+  "title" : "Deadpool",
+  "year" : 2016,
+  "genres" : [ "Action", "Adventure", "Comedy" ],
+  "actors" : [ "Morena Baccarin", "Ryan Reynolds", "Gina Carano", "T.J. Miller", "Ed Skrein" ],
+  "directors" : [ "Tim Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 335866,
+  "title" : "Circle",
+  "year" : 2015,
+  "genres" : [ "Drama", "Horror", "Thriller", "Mystery", "Science Fiction" ],
+  "actors" : [ "Mercy Malick", "Cesar Garcia", "Julie Benz", "Lisa Pelikan", "Carter Jenkins" ],
+  "directors" : [ "Mario Miscione", "Aaron Hann" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1234821,
+  "title" : "Jurassic World Rebirth",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Rupert Friend", "Manuel Garcia-Rulfo", "Jonathan Bailey", "Mahershala Ali", "Scarlett Johansson" ],
+  "directors" : [ "Gareth Edwards" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1011477,
+  "title" : "Karate Kid: Legends",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Drama", "Family" ],
+  "actors" : [ "Ralph Macchio", "Sadie Stanley", "Joshua Jackson", "Jackie Chan", "Ben Wang" ],
+  "directors" : [ "Jonathan Entwistle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1242686,
+  "title" : "Salvable",
+  "year" : 2025,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Shia LaBeouf", "Toby Kebbell", "Aiysha Hart", "Michael Socha", "James Cosmo" ],
+  "directors" : [ "Johnny Marchetta", "Björn Franklin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 389,
+  "title" : "12 Angry Men",
+  "year" : 1957,
+  "genres" : [ "Drama" ],
+  "actors" : [ "E.G. Marshall", "John Fiedler", "Lee J. Cobb", "Martin Balsam", "Jack Klugman" ],
+  "directors" : [ "Sidney Lumet" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 489,
+  "title" : "Good Will Hunting",
+  "year" : 1997,
+  "genres" : [ "Drama" ],
+  "actors" : [ "Matt Damon", "Minnie Driver", "Stellan Skarsgård", "Ben Affleck", "Robin Williams" ],
+  "directors" : [ "Gus Van Sant" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1217876,
+  "title" : "Ellie and the Monster Team",
+  "year" : 2024,
+  "genres" : [ "Animation", "Family", "Comedy" ],
+  "actors" : [ "Sophie Nélisse" ],
+  "directors" : [ "Piet De Rycker", "Jens Møller", "Jesper Møller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 91314,
+  "title" : "Transformers: Age of Extinction",
+  "year" : 2014,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Mark Wahlberg", "Nicola Peltz Beckham", "Stanley Tucci", "Peter Cullen", "Kelsey Grammer" ],
+  "directors" : [ "Michael Bay" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 284053,
+  "title" : "Thor: Ragnarok",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Mark Ruffalo", "Tom Hiddleston", "Idris Elba", "Cate Blanchett" ],
+  "directors" : [ "Taika Waititi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 93456,
+  "title" : "Despicable Me 2",
+  "year" : 2013,
+  "genres" : [ "Animation", "Family", "Comedy" ],
+  "actors" : [ "Steve Carell", "Benjamin Bratt", "Miranda Cosgrove", "Kristen Wiig", "Russell Brand" ],
+  "directors" : [ "Chris Renaud", "Pierre Coffin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 244786,
+  "title" : "Whiplash",
+  "year" : 2014,
+  "genres" : [ "Drama", "Music" ],
+  "actors" : [ "Paul Reiser", "Melissa Benoist", "J.K. Simmons", "Austin Stowell", "Miles Teller" ],
+  "directors" : [ "Damien Chazelle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 293660,
+  "title" : "Deadpool",
+  "year" : 2016,
+  "genres" : [ "Action", "Adventure", "Comedy" ],
+  "actors" : [ "Morena Baccarin", "Ryan Reynolds", "Gina Carano", "T.J. Miller", "Ed Skrein" ],
+  "directors" : [ "Tim Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 679,
+  "title" : "Aliens",
+  "year" : 1986,
+  "genres" : [ "Action", "Thriller", "Science Fiction" ],
+  "actors" : [ "Paul Reiser", "Carrie Henn", "Michael Biehn", "Sigourney Weaver", "Lance Henriksen" ],
+  "directors" : [ "James Cameron" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 101,
+  "title" : "Léon: The Professional",
+  "year" : 1994,
+  "genres" : [ "Action", "Drama", "Crime" ],
+  "actors" : [ "Peter Appel", "Gary Oldman", "Danny Aiello", "Jean Reno", "Natalie Portman" ],
+  "directors" : [ "Luc Besson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 335866,
+  "title" : "Circle",
+  "year" : 2015,
+  "genres" : [ "Drama", "Horror", "Thriller", "Mystery", "Science Fiction" ],
+  "actors" : [ "Mercy Malick", "Cesar Garcia", "Julie Benz", "Lisa Pelikan", "Carter Jenkins" ],
+  "directors" : [ "Mario Miscione", "Aaron Hann" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 78,
+  "title" : "Blade Runner",
+  "year" : 1982,
+  "genres" : [ "Drama", "Thriller", "Science Fiction" ],
+  "actors" : [ "Edward James Olmos", "Harrison Ford", "M. Emmet Walsh", "Sean Young", "Rutger Hauer" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 121,
+  "title" : "The Lord of the Rings: The Two Towers",
+  "year" : 2002,
+  "genres" : [ "Action", "Adventure", "Fantasy" ],
+  "actors" : [ "Elijah Wood", "Viggo Mortensen", "Sean Astin", "Andy Serkis", "Ian McKellen" ],
+  "directors" : [ "Peter Jackson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 652,
+  "title" : "Troy",
+  "year" : 2004,
+  "genres" : [ "Action", "War", "History" ],
+  "actors" : [ "Brad Pitt", "Eric Bana", "Sean Bean", "Orlando Bloom", "Brian Cox" ],
+  "directors" : [ "Wolfgang Petersen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1234821,
+  "title" : "Jurassic World Rebirth",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Thriller", "Science Fiction" ],
+  "actors" : [ "Rupert Friend", "Manuel Garcia-Rulfo", "Jonathan Bailey", "Mahershala Ali", "Scarlett Johansson" ],
+  "directors" : [ "Gareth Edwards" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 854,
+  "title" : "The Mask",
+  "year" : 1994,
+  "genres" : [ "Crime", "Fantasy", "Romance", "Comedy" ],
+  "actors" : [ "Jim Carrey", "Amy Yasbeck", "Richard Jeni", "Peter Greene", "Peter Riegert" ],
+  "directors" : [ "Chuck Russell" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1011477,
+  "title" : "Karate Kid: Legends",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Drama", "Family" ],
+  "actors" : [ "Ralph Macchio", "Sadie Stanley", "Joshua Jackson", "Jackie Chan", "Ben Wang" ],
+  "directors" : [ "Jonathan Entwistle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1242686,
+  "title" : "Salvable",
+  "year" : 2025,
+  "genres" : [ "Drama", "Crime" ],
+  "actors" : [ "Shia LaBeouf", "Toby Kebbell", "Aiysha Hart", "Michael Socha", "James Cosmo" ],
+  "directors" : [ "Johnny Marchetta", "Björn Franklin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1217876,
+  "title" : "Ellie and the Monster Team",
+  "year" : 2024,
+  "genres" : [ "Animation", "Family", "Comedy" ],
+  "actors" : [ "Sophie Nélisse" ],
+  "directors" : [ "Piet De Rycker", "Jens Møller", "Jesper Møller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 91314,
+  "title" : "Transformers: Age of Extinction",
+  "year" : 2014,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Mark Wahlberg", "Nicola Peltz Beckham", "Stanley Tucci", "Peter Cullen", "Kelsey Grammer" ],
+  "directors" : [ "Michael Bay" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 85,
+  "title" : "Raiders of the Lost Ark",
+  "year" : 1981,
+  "genres" : [ "Action", "Adventure" ],
+  "actors" : [ "Harrison Ford", "Ronald Lacey", "John Rhys-Davies", "Paul Freeman", "Karen Allen" ],
+  "directors" : [ "Steven Spielberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 284053,
+  "title" : "Thor: Ragnarok",
+  "year" : 2017,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Mark Ruffalo", "Tom Hiddleston", "Idris Elba", "Cate Blanchett" ],
+  "directors" : [ "Taika Waititi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 786892,
+  "title" : "Furiosa: A Mad Max Saga",
+  "year" : 2024,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Chris Hemsworth", "Alyla Browne", "Anya Taylor-Joy", "George Shevtsov", "Tom Burke" ],
+  "directors" : [ "George Miller" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 615777,
+  "title" : "Babylon",
+  "year" : 2022,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Brad Pitt", "Jovan Adepo", "Diego Calva", "Jean Smart", "Margot Robbie" ],
+  "directors" : [ "Damien Chazelle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 93456,
+  "title" : "Despicable Me 2",
+  "year" : 2013,
+  "genres" : [ "Animation", "Family", "Comedy" ],
+  "actors" : [ "Steve Carell", "Benjamin Bratt", "Miranda Cosgrove", "Kristen Wiig", "Russell Brand" ],
+  "directors" : [ "Chris Renaud", "Pierre Coffin" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 244786,
+  "title" : "Whiplash",
+  "year" : 2014,
+  "genres" : [ "Drama", "Music" ],
+  "actors" : [ "Paul Reiser", "Melissa Benoist", "J.K. Simmons", "Austin Stowell", "Miles Teller" ],
+  "directors" : [ "Damien Chazelle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1229646,
+  "title" : "Robotia, la película",
+  "year" : 2024,
+  "genres" : [ "Adventure", "Animation" ],
+  "actors" : [ "Diego Recagno", "Valeria Stilman", "Ana María Picchio", "Annabel Gallardo", "Ariel Cister" ],
+  "directors" : [ "Diego Lucero", "Diego Cagide" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 6977,
+  "title" : "No Country for Old Men",
+  "year" : 2007,
+  "genres" : [ "Drama", "Thriller", "Crime" ],
+  "actors" : [ "Javier Bardem", "Josh Brolin", "Woody Harrelson", "Kelly Macdonald", "Tommy Lee Jones" ],
+  "directors" : [ "Ethan Coen", "Joel Coen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 578,
+  "title" : "Jaws",
+  "year" : 1975,
+  "genres" : [ "Adventure", "Horror", "Thriller" ],
+  "actors" : [ "Lorraine Gary", "Murray Hamilton", "Robert Shaw", "Roy Scheider", "Richard Dreyfuss" ],
+  "directors" : [ "Steven Spielberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 666277,
+  "title" : "Past Lives",
+  "year" : 2023,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Yim Seung-min", "John Magaro", "Teo Yoo", "Moon Seung-ah", "Greta Lee" ],
+  "directors" : [ "Celine Song" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 438148,
+  "title" : "Minions: The Rise of Gru",
+  "year" : 2022,
+  "genres" : [ "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Steve Carell", "Michelle Yeoh", "Taraji P. Henson", "Pierre Coffin", "Alan Arkin" ],
+  "directors" : [ "Kyle Balda" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 313369,
+  "title" : "La La Land",
+  "year" : 2016,
+  "genres" : [ "Drama", "Music", "Romance", "Comedy" ],
+  "actors" : [ "Rosemarie DeWitt", "Ryan Gosling", "J.K. Simmons", "John Legend", "Emma Stone" ],
+  "directors" : [ "Damien Chazelle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 50620,
+  "title" : "The Twilight Saga: Breaking Dawn - Part 2",
+  "year" : 2012,
+  "genres" : [ "Adventure", "Drama", "Fantasy", "Romance" ],
+  "actors" : [ "Kristen Stewart", "Peter Facinelli", "Taylor Lautner", "Robert Pattinson", "Elizabeth Reaser" ],
+  "directors" : [ "Bill Condon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 617126,
+  "title" : "The Fantastic Four: First Steps",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Science Fiction" ],
+  "actors" : [ "Ralph Ineson", "Pedro Pascal", "Joseph Quinn", "Vanessa Kirby", "Ebon Moss-Bachrach" ],
+  "directors" : [ "Matt Shakman" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 799766,
+  "title" : "Better Man",
+  "year" : 2024,
+  "genres" : [ "Drama", "Music" ],
+  "actors" : [ "Steve Pemberton", "Robbie Williams", "Alison Steadman", "Kate Mulvany", "Jonno Davies" ],
+  "directors" : [ "Michael Gracey" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 73723,
+  "title" : "The Lorax",
+  "year" : 2012,
+  "genres" : [ "Animation", "Family" ],
+  "actors" : [ "Taylor Swift", "Ed Helms", "Danny DeVito", "Rob Riggle", "Zac Efron" ],
+  "directors" : [ "Chris Renaud" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 9806,
+  "title" : "The Incredibles",
+  "year" : 2004,
+  "genres" : [ "Action", "Adventure", "Animation", "Family" ],
+  "actors" : [ "Craig T. Nelson", "Sarah Vowell", "Spencer Fox", "Jason Lee", "Holly Hunter" ],
+  "directors" : [ "Brad Bird" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 129,
+  "title" : "Spirited Away",
+  "year" : 2001,
+  "genres" : [ "Fantasy", "Animation", "Family" ],
+  "actors" : [ "Takashi Naito", "Yasuko Sawaguchi", "Mari Natsuki", "Rumi Hiiragi", "Miyu Irino" ],
+  "directors" : [ "Hayao Miyazaki" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 337167,
+  "title" : "Fifty Shades Freed",
+  "year" : 2018,
+  "genres" : [ "Drama", "Romance" ],
+  "actors" : [ "Dakota Johnson", "Jamie Dornan", "Rita Ora", "Eric Johnson", "Eloise Mumford" ],
+  "directors" : [ "James Foley" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 882569,
+  "title" : "Guy Ritchie's The Covenant",
+  "year" : 2023,
+  "genres" : [ "Action", "Thriller", "War" ],
+  "actors" : [ "Sean Sagar", "Jason Wong", "Dar Salim", "Rhys Yates", "Jake Gyllenhaal" ],
+  "directors" : [ "Guy Ritchie" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1243186,
+  "title" : "Demise",
+  "year" : 2024,
+  "genres" : [ "Thriller" ],
+  "actors" : [ "Morris Jude", "Richard Rivera", "Liz Fenning", "Carlo Mendez", "Crystal Hernandez" ],
+  "directors" : [ "Yara Estrada" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 9502,
+  "title" : "Kung Fu Panda",
+  "year" : 2008,
+  "genres" : [ "Action", "Adventure", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Angelina Jolie", "Dustin Hoffman", "Jack Black", "Ian McShane", "Jackie Chan" ],
+  "directors" : [ "John Stevenson", "Mark Osborne" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1087192,
+  "title" : "How to Train Your Dragon",
+  "year" : 2025,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Family" ],
+  "actors" : [ "Mason Thames", "Nick Frost", "Gerard Butler", "Nico Parker", "Julian Dennison" ],
+  "directors" : [ "Dean DeBlois" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 507089,
+  "title" : "Five Nights at Freddy's",
+  "year" : 2023,
+  "genres" : [ "Horror", "Thriller" ],
+  "actors" : [ "Piper Rubio", "Matthew Lillard", "Mary Stuart Masterson", "Josh Hutcherson", "Elizabeth Lail" ],
+  "directors" : [ "Emma Tammi" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 44214,
+  "title" : "Black Swan",
+  "year" : 2010,
+  "genres" : [ "Drama", "Horror", "Thriller" ],
+  "actors" : [ "Barbara Hershey", "Mila Kunis", "Natalie Portman", "Vincent Cassel", "Winona Ryder" ],
+  "directors" : [ "Darren Aronofsky" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 447365,
+  "title" : "Guardians of the Galaxy Vol. 3",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Comedy", "Science Fiction" ],
+  "actors" : [ "Karen Gillan", "Pom Klementieff", "Zoe Saldaña", "Dave Bautista", "Chris Pratt" ],
+  "directors" : [ "James Gunn" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 877817,
+  "title" : "Wolfs",
+  "year" : 2024,
+  "genres" : [ "Action", "Crime", "Comedy" ],
+  "actors" : [ "Brad Pitt", "Austin Abrams", "Poorna Jagannathan", "George Clooney", "Amy Ryan" ],
+  "directors" : [ "Jon Watts" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 762441,
+  "title" : "A Quiet Place: Day One",
+  "year" : 2024,
+  "genres" : [ "Horror", "Thriller", "Science Fiction" ],
+  "actors" : [ "Alex Wolff", "Joseph Quinn", "Djimon Hounsou", "Eliane Umuhire", "Lupita Nyong'o" ],
+  "directors" : [ "Michael Sarnoski" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 972533,
+  "title" : "Last Breath",
+  "year" : 2025,
+  "genres" : [ "Drama", "Thriller" ],
+  "actors" : [ "Finn Cole", "Woody Harrelson", "Simu Liu", "Cliff Curtis", "Mark Bonnar" ],
+  "directors" : [ "Alex Parkinson" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 404368,
+  "title" : "Ralph Breaks the Internet",
+  "year" : 2018,
+  "genres" : [ "Adventure", "Family", "Animation", "Comedy" ],
+  "actors" : [ "Bill Hader", "Sarah Silverman", "John C. Reilly", "Taraji P. Henson", "Gal Gadot" ],
+  "directors" : [ "Phil Johnston", "Rich Moore" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 896536,
+  "title" : "The Legend of Ochi",
+  "year" : 2025,
+  "genres" : [ "Adventure", "Fantasy", "Family" ],
+  "actors" : [ "Willem Dafoe", "Emily Watson", "Helena Zengel", "Finn Wolfhard", "Razvan Stoica" ],
+  "directors" : [ "Isaiah Saxon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 50619,
+  "title" : "The Twilight Saga: Breaking Dawn - Part 1",
+  "year" : 2011,
+  "genres" : [ "Adventure", "Fantasy", "Romance" ],
+  "actors" : [ "Kristen Stewart", "Billy Burke", "Peter Facinelli", "Taylor Lautner", "Robert Pattinson" ],
+  "directors" : [ "Bill Condon" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 530385,
+  "title" : "Midsommar",
+  "year" : 2019,
+  "genres" : [ "Horror", "Drama", "Mystery" ],
+  "actors" : [ "Will Poulter", "William Jackson Harper", "Jack Reynor", "Florence Pugh", "Vilhelm Blomgren" ],
+  "directors" : [ "Ari Aster" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 615777,
+  "title" : "Babylon",
+  "year" : 2022,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Brad Pitt", "Jovan Adepo", "Diego Calva", "Jean Smart", "Margot Robbie" ],
+  "directors" : [ "Damien Chazelle" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 652,
+  "title" : "Troy",
+  "year" : 2004,
+  "genres" : [ "Action", "War", "History" ],
+  "actors" : [ "Brad Pitt", "Eric Bana", "Sean Bean", "Orlando Bloom", "Brian Cox" ],
+  "directors" : [ "Wolfgang Petersen" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 694943,
+  "title" : "Pizza Dare 1",
+  "year" : 2020,
+  "genres" : [ "Romance" ],
+  "actors" : [ "Jin Si-ah", "Yoon So-jung", "Yoo Jung", "Kang Min-woo", "Baek Yoon-jae" ],
+  "directors" : [ "Kong Ja-kwan" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 695721,
+  "title" : "The Hunger Games: The Ballad of Songbirds & Snakes",
+  "year" : 2023,
+  "genres" : [ "Action", "Adventure", "Drama", "Science Fiction" ],
+  "actors" : [ "Hunter Schafer", "Rachel Zegler", "Tom Blyth", "Peter Dinklage", "Jason Schwartzman" ],
+  "directors" : [ "Francis Lawrence" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 615656,
+  "title" : "Meg 2: The Trench",
+  "year" : 2023,
+  "genres" : [ "Action", "Horror", "Science Fiction" ],
+  "actors" : [ "Wu Jing", "Sergio Peris-Mencheta", "Page Kennedy", "Shuya Sophia Cai", "Jason Statham" ],
+  "directors" : [ "Ben Wheatley" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 10625,
+  "title" : "Mean Girls",
+  "year" : 2004,
+  "genres" : [ "Drama", "Comedy" ],
+  "actors" : [ "Rachel McAdams", "Amanda Seyfried", "Lizzy Caplan", "Lindsay Lohan", "Lacey Chabert" ],
+  "directors" : [ "Mark Waters" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 68726,
+  "title" : "Pacific Rim",
+  "year" : 2013,
+  "genres" : [ "Action", "Adventure", "Science Fiction" ],
+  "actors" : [ "Idris Elba", "Clifton Collins Jr.", "Max Martini", "Charlie Hunnam", "Rinko Kikuchi" ],
+  "directors" : [ "Guillermo del Toro" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 62177,
+  "title" : "Brave",
+  "year" : 2012,
+  "genres" : [ "Action", "Adventure", "Fantasy", "Animation", "Family", "Comedy" ],
+  "actors" : [ "Billy Connolly", "Emma Thompson", "Robbie Coltrane", "Kelly Macdonald", "Julie Walters" ],
+  "directors" : [ "Brenda Chapman", "Mark Andrews" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 85,
+  "title" : "Raiders of the Lost Ark",
+  "year" : 1981,
+  "genres" : [ "Action", "Adventure" ],
+  "actors" : [ "Harrison Ford", "Ronald Lacey", "John Rhys-Davies", "Paul Freeman", "Karen Allen" ],
+  "directors" : [ "Steven Spielberg" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 1186532,
+  "title" : "The Forge",
+  "year" : 2024,
+  "genres" : [ "Drama", "Family" ],
+  "actors" : [ "Cameron Arnett", "Aspen Kennedy Wilson", "Priscilla C. Shirer", "Karen Abercrombie", "T.C. Stallings" ],
+  "directors" : [ "Alex Kendrick" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 12444,
+  "title" : "Harry Potter and the Deathly Hallows: Part 1",
+  "year" : 2010,
+  "genres" : [ "Adventure", "Fantasy" ],
+  "actors" : [ "Rupert Grint", "Daniel Radcliffe", "Emma Watson", "Toby Jones", "Helena Bonham Carter" ],
+  "directors" : [ "David Yates" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 78,
+  "title" : "Blade Runner",
+  "year" : 1982,
+  "genres" : [ "Drama", "Thriller", "Science Fiction" ],
+  "actors" : [ "Edward James Olmos", "Harrison Ford", "M. Emmet Walsh", "Sean Young", "Rutger Hauer" ],
+  "directors" : [ "Ridley Scott" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 10674,
+  "title" : "Mulan",
+  "year" : 1998,
+  "genres" : [ "Adventure", "Animation", "Family" ],
+  "actors" : [ "Miguel Ferrer", "Harvey Fierstein", "Eddie Murphy", "Ming-Na Wen", "BD Wong" ],
+  "directors" : [ "Barry Cook", "Tony Bancroft" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+}, {
+  "movieId" : 204082,
+  "title" : "Homefront",
+  "year" : 2013,
+  "genres" : [ "Action", "Thriller" ],
+  "actors" : [ "Izabela Vidovic", "Rachelle Lefevre", "Winona Ryder", "James Franco", "Jason Statham" ],
+  "directors" : [ "Gary Fleder" ],
+  "writers" : [ ],
+  "composers" : [ ],
+  "cinematographers" : [ ]
+} ]

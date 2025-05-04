@@ -66,7 +66,9 @@ public class GameState {
      */
     public void switchPlayer() {
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
-        currRound++;
+        if (currentPlayer == player2) {
+            currRound++;
+        }
     }
 
     /**

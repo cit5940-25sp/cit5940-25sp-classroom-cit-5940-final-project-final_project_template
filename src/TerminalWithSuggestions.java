@@ -60,7 +60,7 @@ public class TerminalWithSuggestions {
                     timerRunning = false;
                     try {
                         printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
-                        Thread.sleep(3000); // pause so player sees the message
+                        // Thread.sleep(3000); // pause so player sees the message
                         screen.close();
                         terminal.close();
                         System.exit(0); // clean exit
@@ -73,7 +73,6 @@ public class TerminalWithSuggestions {
     }
 
     public void run() throws IOException, InterruptedException {
-        controller.getMovieDatabase().preloadPopularMovies();
         boolean running = true;
 
         // Initial screen
@@ -155,7 +154,7 @@ public class TerminalWithSuggestions {
                     if (winConditionIndex >= 1 && winConditionIndex <= winConditions.size()) {
                         WinCondition selected = winConditions.get(winConditionIndex - 1);
                         System.out.println("Selected win condition: " + selected.description());
-                        Movie startingMovie = controller.startGame(player1Name, player2Name, selected);
+                        controller.startGame(player1Name, player2Name, selected);
                         secondsRemaining = 30;
                         controller.getGameState().getTimer().start();
                         stage = InputStage.IN_GAME;
@@ -254,7 +253,7 @@ public class TerminalWithSuggestions {
                     printString(0, 1, "Round: " + state.getCurrRound());
                     String timerText = "Time: " + secondsRemaining + "s";
                     printString(size.getColumns() - timerText.length(), 0, timerText);
-                    printString(0, 2, "Last movie: " + state.getRecentHistory().get(0).getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
+                    printString(0, 2, "Last movie: " + state.getRecentHistory().get(-1).getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
 
                     // Prompt
                     printString(0, 4, "> " + currentInput.toString());
@@ -315,6 +314,7 @@ public class TerminalWithSuggestions {
     public static void main(String[] args) {
         String apiKey = ConfigLoader.get("tmdb.api.key");
         GameController controller = new GameController(apiKey);
+        controller.getMovieDatabase().preloadPopularMovies();
 
         try {
             new TerminalWithSuggestions(controller).run();

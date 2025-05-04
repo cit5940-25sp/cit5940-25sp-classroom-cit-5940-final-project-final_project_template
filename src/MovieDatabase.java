@@ -1,3 +1,8 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class MovieDatabase {
@@ -72,12 +77,41 @@ public class MovieDatabase {
     }
 
     public String preloadPopularMovies() {
-        int maxPages = 25; // up to 500 movies (TMDB limit)
-        List<Movie> popular = tmdb.fetchPopularMovies(maxPages);
-        for (Movie movie : popular) {
-            movieCache.put(movie.getTitle(), movie);
+        File cacheFile = new File("movie_cache.json");
+        ObjectMapper mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+
+        List<Movie> popular;
+
+        if (cacheFile.exists()) {
+            // Load from JSON cache
+            try {
+                Movie[] cached = mapper.readValue(cacheFile, Movie[].class);
+                popular = Arrays.asList(cached);
+                for (Movie movie : popular) {
+                    movieCache.put(movie.getTitle(), movie);
+                }
+                return "Loaded " + popular.size() + " movies from local cache.";
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Failed to load cache file. " + e.getMessage();
+            }
+        } else {
+            // Fetch from TMDB and write to cache
+            int maxPages = 25;
+            popular = tmdb.fetchPopularMovies(maxPages);
+            for (Movie movie : popular) {
+                movieCache.put(movie.getTitle(), movie);
+            }
+
+            try {
+                mapper.writeValue(cacheFile, popular);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "Fetched movies, but failed to write cache. " + e.getMessage();
+            }
+
+            return "Fetched and cached " + popular.size() + " movies.";
         }
-        return "Preloaded " + popular.size() + " movies into cache.";
     }
 
     public Movie getRandomMovie() {
