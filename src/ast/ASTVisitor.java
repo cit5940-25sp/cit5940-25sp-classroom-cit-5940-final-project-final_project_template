@@ -1,4 +1,4 @@
-import ast.*;
+package ast;
 
 public interface ASTVisitor<R> {
     R visitAssignment(Assignment assignment);
