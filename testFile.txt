@@ -11,4 +11,10 @@ entry() { --- this serves as main() in java
     } else {
         y <- 5;
     }
+
+    run {
+        print x;
+        x <- x * 2;
+    } while (x < 10)
+
 }
