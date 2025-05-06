@@ -14,7 +14,7 @@ public class Lexer {
         // Constructor: takes the raw source code string as input
         // lexer is supposed to take in a .txt file
         this.source = source;
-        this.keywordList = List.of("var", "function", "return", "if", "elif", "else", "while", "rum", "print", "input");
+        this.keywordList = List.of("var", "function", "return", "if", "elif", "else", "while", "run", "print", "input");
     }
 
     public List<Token> tokenize(String fileName) {
@@ -24,11 +24,17 @@ public class Lexer {
             BufferedReader br = new BufferedReader(new FileReader(fileName));
             // read character by character
             StringBuilder curr = new StringBuilder();
-            boolean skipNextChar = false;
-            while ((this.c = br.read()) != -1 || skipNextChar) {
-                if (skipNextChar) {
-                    skipNextChar = false;
-                }
+//            boolean skipNextChar = false;
+//            while ((this.c = br.read()) != -1 || skipNextChar) {
+            while ((this.c = br.read()) != -1) {
+//                if (skipNextChar) {
+//                    skipNextChar = false;
+//                } else {
+//                    this.c = br.read();
+//                    if (this.c == -1) {
+//                        break;
+//                    }
+//                }
                 char ch = (char) c;
                 // if it's a whitespace then continue reading
                 if (Character.isWhitespace(ch)) {
@@ -44,7 +50,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isDigit(nextCh)) {
                             br.reset();
-                            skipNextChar = true;
+//                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
@@ -65,7 +71,7 @@ public class Lexer {
                         char nextCh = (char) c;
                         if (!Character.isAlphabetic(nextCh)) {
                             br.reset();
-                            skipNextChar = true;
+//                            skipNextChar = true;
                             break;
                         }
                         curr.append(nextCh);
@@ -224,6 +230,11 @@ public class Lexer {
             case "input":
                 tokenMap.put("input",TokenType.INPUT);
                 tokens.add(new Token(TokenType.INPUT, keyword));
+                break;
+            // add in while
+            case "while":
+                tokenMap.put("while",TokenType.WHILE);
+                tokens.add(new Token(TokenType.WHILE, keyword));
                 break;
         }
     }
