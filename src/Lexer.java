@@ -28,7 +28,6 @@ public class Lexer {
             while ((this.c = br.read()) != -1 || skipNextChar) {
                 if (skipNextChar) {
                     skipNextChar = false;
-                    continue;
                 }
                 char ch = (char) c;
                 // if it's a whitespace then continue reading
@@ -78,6 +77,7 @@ public class Lexer {
                     } else {
                         keyword(curr.toString());
                     }
+                    continue;
                 }
                 // Symbols and operator
                 switch (c) {
@@ -187,15 +187,6 @@ public class Lexer {
         return tokens; // placeholder
     }
 
-
-//    private void identifier() {
-//        // Reads a full identifier or keyword, adds corresponding token
-//        // reads entire sequence of characters
-//        /*
-//        All identifiers (variable names and functions) must consist only of lowercase letters and underscores (_).
-//        this_is is a valid variable name, but thisIsNot is not.
-//        */
-
     private void keyword(String keyword) {
         switch (keyword) {
             case "var":
@@ -236,17 +227,4 @@ public class Lexer {
                 break;
         }
     }
-
-//    private boolean match(char expected) {
-//        // Matches the current character if it equals `expected`, and advances
-//        if String.charAr
-//        return false; // placeholder
-//
-//
-//    }
-//
-//    public boolean hasNext() {
-//        return (c != -1);
-//    }
-
 }
