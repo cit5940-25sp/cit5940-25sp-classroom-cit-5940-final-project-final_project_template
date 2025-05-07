@@ -54,7 +54,8 @@ public class Links {
             }
         }
         return true;
-
+        // Try to create a valid link from the current movie to the given movie
+        // Only add it if the connection is allowed and hasn't been overused
         public boolean addLink(Movie movie){
             Link link = new Link(currentMovie, movie);
             if(link.isValidLink() && addConnection(link)){
