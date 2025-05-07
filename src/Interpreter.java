@@ -1,6 +1,6 @@
 import ast.*;
 
-public class Interpreter implements ASTVisitor<Object>, Visitable<Object>{
+public class Interpreter implements ASTVisitor<Object> {
 
     private final Environment env = new Environment();
 
@@ -92,11 +92,6 @@ public class Interpreter implements ASTVisitor<Object>, Visitable<Object>{
 
     @Override
     public Object visitWhileStmt(WhileStmt ws) {
-        return null;
-    }
-
-    @Override
-    public Object accept(ASTVisitor<Object> visitor) {
         return null;
     }
 }
