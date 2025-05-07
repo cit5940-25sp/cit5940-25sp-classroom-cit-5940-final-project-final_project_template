@@ -13,7 +13,7 @@ public class GameEngine {
     private final List<IGameObserver> observers = new ArrayList<>();
 
     private GameState gameState;
-
+    private boolean hardMode = false;
     private GameEngine(CountryLanguageManager dataService) {
         this.dataService = dataService;
         resetGame();
@@ -25,6 +25,8 @@ public class GameEngine {
         }
         return instance;
     }
+
+
 
     /**
      * reset the game with a random starting country
@@ -42,13 +44,39 @@ public class GameEngine {
         resetGame(random);
     }
 
-    public void setSelectedLanguage(Language language) {
+    public void setHardMode(boolean hardMode) {
+
+        this.hardMode = hardMode;
+    }
+
+    public boolean isHardMode() {
+        return hardMode;
+    }
+
+    public boolean setSelectedLanguage(Language language) {
+
+        int languageLimit;
+        if (!hardMode){
+            languageLimit = 7;
+        }   else {
+            languageLimit = 4;
+        }
+        int currentUsage = gameState.getLanguageUsage().getOrDefault(language, 0);
+
+        if (currentUsage >= languageLimit) {
+            // Language has reached its limit
+            System.out.println("You've already used " + language.getName() + " " +
+                    languageLimit + " times. Please pick another language.");
+            return false;
+        }
+
         if (gameState.getCurrentLanguage() != language) {
             // begin new streak if user selects a new language
             gameState.setCurrentStreak(0);
         }
         gameState.setCurrentLanguage(language);
         notifyObservers();
+        return true;
     }
 
     public MoveResult moveToCountry(String countryName) {
@@ -65,15 +93,6 @@ public class GameEngine {
         Language currentLang = gameState.getCurrentLanguage();
         if (currentLang == null) {
             return new MoveResult(false, "No language selected. Please choose a language first.");
-        }
-
-        if (gameState.getLanguageUsage().containsKey(currentLang)) {
-            if (gameState.getLanguageUsage().get(currentLang) >= 7) {
-                // check if user already used this language for 7 times
-                return new MoveResult(false, "You've already used " +
-                        currentLang.getName() + " 7 " + "times. Please pick another language.",
-                                      true);
-            }
         }
 
         if (!country.hasLanguage(currentLang)) {
