@@ -1,7 +1,6 @@
 import java.util.Set;
 import java.util.TreeSet;
 
-
 /**
  * MovieDate is a class designed to manage a collection of Movie objects.
  * It loads movie data using a reader and provides a method to retrieve a movie by its title.
@@ -14,25 +13,31 @@ public class MovieDate {
     // A reader object used to read movie data
     private Reader reader;
 
-    public MovieDate() {
-        stuffs = new HashMap<>();
-        movies = new HashMap<>();
-        grnres = new HashMap<>(); 
+
+    /**
+     * Retrieves a movie by its title.
+     *
+     * @param title The title of the movie to retrieve.
+     * @return The movie object if found, null otherwise.
+     */
+    public Movie getMovie(String title) {
+        // Create a dummy movie object with the given title
+        Movie movie = new Movie(title);
+        // Check if the sorted movie set contains a movie with the given title
+        // Note: There's a bug here. movieByTitile.contains expects a Movie object, not a String.
+        if (movieByTitile.contains(movie)) {
+            // Return the greatest movie in the set less than or equal to the given movie
+            return movieByTitile.floor(movie);
+        }
+        // Return null if no movie is found
+        return null;
     }
 
-    public void addStuff(Stuff stuff) {
-        stuffs.put(stuff); 
+    public boolean contains(String movieTitle){
+        return movieByTitile.contains(new Movie(movieTitle));
     }
-    public void addMovie(Movie movie) {
-        movies.put(movie); 
-    }
-    public void addGenre(Genre genre) {
-        grnres.put(genre); 
-    }
-    public Stuff getStuff(String name) {
-        return null;
-    }
-    public Movie getMovie(String title) {
-        return null;
+
+    public Set<Movie> getMovies() {
+        return movieByTitile;
     }
 }
