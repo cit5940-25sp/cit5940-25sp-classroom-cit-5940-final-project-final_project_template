@@ -19,6 +19,7 @@ public class MovieDate {
         movies = new HashMap<>();
         grnres = new HashMap<>(); 
     }
+
     public void addStuff(Stuff stuff) {
         stuffs.put(stuff); 
     }
