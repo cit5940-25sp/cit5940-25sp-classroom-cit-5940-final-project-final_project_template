@@ -1,7 +1,16 @@
-import java.util.TreeSet;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+/**
+ * CSVReader is a class that implements the Reader interface.
+ * It is designed to read CSV files, parse their contents, and load movie-related data.
+ * It also uses the ParseJson class to handle JSON data within the CSV files.
+ */
 public class CSVReader implements Reader{
+    // Instance of ParseJson used to parse JSON strings into Java objects
     private ParseJson parseJson;
+    // TreeSet to store Movie objects, sorted according to their natural ordering
     private TreeSet<Movie> movies;
     /**
      * Constructs a new CSVReader object.
@@ -13,6 +22,101 @@ public class CSVReader implements Reader{
         // Create a new instance of ParseJson for JSON parsing
         parseJson = new ParseJson();
         loadDate();
+    }
+    /**
+     * Loads movie data from two CSV files: tmdb_5000_movies.csv and tmdb_5000_credits.csv.
+     */
+    public void loadDate(){
+        // Load movie information from the main CSV file
+        loadFile("data/tmdb_5000_movies.csv");
+        // Load extra information such as cast and crew from the additional CSV file
+        loadExtraFile("data/tmdb_5000_credits.csv");
+    }
+
+    /**
+     * Parses a CSV file and returns its contents as a list of string arrays.
+     * Each inner array represents a row in the CSV file, with each element being a field.
+     *
+     * @param filePath The path to the CSV file to be parsed.
+     * @return A list of string arrays containing the parsed CSV data.
+     * @throws IOException If an I/O error occurs while reading the file.
+     */
+    private List<String[]> parseCsv(String filePath) throws IOException {
+        // List to store the parsed CSV data
+        List<String[]> data = new ArrayList<>();
+        // Use try-with-resources to ensure the BufferedReader is closed automatically
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            // StringBuilder to build the current line, especially useful for multi-line fields
+            StringBuilder currentLine = new StringBuilder();
+            // Flag to indicate whether the parser is currently inside a quoted field
+            boolean inQuotes = false;
+            // Variable to hold each line read from the file
+            String line;
+            // Read lines from the file until the end is reached
+            while ((line = reader.readLine()) != null) {
+                // Append the read line to the current line
+                currentLine.append(line);
+                // Check if the line ends with an open quote
+                for (char c : line.toCharArray()) {
+                    if (c == '"') {
+                        inQuotes = !inQuotes;
+                    }
+                }
+                // If not inside quotes, the line is complete and can be parsed
+                if (!inQuotes) {
+                    // List to store the fields of the current line
+                    List<String> fields = new ArrayList<>();
+                    // StringBuilder to build the current field
+                    StringBuilder currentField = new StringBuilder();
+                    // Reset the inQuotes flag for parsing the current line
+                    inQuotes = false;
+                    // Iterate through each character in the current line
+                    for (int i = 0; i < currentLine.length(); i++) {
+                        // Get the current character
+                        char c = currentLine.charAt(i);
+                        // Check if the character is a double quote
+                        if (c == '"') {
+                            // If already inside quotes
+                            if (inQuotes) {
+                                // Check if the next character is also a double quote (escaped quote)
+                                if (i + 1 < currentLine.length() && currentLine.charAt(i + 1) == '"') {
+                                    // Append the escaped double quote to the current field
+                                    currentField.append('"');
+                                    // Skip the next character as it's already processed
+                                    i++;
+                                } else {
+                                    // End of the quoted field
+                                    inQuotes = false;
+                                }
+                            } else {
+                                // Start of a quoted field
+                                inQuotes = true;
+                            }
+                            // Check if the character is a comma and not inside quotes
+                        } else if (c == ',' && !inQuotes) {
+                            // Add the current field to the list of fields
+                            fields.add(currentField.toString());
+                            // Reset the current field for the next one
+                            currentField.setLength(0);
+                        } else {
+                            // Append the character to the current field
+                            currentField.append(c);
+                        }
+                    }
+                    // Add the last field to the list of fields
+                    fields.add(currentField.toString());
+                    // Convert the list of fields to an array and add it to the data list
+                    data.add(fields.toArray(new String[0]));
+                    // Reset the current line for the next iteration
+                    currentLine.setLength(0);
+                } else {
+                    // If still inside quotes, append a newline and continue reading the next line
+                    currentLine.append("\n");
+                }
+            }
+        }
+        // Return the parsed CSV data
+        return data;
     }
 
     List<Movie> readMovie(){
