@@ -85,3 +85,13 @@ public void calculateShare(){
     }
 }
 
+/**
+ * Check if the link is valid between two movies
+ * It will be valid if there is at least one shared stuff
+ * @return true if there is at least one, false otherwise.
+ */
+    boolean isValidLink(){
+      // return T if not empty
+        return share.size() > 0;
+    }
+
