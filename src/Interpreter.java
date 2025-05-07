@@ -8,10 +8,15 @@ public class Interpreter implements ASTVisitor<Object> {
     private final Environment globals = new Environment();  // 顶层作用域（保持不变）
     private Environment environment = globals;              // 当前作用域（会切换）
     private final Map<String, FunctionDecl> functionTable = new HashMap<>();
+    private Object result;
 
     // constructor
     public Interpreter(Program program) {
-        visitProgram(program);
+        this.result = visitProgram(program); // 保存执行结果
+    }
+
+    public Object getResult() {
+        return result;
     }
 
     @Override
@@ -112,7 +117,8 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitReturnStmt(ReturnStmt rs) {
-        return null;
+        Object value = rs.expression.accept(this);  // 求值
+        throw new ReturnException((int) value);     // 抛出返回值中断执行
     }
 
     @Override
