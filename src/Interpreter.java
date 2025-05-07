@@ -1,14 +1,18 @@
 import ast.*;
+import java.util.Map;
+import java.util.HashMap;
+
 
 public class Interpreter implements ASTVisitor<Object> {
 
-    private final Environment env = new Environment();
+    private final Environment globals = new Environment();  // 顶层作用域（保持不变）
+    private Environment environment = globals;              // 当前作用域（会切换）
+    private final Map<String, FunctionDecl> functionTable = new HashMap<>();
 
     // constructor
     public Interpreter(Program program) {
-
+        visitProgram(program);
     }
-
 
     @Override
     public Object visitAssignment(Assignment assignment) {
@@ -62,7 +66,19 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitProgram(Program program) {
-        return null;
+        // 1. 把所有函数加入函数表
+        for (FunctionDecl func : program.functions) {
+            functionTable.put(func.name, func);
+        }
+
+        // 2. 找到 entry 函数
+        FunctionDecl entry = functionTable.get("entry");
+        if (entry == null) {
+            throw new RuntimeException("No entry() function found.");
+        }
+
+        // 3. 调用 entry()
+        return visitFunctionDecl(entry);
     }
 
     @Override
