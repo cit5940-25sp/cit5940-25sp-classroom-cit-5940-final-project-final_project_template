@@ -29,8 +29,7 @@ public class Main {
 
         GameEngine gameEngine = GameEngine.getInstance(dataService);
 
-        GameConsoleUI ui = new GameConsoleUI(gameEngine); // start UI
+        GameConsoleUI ui = new GameConsoleUI(gameEngine, dataService); // start UI
         ui.start();
     }
 }
-//nancy

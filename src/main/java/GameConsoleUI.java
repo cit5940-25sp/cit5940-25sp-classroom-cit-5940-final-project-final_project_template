@@ -6,13 +6,14 @@ import java.util.Set;
 public class GameConsoleUI implements IGameObserver {
     private final GameEngine gameEngine;
     private final Scanner scanner;
+    private final CountryLanguageManager dataService;
 
-    public GameConsoleUI(GameEngine gameEngine) {
+    public GameConsoleUI(GameEngine gameEngine, CountryLanguageManager dataService) {
         this.gameEngine = gameEngine;
         this.scanner = new Scanner(System.in);
+        this.dataService = dataService;
         gameEngine.addObserver(this);
     }
-
 
     public void start() {
         System.out.println("=== Language Connection Game ===");
@@ -45,21 +46,43 @@ public class GameConsoleUI implements IGameObserver {
                 System.out.println("Current Country: " + current.getName());
                 Set<Language> langs = current.getLanguages();
                 List<Language> langList = new ArrayList<>(langs);
-                System.out.println("Languages spoken: ");
-                for (int i = 0; i < langList.size(); i++) {
-                    System.out.println("  " + (i + 1) + ": " + langList.get(i).getName());
+
+                // filter to show only viable languages
+                List<Language> viableLangs = new ArrayList<>();
+                for (Language lang : langList) {
+                    if (gameEngine.isViableLanguage(lang) && !gameEngine.isLanguageLimitReached(lang)) {
+                        viableLangs.add(lang);
+                    }
                 }
 
-                System.out.print("Choose a language (1-" + langList.size() + "): ");
+                if (viableLangs.isEmpty()) {
+                    System.out.println("No viable languages found for " + current.getName() + ".");
+                    System.out.println("Generating a new country while preserving your score...");
+                    gameEngine.refreshCountry();
+                    continue;
+                }
+
+                System.out.println("Languages spoken: ");
+                for (int i = 0; i < viableLangs.size(); i++) {
+                    // Check current usage of this language
+                    Language lang = viableLangs.get(i);
+                    int usageCount = state.getLanguageUsage().getOrDefault(lang, 0);
+                    int limit = gameEngine.isHardMode() ? 4 : 7;
+
+                    System.out.println("  " + (i + 1) + ": " + viableLangs.get(i).getName() +
+                            " (Used: " + usageCount + "/" + limit + ")");
+                }
+
+                System.out.print("Choose a language (1-" + viableLangs.size() + "): ");
                 try {
                     int choice = Integer.parseInt(scanner.nextLine().trim());
-                    if (choice >= 1 && choice <= langList.size()) {
-                        selectedLanguage = langList.get(choice - 1);
+                    if (choice >= 1 && choice <= viableLangs.size()) {
+                        selectedLanguage = viableLangs.get(choice - 1);
                         boolean languageAccepted = gameEngine.setSelectedLanguage(selectedLanguage);
                         if (languageAccepted) {
                             waitingForCountry = true;
                         } else {
-                            // If language was reached limit, stay in language selection mode
+                            // If language was rejected, stay in language selection mode
                             selectedLanguage = null;
                             waitingForCountry = false;
                         }
@@ -103,12 +126,26 @@ public class GameConsoleUI implements IGameObserver {
         System.out.println("\n--- Game State ---");
         System.out.println("Current Country: " + gameState.getCurrentCountry().getName());
         System.out.println("Game Mode: " + (gameEngine.isHardMode() ? "Hard (limit: 4)" : "Normal (limit: 7)"));
-        System.out.println("Available Languages: " +
-                                   gameState.getCurrentCountry().getLanguages());
+
+        Country currentCountry = gameState.getCurrentCountry();
+        Set<Language> allLanguages = currentCountry.getLanguages();
+        int viableLanguageCount = 0;
+        for (Language lang : allLanguages) {
+            if (gameEngine.isViableLanguage(lang) && !gameEngine.isLanguageLimitReached(lang)) {
+                viableLanguageCount++;
+            }
+        }
+
+        System.out.println("Available Languages: " + allLanguages.size() + " (Viable: " + viableLanguageCount + ")");
 
         if (gameState.getCurrentLanguage() != null) {
-            System.out.println("Current Language: " + gameState.getCurrentLanguage().getName() +
-                                       " (Streak: " + gameState.getCurrentStreak() + ")");
+            Language currentLang = gameState.getCurrentLanguage();
+            int usageCount = gameState.getLanguageUsage().getOrDefault(currentLang, 0);
+            int limit = gameEngine.isHardMode() ? 4 : 7;
+
+            System.out.println("Current Language: " + currentLang.getName() +
+                    " (Streak: " + gameState.getCurrentStreak() +
+                    ", Used: " + usageCount + "/" + limit + ")");
         }
 
         System.out.println("Score: " + gameState.getTotalScore());
