@@ -26,6 +26,21 @@ public class Link implements Comparable<Link>{
         return movie1;
     }
 
+    public String combinString(String str1, String str2){
+        if(str1.compareTo(str2) > 0){
+            return str2 + " " + str1;
+        }
+        else{
+            return str1 + " " + str2;
+        }
+    }
+    public int compareTo(Link o){
+        String str1 = combinString(connectJob1, connectJob2);
+        String str2 = combinString(o.connectJob1, o.connectJob2);
+        return str1.compareTo(str2);
+    }
+
+
     boolean isValidLink(){
         return false
     }
