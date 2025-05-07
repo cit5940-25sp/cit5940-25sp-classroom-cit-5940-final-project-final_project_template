@@ -14,7 +14,7 @@ public class CSVReader implements Reader{
         parseJson = new ParseJson();
         loadDate();
     }
-
+s
     List<Movie> readMovie(){
 
     }
