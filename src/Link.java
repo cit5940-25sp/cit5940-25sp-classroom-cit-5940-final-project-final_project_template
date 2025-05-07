@@ -26,8 +26,6 @@ public class Link implements Comparable<Link>{
         return movie1;
     }
 
-
-
     boolean isValidLink(){
         return false
     }
