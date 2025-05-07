@@ -11,6 +11,7 @@ public class Link implements Comparable<Link>{
     private String connectJob1;
     private String connectJob2;
 
+    public
     boolean isValidLink(){
         return false
     }
