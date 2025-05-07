@@ -20,6 +20,17 @@ public class GameConsoleUI implements IGameObserver {
         System.out.println("Rarer languages earn more points. " +
                                    "Maintain a streak for bonus points.\n");
 
+        // Prompt user to select hard more
+        System.out.print("Would you like to play in hard mode? (y/n): ");
+        String hardModeChoice = scanner.nextLine().trim().toLowerCase();
+        boolean hardMode = hardModeChoice.equals("y") || hardModeChoice.equals("yes");
+        gameEngine.setHardMode(hardMode);
+
+        if (hardMode) {
+            System.out.println("Hard mode activated! You may only use each language up to 4 times.");
+        } else {
+            System.out.println("Normal mode selected. You may only use each language up to 7 times.");
+        }
         gameEngine.resetGame();
 
         boolean running = true;
@@ -44,8 +55,14 @@ public class GameConsoleUI implements IGameObserver {
                     int choice = Integer.parseInt(scanner.nextLine().trim());
                     if (choice >= 1 && choice <= langList.size()) {
                         selectedLanguage = langList.get(choice - 1);
-                        gameEngine.setSelectedLanguage(selectedLanguage);
-                        waitingForCountry = true;
+                        boolean languageAccepted = gameEngine.setSelectedLanguage(selectedLanguage);
+                        if (languageAccepted) {
+                            waitingForCountry = true;
+                        } else {
+                            // If language was reached limit, stay in language selection mode
+                            selectedLanguage = null;
+                            waitingForCountry = false;
+                        }
                     } else {
                         System.out.println("Invalid choice. Try again.");
                     }
@@ -85,6 +102,7 @@ public class GameConsoleUI implements IGameObserver {
     public void onGameStateChanged(GameState gameState) {
         System.out.println("\n--- Game State ---");
         System.out.println("Current Country: " + gameState.getCurrentCountry().getName());
+        System.out.println("Game Mode: " + (gameEngine.isHardMode() ? "Hard (limit: 4)" : "Normal (limit: 7)"));
         System.out.println("Available Languages: " +
                                    gameState.getCurrentCountry().getLanguages());
 
