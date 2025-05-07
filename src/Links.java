@@ -55,6 +55,17 @@ public class Links {
         }
         return true;
 
+        public boolean addLink(Movie movie){
+            Link link = new Link(currentMovie, movie);
+            if(link.isValidLink() && addConnection(link)){
+                links.add(link);
+                currentMovie = movie;
+                return true;
+            }
+            return false;
+        }
+
+
     public void addLink(Link link){
         links.add(link);
     }
