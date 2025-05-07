@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+        * Represents a link between two Movie objects.
+ * A link is defined by the shared Stuff between the two movies.
+        */
+
 public class Link implements Comparable<Link>{
     //The first movie
     private Movie movie1;
@@ -40,8 +45,22 @@ public class Link implements Comparable<Link>{
         return str1.compareTo(str2);
     }
 
+ /**
+    Check whether the given job is valid.
+    Effective jobs are one of the following: "director", "actor", "writer", "composer".
+            *
+    @param job The task to be checked.
+            * @ Return true if the job is valid; otherwise, return false.
+            */
 
-    boolean isValidLink(){
+
+   public boolean isValidJob(String job){
+       String[] jobs = {"Director", "Actor", "Writer", "composer"};
+       for (String j: jobs){
+           if(job.equals(j)){
+               return true;
+           }
+       }
         return false
     }
 }
