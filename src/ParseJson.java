@@ -58,3 +58,32 @@ public class ParseJson {
         }
         return null;
     }
+
+    /**
+     * Parses a JSON string into an array of Stuff objects representing crew members.
+     *
+     * @param json The JSON string to be parsed.
+     * @return An array of Stuff objects if parsing is successful, null otherwise.
+     */
+    public Stuff[] parseCrew(String json){
+        try {
+            Gson gson = new Gson();
+            // Deserialize the JSON string into an array of raw Map objects
+            // Note: This causes a raw type warning; consider parameterizing the Map
+            Map[] map = gson.fromJson(json, Map[].class);
+            Stuff[] stuff = new Stuff[map.length];
+            for (int i = 0; i < map.length; i++) {
+                Map<String, Object> entry = map[i];
+                String name = (String) entry.get("name");
+                String job = (String)entry.get("job");
+                double d = (double)entry.get("id");
+                int id = (int)d ;
+                stuff[i] = new Crew(name, id, job);
+            }
+            return stuff;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
