@@ -64,3 +64,24 @@ public class Link implements Comparable<Link>{
         return false
     }
 }
+/**
+ * Calculates if the list of Stuff that is shared between movie1 and movie2.
+ */
+
+public void calculateShare(){
+    // Iterate through each Stuff in movie1.
+    for(Stuff stuff : movie1.getStuffs()){
+        // Check if movie2 also contains the current Stuff.
+        Stuff other = movie2.getStuffs().floor(stuff);
+        String job1 = stuff.getJob();
+        String job2 = other.getJob();
+        // If both movies contain the same Stuff, add it to the shared list.
+        if(stuff.compareTo(other) == 0 && isValidJob(job1) && isValidJob(job2)){
+            share.add(stuff);
+            connectJob1 = job1;
+            connectJob2 = job2;
+            break;
+        }
+    }
+}
+
