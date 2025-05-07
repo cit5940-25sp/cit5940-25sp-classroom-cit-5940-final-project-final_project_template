@@ -14,4 +14,9 @@ public class VarDecl extends Statement {
     public String toString() {
         return "var " + name + " <- " + initializer.toString() + ";";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitVarDecl(this);
+    }
 }

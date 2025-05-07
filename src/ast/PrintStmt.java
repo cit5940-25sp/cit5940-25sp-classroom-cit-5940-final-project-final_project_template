@@ -12,4 +12,9 @@ public class PrintStmt extends Statement {
     public String toString() {
         return "print " + expression.toString() + ";";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitPrintStmt(this);
+    }
 }

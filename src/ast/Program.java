@@ -17,4 +17,9 @@ public class Program extends ASTNode {
                 .map(FunctionDecl::toString)
                 .collect(Collectors.joining("\n\n"));
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitProgram(this);
+    }
 }

@@ -1,5 +1,7 @@
 package ast;
 
-public interface Visitable<R> {
-    R accept(ASTVisitor<R> visitor);
+public interface Visitable {
+    <R> R accept(ASTVisitor<R> visitor);
 }
+
+

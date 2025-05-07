@@ -20,4 +20,10 @@ public class FunctionDecl extends ASTNode {
                 String.join(", ", params) +
                 ") " + body.toString();
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitFunctionDecl(this);
+    }
+
 }

@@ -12,4 +12,9 @@ public class VarRef extends Expression {
     public String toString() {
         return name;
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitVarRef(this);
+    }
 }
