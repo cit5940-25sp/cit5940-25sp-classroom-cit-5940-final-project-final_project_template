@@ -29,3 +29,39 @@ public class Movie implements Comparable<Movie> {
         genres = new ArrayList<>();
         stuffs = new TreeSet<>();
     }
+    public void addStuff(Stuff stuff){
+        stuffs.add(stuff);
+    }
+    public TreeSet<Stuff> getStuffs() {
+        return stuffs;
+    }
+    public String getTitle(){
+        return title;
+    }
+    public int getID(){
+        return id;
+    }
+    public String getDate(){
+        return date;
+    }
+    public String toString(){
+        String str = "Title: " + title + "(" + date + ") ";
+        str += "Genres: {";
+        for(Genre genre : genres){
+            str += genre + " ";
+        }
+        str += "} ";
+        return str;
+    }
+
+    public void addGenre(Genre genre){
+        genres.add(genre);
+    }
+
+    @Override
+    public int compareTo(Movie o) {
+        return Integer.compare(id, o.id);
+    }
+
+
+}
