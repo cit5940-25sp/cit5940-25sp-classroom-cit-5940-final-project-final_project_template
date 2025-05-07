@@ -33,6 +33,28 @@ public class Links {
         Connections = new int[MAX_LINKS];
     }
 
+    // Set the current movie the player is working from
+    public void setCurrentMovie(Movie movie){
+        currentMovie = movie;
+    }
+
+    // Check if the given link has already been used
+// If it has, increment its usage counter
+// Return false if the same link has been used more than 3 times
+
+    public boolean addConnection(Link link){
+        for(int i = 0; i < links.size(); i++){
+            if(links.get(i).compareTo(link) == 0){
+                Connections[i]++;
+                // any specific connection is not allowed to be used
+                // more than 3 times
+                if (Connections[i] > MAX_USED_CONNECTIONS){
+                    return false;
+                }
+            }
+        }
+        return true;
+
     public void addLink(Link link){
         links.add(link);
     }
