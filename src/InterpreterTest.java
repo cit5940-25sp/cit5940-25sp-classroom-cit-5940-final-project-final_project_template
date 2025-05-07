@@ -7,6 +7,23 @@ import static org.junit.Assert.*;
 
 public class InterpreterTest {
 
+//        function entry() {
+//            var x <- 1 + 2;
+//            print x;
+//        }
+
+    //Program
+    //└── FunctionDecl("entry")
+    //    └── Block
+    //        ├── VarDecl("x")
+    //        │   └── BinaryExpr("+")
+    //        │       ├── IntegerLiteral(1)
+    //        │       └── IntegerLiteral(2)
+    //        └── PrintStmt
+    //            └── VarRef("x")
+
+
+
     @Test
     public void testAdditionAndPrint() {
         // var x <- 1 + 2;
