@@ -23,14 +23,14 @@ public class WinConditionTest {
     }
 
     @Test
-    public void testFiveHorrorMoviesWinSuccess() {
-        for (int i = 1; i <= 5; i++) {
-            player.addGuessedMovie(makeHorrorMovie(i));
-        }
+    public void testTwoHorrorMoviesWinSuccess() {
+        player.addGuessedMovie(makeHorrorMovie(1));
+        player.addGuessedMovie(makeHorrorMovie(2));
 
         TwoHorrorMoviesWin winCondition = new TwoHorrorMoviesWin();
-        assertTrue("Should win after guessing 5 horror movies.",winCondition.checkVictory(player));
+        assertTrue("Should win after guessing 2 horror movies.", winCondition.checkVictory(player));
     }
+
 
     @Test
     public void testThreeNolanMoviesWinNotEnoughMovies() {

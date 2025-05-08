@@ -24,7 +24,7 @@ public class TwoHorrorMoviesWin implements WinCondition {
      */
     @Override
     public String description() {
-        return "Win by guessing five horror movies!";
+        return "Win by guessing two horror movies!";
     }
 
     @Override
