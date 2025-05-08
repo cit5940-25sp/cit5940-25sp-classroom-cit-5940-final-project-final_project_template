@@ -272,8 +272,7 @@ public class TerminalWithSuggestions {
 
                     // Recent history
                     row++;
-                    printString(0, row++, "Recent History:");
-                    // TODO: add logic to update connection history for each guessed movie after a valid guess (GameController) and render it here.
+                    printString(0, row++, "Recent History (most recent first):");
                     for (Movie m : state.getRecentHistory().reversed()) {
                         if (m.equals(controller.getGameState().getStartingMovie())) {
                             printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
@@ -287,9 +286,8 @@ public class TerminalWithSuggestions {
                     }
 
                     // Player progress
-                    // TODO: add logic to update player progress after each turn (GameController) and render it here.
                     row++;
-                    printString(0, row++,  "Winning Progress: " + controller.getGameState().getCurrentPlayer().getProgress());
+                    printString(0, row++,  "Winning Progress: " + controller.getGameState().getWinCondition().getPlayerProgress(controller.getGameState().getCurrentPlayer()));
 
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
                     break;
