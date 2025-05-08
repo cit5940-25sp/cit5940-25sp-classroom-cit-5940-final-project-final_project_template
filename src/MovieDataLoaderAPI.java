@@ -13,7 +13,7 @@ public class MovieDataLoaderAPI {
     private static final Gson gson = new Gson();
 
     private static final String BASE_URL = "https://api.themoviedb.org/3";
-    private static final String BEARER_TOKEN = "YOUR_BEARER_TOKEN_HERE"; // Replace with your TMDB v4 token
+    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OGZmN2VmODgxMzc0MTJhN2EwODgwNjY5YjQ3NDhkMiIsIm5iZiI6MS43NDY3Mjg5NzU4ODk5OTk5ZSs5LCJzdWIiOiI2ODFjZjgwZjA3OTc3YWE2YWEzZWNhMzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lbNKY-qA6QdqejO5OWT8Ac5TJHplvKelOaZCog_nzdA";
 
     /**
      * Fetches full movie metadata (title, cast, crew, genres, etc.) from TMDB API for the given number of pages.
@@ -130,16 +130,16 @@ public class MovieDataLoaderAPI {
                     case "Director":
                         directors.add(name);
                         break;
-                    case "Writer":
-                        writers.add(name);
-                        break;
                     case "Original Music Composer":
                         composers.add(name);
                         break;
+                    case "Writer":
+                        writers.add(name);
+                        break;
+                    case "Director of Photography":
+                        cinematographers.add(name);
+                        break;
                     default:
-                        if (job.contains("Cinematographer")) {
-                            cinematographers.add(name);
-                        }
                         break;
                 }
             }
