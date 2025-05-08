@@ -36,12 +36,16 @@ public class Interpreter implements ASTVisitor<Object> {
         int right = (int) be.right.accept(this);
         return switch (be.operator) {
             case "+" -> left + right;
-            case "*" -> left * right;
             case "-" -> left - right;
+            case "*" -> left * right;
             case "/" -> left / right;
+            case "%" -> left % right;
             case "=" -> left == right ? 1 : 0;
-            case "<" -> left < right ? 1 : 0;
             case "~" -> left != right ? 1 : 0;
+            case "<" -> left < right ? 1 : 0;
+            case ">" -> left > right ? 1 : 0;
+            case "<=" -> left <= right ? 1 : 0;
+            case ">=" -> left >= right ? 1 : 0;
             default -> throw new RuntimeException("Unknown operator: " + be.operator);
         };
     }
@@ -174,7 +178,7 @@ public class Interpreter implements ASTVisitor<Object> {
         return null;
     }
 
-    // 真正处理的都是 Statement 的子类，statement 这个抽象父类不会被具体调用
+    // 真正处理的都是 Statement 的子类，statement 这个抽象父类不会被具体调用，所以不必实现
     @Override
     public Object visitStatement(Statement statement) {
         return null;
