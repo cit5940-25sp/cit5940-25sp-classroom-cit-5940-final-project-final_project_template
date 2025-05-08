@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+
 /**
  * CSVReader is a class that implements the Reader interface.
  * It is designed to read CSV files, parse their contents, and load movie-related data.
@@ -12,6 +13,7 @@ public class CSVReader implements Reader{
     private ParseJson parseJson;
     // TreeSet to store Movie objects, sorted according to their natural ordering
     private TreeSet<Movie> movies;
+
     /**
      * Constructs a new CSVReader object.
      * Initializes the movies TreeSet and creates a new ParseJson instance.
@@ -23,6 +25,7 @@ public class CSVReader implements Reader{
         parseJson = new ParseJson();
         loadDate();
     }
+
     /**
      * Loads movie data from two CSV files: tmdb_5000_movies.csv and tmdb_5000_credits.csv.
      */
@@ -119,13 +122,36 @@ public class CSVReader implements Reader{
         return data;
     }
 
-    List<Movie> readMovie(){
-
+    /**
+     * Loads movie data from a specified CSV file.
+     * Parses the CSV file, skips the header row, and creates Movie objects for each data row.
+     * Adds genre information to each movie and stores the movies in the movies TreeSet.
+     *
+     * @param filePath The path to the CSV file containing movie data.
+     */
+    public void loadFile(String filePath){
+        try {
+            // Parse the CSV file into a list of string arrays
+            List<String[]> csvData = parseCsv(filePath);
+            // Remove the header row from the CSV data
+            csvData.remove(0);
+            // Iterate through each row of the CSV data
+            for (String[] row : csvData) {
+                // Extract the movie ID from the fourth column and convert it to an integer
+                int id = getId(row[3]);
+                // Extract the movie title from the eighteenth column
+                String title = row[17];
+                // Extract the release date from the twelfth column
+                String date = row[11];
+                // Create a new Movie object with the extracted information
+                Movie movie = new Movie(title, id, date);
+                // Parse and add genre information to the movie from the second column
+                handleGenre(movie, row[1]);
+                // Add the movie to the TreeSet
+                movies.add(movie);
+            }
+        } catch (Exception e) {
+            // Print the stack trace if an exception occurs during loading
+            e.printStackTrace();
+        }
     }
-    List<Stuff> readStuff(){
-
-    }
-    List<Genre> readGenre(){
-        
-    }
-}
