@@ -80,6 +80,10 @@ public class GameController {
         Player currentPlayer = gameState.getCurrentPlayer();
         Movie guessedMovie = movieDb.findByTitle(movieTitle);
 
+        if (guessedMovie != null) {
+            System.out.println("Guessed: " + guessedMovie.toString());
+        }
+
         if (guessedMovie == null) {
             return new TurnResult(false, "❌ Movie not found: " + movieTitle);
         }
@@ -89,31 +93,37 @@ public class GameController {
         }
 
         Movie lastMovie = gameState.getCurrentMovie();
-        Connection validConn = findValidConnection(lastMovie, guessedMovie);
+        List<Connection> connections = lastMovie.findConnections(guessedMovie);
 
 //        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
 //            return new TurnResult(false,
 //                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
 //        }
-        if (validConn == null) {
+        if (connections.isEmpty()) {
             return new TurnResult(false,
                     "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        if (!gameState.canUseConnection(validConn.getPersonName())) {
+        if (gameState.canUseConnection(connections).isEmpty()) {
+            String connectionStr = "";
+            for (Connection con: connections) {
+                connectionStr += (con.getPersonName() + " ");
+            }
             return new TurnResult(false,
-                    "⚠️ Connection with " + validConn.getPersonName() + " has already been used 3 times.");
+                    "⚠️ Connection with " + connectionStr + " has already been used 3 times.");
         }
 
-
-
         // ✅ Valid move
-        gameState.incrementConnectionUsage(validConn.getPersonName());
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
 
+        String validConnStr = "";
+        for (Connection con: connections) {
+            validConnStr += (con.getPersonName() + " (" + con.getType() + ")");
+        }
+
         String msg = "✅ " + currentPlayer.getName() + " connected via " +
-                validConn.getPersonName() + " (" + validConn.getType() + ")";
+                validConnStr;
 
         if (gameState.hasCurrentPlayerWon()) {
             return new TurnResult(true, "🏆 " + currentPlayer.getName() + " has won the game!");
@@ -123,51 +133,6 @@ public class GameController {
         return new TurnResult(true, msg);
     }
 
-
-    /**
-     * Checks if two movies are connected by a valid shared attribute.
-     *
-     * @param from the previously guessed movie
-     * @param to   the newly guessed movie
-     * @return true if the connection is valid; false otherwise
-     */
-    public boolean isValidConnection(Movie from, Movie to){
-        // Get all possible connections between the movies
-        List<Connection> connections = from.findConnections(to);
-        
-        // Check if any connection is valid (not used more than 3 times)
-        for (Connection conn : connections) {
-            if (gameState.canUseConnection(conn.getPersonName())) {
-                return true;
-            }
-        }
-        
-        // No valid connections found
-        return false;
-    }
-
-    /**
-     * Finds a valid connection between two movies if one exists.
-     *
-     * @param from the source movie
-     * @param to   the target movie
-     * @return the Connection object if a valid one is found
-     */
-    private Connection findValidConnection(Movie from, Movie to){
-        // Get all possible connections between the movies
-        List<Connection> connections = from.findConnections(to);
-        
-        // Find the first valid connection (not used more than 3 times)
-//        for (Connection conn : connections) {
-//            if (gameState.canUseConnection(conn.getPersonName())) {
-//                return conn;
-//            }
-//        }
-//
-//        // No valid connections found
-//        return null;
-        return connections.isEmpty() ? null : connections.get(0);
-    }
     public List<String> getAutocompleteSuggestions(String input) {
         List<String> results = new ArrayList<>();
         for (String title : movieDb.getAllTitles()) {

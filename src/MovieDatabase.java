@@ -63,8 +63,6 @@ public class MovieDatabase {
     }
 
     public Set<String> getAllTitles() {
-        System.out.println("Total movie titles: " + movieCache.size());
-
         return movieCache.keySet();
     }
 

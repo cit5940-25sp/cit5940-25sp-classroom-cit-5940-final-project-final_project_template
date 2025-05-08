@@ -124,4 +124,16 @@ public class Movie {
     public Set<String> getCinematographers() {
         return cinematographers;
     }
+
+    @Override
+    public String toString() {
+        String actors = "";
+        for (String actor: getActors()) {
+            actors += actor + " ";
+        }
+        if (actors.isEmpty()) {
+            actors = "no actors";
+        }
+        return getTitle() + " (" + getYear() + ") " + actors;
+    }
 }
