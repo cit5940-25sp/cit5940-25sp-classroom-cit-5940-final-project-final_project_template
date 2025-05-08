@@ -8,6 +8,7 @@ public class MovieTrie {
     public static String MOVIES_FILENAME = "tmdb_5000_movies.csv";
 
     private TrieNode root;
+    private List<Movie> allMovies = new ArrayList<>();
     private int limit = 10;
 
     public MovieTrie() {
@@ -18,13 +19,13 @@ public class MovieTrie {
         this.limit = limit;
     }
 
-    private String getNormalizedString(String s) {
+    public String getNormalizedString(String s) {
         return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
     }
 
     public TrieNode buildTrie() {
-        List<Movie> movies = MovieDataLoader.loadMovies(CREDITS_FILENAME, MOVIES_FILENAME);
-        for (Movie movie : movies) {
+        allMovies = MovieDataLoader.loadMovies(CREDITS_FILENAME, MOVIES_FILENAME);
+        for (Movie movie : allMovies) {
             insert(getNormalizedString(movie.getTitle()), movie);
         }
         return root;
@@ -96,5 +97,9 @@ public class MovieTrie {
 
     public TrieNode getRoot() {
         return root;
+    }
+
+    public List<Movie> getAllMovies() {
+        return allMovies;
     }
 }
