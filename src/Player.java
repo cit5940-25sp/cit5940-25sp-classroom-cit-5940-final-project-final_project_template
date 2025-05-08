@@ -42,4 +42,10 @@ public class Player {
         return links.isFull();
     }
 
+    // Print the player's name followed by their full path of links
+    @Override
+    public String toString() {
+        String str = "Player: " + name + "\n";
+        return str + links.toString();
+    }
 }
