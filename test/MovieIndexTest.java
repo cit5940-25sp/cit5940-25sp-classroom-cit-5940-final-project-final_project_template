@@ -65,6 +65,11 @@ public class MovieIndexTest {
 
         List<String> suggestions4 = index.getSuggestions("xyz");
         assertTrue(suggestions4.isEmpty());
+
+        List<String> suggestions5 = index.getSuggestions("The Broadway Melody");
+        for (String suggestion : suggestions5) {
+            assertTrue(suggestion.contains("The Broadway Melody"));
+        }
     }
 
 }

@@ -20,6 +20,9 @@ public class MovieIndex {
         movieTrie = new MovieTrie();
         movieTrie.buildTrie();
         allMovies = movieTrie.getAllMovies();
+        for (Movie movie : allMovies) {
+            addMovie(movie);
+        }
     }
 
     private void addToMap(Map<String, Set<Movie>> map, String key, Movie movie) {
@@ -73,7 +76,6 @@ public class MovieIndex {
         }
         // Remove the movie itself from the connected movies
         connectedMovies.remove(movie);
-
         return connectedMovies;
     }
 
@@ -93,7 +95,11 @@ public class MovieIndex {
             return null;
         }
         int index = ThreadLocalRandom.current().nextInt(allMovies.size());
-        return allMovies.get(index);
+        Movie randomMovie = allMovies.get(index);
+        if (getConnectedMovies(randomMovie).isEmpty()) {
+            return getRandomMovie();
+        }
+        return randomMovie;
     }
 
     public Movie getMovieByTitle(String title) {

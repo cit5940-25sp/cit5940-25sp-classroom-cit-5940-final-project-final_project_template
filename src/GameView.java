@@ -1,3 +1,5 @@
+import java.util.Set;
+
 public class GameView {
     public void displayGameState(Player player1, Player player2, Movie currentMovie, int round) {
         System.out.println("\n===== GAME STATUS =====");
@@ -11,6 +13,13 @@ public class GameView {
         System.out.println("Movies Collected: " + player2.getMoviesPlayed().size());
 
         System.out.println("===================\n");
+    }
+
+    public void displayConnectedMovie(Set<Movie> connectedMovies) {
+        System.out.println("\nConnected Movies:");
+        for (Movie movie : connectedMovies) {
+            System.out.println("- " + movie.getTitle());
+        }
     }
 
     public void displayInvalidMove() {

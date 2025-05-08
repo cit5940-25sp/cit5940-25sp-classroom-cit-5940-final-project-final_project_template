@@ -103,4 +103,21 @@ public class GameControllerTest {
             return player.getMoviesPlayed().size() >= requiredMovies;
         }
     }
+
+    public static void main(String[] args) {
+        WinCondition winCondition1 = new GenreWinCondition("Action");
+        WinCondition winCondition2 = new GenreWinCondition("Action");
+
+        Player player1 = new Player("Alice", winCondition1);
+        Player player2 = new Player("Bob", winCondition2);
+
+        MovieIndex movieIndex = new MovieIndex();
+
+        GameView view = new GameView();
+
+        // 5. 创建控制器并启动游戏
+        GameController controller = new GameController(player1, player2, movieIndex, view);
+        controller.startGame();
+    }
+
 }

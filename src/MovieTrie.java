@@ -25,9 +25,6 @@ public class MovieTrie {
 
     public TrieNode buildTrie() {
         allMovies = MovieDataLoader.loadMovies(CREDITS_FILENAME, MOVIES_FILENAME);
-        for (Movie movie : allMovies) {
-            insert(getNormalizedString(movie.getTitle()), movie);
-        }
         return root;
     }
 
