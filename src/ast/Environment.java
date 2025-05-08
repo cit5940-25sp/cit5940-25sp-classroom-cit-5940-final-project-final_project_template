@@ -38,4 +38,8 @@ public class Environment {
             throw new RuntimeException("Undefined variable '" + name + "'");
         }
     }
+    // 函数是直接存在 Interpreter 的 functionTable 里管理的，和变量作用域是分开的，
+    // 所以这里的 defineFunction 和 getFunction 实际不会被用到。
+    // public void defineFunction(String name, FunctionDecl func) {}
+    // public FunctionDecl getFunction(String name) { return null; }
 }
