@@ -25,7 +25,7 @@ public class TerminalWithSuggestions {
     private String player2Name = "";
     private int winConditionIndex = 0;
     private List<WinCondition> winConditions = Arrays.asList(
-            new FiveHorrorMoviesWin(),
+            new TwoHorrorMoviesWin(),
             new ThreeNolanMoviesWin()
     );
 

@@ -97,7 +97,9 @@ public class GameController {
                     "Oops, no valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        if (gameState.canUseConnection(connections).isEmpty()) { // there are connections but the connecting people have been used more than 3 times
+        List<Connection> validConnections = gameState.filterConnection(connections);
+
+        if (validConnections.isEmpty()) { // there are connections but the connecting people have been used more than 3 times
             String connectionStr = "";
             for (Connection con: connections) {
                 connectionStr += (con.getPersonName() + " ");
@@ -107,12 +109,14 @@ public class GameController {
         }
 
         // ✅ Valid move
+
+        guessedMovie.addConnectionHistory(validConnections);
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
         gameState.getWinCondition().updatePlayerProgress(currentPlayer, guessedMovie);
 
         String validConnStr = "";
-        for (Connection con: connections) {
+        for (Connection con: validConnections) {
             validConnStr += (con.getPersonName() + " (" + con.getType() + ") ");
         }
 

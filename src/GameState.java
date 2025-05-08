@@ -86,7 +86,7 @@ public class GameState {
      * @param connections the list of connections
      * @return true if usage count < 3, false otherwise
      */
-    public List<Connection> canUseConnection(List<Connection> connections) {
+    public List<Connection> filterConnection(List<Connection> connections) {
         List<Connection> canUse = new ArrayList<>();
 
         for (Connection con: connections) {

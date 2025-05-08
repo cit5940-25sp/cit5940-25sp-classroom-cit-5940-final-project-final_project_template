@@ -1,7 +1,7 @@
 /**
  * A win condition where the player wins after guessing two horror movies.
  */
-public class FiveHorrorMoviesWin implements WinCondition {
+public class TwoHorrorMoviesWin implements WinCondition {
 
     private static final String TARGET_GENRE = "Horror";
     private static final int REQUIRED_COUNT = 5;

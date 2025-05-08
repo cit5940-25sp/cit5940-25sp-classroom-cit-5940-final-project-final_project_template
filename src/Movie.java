@@ -90,6 +90,10 @@ public class Movie {
         return connections;
     }
 
+    public void addConnectionHistory(List<Connection> connections) {
+        connectionHistory.addAll(connections);
+    }
+
     // ======== Getters ========
 
     public long getMovieId() {
