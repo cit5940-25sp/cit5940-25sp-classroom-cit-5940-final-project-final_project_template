@@ -25,7 +25,7 @@ public class TerminalWithSuggestions {
     private String player2Name = "";
     private int winConditionIndex = 0;
     private List<WinCondition> winConditions = Arrays.asList(
-            new FiveHorrorMoviesWin(),
+            new TwoHorrorMoviesWin(),
             new ThreeNolanMoviesWin()
     );
 
@@ -65,7 +65,7 @@ public class TerminalWithSuggestions {
                 if (secondsRemaining == 0) {
                     timerRunning = false;
                     try {
-                        printInfo("⏰ Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
+                        printInfo("Time's up! " + controller.getGameState().getOtherPlayer().getName() + " wins!");
                         screen.close();
                         terminal.close();
                         System.exit(0);
@@ -191,9 +191,13 @@ public class TerminalWithSuggestions {
                 TurnResult result = controller.processTurn(input);
                 printInfo(result.getMessage());
 
+                if (result.isGameOver()) {
+                    return false;  // exits game loop
+                }
+
                 turnInProgress = false;
 
-                if (!result.isSucess()) {
+                if (!result.isSuccess()) {
                     return true;
                 }
 
@@ -222,7 +226,7 @@ public class TerminalWithSuggestions {
 
             switch (stage) {
                 case PLAYER1_NAME:
-                    printString(0, 0, "🎬 Welcome to Movie Game!");
+                    printString(0, 0, "Hello there! Welcome to Movie Game!");
                     printString(0, 2, "Please enter Player 1 name:");
                     printString(0, 4, "> " + currentInput.toString());
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
@@ -254,7 +258,7 @@ public class TerminalWithSuggestions {
                     printString(0, 1, "Round: " + state.getCurrRound());
                     String timerText = "Time: " + secondsRemaining + "s";
                     printString(size.getColumns() - timerText.length(), 0, timerText);
-                    printString(0, 2, "Last movie: " + state.getRecentHistory().getLast().getTitle() + " (" + state.getRecentHistory().get(0).getYear() + ")" );
+                    printString(0, 2, "Last movie: " + state.getRecentHistory().getLast().getTitle() + " (" + state.getRecentHistory().getLast().getYear() + ")" );
 
                     // Prompt
                     printString(0, 4, "> " + currentInput.toString());

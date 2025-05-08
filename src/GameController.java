@@ -61,7 +61,6 @@ public class GameController {
         
         // Initialize game state with players, win condition, and starting movie
         gameState = new GameState(player1, player2, cond, startingMovie);
-        
         // Display initial game state
         return startingMovie;
     }
@@ -74,43 +73,37 @@ public class GameController {
     public TurnResult processTurn(String movieTitle) {
 
         if (movieTitle == null || movieTitle.trim().isEmpty()) {
-            return new TurnResult(false, "⚠️ Movie title cannot be empty.");
+            return new TurnResult(false, "Movie title cannot be empty.");
         }
 
         Player currentPlayer = gameState.getCurrentPlayer();
         Movie guessedMovie = movieDb.findByTitle(movieTitle);
 
-        if (guessedMovie != null) {
-            System.out.println("Guessed: " + guessedMovie.toString());
+        if (guessedMovie == null) {
+            return new TurnResult(false, "Oops, " + movieTitle + " is not found in the database.");
         }
 
-        if (guessedMovie == null) {
-            return new TurnResult(false, "❌ Movie not found: " + movieTitle);
-        }
+        System.out.println("Guessed: " + guessedMovie);
 
         if (gameState.isMovieUsed(guessedMovie)) {
-            return new TurnResult(false, "⚠️ Movie already used: " + movieTitle);
+            return new TurnResult(false, "Nice try! However movie " + movieTitle + " already used");
         }
 
         Movie lastMovie = gameState.getCurrentMovie();
         List<Connection> connections = lastMovie.findConnections(guessedMovie);
 
-//        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
-//            return new TurnResult(false,
-//                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
-//        }
         if (connections.isEmpty()) {
             return new TurnResult(false,
-                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
+                    "Oops, no valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        if (gameState.canUseConnection(connections).isEmpty()) {
+        if (gameState.canUseConnection(connections).isEmpty()) { // there are connections but the connecting people have been used more than 3 times
             String connectionStr = "";
             for (Connection con: connections) {
                 connectionStr += (con.getPersonName() + " ");
             }
             return new TurnResult(false,
-                    "⚠️ Connection with " + connectionStr + " has already been used 3 times.");
+                    "Nice Try! However " + connectionStr + " has already been used 3 times.");
         }
 
         // ✅ Valid move
@@ -119,14 +112,14 @@ public class GameController {
 
         String validConnStr = "";
         for (Connection con: connections) {
-            validConnStr += (con.getPersonName() + " (" + con.getType() + ")");
+            validConnStr += (con.getPersonName() + " (" + con.getType() + ") ");
         }
 
-        String msg = "✅ " + currentPlayer.getName() + " connected via " +
+        String msg = "Nice! " + lastMovie.getTitle() + " and " + guessedMovie.getTitle() + " connected via " +
                 validConnStr;
 
         if (gameState.hasCurrentPlayerWon()) {
-            return new TurnResult(true, "🏆 " + currentPlayer.getName() + " has won the game!");
+            return new TurnResult(true, true,"Congrats! " + currentPlayer.getName() + " has won the game with condition " + gameState.getWinCondition());
         }
 
         gameState.switchPlayer();
@@ -140,7 +133,7 @@ public class GameController {
                 results.add(title);
             }
         }
-        return results.stream().limit(5).toList(); // 最多顯示5個
+        return results.stream().limit(5).toList();
     }
 
 }

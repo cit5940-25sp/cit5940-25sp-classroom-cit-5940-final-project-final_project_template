@@ -18,7 +18,7 @@ public class WinConditionTest {
         player.addGuessedMovie(makeHorrorMovie(2));
         player.addGuessedMovie(makeNonHorrorMovie(3));
 
-        FiveHorrorMoviesWin winCondition = new FiveHorrorMoviesWin();
+        TwoHorrorMoviesWin winCondition = new TwoHorrorMoviesWin();
         assertFalse("Should not win with less than 5 horror movies.",winCondition.checkVictory(player));
     }
 
@@ -28,7 +28,7 @@ public class WinConditionTest {
             player.addGuessedMovie(makeHorrorMovie(i));
         }
 
-        FiveHorrorMoviesWin winCondition = new FiveHorrorMoviesWin();
+        TwoHorrorMoviesWin winCondition = new TwoHorrorMoviesWin();
         assertTrue("Should win after guessing 5 horror movies.",winCondition.checkVictory(player));
     }
 

@@ -31,7 +31,7 @@ public class GameControllerTest {
 
         Player p1 = new Player("Alice");
         Player p2 = new Player("Bob");
-        GameState state = new GameState(p1, p2, new FiveHorrorMoviesWin(), godfather);
+        GameState state = new GameState(p1, p2, new TwoHorrorMoviesWin(), godfather);
         controller.setGameState(state);
         state.getTimer().start();
 
@@ -43,7 +43,7 @@ public class GameControllerTest {
 
     @Test
     public void testProcessTurn_MovieNotFound() {
-        controller.startGame("Alice", "Bob", new FiveHorrorMoviesWin());
+        controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
         controller.getGameState().getTimer().start();
 
         controller.processTurn("Unknown Movie");
@@ -53,7 +53,7 @@ public class GameControllerTest {
 
     @Test
     public void testProcessTurn_Timeout() {
-        controller.startGame("Alice", "Bob", new FiveHorrorMoviesWin());
+        controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
         // Do not start the timer (simulate timeout)
 
         controller.processTurn("Any Movie");
