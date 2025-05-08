@@ -6,20 +6,12 @@ public class GameStatus {
     private int round;
     private String gameStatusString;
 
-public class GameStatus {
-    private String status;
-    private Player player1;
-    private Player player2;
-    private Player currentPlayer;
-    private int round;
-
+    // Set up initial game state: empty player list, starting with player 0 and round 0
     public GameStatus() {
-        this.status = "Not Started";
-        this.player1 = new Player();
-        this.player2 = new Player(); 
+        players = new ArrayList<>(); // Assuming 2 players for simplicity
+        currentPlayer = 0;
+        round = 0;
     }
 
-    public boolean isGameOver() {
-        return false; 
-    }
+
 }
