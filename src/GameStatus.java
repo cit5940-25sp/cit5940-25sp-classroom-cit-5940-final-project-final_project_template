@@ -28,4 +28,13 @@ public class GameStatus {
         currentPlayer = (currentPlayer + 1) % players.size();
         return player;
     }
+
+    // play round and let the current player try to play the given movie
+    public void playRound(Movie movie) {
+        round++;
+        Player player = getCurrentPlayer();
+        if(player != null) {
+            player.play(movie);
+        }
+    }
 }
