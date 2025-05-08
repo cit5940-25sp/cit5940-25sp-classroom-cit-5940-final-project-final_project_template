@@ -2,6 +2,7 @@ package com.example.movieGame;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * main.java.com.example.movieGame.Movie Object
@@ -18,9 +19,23 @@ public class Movie {
     private HashSet<String> composers;
 
     private Long releaseYear;
-    private String genre;
-    private ArrayList<SingleConnection> linksToPreviousMovie;  //list of connections to previous movie //TODO - might make more sense ot store somewhere else
+    private HashSet<String> genre; //Updated to a set of genres
+    private ArrayList<SingleConnection> linksToPreviousMovie;  //list of connections to previous movie
+    // TODO - might make more sense ot store somewhere else
 
+    //Constructor to create the Movie object
+    public Movie(String title, int movieID, Long releaseYear, HashSet<String> genre, HashSet<String> actors, HashSet<String> directors, HashSet<String> writers,
+                 HashSet<String> cinematographers, HashSet<String> composers) {
+        this.movieTitle = title;
+        this.genre = genre;
+        this.movieID= movieID;
+        this.releaseYear = releaseYear;
+        this.actors = actors;
+        this.directors = directors;
+        this.writers = writers;
+        this.cinematographers = cinematographers;
+        this.composers = composers;
+    }
 
 
     public String getMovieTitle() {
@@ -51,11 +66,10 @@ public class Movie {
         return composers;
     }
 
-    public Long getReleaseYear() {
-        return releaseYear;
+    public Long getReleaseYear() {return releaseYear;
     }
 
-    public String getGenre() {
+    public HashSet<String> getGenre() {
         return genre;
     }
 
