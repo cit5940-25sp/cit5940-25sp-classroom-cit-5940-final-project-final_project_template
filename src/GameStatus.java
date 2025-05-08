@@ -33,7 +33,7 @@ public class GameStatus {
     public void playRound(Movie movie) {
         round++;
         Player player = getCurrentPlayer();
-        if(player != null) {
+        if (player != null) {
             player.play(movie);
         }
     }
