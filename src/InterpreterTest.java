@@ -7,11 +7,16 @@ import static org.junit.Assert.*;
 
 public class InterpreterTest {
 
-//        function entry() {
-//            var x <- 1 + 2;
-//            print x;
-//        }
-
+    // Test for:
+    // visitProgram, visitFunctionDecl, visitBlock, visitVarDecl,visitBinaryExpr,
+    // visitIntegerLiteral, visitPrintStmt, visitVarRef
+    //
+    //        function entry() {
+    //            var x <- 1 + 2;
+    //            print x;
+    //        }
+    //
+    // Control flow:
     //Program
     //└── FunctionDecl("entry")
     //    └── Block
@@ -22,10 +27,8 @@ public class InterpreterTest {
     //        └── PrintStmt
     //            └── VarRef("x")
 
-
-
     @Test
-    public void testAdditionAndPrint() {
+    public void testAdditionAndPrintProgram() {
         // var x <- 1 + 2;
         VarDecl decl = new VarDecl("x",
                 new BinaryExpr(new IntegerLiteral(1), "+", new IntegerLiteral(2))
@@ -43,7 +46,7 @@ public class InterpreterTest {
     }
 
     @Test
-    public void testReturnStatement() {
+    public void testVisitReturnStmt() {
         ReturnStmt ret = new ReturnStmt(new IntegerLiteral(42));
         Block body = new Block(List.of(ret));
         FunctionDecl entry = new FunctionDecl("entry", new ArrayList<>(), body);
@@ -125,7 +128,7 @@ public class InterpreterTest {
         assertEquals("10\n", output);
     }
 
-    // helper 函数：捕获 System.out.println 输出内容
+    // InterpreterTest 的 helper 函数：捕获 System.out.println 输出内容
     private String runWithCapturedOutput(Runnable runnable) {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
         java.io.PrintStream oldOut = System.out;

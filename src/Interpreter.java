@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Interpreter implements ASTVisitor<Object> {
 
     private final Environment globals = new Environment();  // global scope（保持不变）
-    private Environment environment = globals;              // current scope（会切换）
+    private Environment environment = globals;              // 作用域 current scope（会切换）
     // functionTable 记录了程序里所有的函数名和对应的 AST 定义
     private final Map<String, FunctionDecl> functionTable = new HashMap<>(); //
     private Object result;
@@ -168,9 +168,13 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitRunWhileStmt(RunWhileStmt rws) {
+        do {
+            rws.body.accept(this);
+        } while ((int) rws.condition.accept(this) != 0);
         return null;
     }
 
+    // 真正处理的都是 Statement 的子类，statement 这个抽象父类不会被具体调用
     @Override
     public Object visitStatement(Statement statement) {
         return null;
@@ -190,6 +194,9 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitWhileStmt(WhileStmt ws) {
+        while ((int) ws.condition.accept(this) != 0) {
+            ws.body.accept(this);
+        }
         return null;
     }
 }
