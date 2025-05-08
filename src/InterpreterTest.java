@@ -128,6 +128,59 @@ public class InterpreterTest {
         assertEquals("10\n", output);
     }
 
+    @Test
+    public void testVisitWhileStmt() {
+        // var x <- 0;
+        VarDecl decl = new VarDecl("x", new IntegerLiteral(0));
+
+        // while (x < 3) {
+        //     x <- x + 1;
+        // }
+        WhileStmt loop = new WhileStmt(
+                new BinaryExpr(new VarRef("x"), "<", new IntegerLiteral(3)),
+                new Block(List.of(
+                        new Assignment("x", new BinaryExpr(new VarRef("x"), "+", new IntegerLiteral(1)))
+                ))
+        );
+
+        // print x;
+        PrintStmt print = new PrintStmt(new VarRef("x"));
+
+        Block body = new Block(List.of(decl, loop, print));
+        FunctionDecl entry = new FunctionDecl("entry", List.of(), body);
+        Program program = new Program(List.of(entry));
+
+        String output = runWithCapturedOutput(() -> new Interpreter(program));
+        assertEquals("3\n", output);
+    }
+
+    @Test
+    public void testVisitRunWhileStmt() {
+        // var x <- 0;
+        VarDecl decl = new VarDecl("x", new IntegerLiteral(0));
+
+        // run {
+        //     x <- x + 1;
+        // } while (x < 1);
+        RunWhileStmt loop = new RunWhileStmt(
+                new Block(List.of(
+                        new Assignment("x", new BinaryExpr(new VarRef("x"), "+", new IntegerLiteral(1)))
+                )),
+                new BinaryExpr(new VarRef("x"), "<", new IntegerLiteral(1))
+        );
+
+        // print x;
+        PrintStmt print = new PrintStmt(new VarRef("x"));
+
+        Block body = new Block(List.of(decl, loop, print));
+        FunctionDecl entry = new FunctionDecl("entry", List.of(), body);
+        Program program = new Program(List.of(entry));
+
+        String output = runWithCapturedOutput(() -> new Interpreter(program));
+        assertEquals("1\n", output);
+    }
+
+
     // InterpreterTest 的 helper 函数：捕获 System.out.println 输出内容
     private String runWithCapturedOutput(Runnable runnable) {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

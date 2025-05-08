@@ -143,7 +143,7 @@ public class Interpreter implements ASTVisitor<Object> {
     @Override
     public Object visitPrintStmt(PrintStmt ps) {
         Object value = ps.expression.accept(this);
-        System.out.println(value);
+        System.out.println(value); // 打印内容后会自动添加一个换行符\n
         return null;
     }
 
