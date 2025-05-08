@@ -7,6 +7,9 @@ public class Player {
         this.name = name;
         links = new Links();
     }
+    // Try to make a move by playing the given movie
+    // If it's the first move, set it as the starting point
+    // Otherwise, try to connect it to the current path
     public boolean play(Movie movie){
         if(links.isEmpty()){
             links.setCurrentMovie(movie);
