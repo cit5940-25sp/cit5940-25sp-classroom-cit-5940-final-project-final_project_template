@@ -117,8 +117,9 @@ public class GameConsoleUI implements IGameObserver {
                 }
             }
         }
-
-        System.out.println("Thanks for playing!");
+        GameState finalState = gameEngine.getGameState();
+        System.out.println("Thanks for playing LingoLink! Your final score was " + finalState.getTotalScore() +
+                "! Awesome job! ");
     }
 
     @Override
