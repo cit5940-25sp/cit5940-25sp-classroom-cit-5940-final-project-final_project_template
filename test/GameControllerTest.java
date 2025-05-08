@@ -33,7 +33,10 @@ public class GameControllerTest {
         Player p2 = new Player("Bob");
         GameState state = new GameState(p1, p2, new TwoHorrorMoviesWin(), godfather);
         controller.setGameState(state);
-        state.getTimer().start();
+        //state.getTimer().start();
+        // call proccessTurn and manually update FakeGameView
+        TurnResult result = controller.processTurn("Heat");
+        view.displayInfo(result.getMessage());
 
         controller.processTurn("Heat");
 
@@ -44,9 +47,10 @@ public class GameControllerTest {
     @Test
     public void testProcessTurn_MovieNotFound() {
         controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
-        controller.getGameState().getTimer().start();
-
-        controller.processTurn("Unknown Movie");
+        //controller.getGameState().getTimer().start();
+        //controller.processTurn("Unknown Movie");
+        TurnResult result = controller.processTurn("Unknown Movie");
+        view.displayInfo(result.getMessage());
 
         assertTrue(view.messages.stream().anyMatch(msg -> msg.contains("Movie not found")));
     }

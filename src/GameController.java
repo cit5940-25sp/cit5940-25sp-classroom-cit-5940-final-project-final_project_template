@@ -108,7 +108,7 @@ public class GameController {
                     "Nice Try! However " + connectionStr + " has already been used 3 times.");
         }
 
-        // ✅ Valid move
+        // Valid move
 
         guessedMovie.addConnectionHistory(validConnections);
         gameState.addMovieToHistory(guessedMovie);
