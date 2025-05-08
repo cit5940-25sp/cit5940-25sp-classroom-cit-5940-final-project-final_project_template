@@ -155,3 +155,63 @@ public class CSVReader implements Reader{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Loads extra movie information such as cast and crew from a specified CSV file.
+     * Parses the CSV file, skips the header row, and updates existing Movie objects
+     * with cast and crew information.
+     *
+     * @param filePath The path to the CSV file containing extra movie information.
+     */
+    public void loadExtraFile(String filePath){
+        try {
+            // Parse the CSV file into a list of string arrays
+            List<String[]> csvData = parseCsv(filePath);
+            // Remove the header row from the CSV data
+            csvData.remove(0);
+            // Iterate through each row of the CSV data
+            for (String[] row : csvData) {
+                // Extract the movie ID from the first column and convert it to an integer
+                int id = getId(row[0]);
+                // Find the movie in the TreeSet using the extracted ID
+                Movie movie = movies.floor(new Movie(id));
+                // Parse and add cast information to the movie from the third column
+                handleCast(movie, row[2]);
+                // Parse and add crew information to the movie from the fourth column
+                handleCrew(movie, row[3]);
+            }
+        } catch (Exception e) {
+            // Print the stack trace if an exception occurs during loading
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Parses a JSON string containing cast information and adds it to the specified movie.
+     *
+     * @param movie The Movie object to which cast information will be added.
+     * @param json The JSON string containing cast information.
+     */
+    public void handleCast(Movie movie, String json){
+        // Parse the JSON string into an array of Stuff objects representing cast members
+        Stuff[] list = parseJson.parseCast(json);
+        // Iterate through each cast member and add them to the movie
+        for (Stuff stuff : list) {
+            movie.addStuff(stuff);
+        }
+    }
+
+    /**
+     * Parses a JSON string containing crew information and adds it to the specified movie.
+     *
+     * @param movie The Movie object to which crew information will be added.
+     * @param json The JSON string containing crew information.
+     */
+    public void handleCrew(Movie movie, String json){
+        // Parse the JSON string into an array of Stuff objects representing crew members
+        Stuff[] list = parseJson.parseCrew(json);
+        // Iterate through each crew member and add them to the movie
+        for (Stuff stuff : list) {
+            movie.addStuff(stuff);
+        }
+    }
