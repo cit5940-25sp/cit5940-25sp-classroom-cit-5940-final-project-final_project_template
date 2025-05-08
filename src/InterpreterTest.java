@@ -89,7 +89,43 @@ public class InterpreterTest {
         assertEquals("300\n", output);
     }
 
-    // 工具函数：捕获 System.out.println 输出内容
+
+//    function double(n) {
+//        return n + n;
+//    }
+//
+//    function entry() {
+//        var result <- double(5);
+//        print result;
+//    }
+    @Test
+    public void testFunctionCall() {
+        // function double(n) { return n + n; }
+        String funcName = "double";
+        List<String> params = List.of("n");
+        Expression bodyExpr = new BinaryExpr(new VarRef("n"), "+", new VarRef("n"));
+        ReturnStmt returnStmt = new ReturnStmt(bodyExpr);
+        Block funcBody = new Block(List.of(returnStmt));
+        FunctionDecl doubleFunc = new FunctionDecl(funcName, params, funcBody);
+
+        // function entry() {
+        //     var result <- double(5);
+        //     print result;
+        // }
+        FuncCall callDouble = new FuncCall("double", List.of(new IntegerLiteral(5)));
+        VarDecl resultDecl = new VarDecl("result", callDouble);
+        PrintStmt printResult = new PrintStmt(new VarRef("result"));
+        Block entryBody = new Block(List.of(resultDecl, printResult));
+        FunctionDecl entry = new FunctionDecl("entry", new ArrayList<>(), entryBody);
+
+        // Create Program and run interpreter
+        Program program = new Program(List.of(doubleFunc, entry));
+        String output = runWithCapturedOutput(() -> new Interpreter(program));
+
+        assertEquals("10\n", output);
+    }
+
+    // helper 函数：捕获 System.out.println 输出内容
     private String runWithCapturedOutput(Runnable runnable) {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
         java.io.PrintStream oldOut = System.out;
