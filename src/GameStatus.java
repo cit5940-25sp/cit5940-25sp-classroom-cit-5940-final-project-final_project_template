@@ -1,3 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
+public class GameStatus {
+    private List<Player> players; // 2
+    private int currentPlayer;
+    private int round;
+    private String gameStatusString;
+
 public class GameStatus {
     private String status;
     private Player player1;
