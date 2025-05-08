@@ -27,6 +27,7 @@ public class Player {
         }
     }
 
+    // Return the common genre (as a string) if one exists across the player's links
     public String getGenre(){
         String str = null;
         Genre genre = links.getCommonGenre();
