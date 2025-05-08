@@ -27,4 +27,13 @@ public class Player {
         }
     }
 
+    public String getGenre(){
+        String str = null;
+        Genre genre = links.getCommonGenre();
+        if (genre != null){
+            str = genre.toString();
+        }
+        return str;
+    }
+
 }
