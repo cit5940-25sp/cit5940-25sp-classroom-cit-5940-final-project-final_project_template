@@ -274,12 +274,16 @@ public class TerminalWithSuggestions {
                     row++;
                     printString(0, row++, "Recent History:");
                     // TODO: add logic to update connection history for each guessed movie after a valid guess (GameController) and render it here.
-                    for (Movie m : state.getRecentHistory()) {
-                        String lastConnection = "";
-                        if (!m.getConnectionHistory().isEmpty()) {
-                            lastConnection = m.getConnectionHistory().getLast().toString();
+                    for (Movie m : state.getRecentHistory().reversed()) {
+                        if (m.equals(controller.getGameState().getStartingMovie())) {
+                            printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
+                        } else {
+                            String lastConnection = "";
+                            if (!m.getConnectionHistory().isEmpty()) {
+                                lastConnection = m.getConnectionHistory().getLast().toString();
+                            }
+                            printString(2, row++, m.getTitle() + " (" + m.getYear() + ")" + " last connected via: " + lastConnection);
                         }
-                        printString(2, row++, m.getTitle() + " (" + m.getYear() + ")" + "last connected via: " + lastConnection);
                     }
 
                     // Player progress

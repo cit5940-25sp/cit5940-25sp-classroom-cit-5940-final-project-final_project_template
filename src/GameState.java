@@ -7,6 +7,7 @@ import java.util.*;
 public class GameState {
     private final Player player1;
     private final Player player2;
+    private final Movie startingMovie;
     private Player currentPlayer;
     private int currRound;
     private final WinCondition winCondition;
@@ -19,6 +20,7 @@ public class GameState {
                      WinCondition winCondition, Movie startingMovie) {
         this.player1 = player1;
         this.player2 = player2;
+        this.startingMovie = startingMovie;
         this.currentPlayer = player1; // Start with player1
         this.currRound = 1;
         this.winCondition = winCondition;
@@ -99,6 +101,10 @@ public class GameState {
         System.out.println(connectionUsage.toString());
         System.out.println(canUse);
         return canUse;
+    }
+
+    public Movie getStartingMovie() {
+        return startingMovie;
     }
 
     /**
