@@ -22,5 +22,9 @@ public class CrewMemWinCondition implements IWinConditionStrategy{
     public String getDescription() {
         return "Play 5 movies of crew member " + selectedCrewMember + ".";
     }
+
+    public String getSelectedCrewMember() {
+            return selectedCrewMember;
+    }
 }
 

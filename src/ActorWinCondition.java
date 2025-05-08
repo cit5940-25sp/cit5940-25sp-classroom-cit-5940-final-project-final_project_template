@@ -31,4 +31,8 @@ public class ActorWinCondition implements IWinConditionStrategy {
     public String getDescription() {
         return "Play 5 movies of actor " + selectedActor + ".";
     }
+
+    public String getSelectedActor() {
+        return selectedActor;
+    }
 }

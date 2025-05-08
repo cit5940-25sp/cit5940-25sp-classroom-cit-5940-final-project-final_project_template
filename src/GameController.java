@@ -13,16 +13,18 @@ public class GameController implements IGameController {
     private TerminalWithSuggestions terminal;
     private boolean gameOver;
     private MovieIndex movieIndex;
+    private ConnectionValidator connectionValidator;
 
-    public GameController(Player p1, Player p2, Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal) {
+    public GameController(Player p1, Player p2, Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal, ConnectionValidator connectionValidator, GameModel gameModel) {
         this.player1 = p1;
         this.player2 = p2;
         this.currentPlayer = p1;
         this.movieList = movies;
         this.terminal = terminal;
+        this.connectionValidator = connectionValidator;
         this.gameModel = new GameModel();
         this.gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv");
-        this.gameView = new GameView(terminal);
+        this.gameView = new GameView(terminal, connectionValidator, gameModel);
         this.gameOver = false;
         this.movieIndex = new MovieIndex();
         Map<Integer, IMovie> loadedMovies = movieIndex.loadMovies("tmdb_5000_movies.csv");

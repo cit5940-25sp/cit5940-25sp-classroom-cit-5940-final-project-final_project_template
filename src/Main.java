@@ -19,12 +19,14 @@ public class Main {
 
         Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
-        GameModel model = new GameModel();
-        model.initializePlayers();
+        GameModel gameModel = new GameModel();
+        gameModel.initializePlayers();
 
-        List<IMovie> movieList = model.convertMapToListOfMovies(model.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv"));
+        ConnectionValidator connectionValidator = new ConnectionValidator();
 
-        GameController controller = new GameController((Player) model.getPlayer1(), (Player) model.getPlayer2(), clock, movieList, terminal);
+        List<IMovie> movieList = gameModel.convertMapToListOfMovies(gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv"));
+
+        GameController controller = new GameController((Player) gameModel.getPlayer1(), (Player) gameModel.getPlayer2(), clock, movieList, terminal, connectionValidator, gameModel);
 
         controller.initializeGame(movieList);
         controller.startGame();
