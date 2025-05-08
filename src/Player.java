@@ -7,4 +7,11 @@ public class Player {
         this.name = name;
         links = new Links();
     }
+    public boolean play(Movie movie){
+        if(links.isEmpty()){
+            links.setCurrentMovie(movie);
+            return true;
+        }
+        return links.addLink(movie);
+    }
 }
