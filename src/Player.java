@@ -17,4 +17,13 @@ public class Player {
         }
         return links.addLink(movie);
     }
+
+    public boolean isWinner(){
+        if (getGenre() != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
