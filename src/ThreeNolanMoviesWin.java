@@ -40,4 +40,16 @@ public class ThreeNolanMoviesWin implements WinCondition {
     public String description() {
         return "Win by guessing three movies directed by Christopher Nolan!";
     }
+
+    @Override
+    public void updatePlayerProgress(Player player, Movie movie) {
+        if (movie.getGenres().contains(TARGET_DIRECTOR)) {
+            player.updateProgress();
+        }
+    }
+
+    @Override
+    public String getPlayerProgress(Player player) {
+        return player.getProgress() + "/" + REQUIRED_COUNT;
+    }
 }

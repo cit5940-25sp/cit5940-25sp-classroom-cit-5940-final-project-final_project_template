@@ -222,7 +222,7 @@ public class TerminalWithSuggestions {
 
             switch (stage) {
                 case PLAYER1_NAME:
-                    printString(0, 0, "🎬 Welcome to Movie Game!");
+                    printString(0, 0, "Welcome to Movie Game!");
                     printString(0, 2, "Please enter Player 1 name:");
                     printString(0, 4, "> " + currentInput.toString());
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
