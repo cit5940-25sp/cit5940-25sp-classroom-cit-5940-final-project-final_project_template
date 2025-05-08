@@ -18,6 +18,7 @@ public class Player {
         return links.addLink(movie);
     }
 
+    // Check if the player has completed a valid path with a shared genre
     public boolean isWinner(){
         if (getGenre() != null){
             return true;
