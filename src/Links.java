@@ -102,13 +102,20 @@ public class Links {
             return false;
         }
 
-        public Movie getCurrentMovie() {
+        public Movie getCurrentMovie () {
             return currentMovie;
         }
 
-        public Link getLink(int index){
+        public Link getLink ( int index){
             return links.get(index);
         }
-
+        @Override
+        public String toString () {
+            String str = "";
+            for (Link link : links) {
+                str += link.toString() + "\n";
+            }
+            return str;
+        }
     }
 }
