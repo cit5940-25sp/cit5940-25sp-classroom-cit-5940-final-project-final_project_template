@@ -6,7 +6,7 @@ import java.util.Random;
  * Main game engine that implements the game rules and logic
  */
 public class GameEngine {
-    // Using Singleton pattern for the game engine
+    // using Singleton pattern for the game engine
     private static GameEngine instance;
 
     private final CountryLanguageManager dataService;
@@ -14,6 +14,8 @@ public class GameEngine {
 
     private GameState gameState;
     private boolean hardMode = false;
+    private Random random = new Random(); // Add this line
+
     private GameEngine(CountryLanguageManager dataService) {
         this.dataService = dataService;
         resetGame();
@@ -53,6 +55,73 @@ public class GameEngine {
         return hardMode;
     }
 
+    /**
+     * Get a new random country that hasn't been used yet
+     */
+    public void refreshCountry() {
+        List<Country> availableCountries = new ArrayList<>();
+        for (Country country : dataService.getAllCountries()) {
+            if (!gameState.isCountryUsed(country) && hasViableLanguages(country)) {
+                availableCountries.add(country);
+            }
+        }
+
+        if (availableCountries.isEmpty()) {
+            // If all countries have been used or have no viable languages, game is complete
+            System.out.println("Game complete! No more viable countries available.");
+            return;
+        }
+
+        // Select a random country from available ones
+        Country newCountry = availableCountries.get(random.nextInt(availableCountries.size()));
+        gameState.setCurrentCountry(newCountry);
+        gameState.setCurrentLanguage(null);
+        gameState.setCurrentStreak(0);
+
+        System.out.println("Country refreshed to: " + newCountry.getName());
+        notifyObservers();
+    }
+
+    /**
+     * Checks if a country has any viable languages, importantly, spoken by multiple countries
+     */
+    public boolean hasViableLanguages(Country country) {
+        for (Language language : country.getLanguages()) {
+            if (isViableLanguage(language) && !isLanguageLimitReached(language)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a language is viable, meaning spoken by multiple countries that haven't been used
+     */
+    public boolean isViableLanguage(Language language) {
+        int availableCountries = 0;
+
+        for (Country country : dataService.getAllCountries()) {
+            if (!gameState.isCountryUsed(country) && country.hasLanguage(language)) {
+                availableCountries++;
+                if (availableCountries > 0) {  // doesn't work if no countries remaining that haven't been used
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if a language has reached its usage limit
+     */
+    public boolean isLanguageLimitReached(Language language) {
+        int languageLimit = hardMode ? 4 : 7;
+        int currentUsage = gameState.getLanguageUsage().getOrDefault(language, 0);
+        return currentUsage >= languageLimit;
+    }
+
+
     public boolean setSelectedLanguage(Language language) {
 
         int languageLimit;
@@ -63,8 +132,9 @@ public class GameEngine {
         }
         int currentUsage = gameState.getLanguageUsage().getOrDefault(language, 0);
 
+        //checking language limits accounting for hard or regular mode
         if (currentUsage >= languageLimit) {
-            // Language has reached its limit
+            // message when language has reached its limit
             System.out.println("You've already used " + language.getName() + " " +
                     languageLimit + " times. Please pick another language.");
             return false;
@@ -99,7 +169,34 @@ public class GameEngine {
             return new MoveResult(false, country.getName() + " does not speak " + currentLang.getName());
         }
 
-        return continueStreak(country, currentLang);
+        MoveResult result = continueStreak(country, currentLang);
+
+        // After a successful move, check if there are any remaining valid moves for this language
+        if (result.isSuccess()) {
+            boolean hasRemainingMoves = false;
+            for (Country otherCountry : dataService.getAllCountries()) {
+                if (!gameState.isCountryUsed(otherCountry) && otherCountry.hasLanguage(currentLang)) {
+                    hasRemainingMoves = true;
+                    break;
+                }
+            }
+
+            // If no remaining moves with this language, check if current country has any viable languages
+            if (!hasRemainingMoves) {
+                result = new MoveResult(true, result.getMessage() +
+                        "\nNo more countries available with " + currentLang.getName() + ".", result.getMove());
+
+                // Also check if the current country has any viable languages left
+                if (!hasViableLanguages(gameState.getCurrentCountry())) {
+                    result = new MoveResult(true, result.getMessage() +
+                            "\nNo viable languages left for " + gameState.getCurrentCountry().getName() +
+                            ". Refreshing to a new country.", result.getMove());
+                    refreshCountry();
+                }
+            }
+        }
+
+        return result;
     }
 
     /**

@@ -90,7 +90,7 @@ public class CountryLanguageManager {
                 countryLangMap.put(country, uniqueLangs);
             }
 
-            // Add all languages
+            // Add all languages and calculate a rarity score based on its count
             for (Map.Entry<String, Integer> entry : langFrequency.entrySet()) {
                 int count = entry.getValue();
                 int score = Math.max(1, (int) Math.ceil(10.0 / (count + 1)));
