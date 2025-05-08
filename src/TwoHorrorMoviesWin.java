@@ -1,9 +1,7 @@
-import java.util.Set;
-
 /**
- * A win condition where the player wins after guessing five horror movies.
+ * A win condition where the player wins after guessing two horror movies.
  */
-public class FiveHorrorMoviesWin implements WinCondition {
+public class TwoHorrorMoviesWin implements WinCondition {
 
     private static final String TARGET_GENRE = "Horror";
     private static final int REQUIRED_COUNT = 5;
@@ -16,18 +14,7 @@ public class FiveHorrorMoviesWin implements WinCondition {
      */
     @Override
     public boolean checkVictory(Player player) {
-        int horrorCount = 0;
-        Set<Movie> guessedMovies = player.getMoviesGuessed();
-
-        for (Movie movie : guessedMovies) {
-            if (movie.getGenres().contains(TARGET_GENRE)) {
-                horrorCount++;
-            }
-            if (horrorCount >= REQUIRED_COUNT) {
-                return true;
-            }
-        }
-        return false;
+        return player.getProgress() >= REQUIRED_COUNT;
     }
 
     /**
@@ -38,5 +25,17 @@ public class FiveHorrorMoviesWin implements WinCondition {
     @Override
     public String description() {
         return "Win by guessing five horror movies!";
+    }
+
+    @Override
+    public void updatePlayerProgress(Player player, Movie movie) {
+        if (movie.getGenres().contains(TARGET_GENRE)) {
+            player.updateProgress();
+        }
+    }
+
+    @Override
+    public String getPlayerProgress(Player player) {
+        return player.getProgress() + "/" + REQUIRED_COUNT;
     }
 }

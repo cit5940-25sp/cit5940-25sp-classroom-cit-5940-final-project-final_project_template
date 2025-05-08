@@ -7,6 +7,7 @@ import java.util.*;
 public class GameState {
     private final Player player1;
     private final Player player2;
+    private final Movie startingMovie;
     private Player currentPlayer;
     private int currRound;
     private final WinCondition winCondition;
@@ -19,6 +20,7 @@ public class GameState {
                      WinCondition winCondition, Movie startingMovie) {
         this.player1 = player1;
         this.player2 = player2;
+        this.startingMovie = startingMovie;
         this.currentPlayer = player1; // Start with player1
         this.currRound = 1;
         this.winCondition = winCondition;
@@ -83,11 +85,26 @@ public class GameState {
     /**
      * Checks if a person can still be used as a connection (limit is 3 times).
      *
-     * @param person the person's name
+     * @param connections the list of connections
      * @return true if usage count < 3, false otherwise
      */
-    public boolean canUseConnection(String person) {
-        return connectionUsage.getOrDefault(person, 0) < 3;
+    public List<Connection> filterConnection(List<Connection> connections) {
+        List<Connection> canUse = new ArrayList<>();
+
+        for (Connection con: connections) {
+            if (connectionUsage.getOrDefault(con.getPersonName(), 0) < 3) {
+                canUse.add(con);
+                int count = connectionUsage.getOrDefault(con.getPersonName(), 0);
+                connectionUsage.put(con.getPersonName(), count + 1);
+            }
+        }
+        System.out.println(connectionUsage.toString());
+        System.out.println(canUse);
+        return canUse;
+    }
+
+    public Movie getStartingMovie() {
+        return startingMovie;
     }
 
     /**

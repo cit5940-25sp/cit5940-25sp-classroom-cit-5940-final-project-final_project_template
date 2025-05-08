@@ -61,7 +61,6 @@ public class GameController {
         
         // Initialize game state with players, win condition, and starting movie
         gameState = new GameState(player1, player2, cond, startingMovie);
-        
         // Display initial game state
         return startingMovie;
     }
@@ -74,100 +73,64 @@ public class GameController {
     public TurnResult processTurn(String movieTitle) {
 
         if (movieTitle == null || movieTitle.trim().isEmpty()) {
-            return new TurnResult(false, "⚠️ Movie title cannot be empty.");
+            return new TurnResult(false, "Movie title cannot be empty.");
         }
 
         Player currentPlayer = gameState.getCurrentPlayer();
         Movie guessedMovie = movieDb.findByTitle(movieTitle);
 
         if (guessedMovie == null) {
-            return new TurnResult(false, "❌ Movie not found: " + movieTitle);
+            return new TurnResult(false, "Oops, " + movieTitle + " is not found in the database.");
         }
 
+        System.out.println("Guessed: " + guessedMovie);
+
         if (gameState.isMovieUsed(guessedMovie)) {
-            return new TurnResult(false, "⚠️ Movie already used: " + movieTitle);
+            return new TurnResult(false, "Nice try! However movie " + movieTitle + " already used");
         }
 
         Movie lastMovie = gameState.getCurrentMovie();
-        Connection validConn = findValidConnection(lastMovie, guessedMovie);
+        List<Connection> connections = lastMovie.findConnections(guessedMovie);
 
-//        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
-//            return new TurnResult(false,
-//                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
-//        }
-        if (validConn == null) {
+        if (connections.isEmpty()) {
             return new TurnResult(false,
-                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
+                    "Oops, no valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        if (!gameState.canUseConnection(validConn.getPersonName())) {
+        List<Connection> validConnections = gameState.filterConnection(connections);
+
+        if (validConnections.isEmpty()) { // there are connections but the connecting people have been used more than 3 times
+            String connectionStr = "";
+            for (Connection con: connections) {
+                connectionStr += (con.getPersonName() + " ");
+            }
             return new TurnResult(false,
-                    "⚠️ Connection with " + validConn.getPersonName() + " has already been used 3 times.");
+                    "Nice Try! However " + connectionStr + " has already been used 3 times.");
         }
-
-
 
         // ✅ Valid move
-        gameState.incrementConnectionUsage(validConn.getPersonName());
+
+        guessedMovie.addConnectionHistory(validConnections);
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
+        gameState.getWinCondition().updatePlayerProgress(currentPlayer, guessedMovie);
 
-        String msg = "✅ " + currentPlayer.getName() + " connected via " +
-                validConn.getPersonName() + " (" + validConn.getType() + ")";
+        String validConnStr = "";
+        for (Connection con: validConnections) {
+            validConnStr += (con.getPersonName() + " (" + con.getType() + ") ");
+        }
+
+        String msg = "Nice! " + lastMovie.getTitle() + " and " + guessedMovie.getTitle() + " connected via " +
+                validConnStr;
 
         if (gameState.hasCurrentPlayerWon()) {
-            return new TurnResult(true, "🏆 " + currentPlayer.getName() + " has won the game!");
+            return new TurnResult(true, true,"Congrats! " + currentPlayer.getName() + " has won the game with condition " + gameState.getWinCondition());
         }
 
         gameState.switchPlayer();
         return new TurnResult(true, msg);
     }
 
-
-    /**
-     * Checks if two movies are connected by a valid shared attribute.
-     *
-     * @param from the previously guessed movie
-     * @param to   the newly guessed movie
-     * @return true if the connection is valid; false otherwise
-     */
-    public boolean isValidConnection(Movie from, Movie to){
-        // Get all possible connections between the movies
-        List<Connection> connections = from.findConnections(to);
-        
-        // Check if any connection is valid (not used more than 3 times)
-        for (Connection conn : connections) {
-            if (gameState.canUseConnection(conn.getPersonName())) {
-                return true;
-            }
-        }
-        
-        // No valid connections found
-        return false;
-    }
-
-    /**
-     * Finds a valid connection between two movies if one exists.
-     *
-     * @param from the source movie
-     * @param to   the target movie
-     * @return the Connection object if a valid one is found
-     */
-    private Connection findValidConnection(Movie from, Movie to){
-        // Get all possible connections between the movies
-        List<Connection> connections = from.findConnections(to);
-        
-        // Find the first valid connection (not used more than 3 times)
-//        for (Connection conn : connections) {
-//            if (gameState.canUseConnection(conn.getPersonName())) {
-//                return conn;
-//            }
-//        }
-//
-//        // No valid connections found
-//        return null;
-        return connections.isEmpty() ? null : connections.get(0);
-    }
     public List<String> getAutocompleteSuggestions(String input) {
         List<String> results = new ArrayList<>();
         for (String title : movieDb.getAllTitles()) {
@@ -175,7 +138,7 @@ public class GameController {
                 results.add(title);
             }
         }
-        return results.stream().limit(5).toList(); // 最多顯示5個
+        return results.stream().limit(5).toList();
     }
 
 }

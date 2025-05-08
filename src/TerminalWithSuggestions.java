@@ -25,7 +25,7 @@ public class TerminalWithSuggestions {
     private String player2Name = "";
     private int winConditionIndex = 0;
     private List<WinCondition> winConditions = Arrays.asList(
-            new FiveHorrorMoviesWin(),
+            new TwoHorrorMoviesWin(),
             new ThreeNolanMoviesWin()
     );
 
@@ -193,7 +193,7 @@ public class TerminalWithSuggestions {
 
                 turnInProgress = false;
 
-                if (!result.isSucess()) {
+                if (!result.isSuccess()) {
                     return true;
                 }
 
@@ -222,7 +222,7 @@ public class TerminalWithSuggestions {
 
             switch (stage) {
                 case PLAYER1_NAME:
-                    printString(0, 0, "🎬 Welcome to Movie Game!");
+                    printString(0, 0, "Welcome to Movie Game!");
                     printString(0, 2, "Please enter Player 1 name:");
                     printString(0, 4, "> " + currentInput.toString());
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
@@ -272,10 +272,22 @@ public class TerminalWithSuggestions {
 
                     // Recent history
                     row++;
-                    printString(0, row++, "Recent History:");
-                    for (Movie m : state.getRecentHistory()) {
-                        printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
+                    printString(0, row++, "Recent History (most recent first):");
+                    for (Movie m : state.getRecentHistory().reversed()) {
+                        if (m.equals(controller.getGameState().getStartingMovie())) {
+                            printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
+                        } else {
+                            String lastConnection = "";
+                            if (!m.getConnectionHistory().isEmpty()) {
+                                lastConnection = m.getConnectionHistory().getLast().toString();
+                            }
+                            printString(2, row++, m.getTitle() + " (" + m.getYear() + ")" + " last connected via: " + lastConnection);
+                        }
                     }
+
+                    // Player progress
+                    row++;
+                    printString(0, row++,  "Winning Progress: " + controller.getGameState().getWinCondition().getPlayerProgress(controller.getGameState().getCurrentPlayer()));
 
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
                     break;

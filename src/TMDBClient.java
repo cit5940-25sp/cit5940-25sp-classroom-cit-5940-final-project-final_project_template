@@ -23,6 +23,7 @@ public class TMDBClient {
 
     public Movie fetchMovieByTitle(String title) {
         try {
+            System.out.println("Fetching " + title);
             String encoded = URLEncoder.encode(title, StandardCharsets.UTF_8);
             String url = BASE_URL + "/search/movie?query=" + encoded + "&api_key=" + apiKey;
 
@@ -36,6 +37,8 @@ public class TMDBClient {
 
             JsonNode root = mapper.readTree(response.body());
             JsonNode results = root.path("results");
+
+            System.out.println(results.toString());
 
             if (results.isArray() && results.size() > 0) {
                 long id = results.get(0).get("id").asLong();

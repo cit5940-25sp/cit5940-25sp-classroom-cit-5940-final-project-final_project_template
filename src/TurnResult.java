@@ -1,14 +1,25 @@
 public class TurnResult {
-    private boolean sucess;
-    private String message;
+    private final boolean success;
+    private final boolean gameOver;
+    private final String message;
 
-    public TurnResult(boolean sucess, String message) {
-        this.sucess = sucess;
+    public TurnResult(boolean success, boolean gameOver, String message) {
+        this.success = success;
+        this.gameOver = gameOver;
         this.message = message;
     }
 
-    public boolean isSucess() {
-        return sucess;
+    // Keep original constructor for backward compatibility
+    public TurnResult(boolean success, String message) {
+        this(success, false, message);
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
     }
 
     public String getMessage() {

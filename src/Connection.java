@@ -37,4 +37,9 @@ public class Connection {
     public int hashCode() {
         return Objects.hash(personName, type);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s (%s)", personName, type);
+    }
 }
