@@ -118,7 +118,7 @@ public class MovieDatabase {
 
     private void populateAutocompleteEngine(Autocomplete autocompleteEngine, List<Movie> movies) {
         for (Movie movie : movies) {
-            autocompleteEngine.insert(movie.getTitle() + " (" + movie.getYear() + ")", 0);
+            autocompleteEngine.insert(movie.getTitle(), 0);
         }
         System.out.println("Populated autocomplete engine with " + movies.size() + " movies.");
     }
