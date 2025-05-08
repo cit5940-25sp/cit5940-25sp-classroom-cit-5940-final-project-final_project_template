@@ -91,10 +91,21 @@ public class GameController {
         Movie lastMovie = gameState.getCurrentMovie();
         Connection validConn = findValidConnection(lastMovie, guessedMovie);
 
-        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
+//        if (validConn == null || !gameState.canUseConnection(validConn.getPersonName())) {
+//            return new TurnResult(false,
+//                    "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
+//        }
+        if (validConn == null) {
             return new TurnResult(false,
                     "❌ No valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
+
+        if (!gameState.canUseConnection(validConn.getPersonName())) {
+            return new TurnResult(false,
+                    "⚠️ Connection with " + validConn.getPersonName() + " has already been used 3 times.");
+        }
+
+
 
         // ✅ Valid move
         gameState.incrementConnectionUsage(validConn.getPersonName());
@@ -147,14 +158,15 @@ public class GameController {
         List<Connection> connections = from.findConnections(to);
         
         // Find the first valid connection (not used more than 3 times)
-        for (Connection conn : connections) {
-            if (gameState.canUseConnection(conn.getPersonName())) {
-                return conn;
-            }
-        }
-        
-        // No valid connections found
-        return null;
+//        for (Connection conn : connections) {
+//            if (gameState.canUseConnection(conn.getPersonName())) {
+//                return conn;
+//            }
+//        }
+//
+//        // No valid connections found
+//        return null;
+        return connections.isEmpty() ? null : connections.get(0);
     }
     public List<String> getAutocompleteSuggestions(String input) {
         List<String> results = new ArrayList<>();
