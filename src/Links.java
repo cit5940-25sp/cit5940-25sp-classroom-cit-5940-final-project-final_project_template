@@ -27,14 +27,14 @@ public class Links {
      * - all connection usage counters set to 0
      */
 
-    public Links(){
+    public Links() {
         links = new ArrayList<Link>();
         currentMovie = null;
         Connections = new int[MAX_LINKS];
     }
 
     // Set the current movie the player is working from
-    public void setCurrentMovie(Movie movie){
+    public void setCurrentMovie(Movie movie) {
         currentMovie = movie;
     }
 
@@ -74,6 +74,9 @@ public class Links {
             return false;
         }
 
+        // Check all the genres from the first movie in each link
+        // Then find the common genres shared across them
+        // If there’s more than one common genre, return the first one found
         public Genre getCommonGenre () {
             List<Set<Genre>> list = new ArrayList<>();
             for (Link link : links) {
@@ -91,6 +94,14 @@ public class Links {
             }
             return commonGenre;
         }
+
+        public boolean isFull () {
+            if (links.size() == MAX_LINKS) {
+                return true;
+            }
+            return false;
+        }
+
+
     }
-
-
+}
