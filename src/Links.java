@@ -74,15 +74,23 @@ public class Links {
             return false;
         }
 
+        public Genre getCommonGenre () {
+            List<Set<Genre>> list = new ArrayList<>();
+            for (Link link : links) {
+                Movie movie1 = link.getMovie1();
+                list.add(new HashSet<Genre>(movie1.getGenres()));
+            }
 
-        public void addLink (Link link){
-            links.add(link);
+            Set<Genre> commonElements = new HashSet<Genre>(list.get(0));
+            for (int i = 1; i < list.size(); i++) {
+                commonElements.retainAll(list.get(i));
+            }
+            Genre commonGenre = null;
+            if (commonElements.size() > 1) {
+                commonGenre = (Genre) commonElements.toArray()[0];
+            }
+            return commonGenre;
         }
-        public void removeLink (Link link){
-            links.remove(link);
-        }
-        public Link getLink ( int index){
-            return links.get(index);
-        }
+    }
 
 
