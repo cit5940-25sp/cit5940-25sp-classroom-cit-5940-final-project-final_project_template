@@ -215,3 +215,23 @@ public class CSVReader implements Reader{
             movie.addStuff(stuff);
         }
     }
+
+    /**
+     * Parses a JSON string containing genre information and adds it to the specified movie.
+     *
+     * @param movie The Movie object to which genre information will be added.
+     * @param json The JSON string containing genre information.
+     */
+    public void handleGenre(Movie movie, String json){
+        try {
+            // Parse the JSON string into an array of Genre objects
+            Genre[] list = parseJson.parseGenre(json);
+            // Iterate through each genre and add it to the movie
+            for (Genre genre : list) {
+                movie.addGenre(genre);
+            }
+        } catch (Exception e) {
+            // Print the stack trace if an exception occurs during parsing
+            e.printStackTrace();
+        }
+    }
