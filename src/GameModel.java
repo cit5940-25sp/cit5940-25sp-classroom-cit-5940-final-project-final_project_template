@@ -13,7 +13,19 @@ public class GameModel extends Model implements Observable {
     private Set<Movie> movies;
     private IAutocomplete autocomplete;
     final int SUGGESTION = 10;
-    public GameModel(){
+
+    public GameModel() {
         views = new ArrayList<>();
     }
 
+    public void initialData() {
+        gameStatus = new GameStatus();
+        movieData = new MovieDate();
+        autocomplete = new Autocomplete(SUGGESTION);
+        movies = movieData.getMovies();
+        for (Movie movie : movies) {
+            autocomplete.addWord(movie.getTitle(), 1);
+        }
+    }
+
+}
