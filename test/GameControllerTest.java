@@ -7,14 +7,12 @@ import static org.junit.Assert.*;
 
 public class GameControllerTest {
     private GameController controller;
-    private FakeGameView view;
     private FakeMovieDatabase db;
 
     @Before
     public void setUp() {
         db = new FakeMovieDatabase();
-        view = new FakeGameView();
-        controller = new GameController(db, view);
+        controller = new GameController(db);
 
         // Add fake starting movie
         Movie godfather = new Movie(1L, "The Godfather", 1972,
@@ -36,11 +34,9 @@ public class GameControllerTest {
         //state.getTimer().start();
         // call proccessTurn and manually update FakeGameView
         TurnResult result = controller.processTurn("Heat");
-        view.displayInfo(result.getMessage());
-
-        controller.processTurn("Heat");
-
-        assertTrue(view.messages.stream().anyMatch(msg -> msg.contains("successfully connected")));
+        // Assert
+        assertTrue(result.isSuccess());
+        assertTrue(result.getMessage().contains("Nice! The Godfather and Heat connected via"));
     }
 
 
@@ -50,19 +46,51 @@ public class GameControllerTest {
         //controller.getGameState().getTimer().start();
         //controller.processTurn("Unknown Movie");
         TurnResult result = controller.processTurn("Unknown Movie");
-        view.displayInfo(result.getMessage());
+        // Assert
+        assertFalse(result.isSuccess());
+        assertTrue(result.getMessage().contains("is not found in the database."));
+    }
+    @Test
+    public void testProcessTurn_AlreadyUsedMovie() {
+        // Arrange
+        Movie godfather = db.findByTitle("The Godfather");
+        Movie heat = new Movie(2L, "Heat", 1995,
+            Set.of(), Set.of("Al Pacino"), Set.of(), Set.of(), Set.of(), Set.of());
+        db.addFakeMovie(heat);
 
-        assertTrue(view.messages.stream().anyMatch(msg -> msg.contains("Movie not found")));
+        Player p1 = new Player("Alice");
+        Player p2 = new Player("Bob");
+        GameState state = new GameState(p1, p2, new TwoHorrorMoviesWin(), godfather);
+        controller.setGameState(state);
+
+        // Act
+        controller.processTurn("Heat");
+        TurnResult result = controller.processTurn("Heat");
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertTrue(result.getMessage().contains("already used"));
     }
 
     @Test
-    public void testProcessTurn_Timeout() {
-        controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
-        // Do not start the timer (simulate timeout)
+    public void testProcessTurn_NoValidConnection() {
+        // Arrange
+        Movie godfather = db.findByTitle("The Godfather");
+        Movie titanic = new Movie(3L, "Titanic", 1997,
+            Set.of(), Set.of("Leonardo DiCaprio"), Set.of(), Set.of(), Set.of(), Set.of());
+        db.addFakeMovie(titanic);
 
-        controller.processTurn("Any Movie");
+        Player p1 = new Player("Alice");
+        Player p2 = new Player("Bob");
+        GameState state = new GameState(p1, p2, new TwoHorrorMoviesWin(), godfather);
+        controller.setGameState(state);
 
-        assertTrue(view.messages.stream().anyMatch(msg -> msg.contains("Time's up")));
+        // Act
+        TurnResult result = controller.processTurn("Titanic");
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertTrue(result.getMessage().contains("no valid connection"));
     }
 
     // Helper fake classes
@@ -83,19 +111,6 @@ public class GameControllerTest {
         }
     }
 
-    class FakeGameView extends GameView {
-        public final List<String> messages = new ArrayList<>();
-
-        @Override
-        public void displayInfo(String message) {
-            messages.add(message);
-        }
-
-        @Override
-        public void render(GameState state) {
-
-        }
-    }
 }
 
 

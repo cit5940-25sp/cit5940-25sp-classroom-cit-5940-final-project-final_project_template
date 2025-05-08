@@ -7,7 +7,6 @@ import java.util.List;
  */
 public class GameController {
     private GameState gameState;
-    private GameView view;
     private MovieDatabase movieDb;
 
     /**
@@ -17,20 +16,17 @@ public class GameController {
      */
     public GameController(String apiKey) {
         this.movieDb = new MovieDatabase(apiKey);
-        this.view = new GameView();
+
     }
 
-    GameController(MovieDatabase db, GameView view) {
+    GameController(MovieDatabase db) {
         this.movieDb = db;
-        this.view = view;
     }
 
     GameState getGameState() {
         return gameState;
     }
-    GameView getView() {
-        return view;
-    }
+
     public MovieDatabase getMovieDatabase() {
         return movieDb;
     }
@@ -55,7 +51,7 @@ public class GameController {
         
         // Make sure we have a valid starting movie
         if (startingMovie == null) {
-            view.displayInfo("Could not find a starting movie. Please check your database connection.");
+            System.out.println("Could not find a starting movie. Please check your database connection.");
             return null;
         }
         
