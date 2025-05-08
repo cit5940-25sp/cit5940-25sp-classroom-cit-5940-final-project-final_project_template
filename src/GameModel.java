@@ -28,4 +28,10 @@ public class GameModel extends Model implements Observable {
         }
     }
 
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+
+
 }
