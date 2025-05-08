@@ -41,6 +41,12 @@ public class GameModel extends Model implements Observable {
         return strings;
     }
 
+    public boolean inputMovie(String title){
+        return false;
+    }
+
+
+
 
 }
 
