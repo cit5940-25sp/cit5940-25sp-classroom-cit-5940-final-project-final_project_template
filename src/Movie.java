@@ -3,7 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Movie {
-    private int id;
+    private String id;
     private String title;
     private int releaseYear;
     private int voteCount;
@@ -33,11 +33,11 @@ public class Movie {
         return Comparator.comparingLong(Movie::getVoteCount).reversed();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

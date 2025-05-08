@@ -9,14 +9,19 @@ import java.util.*;
  * This includes titles, vote counts, genres, cast, crew, and release year.
  */
 public class MovieDataLoaderAPI {
-    private static final OkHttpClient client = new OkHttpClient();
-    private static final Gson gson = new Gson();
+    private static final OkHttpClient CLIENT = new OkHttpClient();
+    private static final Gson GSON = new Gson();
 
     private static final String BASE_URL = "https://api.themoviedb.org/3";
-    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OGZmN2VmODgxMzc0MTJhN2EwODgwNjY5YjQ3NDhkMiIsIm5iZiI6MS43NDY3Mjg5NzU4ODk5OTk5ZSs5LCJzdWIiOiI2ODFjZjgwZjA3OTc3YWE2YWEzZWNhMzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lbNKY-qA6QdqejO5OWT8Ac5TJHplvKelOaZCog_nzdA";
+    private static final String BEARER_TOKEN =
+            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0OGZmN2VmODgxMzc0MTJhN2EwODgwNjY5YjQ3NDhkMiIsIm"
+            + "5iZiI6MS43NDY3Mjg5NzU4ODk5OTk5ZSs5LCJzdWIiOiI2ODFjZjgwZjA3OTc3YWE2YWEzZWNhMzAiLC"
+            + "JzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lbNKY-qA6QdqejO5OWT8Ac5TJHplvKelOa"
+            + "ZCog_nzdA";
 
     /**
-     * Fetches full movie metadata (title, cast, crew, genres, etc.) from TMDB API for the given number of pages.
+     * Fetches full movie metadata (title, cast, crew, genres, etc.)
+     * from TMDB API for the given number of pages.
      * Each page contains 20 movies from the "popular" category.
      *
      * @param numPages number of pages to load from the popular movie list
@@ -35,18 +40,19 @@ public class MovieDataLoaderAPI {
                         .addHeader("Authorization", "Bearer " + BEARER_TOKEN)
                         .build();
 
-                try (Response response = client.newCall(request).execute()) {
+                try (Response response = CLIENT.newCall(request).execute()) {
                     if (!response.isSuccessful()) {
                         System.err.println("Failed to fetch page " + page + ": " + response.code());
                         continue;
                     }
 
-                    JsonObject json = JsonParser.parseString(response.body().string()).getAsJsonObject();
+                    JsonObject json = JsonParser.parseString(response.body().
+                            string()).getAsJsonObject();
                     JsonArray results = json.getAsJsonArray("results");
 
                     for (JsonElement element : results) {
                         JsonObject obj = element.getAsJsonObject();
-                        int movieId = obj.get("id").getAsInt();
+                        String movieId = obj.get("id").getAsString();
                         Movie detailedMovie = fetchMovieDetails(movieId);
                         if (detailedMovie != null) {
                             movies.add(detailedMovie);
@@ -68,7 +74,7 @@ public class MovieDataLoaderAPI {
      * @return Movie object with detailed fields filled
      * @throws IOException if API call fails
      */
-    private static Movie fetchMovieDetails(int movieId) throws IOException {
+    private static Movie fetchMovieDetails(String movieId) throws IOException {
         String url = BASE_URL + "/movie/" + movieId + "?append_to_response=credits";
 
         Request request = new Request.Builder()
@@ -77,7 +83,7 @@ public class MovieDataLoaderAPI {
                 .addHeader("Authorization", "Bearer " + BEARER_TOKEN)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = CLIENT.newCall(request).execute()) {
             if (!response.isSuccessful()) {
                 return null;
             }
@@ -93,7 +99,8 @@ public class MovieDataLoaderAPI {
             }
 
             // Parse release year
-            String releaseDate = json.has("release_date") ? json.get("release_date").getAsString() : "";
+            String releaseDate = json.has("release_date") ?
+                    json.get("release_date").getAsString() : "";
             if (releaseDate.length() >= 4) {
                 movie.setReleaseYear(Integer.parseInt(releaseDate.substring(0, 4)));
             }
