@@ -54,6 +54,14 @@ public class TestConnectionValidator {
     }
 
     @Test
+    public void testIsValidConnectionReturnsFalseWhenNoSharedContributors() {
+        IMovie m1 = new DummyMovie(Set.of("A"));
+        IMovie m2 = new DummyMovie(Set.of("B"));
+        boolean result = validator.isValidConnection(m1, m2);
+        assertFalse(result);
+    }
+
+    @Test
     public void testGetSharedConnectionsReturnsCorrectSharedPeople() {
         List<String> shared = validator.getSharedConnections(movie1, movie2);
         assertEquals(List.of("Tom Hanks"), shared);
@@ -69,6 +77,13 @@ public class TestConnectionValidator {
     public void testRecordConnectionUseIncrementsUsage() {
         validator.recordConnectionUse(List.of("Hans Zimmer"));
         assertEquals(1, validator.getUsageCount("Hans Zimmer"));
+    }
+
+    @Test
+    public void testRecordConnectionUseAccumulates() {
+        validator.recordConnectionUse(List.of("Hans Zimmer"));
+        validator.recordConnectionUse(List.of("Hans Zimmer"));
+        assertEquals(2, validator.getUsageCount("Hans Zimmer"));
     }
 
     @Test
