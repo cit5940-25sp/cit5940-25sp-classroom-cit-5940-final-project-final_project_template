@@ -273,9 +273,19 @@ public class TerminalWithSuggestions {
                     // Recent history
                     row++;
                     printString(0, row++, "Recent History:");
+                    // TODO: add logic to update connection history for each guessed movie after a valid guess (GameController) and render it here.
                     for (Movie m : state.getRecentHistory()) {
-                        printString(2, row++, m.getTitle() + " (" + m.getYear() + ")");
+                        String lastConnection = "";
+                        if (!m.getConnectionHistory().isEmpty()) {
+                            lastConnection = m.getConnectionHistory().getLast().toString();
+                        }
+                        printString(2, row++, m.getTitle() + " (" + m.getYear() + ")" + "last connected via: " + lastConnection);
                     }
+
+                    // Player progress
+                    // TODO: add logic to update player progress after each turn (GameController) and render it here.
+                    row++;
+                    printString(0, row++,  "Winning Progress: " + controller.getGameState().getCurrentPlayer().getProgress());
 
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
                     break;

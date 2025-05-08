@@ -8,6 +8,7 @@ import java.util.Set;
 public class Player {
     private String name;
     private Set<Movie> moviesGuessed;
+    private int progress;
 
     /**
      * Constructs a Player with the specified name.
@@ -17,6 +18,7 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.moviesGuessed = new HashSet<>();
+        this.progress = 0;
     }
 
     /**
@@ -45,5 +47,13 @@ public class Player {
      */
     public int getNumMoviesGuessed() {
         return moviesGuessed.size();
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void updateProgress() {
+        progress++;
     }
 }

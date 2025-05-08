@@ -14,6 +14,7 @@ public class Movie {
     private Set<String> writers;
     private Set<String> composers;
     private Set<String> cinematographers;
+    private List<Connection> connectionHistory;
 
     public Movie() {
         this.genres = new HashSet<>();
@@ -22,6 +23,7 @@ public class Movie {
         this.writers = new HashSet<>();
         this.composers = new HashSet<>();
         this.cinematographers = new HashSet<>();
+        this.connectionHistory = new ArrayList<>();
     }
 
     /**
@@ -43,6 +45,7 @@ public class Movie {
         this.writers = (writers != null) ? writers : new HashSet<>();
         this.composers = (composers != null) ? composers : new HashSet<>();
         this.cinematographers = (cinematographers != null) ? cinematographers : new HashSet<>();
+        this.connectionHistory = new ArrayList<>();
     }
 
     /**
@@ -123,5 +126,9 @@ public class Movie {
 
     public Set<String> getCinematographers() {
         return cinematographers;
+    }
+
+    public List<Connection> getConnectionHistory() {
+        return connectionHistory;
     }
 }
