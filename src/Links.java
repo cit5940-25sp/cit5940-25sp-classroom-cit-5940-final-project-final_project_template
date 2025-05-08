@@ -102,6 +102,13 @@ public class Links {
             return false;
         }
 
+        public Movie getCurrentMovie() {
+            return currentMovie;
+        }
+
+        public Link getLink(int index){
+            return links.get(index);
+        }
 
     }
 }
