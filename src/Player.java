@@ -37,6 +37,7 @@ public class Player {
         return str;
     }
 
+    // Check if the player has used up all allowed links
     public boolean isFinished(){
         return links.isFull();
     }
