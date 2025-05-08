@@ -32,6 +32,18 @@ public class GameModel extends Model implements Observable {
         return movies;
     }
 
+    public List<String>getsuggestions(String prefix) {
+        List<ITerm>list =autocomplete.getSuggestions(prefix);
+        List<String> strings = new LinkedList<>();
+        for(ITerm term: list){
+            strings.add(term.getTerm());
+        }
+        return strings;
+    }
+
+
+}
+
 
 
 }
