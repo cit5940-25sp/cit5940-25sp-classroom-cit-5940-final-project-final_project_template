@@ -31,7 +31,6 @@ public class GameControllerTest {
         Player p2 = new Player("Bob");
         GameState state = new GameState(p1, p2, new TwoHorrorMoviesWin(), godfather);
         controller.setGameState(state);
-        //state.getTimer().start();
         // call proccessTurn and manually update FakeGameView
         TurnResult result = controller.processTurn("Heat");
         // Assert
@@ -43,8 +42,6 @@ public class GameControllerTest {
     @Test
     public void testProcessTurn_MovieNotFound() {
         controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
-        //controller.getGameState().getTimer().start();
-        //controller.processTurn("Unknown Movie");
         TurnResult result = controller.processTurn("Unknown Movie");
         // Assert
         assertFalse(result.isSuccess());
@@ -92,24 +89,76 @@ public class GameControllerTest {
         assertFalse(result.isSuccess());
         assertTrue(result.getMessage().contains("no valid connection"));
     }
+    @Test
+    public void testProcessTurn_EmptyMovieTitle() {
+        // Arrange
+        controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
 
-    // Helper fake classes
+        // Act
+        TurnResult result = controller.processTurn("");
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertTrue(result.getMessage().contains("Movie title cannot be empty."));
+    }
+    @Test
+    public void testProcessTurn_NullMovieTitle() {
+        // Arrange
+        controller.startGame("Alice", "Bob", new TwoHorrorMoviesWin());
+
+        // Act
+        TurnResult result = controller.processTurn(null);
+
+        // Assert
+        assertFalse(result.isSuccess());
+        assertTrue(result.getMessage().contains("Movie title cannot be empty."));
+    }
+
+    @Test
+    public void testAutocompleteSuggestions() {
+        // Arrange
+        Movie inception = new Movie(4L, "Inception", 2010,
+            Set.of(), Set.of("Leonardo DiCaprio"), Set.of(), Set.of(), Set.of(), Set.of());
+        db.addFakeMovie(inception);
+        assertNotNull(db.findByTitle("Inception"));
+
+        // Act
+        List<String> suggestions = controller.getAutocompleteSuggestions("Inc");
+
+        System.out.println("Suggestions: " + suggestions);
+        System.out.println("MovieDatabase content: " + db.movies.keySet());
+        System.out.println("Controller database content: " + controller.getMovieDatabase().getAutocompleteEngine());
+        // Assert
+        assertEquals(1, suggestions.size());
+        assertEquals("Inception", suggestions.get(0));
+    }
+
+
     class FakeMovieDatabase extends MovieDatabase {
         private final Map<String, Movie> movies = new HashMap<>();
+        private final Autocomplete autocompleteEngine;
 
         public FakeMovieDatabase() {
             super("fake-api-key");
+            this.autocompleteEngine = new Autocomplete();
         }
 
         public void addFakeMovie(Movie movie) {
             movies.put(movie.getTitle(), movie);
+            autocompleteEngine.insert(movie.getTitle(), 1L); // 插入到 Autocomplete Trie
         }
 
         @Override
         public Movie findByTitle(String title) {
             return movies.get(title);
         }
+
+        @Override
+        public Autocomplete getAutocompleteEngine() {
+            return autocompleteEngine;
+        }
     }
+
 
 }
 

@@ -326,7 +326,7 @@ public class TerminalWithSuggestions {
                 Thread.sleep(50);
             }
 
-            // ✅ only resume if game is still in play
+            // only resume if game is still in play
             if (stage == InputStage.IN_GAME) {
                 resumeTimer();
             }
