@@ -45,6 +45,12 @@ public class GameModel extends Model implements Observable {
         return false;
     }
 
+    public void notifyUI(){
+        notifyObservers();
+    }
+
+
+
 
 
 
