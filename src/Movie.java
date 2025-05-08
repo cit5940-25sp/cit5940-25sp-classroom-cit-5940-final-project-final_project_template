@@ -128,7 +128,44 @@ public class Movie {
         return cinematographers;
     }
 
+
     public List<Connection> getConnectionHistory() {
         return connectionHistory;
     }
+
+    @Override
+    public String toString() {
+        String actors = "";
+        for (String actor: getActors()) {
+            actors += actor + " ";
+        }
+        if (actors.isEmpty()) {
+            actors = "no actors fetched";
+        }
+        String genres = "";
+        for (String genre: getGenres()) {
+            genres += genre + " ";
+        }
+        if (genres.isEmpty()) {
+            genres = "no genre fetched";
+        }
+        return getTitle() + " (" + getYear() + ") " +  "\nactors:" + actors + "\ngenres:" + genres;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Movie other = (Movie) obj;
+        return year == other.year &&
+                title != null &&
+                other.title != null &&
+                title.equalsIgnoreCase(other.title);  // case-insensitive match
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title == null ? 0 : title.toLowerCase(), year);
+    }
+
 }

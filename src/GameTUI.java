@@ -17,7 +17,7 @@ public class GameTUI {
         String p2 = scanner.nextLine().trim();
 
         controller.getMovieDatabase().preloadPopularMovies();
-        controller.startGame(p1, p2, new FiveHorrorMoviesWin());
+        controller.startGame(p1, p2, new TwoHorrorMoviesWin());
         if (controller.getGameState() == null) {
             System.out.println("Failed to start game. Exiting.");
             return;

@@ -83,11 +83,22 @@ public class GameState {
     /**
      * Checks if a person can still be used as a connection (limit is 3 times).
      *
-     * @param person the person's name
+     * @param connections the list of connections
      * @return true if usage count < 3, false otherwise
      */
-    public boolean canUseConnection(String person) {
-        return connectionUsage.getOrDefault(person, 0) < 3;
+    public List<Connection> canUseConnection(List<Connection> connections) {
+        List<Connection> canUse = new ArrayList<>();
+
+        for (Connection con: connections) {
+            if (connectionUsage.getOrDefault(con.getPersonName(), 0) < 3) {
+                canUse.add(con);
+                int count = connectionUsage.getOrDefault(con.getPersonName(), 0);
+                connectionUsage.put(con.getPersonName(), count + 1);
+            }
+        }
+        System.out.println(connectionUsage.toString());
+        System.out.println(canUse);
+        return canUse;
     }
 
     /**
