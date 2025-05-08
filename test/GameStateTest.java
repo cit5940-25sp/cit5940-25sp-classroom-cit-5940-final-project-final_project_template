@@ -1,132 +1,143 @@
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
 
-public class GameStateTest {
+import static org.junit.Assert.*;
 
+public class GameStateTest {
+    private GameState gameState;
     private Player player1;
     private Player player2;
     private Movie startingMovie;
-    private GameState gameState;
+    private WinCondition winCondition;
 
     @Before
     public void setUp() {
         player1 = new Player("Alice");
         player2 = new Player("Bob");
-
-        startingMovie = new Movie(
-            1L,
-            "Inception",
-            2010,
-            new HashSet<>(Arrays.asList("Sci-Fi")),
-            new HashSet<>(Arrays.asList("Leonardo DiCaprio")),
-            new HashSet<>(Arrays.asList("Christopher Nolan")),
-            new HashSet<>(Arrays.asList("Jonathan Nolan")),
-            new HashSet<>(Arrays.asList("Hans Zimmer")),
-            new HashSet<>(Arrays.asList("Wally Pfister"))
-        );
-
-        WinCondition dummyWinCondition = new WinCondition() {
-            @Override
-            public boolean checkVictory(Player player) {
-                return player.getNumMoviesGuessed() >= 1;
-            }
-
-            @Override
-            public String description() {
-                return "Dummy win after 1 movie";
-            }
-
-            @Override
-            public void updatePlayerProgress(Player player, Movie movie) {
-
-            }
-
-            @Override
-            public String getPlayerProgress(Player player) {
-                return "1/1 movies guessed";
-            }
-        };
-
-        gameState = new GameState(player1, player2, dummyWinCondition, startingMovie);
+        startingMovie = new Movie(1L, "The Godfather", 1972,
+            Set.of(), Set.of("Al Pacino"), Set.of(), Set.of(), Set.of(), Set.of());
+        winCondition = new TwoHorrorMoviesWin();
+        gameState = new GameState(player1, player2, winCondition, startingMovie);
     }
 
     @Test
-    public void testInitialState() {
+    public void testInitialization() {
+        // Verify initial state
         assertEquals(player1, gameState.getCurrentPlayer());
-        assertEquals(player2, gameState.getOtherPlayer());
         assertEquals(1, gameState.getCurrRound());
+        assertEquals(startingMovie, gameState.getStartingMovie());
         assertTrue(gameState.isMovieUsed(startingMovie));
-        assertEquals(startingMovie, gameState.getCurrentMovie());
+        assertTrue(gameState.getRecentHistory().contains(startingMovie));
     }
 
     @Test
     public void testAddMovieToHistory() {
-        Movie movie2 = new Movie(
-            2L,
-            "Titanic",
-            1997,
-            new HashSet<>(Arrays.asList("Romance")),
-            new HashSet<>(Arrays.asList("Leonardo DiCaprio")),
-            new HashSet<>(Arrays.asList("James Cameron")),
-            new HashSet<>(Arrays.asList("James Cameron")),
-            new HashSet<>(Arrays.asList("James Horner")),
-            new HashSet<>(Arrays.asList("Russell Carpenter"))
-        );
+        Movie heat = new Movie(2L, "Heat", 1995,
+            Set.of(), Set.of("Al Pacino"), Set.of(), Set.of(), Set.of(), Set.of());
 
-        gameState.addMovieToHistory(movie2);
-        assertTrue(gameState.isMovieUsed(movie2));
-        assertEquals(movie2, gameState.getCurrentMovie());
+        gameState.addMovieToHistory(heat);
+
+        assertTrue(gameState.isMovieUsed(heat));
+        assertTrue(gameState.getRecentHistory().contains(heat));
+        assertEquals(2, gameState.getRecentHistory().size());
+    }
+
+    @Test
+    public void testGetRecentHistory_LimitToFive() {
+        for (int i = 2; i <= 7; i++) {
+            Movie movie = new Movie((long) i, "Movie " + i, 2000 + i,
+                Set.of(), Set.of("Actor " + i), Set.of(), Set.of(), Set.of(), Set.of());
+            gameState.addMovieToHistory(movie);
+        }
+
+        List<Movie> recentHistory = gameState.getRecentHistory();
+        assertEquals(5, recentHistory.size());
+        assertEquals("Movie 7", recentHistory.get(4).getTitle());
+        assertEquals("Movie 3", recentHistory.get(0).getTitle());
     }
 
     @Test
     public void testSwitchPlayer() {
-        Player current = gameState.getCurrentPlayer();
         gameState.switchPlayer();
-        assertNotEquals(current, gameState.getCurrentPlayer());
-        assertEquals(1, gameState.getCurrRound());
+        assertEquals(player2, gameState.getCurrentPlayer());
+        gameState.switchPlayer();
+        assertEquals(player1, gameState.getCurrentPlayer());
     }
 
     @Test
-    public void testConnectionUsage() {
-        String person = "Leonardo DiCaprio";
+    public void testSwitchPlayer_IncrementRound() {
+        gameState.switchPlayer(); // To Bob
+        gameState.switchPlayer(); // Back to Alice, should increment round
+        assertEquals(2, gameState.getCurrRound());
+    }
 
-        List<Connection> connections = Arrays.asList(
-            new Connection("Leonardo DiCaprio", ConnectionType.ACTOR),
-            new Connection("Christopher Nolan", ConnectionType.DIRECTOR)
-        );
+    @Test
+    public void testGetOtherPlayer() {
+        assertEquals(player2, gameState.getOtherPlayer());
+        gameState.switchPlayer();
+        assertEquals(player1, gameState.getOtherPlayer());
+    }
 
-        List<Connection> filtered = gameState.filterConnection(connections);
+    @Test
+    public void testIncrementConnectionUsage() {
+        gameState.incrementConnectionUsage("Al Pacino");
+        gameState.incrementConnectionUsage("Al Pacino");
+
+        List<Connection> filtered = gameState.filterConnection(List.of(
+            new Connection("Al Pacino", ConnectionType.ACTOR)
+        ));
         assertEquals(1, filtered.size());
-        assertEquals("Leonardo DiCaprio", filtered.get(0).getPersonName());
+        gameState.incrementConnectionUsage("Al Pacino");
 
-        filtered = gameState.filterConnection(connections);
+        filtered = gameState.filterConnection(List.of(
+            new Connection("Al Pacino", ConnectionType.ACTOR)
+        ));
+
         assertEquals(0, filtered.size());
     }
 
     @Test
-    public void testRecentHistory() {
-        for (int i = 2; i <= 7; i++) {
-            Movie movie = new Movie((long) i, "Movie " + i, 2000 + i,
-                new HashSet<>(), new HashSet<>(), new HashSet<>(),
-                new HashSet<>(), new HashSet<>(), new HashSet<>());
-            gameState.addMovieToHistory(movie);
-        }
+    public void testFilterConnection() {
+        List<Connection> connections = Arrays.asList(
+            new Connection("Al Pacino", ConnectionType.ACTOR),
+            new Connection("Robert De Niro", ConnectionType.ACTOR)
+        );
 
-        List<Movie> recent = gameState.getRecentHistory();
-        assertEquals(5, recent.size());
-        assertEquals("Movie 3", recent.get(0).getTitle());
-        assertEquals("Movie 7", recent.get(4).getTitle());
+        List<Connection> filtered = gameState.filterConnection(connections);
+        assertEquals(2, filtered.size());
+
+        // Mark Al Pacino as used 3 times
+        gameState.incrementConnectionUsage("Al Pacino");
+        gameState.incrementConnectionUsage("Al Pacino");
+        gameState.incrementConnectionUsage("Al Pacino");
+
+        filtered = gameState.filterConnection(connections);
+        assertEquals(1, filtered.size());
+        assertEquals("Robert De Niro", filtered.get(0).getPersonName());
     }
 
     @Test
-    public void testWinConditionCheck() {
-        assertTrue(gameState.hasCurrentPlayerWon());
+    public void testGetCurrentMovie() {
+        Movie heat = new Movie(2L, "Heat", 1995,
+            Set.of(), Set.of("Al Pacino"), Set.of(), Set.of(), Set.of(), Set.of());
+        gameState.addMovieToHistory(heat);
+
+        assertEquals(heat, gameState.getCurrentMovie());
+    }
+
+    @Test
+    public void testHasCurrentPlayerWon_False() {
+        assertFalse(gameState.hasCurrentPlayerWon());
+    }
+
+
+    @Test
+    public void testGetWinCondition() {
+        assertEquals(winCondition, gameState.getWinCondition());
     }
 }
-
 
 
 
