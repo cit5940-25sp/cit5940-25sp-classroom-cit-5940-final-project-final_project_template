@@ -37,4 +37,8 @@ public class Player {
         return str;
     }
 
+    public boolean isFinished(){
+        return links.isFull();
+    }
+
 }
