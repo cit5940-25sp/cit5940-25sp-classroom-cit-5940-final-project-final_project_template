@@ -133,12 +133,9 @@ public class GameController {
 
     public List<String> getAutocompleteSuggestions(String input) {
         List<String> results = new ArrayList<>();
-        for (String title : movieDb.getAllTitles()) {
-            if (title.toLowerCase().startsWith(input.toLowerCase())) {
-                results.add(title);
-            }
+        for (Term title : movieDb.getAutocompleteEngine().suggest(input)) {
+            results.add(title.getTerm());
         }
-        return results.stream().limit(5).toList();
+        return results;
     }
-
 }

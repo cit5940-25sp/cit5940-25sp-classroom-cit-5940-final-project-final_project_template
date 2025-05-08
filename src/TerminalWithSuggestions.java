@@ -23,8 +23,8 @@ public class TerminalWithSuggestions {
     private InputStage stage = InputStage.PLAYER1_NAME;
     private String player1Name = "";
     private String player2Name = "";
-    private int winConditionIndex = 0;
-    private List<WinCondition> winConditions = Arrays.asList(
+    private int winConditionIndex = 0; // TODO: delete
+    private List<WinCondition> winConditions = Arrays.asList( // TODO: move to GameState
             new TwoHorrorMoviesWin(),
             new ThreeNolanMoviesWin()
     );
@@ -161,7 +161,6 @@ public class TerminalWithSuggestions {
                         System.out.println("Selected win condition: " + selected.description());
                         controller.startGame(player1Name, player2Name, selected);
                         secondsRemaining = TIME_LIMIT;
-                        controller.getGameState().getTimer().start();
                         stage = InputStage.IN_GAME;
                     } else {
                         printInfo("Please enter a number from 1 to " + winConditions.size());

@@ -23,7 +23,6 @@ public class GameTUI {
             return;
         }
         while (true) {
-            controller.getGameState().getTimer().start();
             long roundStart = System.currentTimeMillis();
 
             System.out.println("\nEnter a movie title (or type 'exit' to quit):");
@@ -41,9 +40,6 @@ public class GameTUI {
             }
 
             long timeUsed = (System.currentTimeMillis() - roundStart) / 1000;
-            long timeLeft = controller.getGameState().getTimer().getTimeLeftSeconds();
-            System.out.println("⏱ Time used: " + timeUsed + "s, Time left: " + timeLeft + "s");
-
             controller.processTurn(input);
         }
     }

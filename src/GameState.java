@@ -14,7 +14,6 @@ public class GameState {
     private final List<Movie> history;
     private final Set<Movie> usedMovies;
     private final Map<String, Integer> connectionUsage;
-    private CountdownTimer timer;// personName → usage count
 
     public GameState(Player player1, Player player2,
                      WinCondition winCondition, Movie startingMovie) {
@@ -27,7 +26,6 @@ public class GameState {
         this.history = new ArrayList<>();
         this.usedMovies = new HashSet<>();
         this.connectionUsage = new HashMap<>();
-        this.timer = new CountdownTimer(30);
 
         addMovieToHistory(startingMovie); // First movie played
         currentPlayer.addGuessedMovie(startingMovie);
@@ -164,8 +162,5 @@ public class GameState {
         return winCondition;
     }
 
-    public CountdownTimer getTimer() {
-        return timer;
-    }
 
 }

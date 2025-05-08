@@ -10,9 +10,11 @@ public class MovieDatabase {
     private final Map<String, Movie> movieCache = new HashMap<>();
     private final Map<String, List<Movie>> actorCache = new HashMap<>();
     private final Map<Long, List<Movie>> similarCache = new HashMap<>();
+    private final Autocomplete autocompleteEngine = new Autocomplete();
 
     public MovieDatabase(String apiKey) {
         this.tmdb = new TMDBClient();
+        autocompleteEngine.setSuggestionLimit(5);
     }
 
     public Movie findByTitle(String title) {
@@ -85,6 +87,7 @@ public class MovieDatabase {
             try {
                 Movie[] cached = mapper.readValue(cacheFile, Movie[].class);
                 popular = Arrays.asList(cached);
+                populateAutocompleteEngine(autocompleteEngine, popular);
                 for (Movie movie : popular) {
                     movieCache.put(movie.getTitle(), movie);
                 }
@@ -97,6 +100,7 @@ public class MovieDatabase {
             // Fetch from TMDB and write to cache
             int maxPages = 25;
             popular = tmdb.fetchPopularMovies(maxPages);
+            populateAutocompleteEngine(autocompleteEngine, popular);
             for (Movie movie : popular) {
                 movieCache.put(movie.getTitle(), movie);
             }
@@ -110,6 +114,17 @@ public class MovieDatabase {
 
             return "Fetched and cached " + popular.size() + " movies.";
         }
+    }
+
+    private void populateAutocompleteEngine(Autocomplete autocompleteEngine, List<Movie> movies) {
+        for (Movie movie : movies) {
+            autocompleteEngine.insert(movie.getTitle(), 0);
+        }
+        System.out.println("Populated autocomplete engine with " + movies.size() + " movies.");
+    }
+
+    public Autocomplete getAutocompleteEngine() {
+        return autocompleteEngine;
     }
 
     public Movie getRandomMovie() {
