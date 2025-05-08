@@ -31,9 +31,6 @@ public class GameController implements IGameController {
         movieIndex.loadCast("tmdb_5000_credits.csv", loadedMovies);
     }
 
-    public GameController(Player player1, Player player2, Clock clock, List<IMovie> movies, GameView view) {
-    }
-
     @Override
     public void initializeGame(List<IMovie> movieList) {
 
@@ -147,10 +144,6 @@ public class GameController implements IGameController {
             other = player2;
         }
         gameView.showWinner(other);
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
     }
 }
 

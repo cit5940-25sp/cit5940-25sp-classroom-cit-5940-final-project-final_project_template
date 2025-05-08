@@ -13,6 +13,8 @@ public interface IGameModel {
      */
     public Map<Integer, IMovie> loadMovieData(String moviesCsvFile, String creditsCsvFile);
 
+    public void setStartingMovie(IMovie movie);
+
     /*
     returns list of players in the game
      */
@@ -69,4 +71,12 @@ public interface IGameModel {
     returns the number of rounds played so far
      */
     public int getRoundCount();
+
+    public IPlayer getPlayer1();
+
+    public IPlayer getPlayer2();
+
+    public Map<Integer, IMovie> getMovies();
+
+    public List<IMovie> convertMapToListOfMovies(Map<Integer, IMovie> movies);
 }

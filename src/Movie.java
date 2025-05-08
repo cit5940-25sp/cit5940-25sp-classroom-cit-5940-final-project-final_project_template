@@ -49,35 +49,42 @@ public class Movie implements IMovie {
         return actors;
     }
 
+    @Override
     public List<String> getCrew() {
         return crew;
     }
 
+    @Override
     public void addActor(String name) {
         actors.add(name);
         contributors.add(name);
     }
 
+    @Override
     public void addCrew(String name) {
         crew.add(name);
         contributors.add(name);
     }
 
+    @Override
     public void addDirector(String name) {
         directors.add(name);
         contributors.add(name);
     }
 
+    @Override
     public void addWriter(String name) {
         writers.add(name);
         contributors.add(name);
     }
 
+    @Override
     public void addComposer(String name) {
         composers.add(name);
         contributors.add(name);
     }
 
+    @Override
     public void addCinematographer(String name) {
         cinematographers.add(name);
         contributors.add(name);
@@ -103,15 +110,13 @@ public class Movie implements IMovie {
         return cinematographers;
     }
 
+    @Override
     public void addContributor(String name) {
         contributors.add(name);
     }
+
     @Override
     public Set<String> getAllContributors() {
         return contributors;
-    }
-    @Override
-    public String toString() {
-        return getTitle() + " | Genres: " + getGenres() + " | Contributors: " + getAllContributors();
     }
 }

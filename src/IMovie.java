@@ -28,6 +28,18 @@ public interface IMovie {
     */
     public List<String> getCrew();
 
+    public void addActor(String name);
+
+    public void addCrew(String name);
+
+    public void addDirector(String name);
+
+    public void addWriter(String name);
+
+    public void addComposer(String name);
+
+    public void addCinematographer(String name);
+
     /*
     returns the director of the movie
      */
@@ -45,10 +57,11 @@ public interface IMovie {
      */
     public List<String> getCinematographers();
 
+    public void addContributor(String name);
+
     /*
     returns all people associated with the movie
     used to validate connections between movies
      */
     public Set<String> getAllContributors();
-
 }

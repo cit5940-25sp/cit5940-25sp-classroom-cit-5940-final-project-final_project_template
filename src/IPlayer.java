@@ -33,6 +33,8 @@ public interface IPlayer {
      */
     public IWinConditionStrategy getWinConditionStrategy();
 
+    public void setWinConditionStrategy(IWinConditionStrategy winConditionStrategy);
+
     /*
     returns the player's score
      */

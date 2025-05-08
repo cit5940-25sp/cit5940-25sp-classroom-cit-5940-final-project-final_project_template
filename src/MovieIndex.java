@@ -14,8 +14,8 @@ public class MovieIndex implements IMovieIndex {
     private Map<String, IMovie> indexByTitle = new HashMap<>();
     private Map<String, Set<IMovie>> indexByContributor = new HashMap<>();
 
-
     //parses CSV file to get movie ID, title, year, and genre
+    @Override
     public Map<Integer, IMovie> loadMovies(String movieFile) {
         Map<Integer, IMovie> movieMap = new HashMap<>();
 
@@ -24,7 +24,6 @@ public class MovieIndex implements IMovieIndex {
             reader = new CSVReader(new FileReader(movieFile));
 
             String[] header = reader.readNext();
-            //.out.println("Headers: " + Arrays.toString(header));
             String[] row;
             while ((row = reader.readNext()) != null) {
                 if (row.length > 17) {
@@ -33,7 +32,6 @@ public class MovieIndex implements IMovieIndex {
                         continue;
                     }
                     int id = Integer.parseInt(idStr);
-                  //  System.out.println("ID: " + id);
                     String title = row[17].trim();
                     String releaseDate = row[11].trim();
                     String genreJson = row[1].trim();
@@ -63,7 +61,6 @@ public class MovieIndex implements IMovieIndex {
                     }
                     IMovie movie = new Movie(fullTitle, parsedYearCorrect, genres);
                     movieMap.put(id, movie);
-                    // movieTitles.put(id, fullTitle);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -79,6 +76,7 @@ public class MovieIndex implements IMovieIndex {
 
 // associates cast and crew with the movies loaded (all under contributors)
     //used for queries when connecting movies
+    @Override
     public void loadCast(String creditFile, Map<Integer, IMovie> movieMap) {
         int skippedLines = 0;
         int castErrors = 0;
@@ -115,17 +113,13 @@ public class MovieIndex implements IMovieIndex {
 
                     String crewJson = line.substring(crewStart, crewEnd);
 
-//                    System.out.println("ID: " + id);
-//                    System.out.println("CAST JSON RAW: " + castJson);
-//                    System.out.println("CREW JSON RAW: " + crewJson);
-//                    // Parse cast
+                    // Parse cast
                     castJson = castJson.replaceAll("\"\"", "\"");
                     crewJson = crewJson.replaceAll("\"\"", "\"");
                     try {
                         JSONArray castArray = new JSONArray(castJson);
                         for (int i = 0; i < castArray.length(); i++) {
                             String name = castArray.getJSONObject(i).optString("name");
-                         //   System.out.println("Adding actor: " + name + " to " + movie.getTitle());
                             if (!name.isEmpty()) {
                                 movie.addActor(name);
                                 movie.addContributor(name);
@@ -139,7 +133,6 @@ public class MovieIndex implements IMovieIndex {
                         JSONArray crewArray = new JSONArray(crewJson);
                         for (int i = 0; i < crewArray.length(); i++) {
                             String name = crewArray.getJSONObject(i).optString("name");
-                          //  System.out.println("Adding crew member: " + name + " to " + movie.getTitle());
                             if (!name.isEmpty()) {
                                 movie.addCrew(name);
                                 movie.addContributor(name);
@@ -169,7 +162,6 @@ public class MovieIndex implements IMovieIndex {
         }
     }
 
-    //
     @Override
     public IMovie getMovieByTitle(String title) {
         return indexByTitle.get(title.toLowerCase());

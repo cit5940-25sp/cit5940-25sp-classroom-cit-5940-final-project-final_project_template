@@ -14,7 +14,6 @@ public class Player implements IPlayer {
         this.score = 0;
     }
 
-
     @Override
     public String getName() {
         return this.name;
@@ -35,13 +34,6 @@ public class Player implements IPlayer {
         return this.winConditionStrategy.checkWin(this.playedMovies);
     }
 
-    public void setWinConditionStrategy(IWinConditionStrategy winConditionStrategy) {
-        this.winConditionStrategy = winConditionStrategy;
-    }
-
-    public void increaseScore(int score) {
-        this.score++;
-    }
     @Override
     public String getWinConditionDescription() {
         return this.winConditionStrategy.getDescription();
@@ -50,6 +42,11 @@ public class Player implements IPlayer {
     @Override
     public IWinConditionStrategy getWinConditionStrategy() {
         return this.winConditionStrategy;
+    }
+
+    @Override
+    public void setWinConditionStrategy(IWinConditionStrategy winConditionStrategy) {
+        this.winConditionStrategy = winConditionStrategy;
     }
 
     @Override

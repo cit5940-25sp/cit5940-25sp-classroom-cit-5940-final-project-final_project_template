@@ -1,4 +1,3 @@
-import java.sql.Connection;
 import java.util.List;
 
 // Displays current round status, player progress, recent plays, etc. Also shows autocomplete suggestions during input. (View)
@@ -16,17 +15,9 @@ public class GameView implements IGameView {
         this.gameModel = gameModel;
     }
 
-    public GameView() {
-
-    }
-
     @Override
     public void showWelcomeMessage() {
         terminal.displayMessage("Welcome to the Movie Name Game!");
-    }
-
-    public void updateScreen (int secondsRemaining) {
-        System.out.println("Seconds remaining: " + secondsRemaining);
     }
 
     @Override
@@ -127,10 +118,5 @@ public class GameView implements IGameView {
         }
 
         return 0; // Default fallback
-    }
-
-    public void showCurrentMovie(IMovie currentMovie) {
-        terminal.displayMessage("Current Movie: " + currentMovie.getTitle());
-        terminal.displayMessage("Genres: " + currentMovie.getGenres());
     }
 }

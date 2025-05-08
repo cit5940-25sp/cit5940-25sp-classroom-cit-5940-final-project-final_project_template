@@ -77,6 +77,7 @@ public class GameModel implements IGameModel {
         return movies;
     }
 
+    @Override
     public void setStartingMovie(IMovie movie) {
         this.currentMovie = movie;
     }
@@ -197,18 +198,22 @@ public class GameModel implements IGameModel {
         return shared;
     }
 
+    @Override
     public IPlayer getPlayer1() {
         return player1;
     }
 
+    @Override
     public IPlayer getPlayer2() {
         return player2;
     }
 
+    @Override
     public Map<Integer, IMovie> getMovies() {
         return movies;
     }
 
+    @Override
     public List<IMovie> convertMapToListOfMovies(Map<Integer, IMovie> movies) {
         List<IMovie> movieList = new ArrayList<>();
         for (IMovie movie : movies.values()) {
