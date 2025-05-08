@@ -32,30 +32,34 @@ public class GameModel extends Model implements Observable {
         return movies;
     }
 
-    public List<String>getsuggestions(String prefix) {
-        List<ITerm>list =autocomplete.getSuggestions(prefix);
+    public List<String> getsuggestions(String prefix) {
+        List<ITerm> list = autocomplete.getSuggestions(prefix);
         List<String> strings = new LinkedList<>();
-        for(ITerm term: list){
+        for (ITerm term : list) {
             strings.add(term.getTerm());
         }
         return strings;
     }
 
-    public boolean inputMovie(String title){
+    public boolean inputMovie(String title) {
         return false;
     }
 
-    public void notifyUI(){
+    public void notifyUI() {
         notifyObservers();
     }
 
+    @Override
+    public void addObserver(Observer observer) {
+        views.add(observer);
+    }
 
-
-
-
-
-}
-
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : views) {
+            observer.update();
+        }
+    }
 
 
 }
