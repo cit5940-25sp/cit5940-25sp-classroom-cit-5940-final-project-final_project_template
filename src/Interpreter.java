@@ -5,9 +5,10 @@ import java.util.HashMap;
 
 public class Interpreter implements ASTVisitor<Object> {
 
-    private final Environment globals = new Environment();  // 顶层作用域（保持不变）
-    private Environment environment = globals;              // 当前作用域（会切换）
-    private final Map<String, FunctionDecl> functionTable = new HashMap<>();
+    private final Environment globals = new Environment();  // global scope（保持不变）
+    private Environment environment = globals;              // current scope（会切换）
+    // functionTable 记录了程序里所有的函数名和对应的 AST 定义
+    private final Map<String, FunctionDecl> functionTable = new HashMap<>(); //
     private Object result;
 
     // constructor
