@@ -54,6 +54,41 @@ public class InterpreterTest {
         assertEquals(42, result);
     }
 
+//    function entry() {
+//        if (0) {
+//            print 100;
+//        } elif (0) {
+//            print 200;
+//        } else {
+//            print 300;
+//        }
+//    }
+    @Test
+    public void testVisitIfstmt() {
+        // 构建 else block: print 300;
+        PrintStmt elsePrint = new PrintStmt(new IntegerLiteral(300));
+        Block elseBlock = new Block(List.of(elsePrint));
+
+        // 构建 elif: elif (0) { print 200; }
+        PrintStmt elifPrint = new PrintStmt(new IntegerLiteral(200));
+        Block elifBlock = new Block(List.of(elifPrint));
+        ElifBranch elif = new ElifBranch(new IntegerLiteral(0), elifBlock);
+        List<ElifBranch> elifs = List.of(elif);
+
+        // 构建 if: if (0) { print 100; }
+        PrintStmt ifPrint = new PrintStmt(new IntegerLiteral(100));
+        Block ifBlock = new Block(List.of(ifPrint));
+        IfStmt ifStmt = new IfStmt(new IntegerLiteral(0), ifBlock, elifs, elseBlock);
+
+        // 构建函数体和程序
+        FunctionDecl entry = new FunctionDecl("entry", new ArrayList<>(), new Block(List.of(ifStmt)));
+        Program program = new Program(List.of(entry));
+
+        // 捕捉输出
+        String output = runWithCapturedOutput(() -> new Interpreter(program));
+        assertEquals("300\n", output);
+    }
+
     // 工具函数：捕获 System.out.println 输出内容
     private String runWithCapturedOutput(Runnable runnable) {
         java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();

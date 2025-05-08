@@ -1,4 +1,7 @@
 import ast.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -51,11 +54,13 @@ public class Interpreter implements ASTVisitor<Object> {
         return null;
     }
 
+    // 在 visitIfstmt() 中已经处理了 elifBranches，所以暂时不用实现
     @Override
     public Object visitElifBranch(ElifBranch elifb) {
         return null;
     }
 
+    // 是 Expression 抽象类，通常不会直接访问这个节点，所以暂时不用实现
     @Override
     public Object visitExpression(Expression expression) {
         return null;
@@ -63,7 +68,30 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitFuncCall(FuncCall fc) {
-        return null;
+        FunctionDecl func = functionTable.get(fc.name);
+        if (func == null) {
+            throw new RuntimeException("Undefined function: " + fc.name);
+        }
+
+        List<Object> argValues = new ArrayList<>();
+        for (Expression arg : fc.arguments) {
+            argValues.add(arg.accept(this));
+        }
+
+        Environment previous = environment;
+        environment = new Environment(previous);
+
+        for (int i = 0; i < func.params.size(); i++) {
+            environment.define(func.params.get(i), (Integer) argValues.get(i));
+        }
+
+        try {
+            return func.body.accept(this);
+        } catch (ReturnException e) {
+            return e.value;
+        } finally {
+            environment = previous;
+        }
     }
 
     @Override
@@ -83,7 +111,23 @@ public class Interpreter implements ASTVisitor<Object> {
     }
 
     @Override
-    public Object visitIfstmt(IfStmt is) {
+    public Object visitIfstmt(IfStmt is) { // 0 is false, != 0 is true
+        int cond = (int) is.condition.accept(this);
+        if (cond != 0) {
+            return is.thenBranch.accept(this);
+        }
+
+        for (ElifBranch elif : is.elifBranches) {
+            int elifCond = (int) elif.condition.accept(this);
+            if (elifCond != 0) {
+                return elif.body.accept(this);
+            }
+        }
+
+        if (is.elseBranch != null) {
+            return is.elseBranch.accept(this);
+        }
+
         return null;
     }
 
