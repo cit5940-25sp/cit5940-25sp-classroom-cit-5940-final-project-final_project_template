@@ -13,5 +13,10 @@ public class GameStatus {
         round = 0;
     }
 
-
+    public boolean isGameOver() {
+        return false;
+    }
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
 }
