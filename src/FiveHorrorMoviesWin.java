@@ -1,12 +1,10 @@
-import java.util.Set;
-
 /**
  * A win condition where the player wins after guessing two horror movies.
  */
-public class TwoHorrorMoviesWin implements WinCondition {
+public class FiveHorrorMoviesWin implements WinCondition {
 
     private static final String TARGET_GENRE = "Horror";
-    private static final int REQUIRED_COUNT = 2;
+    private static final int REQUIRED_COUNT = 5;
 
     /**
      * Checks if the player has guessed at least five movies of the horror genre.

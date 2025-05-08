@@ -109,6 +109,7 @@ public class GameController {
         // ✅ Valid move
         gameState.addMovieToHistory(guessedMovie);
         currentPlayer.addGuessedMovie(guessedMovie);
+        gameState.getWinCondition().updatePlayerProgress(currentPlayer, guessedMovie);
 
         String validConnStr = "";
         for (Connection con: connections) {

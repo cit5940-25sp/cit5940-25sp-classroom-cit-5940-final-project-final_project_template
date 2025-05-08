@@ -193,7 +193,7 @@ public class TerminalWithSuggestions {
 
                 turnInProgress = false;
 
-                if (!result.isSucess()) {
+                if (!result.isSuccess()) {
                     return true;
                 }
 
