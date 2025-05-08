@@ -235,3 +235,45 @@ public class CSVReader implements Reader{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Converts a string representation of an ID to an integer.
+     * Returns -1 if the conversion fails.
+     *
+     * @param id The string representation of the ID.
+     * @return The integer representation of the ID, or -1 if conversion fails.
+     */
+    public int getId(String id){
+        try {
+            // Convert the string to an integer
+            return Integer.parseInt(id);
+        } catch (Exception e) {
+            // Return -1 if the conversion fails
+            return -1;
+        }
+    }
+
+    /**
+     * Retrieves the set of all Movie objects loaded by the CSVReader.
+     *
+     * @return A Set containing all Movie objects.
+     */
+    public Set<Movie> readMovies(){
+        return movies;
+    }
+
+    /**
+     * The main method for testing the CSVReader class.
+     * Creates an instance of CSVReader and loads movie data from two CSV files.
+     *
+     * @param args Command-line arguments (not used).
+     */
+    public static void main(String[] args) {
+        // Create a new instance of CSVReader
+        CSVReader reader = new CSVReader();
+        // Load movie information from the main CSV file
+        reader.loadFile("data/tmdb_5000_movies.csv");
+        // Load extra information such as cast and crew from the additional CSV file
+        reader.loadExtraFile("data/tmdb_5000_credits.csv");
+    }
+}
