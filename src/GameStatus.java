@@ -19,4 +19,13 @@ public class GameStatus {
     public void addPlayer(Player player) {
         players.add(player);
     }
+
+    // Return the current player, then advance to the next one for the next turn
+    public Player getCurrentPlayer() {
+        if(players.isEmpty())
+            return null;
+        Player player = players.get(currentPlayer);
+        currentPlayer = (currentPlayer + 1) % players.size();
+        return player;
+    }
 }
