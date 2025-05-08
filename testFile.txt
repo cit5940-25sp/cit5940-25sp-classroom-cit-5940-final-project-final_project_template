@@ -1,7 +1,9 @@
-entry() { --- this serves as main() in java
-    function add(a, b) {
-        return a + b;
-    }
+function add(a, b) {
+    return a + b;
+}
+
+function entry() { --- this serves as main() in java
+
     var price <- 10, tax <- 8, discount <- -3;
 
     if (x > 5) {

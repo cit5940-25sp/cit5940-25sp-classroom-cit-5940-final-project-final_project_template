@@ -12,6 +12,6 @@ public class RunWhileStmt extends Statement {
 
     @Override
     public String toString() {
-        return "run " + body.toString() + " while (" + condition.toString() + ");";
+        return "run " + body.toString() + "while " + condition.toString();
     }
 }

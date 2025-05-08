@@ -12,6 +12,6 @@ public class ElifBranch extends ASTNode {
 
     @Override
     public String toString() {
-        return "elif (" + condition.toString() + ") " + body.toString();
+        return "elif " + condition.toString() + " " + body.toString();
     }
 }

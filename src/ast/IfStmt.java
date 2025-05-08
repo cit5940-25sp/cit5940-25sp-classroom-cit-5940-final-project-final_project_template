@@ -22,7 +22,7 @@ public class IfStmt extends Statement {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("if (").append(condition.toString()).append(") ")
+        sb.append("if ").append(condition.toString()).append(" ")
                 .append(thenBranch.toString());
 
         for (ElifBranch elif : elifBranches) {
