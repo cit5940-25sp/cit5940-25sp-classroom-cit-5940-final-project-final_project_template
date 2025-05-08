@@ -10,21 +10,13 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 
-enum InputStage {
-    PLAYER1_NAME,
-    PLAYER2_NAME,
-    WIN_CONDITION_SELECTION,
-    IN_GAME
-}
-
-public class TerminalWithSuggestions {
+public class GameView {
     private final int TIME_LIMIT = 60;
 
     private InputStage stage = InputStage.PLAYER1_NAME;
     private String player1Name = "";
     private String player2Name = "";
-    private int winConditionIndex = 0; // TODO: delete
-    private List<WinCondition> winConditions = Arrays.asList( // TODO: move to GameState
+    private List<WinCondition> winConditions = Arrays.asList(
             new TwoHorrorMoviesWin(),
             new ThreeNolanMoviesWin()
     );
@@ -43,7 +35,7 @@ public class TerminalWithSuggestions {
     private volatile boolean turnInProgress = false;
     private ScheduledExecutorService scheduler;
 
-    public TerminalWithSuggestions(GameController controller) throws IOException {
+    public GameView(GameController controller) throws IOException {
         this.controller = controller;
         this.terminal = new DefaultTerminalFactory().createTerminal();
         this.screen = new TerminalScreen(terminal);
@@ -155,7 +147,7 @@ public class TerminalWithSuggestions {
 
             case WIN_CONDITION_SELECTION:
                 try {
-                    winConditionIndex = Integer.parseInt(input);
+                    int winConditionIndex = Integer.parseInt(input);
                     if (winConditionIndex >= 1 && winConditionIndex <= winConditions.size()) {
                         WinCondition selected = winConditions.get(winConditionIndex - 1);
                         System.out.println("Selected win condition: " + selected.description());
@@ -221,7 +213,7 @@ public class TerminalWithSuggestions {
 
             switch (stage) {
                 case PLAYER1_NAME:
-                    printString(0, 0, "Welcome to Movie Game!");
+                    printString(0, 0, "Hi there! Welcome to Movie Game!");
                     printString(0, 2, "Please enter Player 1 name:");
                     printString(0, 4, "> " + currentInput.toString());
                     screen.setCursorPosition(new TerminalPosition(cursorPosition + 2, 4));
@@ -343,18 +335,4 @@ public class TerminalWithSuggestions {
         timerRunning = true;
     }
 
-    // Launcher
-    public static void main(String[] args) {
-        String apiKey = ConfigLoader.get("tmdb.api.key");
-        GameController controller = new GameController(apiKey);
-        controller.getMovieDatabase().preloadPopularMovies();
-
-        try {
-            new TerminalWithSuggestions(controller).run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

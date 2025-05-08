@@ -85,13 +85,13 @@ public class GameStateTest {
         gameState.incrementConnectionUsage("Al Pacino");
         gameState.incrementConnectionUsage("Al Pacino");
 
-        List<Connection> filtered = gameState.filterConnection(List.of(
+        List<Connection> filtered = gameState.filterConnections(List.of(
             new Connection("Al Pacino", ConnectionType.ACTOR)
         ));
         assertEquals(1, filtered.size());
         gameState.incrementConnectionUsage("Al Pacino");
 
-        filtered = gameState.filterConnection(List.of(
+        filtered = gameState.filterConnections(List.of(
             new Connection("Al Pacino", ConnectionType.ACTOR)
         ));
 
@@ -99,13 +99,13 @@ public class GameStateTest {
     }
 
     @Test
-    public void testFilterConnection() {
+    public void testFilterConnections() {
         List<Connection> connections = Arrays.asList(
             new Connection("Al Pacino", ConnectionType.ACTOR),
             new Connection("Robert De Niro", ConnectionType.ACTOR)
         );
 
-        List<Connection> filtered = gameState.filterConnection(connections);
+        List<Connection> filtered = gameState.filterConnections(connections);
         assertEquals(2, filtered.size());
 
         // Mark Al Pacino as used 3 times
@@ -113,7 +113,7 @@ public class GameStateTest {
         gameState.incrementConnectionUsage("Al Pacino");
         gameState.incrementConnectionUsage("Al Pacino");
 
-        filtered = gameState.filterConnection(connections);
+        filtered = gameState.filterConnections(connections);
         assertEquals(1, filtered.size());
         assertEquals("Robert De Niro", filtered.get(0).getPersonName());
     }

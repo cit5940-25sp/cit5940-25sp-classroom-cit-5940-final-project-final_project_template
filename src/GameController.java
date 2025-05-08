@@ -93,7 +93,7 @@ public class GameController {
                     "Oops, no valid connection found between " + lastMovie.getTitle() + " and " + guessedMovie.getTitle());
         }
 
-        List<Connection> validConnections = gameState.filterConnection(connections);
+        List<Connection> validConnections = gameState.filterConnections(connections);
 
         if (validConnections.isEmpty()) { // there are connections but the connecting people have been used more than 3 times
             String connectionStr = "";
