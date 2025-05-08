@@ -2,8 +2,8 @@ public class Player {
     private String name;
     private Links links;
     
-
-    public boolean addMovie(){
-        return false;
+    public Player(String name) {
+        this.name = name;
+        links = new Links();
     }
 }
