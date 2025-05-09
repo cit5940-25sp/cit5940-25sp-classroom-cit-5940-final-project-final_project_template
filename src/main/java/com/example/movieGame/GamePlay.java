@@ -20,6 +20,9 @@ public class GamePlay
     private Player player1;
     private Player player2;
     private String player1Name;
+
+    private ArrayList<SingleConnection> linksToPreviousMovie;  //list of connections to previous movie
+
     /**
      * Constructor initializes variables, creates players and designates first active player,
      * sets up index with movies, randomly select movie
@@ -122,6 +125,42 @@ public class GamePlay
         }
     }
 
+    //Checks whether the movie entered has a valid linkage
+    public boolean checkValidLinkage(Movie movie) {
+
+        //If the movie entered is the first movie, no valid linkage required
+        if (lastFiveMovies.isEmpty())  {
+            return true;
+        }
+
+        //Extract the previous movie
+        //Return true if there was no previous movie (as above)
+        Movie previous = ((LinkedList<Movie>) lastFiveMovies).peekLast();
+        if (previous == null) return true;
+
+
+        //Compare across each of the criteria to determine connections
+        return sharesConnection(movie.getActors(), previous.getActors()) ||
+                sharesConnection(movie.getDirectors(), previous.getDirectors()) ||
+                sharesConnection(movie.getWriters(), previous.getWriters()) ||
+                sharesConnection(movie.getCinematographers(), previous.getCinematographers()) ||
+                sharesConnection(movie.getComposers(), previous.getComposers());
+
+    }
+
+    //Private helper method to determine whether there is a shared connection
+    //Connection defined as actor, director, writer, cinematographer or composer
+    private boolean sharesConnection(Set<String> movieOne, Set<String> movieTwo) {
+        for (String value : movieOne) {
+            if (movieTwo.contains(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
     /**
      * tracks time for each player
      *
@@ -138,13 +177,53 @@ public class GamePlay
      * @parameter
      */
     public String userEntry(Movie movie) {
-        //check for a valid connection (return error message if issue)
-        //increment xxxConnectionUsage variables for all matching connections
-        //TODO
+
+        //check for a valid linkage (return error if no link)
+        if (!checkValidLinkage(movie)) {
+            return "Error: Movie is not connected to the last movie played.";
+        }
 
         //check for duplicate movie (return error if issue)
         if (moviesUsed.contains(movie.getMovieID())) {
             return "Error: main.java.com.example.movieGame.Movie already used.";
+        }
+
+        //increment xxxConnectionUsage variables for all matching connections
+        //Keep track of links to the previous movie with getLinkstoPreviousMovie
+        Movie previous = ((LinkedList<Movie>) lastFiveMovies).peekLast();
+        if (previous != null) {
+            movie.getLinksToPreviousMovie().clear();
+
+            for (String actor : movie.getActors()) {
+                if (previous.getActors().contains(actor)) {
+                    movie.getLinksToPreviousMovie().add(new SingleConnection("actor", actor));
+                    actorConnectionUsage++;
+                }
+            }
+            for (String director : movie.getDirectors()) {
+                if (previous.getDirectors().contains(director)) {
+                    movie.getLinksToPreviousMovie().add(new SingleConnection("director", director));
+                    directorConnectionUsage++;
+                }
+            }
+            for (String writer : movie.getWriters()) {
+                if (previous.getWriters().contains(writer)) {
+                    movie.getLinksToPreviousMovie().add(new SingleConnection("writer", writer));
+                    writerConnectionUsage++;
+                }
+            }
+            for (String cinematographer : movie.getCinematographers()) {
+                if (previous.getCinematographers().contains(cinematographer)) {
+                    movie.getLinksToPreviousMovie().add(new SingleConnection("cinematographer", cinematographer));
+                    cinematographerConnectionUsage++;
+                }
+            }
+            for (String composer : movie.getComposers()) {
+                if (previous.getComposers().contains(composer)) {
+                    movie.getLinksToPreviousMovie().add(new SingleConnection("composer", composer));
+                    composerConnectionUsage++;
+                }
+            }
         }
 
         //check for 3+ connections (return error message if issue)

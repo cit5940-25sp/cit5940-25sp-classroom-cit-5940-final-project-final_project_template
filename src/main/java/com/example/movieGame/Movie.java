@@ -74,7 +74,7 @@ public class Movie {
         return genre;
     }
 
-    public ArrayList<SingleConnection> getLinksToPreviousMovie() {
+     public ArrayList<SingleConnection> getLinksToPreviousMovie() {
         return linksToPreviousMovie;
     }
 }
