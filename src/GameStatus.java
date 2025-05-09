@@ -19,8 +19,8 @@ public class GameStatus {
     }
 
     public boolean isGameOver() {
-        for(Player player : players) {
-            if(!player.isFinished()) {
+        for (Player player : players) {
+            if (!player.isFinished()) {
                 return false;
             }
         }
@@ -32,18 +32,18 @@ public class GameStatus {
      * Retrieves the winner of the game.
      *
      * @return The winning player if the game is over and a winner exists,
-     *         {@code null} if the game is not over or no winner is found.
-     *         Note: It's assumed that there should always be a winner if the game is over.
+     * {@code null} if the game is not over or no winner is found.
+     * Note: It's assumed that there should always be a winner if the game is over.
      */
     public Player getWinner() {
         // Check if the game is not over. If so, return null as there's no winner yet.
-        if(!isGameOver()) {
+        if (!isGameOver()) {
             return null;
         }
         // Iterate through all players to find the winner.
-        for(Player player : players) {
+        for (Player player : players) {
             // If a player is marked as the winner, return that player.
-            if(player.isWinner()) {
+            if (player.isWinner()) {
                 return player;
             }
         }
@@ -67,7 +67,7 @@ public class GameStatus {
      */
     public Player getNextPlayer() {
         // Check if the list of players is empty. If so, return null.
-        if(players.isEmpty())
+        if (players.isEmpty())
             return null;
         // Get the current player based on the current index.
         Player player = players.get(currentPlayerIndex);
@@ -76,23 +76,26 @@ public class GameStatus {
         return player;
     }
 
-
-
-    // Return the current player, then advance to the next one for the next turn
+    /**
+     * Retrieves the current player.
+     *
+     * @return The current player.
+     */
     public Player getCurrentPlayer() {
-        if(players.isEmpty())
-            return null;
-        Player player = players.get(currentPlayer);
-        currentPlayer = (currentPlayer + 1) % players.size();
-        return player;
+        // Return the current player.
+        return currentPlayer;
     }
 
-    // play round and let the current player try to play the given movie
-    public void playRound(Movie movie) {
-        round++;
-        Player player = getCurrentPlayer();
-        if (player != null) {
-            player.play(movie);
-        }
+    public boolean isUsed(Movie movie) {
+        return usedMovies.contains(movie);
     }
+
+    public String timeOutString() {
+        String message = "Time out!";
+        message += "\n" + currentPlayer.getName() + " has lost the game.";
+        Player player = getNextPlayer();
+        message += "\n" + player.getName() + " is the winner!";
+        return message;
+    }
+
 }
