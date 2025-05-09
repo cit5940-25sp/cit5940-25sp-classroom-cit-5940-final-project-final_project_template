@@ -1,10 +1,10 @@
-package src;
-
 import AutoComplete.Autocomplete;
 import AutoComplete.IAutocomplete;
 import AutoComplete.ITerm;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameModel extends Model implements Observable {
     private List<Observer> views;
