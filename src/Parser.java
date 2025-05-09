@@ -237,6 +237,11 @@ public class Parser {
         if (match(TokenType.INTEGER)) {
             return ASTFactory.createIntegerLiteral(Integer.parseInt(previous().lexeme));
         }
+
+        if (match(TokenType.INPUT)) {
+            return ASTFactory.createInputExpr();
+        }
+
         if (match(TokenType.IDENTIFIER)) {
             String name = previous().lexeme;
             if (match(TokenType.LPAREN)) {

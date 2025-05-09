@@ -1,0 +1,4 @@
+function entry() {
+    var x <- input;
+    return x;
+}

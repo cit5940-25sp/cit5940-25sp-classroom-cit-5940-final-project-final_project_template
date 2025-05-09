@@ -49,4 +49,7 @@ public class ASTFactory {
     public static BinaryExpr createBinaryExpr(Expression left, String op, Expression right) {
         return new BinaryExpr(left, op, right);
     }
+    public static InputExpr createInputExpr() {
+        return new InputExpr();
+    }
 }
