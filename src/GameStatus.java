@@ -122,6 +122,7 @@ public class GameStatus {
         sb.append("wait control input...\n");
         return sb.toString();
     }
+
 }
 
 
