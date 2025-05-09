@@ -50,12 +50,42 @@ public class CineGame {
         // Add the second player to the game model
         model.addPlayer(player2);
     }
+
+    /**
+     * Prompts the user to enter a player's name and creates a new Player object.
+     *
+     * @param prompt The message to display to the user when asking for the player's name.
+     * @return A new Player object with the name entered by the user.
+     */
+    public Player readPlayer(String prompt){
+        // Display the prompt to the user
+        System.out.println(prompt);
+        // Create a new Scanner object to read user input
+        Scanner scanner = new Scanner(System.in);
+        // Read a line of input from the user as the player's name
+        String name = scanner.nextLine();
+        // Create and return a new Player object with the entered name
+        return new Player(name);
+    }
+
+    /**
+     * Main game loop that runs until the game is over.
+     * It advances the game to the next round and handles user input.
+     */
     public void gameLoop(){
-        ;
+        // Continue the loop as long as the game is not over
+        while(!model.isGameOver()){
+            // Move the game to the next round
+            model.nextRound();
+            // Handle user input through the controller
+            control.runInput();
+        }
     }
     public static void main(String[] args) {
         CineGame game = new CineGame();
         game.init();
+        game.gameLoop();
     }
 }
+
 
