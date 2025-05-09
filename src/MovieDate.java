@@ -13,6 +13,22 @@ public class MovieDate {
     // A reader object used to read movie data
     private Reader reader;
 
+    /**
+     * Constructs a new MovieDate object.
+     * Initializes the reader, loads movie data, and populates the sorted movie set.
+     */
+    public MovieDate() {
+        // Initialize the reader as a CSVReader instance
+        reader = new CSVReader();
+        // Read all movie objects using the reader
+        movies = reader.readMovies();
+        // Initialize the TreeSet with a comparator to sort movies by title
+        movieByTitile = new TreeSet<>((m1, m2) -> m1.getTitle().compareTo(m2.getTitle()));
+        // Add all movies to the sorted TreeSet
+        for (Movie movie : movies) {
+            movieByTitile.add(movie);
+        }
+    }
 
     /**
      * Retrieves a movie by its title.
@@ -24,7 +40,6 @@ public class MovieDate {
         // Create a dummy movie object with the given title
         Movie movie = new Movie(title);
         // Check if the sorted movie set contains a movie with the given title
-        // Note: There's a bug here. movieByTitile.contains expects a Movie object, not a String.
         if (movieByTitile.contains(movie)) {
             // Return the greatest movie in the set less than or equal to the given movie
             return movieByTitile.floor(movie);
@@ -35,6 +50,10 @@ public class MovieDate {
 
     public boolean contains(String movieTitle){
         return movieByTitile.contains(new Movie(movieTitle));
+    }
+
+    public Movie getMovieByTitle(String movieTitle){
+        return movieByTitile.floor(new Movie(movieTitle));
     }
 
     public Set<Movie> getMovies() {
