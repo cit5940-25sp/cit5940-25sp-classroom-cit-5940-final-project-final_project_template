@@ -10,15 +10,24 @@ public class GenreWinCondition implements IWinCondition {
     private String genre;
     private static final int WIN_COUNT = 3;
 
-
     /**
-     * Constructs a GenreWinCondition for the given genre.
-     * @param genre the target genre
+     * Constructs a {@code GenreWinCondition} that checks if the player has named
+     * enough movies in the specified genre to win the game.
+     *
+     * @param genre the target genre required to win (e.g., "Action", "Comedy")
      */
     public GenreWinCondition(String genre) {
         this.genre = genre;
     }
 
+    /**
+     * Checks whether the player has played at least {@code WIN_COUNT} movies
+     * that match the target genre.
+     *
+     * @param player the player whose played movies are being evaluated
+     * @return {@code true} if the player has named at least {@code WIN_COUNT}
+     *         movies in the specified genre, otherwise {@code false}
+     */
     @Override
     public boolean checkWin(Player player) {
         int count = 0;
@@ -33,6 +42,11 @@ public class GenreWinCondition implements IWinCondition {
         return false;
     }
 
+    /**
+     * Returns a descriptive string that explains the win condition.
+     *
+     * @return a message stating how many movies of the specified genre are required to win
+     */
     @Override
     public String getDescription() {
         return "You win! - by naming " + WIN_COUNT + " number of movies in the genre: " + genre;

@@ -18,6 +18,11 @@ public class YearWinCondition implements IWinCondition {
         this.targetYear = targetYear;
     }
 
+    /**
+     * Checks whether the player meets the win condition.
+     * @param player the player to check
+     * @return true if the player has won, false otherwise
+     */
     @Override
     public boolean checkWin(Player player) {
         int count = 0;
@@ -32,6 +37,10 @@ public class YearWinCondition implements IWinCondition {
         return false;
     }
 
+    /**
+     * Provides a description of the win condition.
+     * @return a string describing the win condition
+     */
     @Override
     public String getDescription() {
         return "Player wins by naming movies released in " + targetYear + " " + WIN_COUNT + " times.";

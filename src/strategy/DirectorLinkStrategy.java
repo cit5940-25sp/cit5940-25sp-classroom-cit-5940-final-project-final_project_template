@@ -11,7 +11,10 @@ import java.util.Collections;
 public class DirectorLinkStrategy implements ILinkStrategy {
 
     /**
-     * Returns {@code true} when the two movies share at least one director.
+     * Checks if two movies are considered connected under this strategy.
+     * @param from the source movie
+     * @param to the target movie
+     * @return true if the movies are connected, false otherwise
      */
     @Override
     public boolean isValidLink(Movie from, Movie to) {
