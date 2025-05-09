@@ -15,14 +15,14 @@ public class GameController implements IGameController {
     private MovieIndex movieIndex;
     private ConnectionValidator connectionValidator;
 
-    public GameController(Player p1, Player p2, Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal, ConnectionValidator connectionValidator, GameModel gameModel) {
-        this.player1 = p1;
-        this.player2 = p2;
-        this.currentPlayer = p1;
+    public GameController(Clock clock, List<IMovie> movies, TerminalWithSuggestions terminal, ConnectionValidator connectionValidator, GameModel gameModel) {
+        this.player1 = (Player) gameModel.getPlayer1();
+        this.player2 = (Player) gameModel.getPlayer2();
+        this.currentPlayer = player1;
         this.movieList = movies;
         this.terminal = terminal;
         this.connectionValidator = connectionValidator;
-        this.gameModel = new GameModel();
+        this.gameModel = gameModel;
         this.gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv");
         this.gameView = new GameView(terminal, connectionValidator, gameModel);
         this.gameOver = false;
@@ -39,6 +39,10 @@ public class GameController implements IGameController {
 
 
         gameModel.initializePlayers();
+
+        this.player1 = (Player) gameModel.getPlayer1();
+        this.player2 = (Player) gameModel.getPlayer2();
+        this.currentPlayer = player1;
 
         gameView.showWelcomeMessage();
         gameView.showWinConditions(Arrays.asList(player1, player2));

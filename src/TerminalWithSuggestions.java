@@ -23,10 +23,7 @@ public class TerminalWithSuggestions {
     private int currentRow = 0;
     private String currentMovieTitle = "";
     private String currentMovieGenres = "";
-
-    // Timer variables
     private int secondsRemaining = 30;
-    private boolean timerRunning = true;
 
     public TerminalWithSuggestions() throws IOException {
         terminal = new DefaultTerminalFactory().createTerminal();
@@ -54,60 +51,67 @@ public class TerminalWithSuggestions {
             printString(0, 2, "> ");
             screen.setCursorPosition(new TerminalPosition(cursorPosition, 2));
             screen.refresh();
+            updateScreen();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        long lastSecond = System.currentTimeMillis() / 1000;
+        long startMillis = System.currentTimeMillis();
+        int timeLimitMillis = timeLimitSeconds * 1000;
+        int lastDisplayedSecond = -1;
+        boolean screenNeedsRefresh = true;
 
         while (true) {
-            try {
-                KeyStroke keyStroke = terminal.pollInput();
-                if (keyStroke != null) {
-                    switch (keyStroke.getKeyType()) {
-                        case Character:
-                            handleCharacter(keyStroke.getCharacter());
-                            break;
-                        case Backspace:
-                            handleBackspace();
-                            break;
-                        case Enter:
-                            String finalInput = currentInput.toString().trim();
-                            if (!finalInput.isEmpty()) {
-                                if (dictionary.stream().anyMatch(title -> title.equalsIgnoreCase(finalInput))) {
-                                    return finalInput;
-                                } else {
-                                    displayMessage("Movie not found. Try again.");
-                                    currentInput.setLength(0); // Clear input
-                                    cursorPosition = 2;
-                                    updateSuggestions();
-                                    updateScreen();
-                                }
+            long now = System.currentTimeMillis();
+            int elapsedMillis = (int) (now - startMillis);
+            int remainingSeconds = Math.max(0, (timeLimitMillis - elapsedMillis + 999) / 1000); // Round up
+            secondsRemaining = remainingSeconds;
+
+            KeyStroke keyStroke = terminal.pollInput();
+            if (keyStroke != null) {
+                switch (keyStroke.getKeyType()) {
+                    case Character:
+                        handleCharacter(keyStroke.getCharacter());
+                        screenNeedsRefresh = true;
+                        break;
+                    case Backspace:
+                        handleBackspace();
+                        screenNeedsRefresh = true;
+                        break;
+                    case Enter:
+                        String finalInput = currentInput.toString().trim();
+                        if (!finalInput.isEmpty()) {
+                            if (dictionary.stream().anyMatch(title -> title.equalsIgnoreCase(finalInput))) {
+                                return finalInput;
+                            } else {
+                                displayMessage("Movie not found. Try again.");
+                                currentInput.setLength(0);
+                                cursorPosition = 2;
+                                updateSuggestions();
+                                screenNeedsRefresh = true;
                             }
-                            break;
-                        case Escape:
-                        case EOF:
-                            return "";
-                        default:
-                            break;
-                    }
-                    updateScreen();
+                        }
+                        break;
+                    case Escape:
+                    case EOF:
+                        return ""; // user exits
                 }
+            }
 
-                long currentSecond = System.currentTimeMillis() / 1000;
-                if (currentSecond != lastSecond) {
-                    lastSecond = currentSecond;
-                    secondsRemaining--;
-                    updateScreen();
-                }
+            if (remainingSeconds != lastDisplayedSecond || screenNeedsRefresh) {
+                updateScreen();
+                lastDisplayedSecond = remainingSeconds;
+                screenNeedsRefresh = false;
+            }
 
-                if (secondsRemaining <= 0) {
-                    return ""; // ⏰ Timeout
-                }
+            if (remainingSeconds <= 0) {
+                return "";
+            }
 
+            try {
                 Thread.sleep(10);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

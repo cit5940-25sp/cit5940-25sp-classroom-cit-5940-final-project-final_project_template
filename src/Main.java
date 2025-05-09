@@ -20,13 +20,12 @@ public class Main {
         Clock clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
         GameModel gameModel = new GameModel();
-        gameModel.initializePlayers();
 
         ConnectionValidator connectionValidator = new ConnectionValidator();
 
         List<IMovie> movieList = gameModel.convertMapToListOfMovies(gameModel.loadMovieData("tmdb_5000_movies.csv", "tmdb_5000_credits.csv"));
 
-        GameController controller = new GameController((Player) gameModel.getPlayer1(), (Player) gameModel.getPlayer2(), clock, movieList, terminal, connectionValidator, gameModel);
+        GameController controller = new GameController(clock, movieList, terminal, connectionValidator, gameModel);
 
         controller.initializeGame(movieList);
         controller.startGame();
