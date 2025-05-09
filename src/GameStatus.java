@@ -19,8 +19,15 @@ public class GameStatus {
     }
 
     public boolean isGameOver() {
-        return false;
+        for(Player player : players) {
+            if(!player.isFinished()) {
+                return false;
+            }
+        }
+        // If all players have finished their turns, the game is over.
+        return true;
     }
+
     public void addPlayer(Player player) {
         players.add(player);
     }
