@@ -128,9 +128,34 @@ public class GameModel extends Model implements Observable {
         return strings;
     }
 
+    /**
+     * Processes the input movie title. Currently always returns false and needs implementation.
+     *
+     * @param title The title of the movie to be processed.
+     * @return {@code true} if the movie input is successfully processed, {@code false} otherwise.
+     */
+    public boolean inputMovie(String title){
+        boolean r = true;
+        if(!isValidTitle(title)){
+            gameStatusString = "Invalid Title or Already Used.";
+            r = false;
+        }else if(!gameStatus.inputMovie(movieData.getMovieByTitle(title))){
+            gameStatusString = "Invalid Movie link.";
+            r = false;
+        }
+        notifyUI();
+        return r;
+    }
 
-    public boolean inputMovie(String title) {
-        return false;
+    public void addPlayer(Player player){
+        player.play(movieData.getMovieByTitle(startMovie.toLowerCase()));
+        gameStatus.addPLayer(player);
+    }
+
+    public void nextRound(){
+        gameStatus.nextRound();
+        gameStatusString = gameStatus.toString();
+        notifyUI();
     }
 
     public void notifyUI() {
