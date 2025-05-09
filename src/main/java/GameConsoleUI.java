@@ -42,8 +42,13 @@ public class GameConsoleUI implements IGameObserver {
             GameState state = gameEngine.getGameState();
             Country current = state.getCurrentCountry();
 
+            if (!state.hasMovesRemaining()) {
+                continue;
+            }
+
             if (!waitingForCountry) {
                 System.out.println("Current Country: " + current.getName());
+                System.out.println("Moves: " + (state.getMoves().size() - 1) + "/" + state.getMaxMoves());
                 Set<Language> langs = current.getLanguages();
                 List<Language> langList = new ArrayList<>(langs);
 
@@ -117,9 +122,6 @@ public class GameConsoleUI implements IGameObserver {
                 }
             }
         }
-        GameState finalState = gameEngine.getGameState();
-        System.out.println("Thanks for playing LingoLink! Your final score was " + finalState.getTotalScore() +
-                "! Awesome job! ");
     }
 
     @Override
@@ -127,7 +129,8 @@ public class GameConsoleUI implements IGameObserver {
         System.out.println("\n--- Game State ---");
         System.out.println("Current Country: " + gameState.getCurrentCountry().getName());
         System.out.println("Game Mode: " + (gameEngine.isHardMode() ? "Hard (limit: 4)" : "Normal (limit: 7)"));
-
+        System.out.println("Moves: " + (gameState.getMoves().size() - 1) + "/" + gameState.getMaxMoves() +
+                " (Remaining: " + gameState.getRemainingMoves() + ")");
         Country currentCountry = gameState.getCurrentCountry();
         Set<Language> allLanguages = currentCountry.getLanguages();
         int viableLanguageCount = 0;
@@ -159,5 +162,42 @@ public class GameConsoleUI implements IGameObserver {
         }
 
         System.out.println("------------------\n");
+
+        // Check if the game is over due to move limit
+        if (!gameState.hasMovesRemaining()) {
+            System.out.println("\n=== GAME OVER ===");
+            System.out.println("You've used all " + gameState.getMaxMoves() + " moves!");
+            System.out.println("Final Score: " + gameState.getTotalScore());
+
+            // Add some feedback based on score
+            double avgPointsPerMove = (double) gameState.getTotalScore() / gameState.getMaxMoves();
+            if (avgPointsPerMove >= 3.0) {
+                System.out.println("Amazing! You're a language connection master!");
+            } else if (avgPointsPerMove >= 2.5) {
+                System.out.println("Great job! You've got a solid strategy!");
+            } else if (avgPointsPerMove >= 1.5) {
+                System.out.println("Good effort! Try to build longer streaks next time!");
+            } else {
+                System.out.println("Keep practicing! Aim for longer language streaks to boost your score!");
+            }
+
+            System.out.println("===========================");
+
+            // Ask if they want to play again
+            System.out.print("Would you like to play again? (y/n): ");
+            String playAgain = scanner.nextLine().trim().toLowerCase();
+            if (playAgain.equals("y") || playAgain.equals("yes")) {
+                // Reset the game and restart
+                System.out.print("Would you like to play in hard mode? (y/n): ");
+                String hardModeChoice = scanner.nextLine().trim().toLowerCase();
+                boolean hardMode = hardModeChoice.equals("y") || hardModeChoice.equals("yes");
+                gameEngine.setHardMode(hardMode);
+                gameEngine.resetGame();
+            } else {
+                // Exit the game
+                System.out.println("Thanks for playing LingoLink! Goodbye!");
+                System.exit(0);
+            }
+        }
     }
 }

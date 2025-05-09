@@ -29,6 +29,40 @@ public class CountryLanguageManager {
         languages.put(name.toLowerCase(), language);
     }
 
+    /**
+     * Get a country by name, ignoring case, punctuation and whitespace
+     */
+    public Country getCountryFlexibleMatch(String name) {
+        // First try the regular exact match
+        Country country = getCountry(name.toLowerCase());
+        if (country != null) {
+            return country;
+        }
+
+        // if not found, normalize the input and try matching against normalized country names
+        String normalizedInput = normalizeCountryName(name);
+
+        for (Country c : getAllCountries()) {
+            String normalizedCountryName = normalizeCountryName(c.getName());
+            if (normalizedCountryName.equals(normalizedInput)) {
+                return c;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Normalize a country name by removing punctuation, whitespace, and converting to lowercase
+     */
+    private String normalizeCountryName(String name) {
+        return name.toLowerCase()
+                .replaceAll("[\\s\\p{Punct}]", "") // removes whitespace and punctuation
+                .replace("saint", "st") // allows for common abbreviations
+                .replace("and", "") // for countries like "Trinidad and Tobago"
+                .replace("the", ""); // for countries like "The Netherlands"
+    }
+
     public Country getCountry(String name) {
         return countries.get(name.toLowerCase());
     }
