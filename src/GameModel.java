@@ -27,7 +27,6 @@ public class GameModel extends Model implements Observable {
     // Boolean flag indicating whether the game has timed out
     private boolean timeOut;
     private String startMovie;
-
     /**
      * Constructor for the GameModel class.
      * Initializes the list of observers and sets the timeout flag to false.
@@ -40,6 +39,7 @@ public class GameModel extends Model implements Observable {
         startMovie = "Mission: Impossible";
         gameStatusString = "The start movie is '" + startMovie + "'";
     }
+
 
 
     /**
@@ -158,21 +158,34 @@ public class GameModel extends Model implements Observable {
         notifyUI();
     }
 
-    public void notifyUI() {
+    /**
+     * Notifies all UI observers that the model state has changed.
+     */
+    public void notifyUI(){
+        // Delegate the notification task to the notifyObservers method
         notifyObservers();
     }
 
+    /**
+     * Adds an observer to the list of observers.
+     *
+     * @param observer The observer to be added.
+     */
     @Override
     public void addObserver(Observer observer) {
+        // Add the observer to the list of views
         views.add(observer);
     }
 
+    /**
+     * Notifies all registered observers that the model state has changed.
+     */
     @Override
     public void notifyObservers() {
+        // Iterate through all observers and call their update method
         for (Observer observer : views) {
             observer.update();
         }
     }
-
 
 }
