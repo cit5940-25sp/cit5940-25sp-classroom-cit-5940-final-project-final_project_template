@@ -19,4 +19,9 @@ public class Block extends Statement {
                         .collect(Collectors.joining("\n")) +
                 "\n}";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitBlock(this);
+    }
 }

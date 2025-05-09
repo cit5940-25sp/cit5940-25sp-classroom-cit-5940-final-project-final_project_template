@@ -21,4 +21,9 @@ public class FuncCall extends Expression {
                         .collect(Collectors.joining(", ")) +
                 ")";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitFuncCall(this);
+    }
 }

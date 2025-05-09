@@ -14,4 +14,9 @@ public class WhileStmt extends Statement {
     public String toString() {
         return "while (" + condition.toString() + ") " + body.toString();
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitWhileStmt(this);
+    }
 }
