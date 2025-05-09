@@ -12,4 +12,9 @@ public class IntegerLiteral extends Expression {
     public String toString() {
         return Integer.toString(value);
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitIntegerLiteral(this);
+    }
 }

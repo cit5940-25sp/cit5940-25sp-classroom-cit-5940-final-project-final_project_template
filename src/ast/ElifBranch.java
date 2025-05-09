@@ -14,4 +14,9 @@ public class ElifBranch extends ASTNode {
     public String toString() {
         return "elif " + condition.toString() + " " + body.toString();
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitElifBranch(this);
+    }
 }

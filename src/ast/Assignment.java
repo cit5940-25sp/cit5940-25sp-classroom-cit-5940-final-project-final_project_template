@@ -14,4 +14,9 @@ public class Assignment extends Statement {
     public String toString() {
         return name + " <- " + value.toString() + ";";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitAssignment(this);
+    }
 }

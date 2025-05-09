@@ -16,4 +16,9 @@ public class BinaryExpr extends Expression {
     public String toString() {
         return "(" + left.toString() + " " + operator + " " + right.toString() + ")";
     }
+
+    @Override
+    public <R> R accept(ASTVisitor<R> visitor) {
+        return visitor.visitBinaryExpr(this);
+    }
 }
