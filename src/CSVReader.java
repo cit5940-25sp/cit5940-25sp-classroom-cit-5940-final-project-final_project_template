@@ -121,7 +121,6 @@ public class CSVReader implements Reader{
         // Return the parsed CSV data
         return data;
     }
-
     /**
      * Loads movie data from a specified CSV file.
      * Parses the CSV file, skips the header row, and creates Movie objects for each data row.
