@@ -61,6 +61,32 @@ public class GameModel extends Model implements Observable {
         }
     }
 
+    /**
+     * Sets the timeout state of the game.
+     *
+     * @param timeOut A boolean value indicating whether the game has timed out.
+     */
+    public void setTimeOut(boolean timeOut) {
+        // Update the timeout state
+        this.timeOut = timeOut;
+    }
+
+    public boolean isTimeOut() {
+        return timeOut;
+    }
+
+    public String getGameStatusString() {
+        return gameStatusString;
+    }
+
+    public boolean isGameOver(){
+        if (isTimeOut()){
+            gameStatusString = gameStatus.timeOutString();
+            notifyUI();
+        }
+        return gameStatus.isGameOver() || isTimeOut();
+    }
+
 
     public Set<Movie> getMovies() {
         return movies;
