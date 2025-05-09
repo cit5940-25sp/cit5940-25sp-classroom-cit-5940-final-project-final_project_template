@@ -9,6 +9,8 @@ public class GameState {
     private int totalScore;
     private final Map<Language, Integer> languageUsage = new HashMap<>();
     private final int MAX_MOVES = 30;
+    private Integer testMaxMoves = null;
+
 
     public GameState(Country startingCountry) {
         this.currentCountry = startingCountry;
@@ -75,7 +77,8 @@ public class GameState {
     }
 
     public int getRemainingMoves() {
-        return MAX_MOVES - (moves.size() - 1);
+        int maxToUse = testMaxMoves != null ? testMaxMoves : MAX_MOVES;
+        return maxToUse - (moves.size() - 1);
         //subtracts 1 for the starting country
     }
 
@@ -84,6 +87,16 @@ public class GameState {
     }
 
     public int getMaxMoves() {
-        return MAX_MOVES;
+        return testMaxMoves != null ? testMaxMoves : MAX_MOVES;
     }
+
+    /**
+     * Set max moves for testing purposes
+     * @param maxMoves Number of max moves to set
+     */
+    public void setMaxMovesForTest(int maxMoves) {
+        this.testMaxMoves = maxMoves;
+    }
+
+
 }

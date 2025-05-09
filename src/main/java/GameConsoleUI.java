@@ -195,7 +195,7 @@ public class GameConsoleUI implements IGameObserver {
                 gameEngine.resetGame();
             } else {
                 // Exit the game
-                System.out.println("Thanks for playing! Goodbye!");
+                System.out.println("Thanks for playing LingoLink! Goodbye!");
                 System.exit(0);
             }
         }

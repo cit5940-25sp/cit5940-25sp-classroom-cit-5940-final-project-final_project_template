@@ -16,6 +16,7 @@ public class GameEngine {
     private boolean hardMode = false;
     private Random random = new Random();
 
+
     private GameEngine(CountryLanguageManager dataService) {
         this.dataService = dataService;
         resetGame();
@@ -267,5 +268,16 @@ public class GameEngine {
      */
     public GameState getGameState() {
         return gameState;
+    }
+
+    /**
+     * Set the maximum number of moves for testing
+     * This allows tests to simulate a game ending without playing all 30 moves
+     * @param maxMoves The maximum number of moves to set
+     */
+    public void setMaxMovesForTest(int maxMoves) {
+        if (gameState != null) {
+            gameState.setMaxMovesForTest(maxMoves);
+        }
     }
 }
