@@ -18,4 +18,5 @@ public interface ASTVisitor<R> {
     R visitVarDecl(VarDecl vd);
     R visitVarRef(VarRef vr);
     R visitWhileStmt(WhileStmt ws);
+    R visitInputExpr(InputExpr ie);
 }

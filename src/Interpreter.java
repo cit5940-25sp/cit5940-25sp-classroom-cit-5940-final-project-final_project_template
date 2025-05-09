@@ -52,6 +52,13 @@ public class Interpreter implements ASTVisitor<Object> {
     }
 
     @Override
+    public Object visitInputExpr(InputExpr ie) {
+        System.out.print("user input> ");
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    @Override
     public Object visitBlock(Block block) {
         for (Statement stmt : block.statements) {
             stmt.accept(this);  // 顺序执行语句
