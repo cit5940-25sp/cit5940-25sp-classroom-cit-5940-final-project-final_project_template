@@ -28,17 +28,24 @@ public class GamePlay
     public GamePlay(String player1Name, String player2Name) {
         //initialize variables
         moviesUsed = new ArrayList<>();
+        Map<String, Integer> connectionsUsageMap;
+
+
         actorConnectionUsage = 0;
         directorConnectionUsage = 0;
         writerConnectionUsage = 0;
         cinematographerConnectionUsage = 0;
         composerConnectionUsage = 0;
+
+
         numberOfRounds = 0;
         lastFiveMovies = new LinkedList<>();
 
         //create and designate players
         player1 = new Player(player1Name, true);
         player2 = new Player(player2Name, false);
+
+
 
         //set up data file
         //TODO (call class here)
@@ -65,17 +72,25 @@ public class GamePlay
             List<Movie> availableMovies = MovieLoader.createMovieFromFiles();
 
 
+            // check that there are movies available
             if (availableMovies.isEmpty()) {
                 System.err.println("Error: No movies available for selection");
                 return null;
             }
 
+
+            // new random to select movie
             Random random = new Random();
             Movie selectedMovie;
 
+
+            // make sure that we only attempt a max of 100 times,
+            // so we don't get stuck looking for a movie if all have been used
             int attempts = 0;
             final int maxAttempts = 100;
 
+
+            // get a random movie, check again if that movie is ued
             do {
                 int randomIndex = random.nextInt(availableMovies.size());
                 selectedMovie = availableMovies.get(randomIndex);

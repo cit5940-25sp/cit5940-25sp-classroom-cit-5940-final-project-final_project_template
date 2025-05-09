@@ -35,7 +35,12 @@ public class MovieLoaderTest {
 
         GamePlay play = new GamePlay("P1", "P2");
 
-        System.out.println(play.randomMovieSelection());
+        Movie mov = play.randomMovieSelection();
+        System.out.println(mov.getActors());
+        System.out.println(mov.getMovieID());
+        System.out.println(mov.getMovieTitle());
+
+        //System.out.println(play.randomMovieSelection());
 
 
     }
