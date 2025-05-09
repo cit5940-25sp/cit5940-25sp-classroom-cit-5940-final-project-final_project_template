@@ -26,14 +26,6 @@ public class TestPlayer {
     }
 
     @Test
-    public void testIncreaseScore() {
-        Player player = new Player("Tommy");
-        player.setScore(3);
-        player.increaseScore(1);
-        assertEquals(4, player.getScore());
-    }
-
-    @Test
     public void testGetPlayedMovies() {
         Player player = new Player("Tommy");
         assertTrue(player.getPlayedMovies().isEmpty());

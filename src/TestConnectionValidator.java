@@ -20,24 +20,42 @@ public class TestConnectionValidator {
 
         @Override
         public String getTitle() { return ""; }
+
         @Override
         public int getYear() { return 0; }
+
         @Override
         public List<String> getGenres() { return new ArrayList<>(); }
+
         @Override
         public List<String> getActors() { return new ArrayList<>(); }
+
         @Override
         public List<String> getDirectors() { return new ArrayList<>(); }
+
         @Override
         public List<String> getWriters() { return new ArrayList<>(); }
+
         @Override
         public List<String> getComposers() { return new ArrayList<>(); }
+
         @Override
         public List<String> getCinematographers() { return new ArrayList<>(); }
-        @Override
-        public Set<String> getAllContributors() { return contributors; }
+
         @Override
         public List<String> getCrew() { return new ArrayList<>(); }
+
+        @Override
+        public Set<String> getAllContributors() { return contributors; }
+
+        // Dummy implementations to satisfy IMovie
+        @Override public void addActor(String name) {}
+        @Override public void addCrew(String name) {}
+        @Override public void addDirector(String name) {}
+        @Override public void addWriter(String name) {}
+        @Override public void addComposer(String name) {}
+        @Override public void addCinematographer(String name) {}
+        @Override public void addContributor(String name) {}
     }
 
     @Before

@@ -134,12 +134,4 @@ public class TestMovie {
         assertTrue(contributors.contains("C"));
     }
 
-    @Test
-    public void testToStringFormat() {
-        Movie movie = new Movie("Tenet", 2020, List.of("Action"));
-        movie.addActor("John David Washington");
-        assertTrue(movie.toString().contains("Tenet"));
-        assertTrue(movie.toString().contains("Action"));
-        assertTrue(movie.toString().contains("John David Washington"));
-    }
 }

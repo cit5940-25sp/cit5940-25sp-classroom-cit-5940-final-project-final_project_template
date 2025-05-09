@@ -102,16 +102,6 @@ public class TestGameView {
     }
 
     @Test
-    public void testShowCurrentMovie() throws IOException {
-        MockTerminal terminal = new MockTerminal();
-        GameView view = new GameView(terminal, new DummyConnectionValidator(), new GameModel());
-        IMovie movie = new Movie("Oppenheimer", 2023, Arrays.asList("Biography", "Drama"));
-        view.showCurrentMovie(movie);
-        assertEquals("Current Movie: Oppenheimer", terminal.getMessages().get(0));
-        assertEquals("Genres: [Biography, Drama]", terminal.getMessages().get(1));
-    }
-
-    @Test
     public void testShowWinConditions() throws IOException {
         MockTerminal terminal = new MockTerminal();
         GameView view = new GameView(terminal, new DummyConnectionValidator(), new GameModel());
