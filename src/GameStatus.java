@@ -28,9 +28,29 @@ public class GameStatus {
         return true;
     }
 
-    public void addPlayer(Player player) {
-        players.add(player);
+    /**
+     * Retrieves the winner of the game.
+     *
+     * @return The winning player if the game is over and a winner exists,
+     *         {@code null} if the game is not over or no winner is found.
+     *         Note: It's assumed that there should always be a winner if the game is over.
+     */
+    public Player getWinner() {
+        // Check if the game is not over. If so, return null as there's no winner yet.
+        if(!isGameOver()) {
+            return null;
+        }
+        // Iterate through all players to find the winner.
+        for(Player player : players) {
+            // If a player is marked as the winner, return that player.
+            if(player.isWinner()) {
+                return player;
+            }
+        }
+        // This line should never be reached if the game logic is correct and there's always a winner when the game is over.
+        return null;
     }
+
 
     // Return the current player, then advance to the next one for the next turn
     public Player getCurrentPlayer() {
