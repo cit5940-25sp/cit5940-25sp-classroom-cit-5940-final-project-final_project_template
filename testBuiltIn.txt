@@ -1,0 +1,9 @@
+function entry() {
+    var resultA <- max(2, 3);
+    var resultB <- min(-1,4);
+    var resultC <- abs(-1);
+
+    print resultA;     --- Expected: 3
+    print resultB;     --- Expected: -1
+    print resultC;     --- Expected: 1
+}
