@@ -30,7 +30,6 @@ public class GameTest {
         assertEquals(1, count);
     }
 
-
     @Test
     public void testBuildTrieAndSuggestions() {
         Autocomplete autocomplete = new Autocomplete(5);
