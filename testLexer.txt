@@ -1,0 +1,4 @@
+entry() {
+    var x <- 5 % 14;
+    var name_underscore;
+}
