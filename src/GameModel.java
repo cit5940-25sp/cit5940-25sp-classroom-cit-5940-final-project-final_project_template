@@ -28,9 +28,19 @@ public class GameModel extends Model implements Observable {
     private boolean timeOut;
     private String startMovie;
 
-    public GameModel() {
+    /**
+     * Constructor for the GameModel class.
+     * Initializes the list of observers and sets the timeout flag to false.
+     */
+    public GameModel(){
+        // Initialize the views list as an ArrayList
         views = new ArrayList<>();
+        // Set the initial timeout state to false
+        timeOut = false;
+        startMovie = "Mission: Impossible";
+        gameStatusString = "The start movie is '" + startMovie + "'";
     }
+
 
     public void initialData() {
         gameStatus = new GameStatus();
