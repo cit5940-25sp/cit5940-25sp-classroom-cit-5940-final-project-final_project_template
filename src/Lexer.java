@@ -115,7 +115,7 @@ public class Lexer {
                         tokenMap.put('/',TokenType.SLASH);
                         tokens.add(new Token(tokenMap.get('/'),"/"));
                         break;
-                    case '％':
+                    case '%':
                         tokenMap.put('%',TokenType.MOD);
                         tokens.add(new Token(tokenMap.get('%'),"%"));
                         break;
