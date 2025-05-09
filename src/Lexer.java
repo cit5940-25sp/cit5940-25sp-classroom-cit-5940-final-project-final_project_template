@@ -62,14 +62,14 @@ public class Lexer {
                 }
 
                 // this is the case for Identifier, Keywords
-                if (Character.isAlphabetic(c)) {
+                if (Character.isAlphabetic(c) || c == '_') {
                     curr.setLength(0); // make sure it's empty
                     curr.append(ch);
                     // mark the position and keep reading the next character
                     br.mark(1);
                     while ((c = br.read()) != -1) {
                         char nextCh = (char) c;
-                        if (!Character.isAlphabetic(nextCh)) {
+                        if (!Character.isAlphabetic(nextCh) && !Character.isDigit(nextCh) && nextCh != '_') {
                             br.reset();
 //                            skipNextChar = true;
                             break;
