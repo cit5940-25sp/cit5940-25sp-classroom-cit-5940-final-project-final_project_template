@@ -1,78 +1,136 @@
-import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 public class TestGameController {
 
-    private GameController controller;
-    private Player player1;
-    private Player player2;
-    private GameView view;
-    private Clock clock;
-    private List<IMovie> movies;
+    static class MockTerminal extends TerminalWithSuggestions {
+        private Queue<String> inputs = new LinkedList<String>();
+        private List<String> messages = new ArrayList<String>();
 
-    //    @Before
-    public void setUp() {
-        player1 = new Player("Player 1");
-        player2 = new Player("Player 2");
-        view = new GameView();
-        clock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        movies = new ArrayList<>();
+        public MockTerminal(String... responses) throws IOException {
+            super();
+            for (int i = 0; i < responses.length; i++) {
+                inputs.add(responses[i]);
+            }
+        }
 
-        // THIS IS ACTUALLY WRONG BECAUSE WE USED A DIFFERENT CONSTRUCTOR IN THE ACTUAL PROGRAM
-        controller = new GameController(player1, player2, clock, movies, view);
+        @Override
+        public String getInputWithSuggestions(List<IMovie> movies, IMovie currentMovie, int timeLimitSeconds) {
+            if (inputs.isEmpty()) return "";
+            return inputs.poll();
+        }
+
+        @Override
+        public void displayMessage(String message) {
+            messages.add(message);
+        }
+
+        public List<String> getMessages() {
+            return messages;
+        }
+
+        @Override
+        public void clearScreen() {}
+    }
+
+    static class DummyConnectionValidator extends ConnectionValidator {
+        @Override
+        public List<String> getSharedConnections(IMovie a, IMovie b) {
+            return Arrays.asList("Shared Contributor");
+        }
+    }
+
+    private IMovie mockMovie() {
+        Movie movie = new Movie("Inception", 2010, Arrays.asList("Sci-Fi", "Action"));
+        movie.addActor("Nolan");
+        movie.addDirector("Nolan");
+        movie.addWriter("Nolan");
+        return movie;
+    }
+
+    private GameController makeController(MockTerminal terminal, List<IMovie> movieList) throws IOException {
+        Player p1 = new Player("Alice");
+        Player p2 = new Player("Bob");
+        p1.setWinConditionStrategy(new ActorWinCondition("Nolan"));
+        p2.setWinConditionStrategy(new ActorWinCondition("Nolan"));
+        ConnectionValidator validator = new DummyConnectionValidator();
+        GameModel model = new GameModel();
+        return new GameController(p1, p2, Clock.systemUTC(), movieList, terminal, validator, model);
     }
 
     @Test
-    public void testInitializeGame() {
-        controller.initializeGame(movies);
-        assertNotNull(controller);
+    public void testInitializeGameInitializesPlayers() throws IOException {
+        MockTerminal terminal = new MockTerminal();
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        assertNotNull(controller.getCurrentPlayer());
     }
 
     @Test
-    public void testStartGame() throws IOException {
-        controller.startGame();
-        assertFalse(controller.isGameOver());
+    public void testHandlePlayerInputInvalid() throws IOException {
+        MockTerminal terminal = new MockTerminal();
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        controller.handlePlayerInput("Fake Movie");
+        assertEquals(0, controller.getCurrentPlayer().getScore());
     }
 
     @Test
-    public void testNextTurn() {
-        Player startingPlayer = controller.getCurrentPlayer();
+    public void testNextTurnSwitchesPlayerCorrectly() throws IOException {
+        MockTerminal terminal = new MockTerminal();
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        Player original = controller.getCurrentPlayer();
         controller.nextTurn();
-        assertNotEquals(startingPlayer, controller.getCurrentPlayer());
+        assertNotSame(original, controller.getCurrentPlayer());
     }
 
-    // entering an invalid movie shouldn't be game over
     @Test
-    public void testHandlePlayerInput() {
-        controller.handlePlayerInput("Invalid Movie");
+    public void testEndGameSetsGameOverTrue() throws IOException {
+        MockTerminal terminal = new MockTerminal();
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
         assertFalse(controller.isGameOver());
-    }
-
-    // ending the game should result in game over
-    @Test
-    public void testEndGame() {
         controller.endGame();
         assertTrue(controller.isGameOver());
     }
 
+
     @Test
-    public void testHandleTimeout() {
-        controller.handleTimeout();
+    public void testStartGameWithValidMoveCompletesSuccessfully() throws IOException {
+        MockTerminal terminal = new MockTerminal("Inception");
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        controller.startGame();
+        assertTrue(controller.isGameOver() || controller.getCurrentPlayer().getScore() > 0);
+    }
+
+    @Test
+    public void testStartGameWithTimeoutTriggersGameOver() throws IOException {
+        MockTerminal terminal = new MockTerminal("");
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        controller.startGame();
         assertTrue(controller.isGameOver());
     }
 
     @Test
-    public void testIsGameOverInitiallyFalseThenTrueAfterTimeout() {
-        assertFalse(controller.isGameOver());
-        controller.handleTimeout();
-        assertTrue(controller.isGameOver());
+    public void testStartGameHandlesInvalidThenValidMove() throws IOException {
+        MockTerminal terminal = new MockTerminal("Fake", "Inception");
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        controller.initializeGame(Arrays.asList(mockMovie()));
+        controller.startGame();
+        assertTrue(controller.isGameOver() || controller.getCurrentPlayer().getScore() > 0);
+    }
+
+    @Test
+    public void testGetCurrentPlayerNotNull() throws IOException {
+        MockTerminal terminal = new MockTerminal();
+        GameController controller = makeController(terminal, Arrays.asList(mockMovie()));
+        assertNotNull(controller.getCurrentPlayer());
     }
 }
