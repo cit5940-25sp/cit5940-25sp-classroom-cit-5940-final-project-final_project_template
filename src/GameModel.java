@@ -87,10 +87,28 @@ public class GameModel extends Model implements Observable {
         return gameStatus.isGameOver() || isTimeOut();
     }
 
-
-    public Set<Movie> getMovies() {
-        return movies;
+    /**
+     * Checks if the provided movie title is valid. A title is considered valid if it exists in the movie data
+     * and the corresponding movie has not been used in the game yet.
+     *
+     * @param title The title of the movie to be validated.
+     * @return {@code true} if the title is valid, {@code false} otherwise.
+     */
+    public boolean isValidTitle(String title){
+        // Check if the movie data contains the provided title
+        if(movieData.contains(title)){
+            // Retrieve the Movie object from the movie data using the provided title
+            Movie movie = movieData.getMovieByTitle(title);
+            // Check if the retrieved movie has not been used in the game
+            if(!gameStatus.isUsed(movie)){
+                // If the movie exists and is not used, the title is valid
+                return true;
+            }
+        }
+        // If the movie does not exist or has already been used, the title is invalid
+        return false;
     }
+
 
     public List<String> getsuggestions(String prefix) {
         List<ITerm> list = autocomplete.getSuggestions(prefix);
