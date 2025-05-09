@@ -88,7 +88,7 @@ public class GameController {
         view.displayGameState(player1, player2, currentMovie, round);
 
         System.out.println(" --- Round " + round + " ---");
-        view.displayConnectedMovie(index.getConnectedMovies(currentMovie));
+//        view.displayConnectedMovie(index.getConnectedMovies(currentMovie));
         System.out.println(currentPlayer.getName() + "'s turn. Connect to: '" + currentMovie.getTitle() + "'");
         System.out.println("You have " + TIME_LIMIT_SECONDS + " seconds.");
 

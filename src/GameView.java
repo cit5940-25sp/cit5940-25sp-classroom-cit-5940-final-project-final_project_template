@@ -15,12 +15,13 @@ public class GameView {
         System.out.println("===================\n");
     }
 
-    public void displayConnectedMovie(Set<Movie> connectedMovies) {
-        System.out.println("\nConnected Movies:");
-        for (Movie movie : connectedMovies) {
-            System.out.println("- " + movie.getTitle());
-        }
-    }
+    //for testing
+//    public void displayConnectedMovie(Set<Movie> connectedMovies) {
+//        System.out.println("\nConnected Movies:");
+//        for (Movie movie : connectedMovies) {
+//            System.out.println("- " + movie.getTitle());
+//        }
+//    }
 
     public void displayInvalidMove() {
         System.out.println("\n❌ INVALID MOVE! ❌");
