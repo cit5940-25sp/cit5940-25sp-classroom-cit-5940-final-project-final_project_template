@@ -1,10 +1,13 @@
+import java.util.TreeSet;
 import java.util.ArrayList;
 import java.util.List;
 public class GameStatus {
-    private List<Player> players; // 2
-    private int currentPlayer;
+    private List<Player> players;
+    private int currentPlayerIndex;
+    private Player currentPlayer;
     private int round;
-    private String gameStatusString;
+    private TreeSet<Movie> usedMovies;
+
 
     // Set up initial game state: empty player list, starting with player 0 and round 0
     public GameStatus() {
