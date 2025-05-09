@@ -190,4 +190,71 @@ public class InterpreterTest {
         System.setOut(oldOut);
         return out.toString();
     }
+
+
+    @Test
+    public void testSubtractMultiplicationDivisionModulo() {
+        // var a <- 15 - 8;   // 7
+        VarDecl declA = new VarDecl("a",
+                new BinaryExpr(new IntegerLiteral(15), "-", new IntegerLiteral(8)));
+        // var b <- 15 * 8;   // 120
+        VarDecl declB = new VarDecl("b",
+                new BinaryExpr(new IntegerLiteral(15), "*", new IntegerLiteral(8)));
+        // var c <- 15 / 8;   // 1 (integer division)
+        VarDecl declC = new VarDecl("c",
+                new BinaryExpr(new IntegerLiteral(15), "/", new IntegerLiteral(8)));
+        // var d <- 15 % 8;   // 7
+        VarDecl declD = new VarDecl("d",
+                new BinaryExpr(new IntegerLiteral(15), "%", new IntegerLiteral(8)));
+
+        // print a; print b; print c; print d;
+        PrintStmt printA = new PrintStmt(new VarRef("a"));
+        PrintStmt printB = new PrintStmt(new VarRef("b"));
+        PrintStmt printC = new PrintStmt(new VarRef("c"));
+        PrintStmt printD = new PrintStmt(new VarRef("d"));
+
+        Block body = new Block(List.of(
+                declA, declB, declC, declD,
+                printA, printB, printC, printD
+        ));
+        FunctionDecl entry = new FunctionDecl("entry", new ArrayList<>(), body);
+        Program program = new Program(List.of(entry));
+
+        String output = runWithCapturedOutput(() -> new Interpreter(program));
+        assertEquals(
+                "7\n"   +  // 15 - 8
+                        "120\n" +  // 15 * 8
+                        "1\n"   +  // 15 / 8
+                        "7\n",     // 15 % 8
+                output
+        );
+    }
+
+    @Test
+    public void testEnvironmentDefineAssignAndLookup() {
+        // create a global environment and a nested child
+        Environment global = new Environment();
+        Environment child  = new Environment(global);
+
+        // define in global and retrieve from both
+        global.define("g", 10);
+        assertEquals(Integer.valueOf(10), global.get("g"));
+        assertEquals(Integer.valueOf(10), child.get("g"));  // falls through
+
+        // define in child shadows global
+        child.define("g", 20);
+        assertEquals(Integer.valueOf(20), child.get("g"));
+        assertEquals(Integer.valueOf(10), global.get("g"));
+
+        // assign in child should update the nearest binding (child’s)
+        child.assign("g", 30);
+        assertEquals(Integer.valueOf(30), child.get("g"));
+        assertEquals(Integer.valueOf(10), global.get("g"));
+
+        // assign in child for a global‐only name should update global
+        global.define("x", 5);
+        child.assign("x", 15);
+        assertEquals(Integer.valueOf(15), global.get("x"));
+        assertEquals(Integer.valueOf(15), child.get("x"));
+    }
 }
