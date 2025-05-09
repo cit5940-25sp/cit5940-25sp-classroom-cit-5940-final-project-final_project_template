@@ -1,0 +1,11 @@
+function entry () {
+    var x <- 5;
+    var y <- x + 2;
+    var a <- 1, b <- 2, c <- a + b; --- comment
+    print x;       --- Expected output: 5
+    print y;       --- Expected output: 7
+    print a;       --- Expected output: 1
+    print b;       --- Expected output: 2
+    print c;       --- Expected output: 3
+    return 0;
+}
