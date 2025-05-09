@@ -51,6 +51,32 @@ public class GameStatus {
         return null;
     }
 
+    /**
+     * Adds a player to the game.
+     *
+     * @param player The player to be added to the game.
+     */
+    public void addPLayer(Player player) {
+        players.add(player);
+    }
+
+    /**
+     * Retrieves the next player in the turn order and updates the current player index.
+     *
+     * @return The next player in the turn order, or {@code null} if there are no players.
+     */
+    public Player getNextPlayer() {
+        // Check if the list of players is empty. If so, return null.
+        if(players.isEmpty())
+            return null;
+        // Get the current player based on the current index.
+        Player player = players.get(currentPlayerIndex);
+        // Update the current player index to point to the next player in a circular manner.
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+        return player;
+    }
+
+
 
     // Return the current player, then advance to the next one for the next turn
     public Player getCurrentPlayer() {
