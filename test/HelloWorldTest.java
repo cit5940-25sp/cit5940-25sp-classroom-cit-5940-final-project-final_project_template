@@ -9,3 +9,12 @@ public class HelloWorldTest {
         assertEquals("Hello, World!", HelloWorld.sayHello());
     }
 }
+
+private void printString(int column, int row, String text) {
+    for (int i = 0; i < text.length(); i++) {
+        screen.setCharacter(column + i, row,
+                new TextCharacter(text.charAt(i),
+                        TextColor.ANSI.WHITE,
+                        TextColor.ANSI.BLACK));
+    }
+}
