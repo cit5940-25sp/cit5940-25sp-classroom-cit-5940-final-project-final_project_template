@@ -1,0 +1,21 @@
+--- Print literals and expressions
+
+function add(a, b) {
+    return a + b;
+}
+
+function entry() {
+    print 42;                 --- Expected: 42
+    print -7;                 --- Expected: -7
+    print 5 + 3 * 2;          --- Expected: 11
+    print (10 - 4) % 3;       --- Expected: 2
+
+    var x <- 10;
+    var y <- 3;
+    print x;                  --- Expected: 10
+    print y + 2;              --- Expected: 5
+
+    var result <- add(x, y);
+    print result;             --- Expected: 13
+    print add(1, 2);          --- Expected: 3
+}

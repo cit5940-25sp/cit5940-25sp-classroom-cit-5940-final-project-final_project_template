@@ -15,9 +15,9 @@ public class Block extends Statement {
     public String toString() {
         return "{\n" +
                 statements.stream()
-                        .map(stmt -> "  " + stmt.toString())
+                        .map(ASTNode::toString)
                         .collect(Collectors.joining("\n")) +
-                "\n}";
+                "\n}\n";
     }
 
     @Override

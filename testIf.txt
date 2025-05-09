@@ -1,0 +1,21 @@
+function case(num) {
+
+    var y <- 0;
+    if (num > 5) {
+        y <- 1;
+    } elif (num = 3) {
+        y <- 2;
+    } else {
+        y <- 3;
+    }
+
+    return y;
+}
+
+function entry() {
+    var x <- 10;
+    var ra <- case(10);
+    var rb <- case(3);
+    var rc <- case(1);
+    return rc;
+}

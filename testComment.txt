@@ -1,0 +1,10 @@
+--- comment
+function add(a, b) { --- comment
+    return a + b; --- comment
+} --- comment
+--- comment
+function entry () { --- comment
+    var x <- add (1, 2); --- comment
+    return x; --- comment
+} --- comment
+--- comment

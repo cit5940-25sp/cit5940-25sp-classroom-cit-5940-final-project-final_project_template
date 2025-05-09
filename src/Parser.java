@@ -115,7 +115,7 @@ public class Parser {
             Expression expr = parseExpression();
             decls.add(ASTFactory.createVarDecl(name, expr));
         } while (match(TokenType.COMMA));
-//        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration.");
+        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration.");
         return decls.size() == 1 ? decls.get(0) : ASTFactory.createBlock(decls);
     }
 
@@ -123,7 +123,7 @@ public class Parser {
         String name = consume(TokenType.IDENTIFIER, "Expected variable name.").lexeme;
         consume(TokenType.ASSIGN, "Expected '<-' in assignment.");
         Expression expr = parseExpression();
-//        consume(TokenType.SEMICOLON, "Expected ';' after assignment.");
+        consume(TokenType.SEMICOLON, "Expected ';' after assignment.");
         return ASTFactory.createAssignment(name, expr);
     }
 
