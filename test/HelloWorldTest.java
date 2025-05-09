@@ -8,6 +8,16 @@ public class HelloWorldTest {
     public void testSayHello() {
         assertEquals("Hello, World!", HelloWorld.sayHello());
     }
+
+    @Test
+    public void testNothing() {
+        assertEquals(3, 4);
+    }
+
+    @Test
+    public void testSomething() {
+        assertEquals(9.5, 4);
+    }
 }
 
 private void printString(int column, int row, String text) {
