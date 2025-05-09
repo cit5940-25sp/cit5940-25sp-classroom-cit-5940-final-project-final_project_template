@@ -6,13 +6,27 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * GameModel class represents the model component in the MVC architecture for the game.
+ * It manages the game state, data, and business logic.
+ * Implements the Observable interface to notify observers (views) of state changes.
+ */
 public class GameModel extends Model implements Observable {
+    // List to store all the observers (views) that need to be notified of model changes
     private List<Observer> views;
+    // GameStatus object to manage the current status of the game
     private GameStatus gameStatus;
+    // MovieDate object to handle all movie-related data
     private MovieDate movieData;
-    private Set<Movie> movies;
+    // IAutocomplete object to provide autocomplete suggestions for movie titles
     private IAutocomplete autocomplete;
-    final int SUGGESTION = 10;
+    // Constant representing the maximum number of suggestions to be provided by the autocomplete feature
+    final int SUGGESTION = 20;
+    // String to store the current game status message
+    private String gameStatusString;
+    // Boolean flag indicating whether the game has timed out
+    private boolean timeOut;
+    private String startMovie;
 
     public GameModel() {
         views = new ArrayList<>();
