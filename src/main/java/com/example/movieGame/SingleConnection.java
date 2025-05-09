@@ -5,8 +5,13 @@ package com.example.movieGame;
  *
  */
 public class SingleConnection {
-    private String connectionType; //ex: genre, actor, composer, etc.
-    private String name;    //ex: Leonardo DiCaprio
+    private final String connectionType; //ex: genre, actor, composer, etc.
+    private final String name;    //ex: Leonardo DiCaprio
+
+    public SingleConnection(String connectionType, String name) {
+        this.connectionType = connectionType;
+        this.name = name;
+    }
 
     public String getConnectionType() {
         return connectionType;

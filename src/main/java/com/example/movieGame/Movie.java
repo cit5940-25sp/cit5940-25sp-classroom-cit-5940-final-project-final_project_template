@@ -66,7 +66,8 @@ public class Movie {
         return composers;
     }
 
-    public Long getReleaseYear() {return releaseYear;
+    public Long getReleaseYear() {
+        return releaseYear;
     }
 
     public HashSet<String> getGenre() {

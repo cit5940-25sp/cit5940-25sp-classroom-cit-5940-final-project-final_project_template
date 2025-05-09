@@ -1,4 +1,5 @@
-import com.example.movieGame.Movie;
+package com.example.movieGame;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;

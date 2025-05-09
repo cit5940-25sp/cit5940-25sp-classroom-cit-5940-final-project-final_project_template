@@ -1,10 +1,12 @@
-import com.example.movieGame.Movie;
+package com.example.movieGame;
+
 import org.testng.annotations.Test;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class MovieLoaderTest {
 
@@ -29,6 +31,13 @@ public class MovieLoaderTest {
 
         assertEquals("Napoleon Dynamite", actualTitle);
         assertEquals(8193, actualID);
+        assertTrue(actualActors.contains("Jon Heder"));
+
+        GamePlay play = new GamePlay("P1", "P2");
+
+        System.out.println(play.randomMovieSelection());
+
+
     }
 
 }

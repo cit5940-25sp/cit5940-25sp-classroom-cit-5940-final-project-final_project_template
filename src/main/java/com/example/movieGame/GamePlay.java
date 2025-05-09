@@ -1,8 +1,7 @@
 package com.example.movieGame;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
+
 
 public class GamePlay
 {
@@ -53,10 +52,59 @@ public class GamePlay
      *
      */
     public Movie randomMovieSelection() {
-        //TODO
 
-        this.firstMovie = null; //TODO update
-        return firstMovie;
+        try {
+            // Check if data is loaded; if not, load it
+
+            if (MovieLoader.createMovieFromFiles() == null || MovieLoader.createMovieFromFiles().isEmpty()) {
+                // If data hasn't been loaded yet, load it
+                MovieLoader.creditCSVRead();
+                MovieLoader.moviesCSVRead();
+            }
+
+            List<Movie> availableMovies = MovieLoader.createMovieFromFiles();
+
+
+            if (availableMovies.isEmpty()) {
+                System.err.println("Error: No movies available for selection");
+                return null;
+            }
+
+            Random random = new Random();
+            Movie selectedMovie;
+
+            int attempts = 0;
+            final int maxAttempts = 100;
+
+            do {
+                int randomIndex = random.nextInt(availableMovies.size());
+                selectedMovie = availableMovies.get(randomIndex);
+                attempts++;
+
+                if (attempts >= maxAttempts) {
+                    System.err.println("Error: Could not find an unused movie after " + maxAttempts + " attempts.");
+                    return null;
+                }
+
+            } while (moviesUsed.contains(selectedMovie.getMovieID()));
+
+            // Update used movies and last five movies
+            moviesUsed.add(selectedMovie.getMovieID());
+            if (lastFiveMovies.size() >= 5) {
+                lastFiveMovies.poll();
+            }
+            lastFiveMovies.add(selectedMovie);
+
+            this.firstMovie = selectedMovie;
+
+            System.out.println("Randomly selected movie: " + selectedMovie.getMovieTitle());
+            return selectedMovie;
+
+        } catch (Exception e) {
+            System.err.println("Error selecting random movie: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
