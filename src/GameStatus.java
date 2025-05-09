@@ -98,4 +98,30 @@ public class GameStatus {
         return message;
     }
 
+    /**
+     * Plays a round of the game with the given movie.
+     *
+     * @param movie The movie to be played in this round.
+     * @return {@code true} if the player successfully plays the movie, {@code false} otherwise.
+     */
+    public boolean inputMovie(Movie movie) {
+        boolean r = currentPlayer.play(movie);
+        if (r) {
+            usedMovies.add(movie);
+        }
+        return r;
+    }
+    public void nextRound(){
+        round++;
+        currentPlayer = getNextPlayer();
+    }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Round: ").append(round).append("\n");
+        sb.append("Current Player: ").append(currentPlayer.toString());
+        sb.append("wait control input...\n");
+        return sb.toString();
+    }
 }
+
+
