@@ -24,6 +24,7 @@ public class GameEngineTest {
 
     @BeforeEach
     public void setUp() {
+        GameEngine.resetInstance();
         clm = new CountryLanguageManager();
         clm.addLanguage("spanish", 2);
         clm.addLanguage("english", 1);
@@ -54,6 +55,7 @@ public class GameEngineTest {
 
         // streak should increment by 1
         assertEquals(2, engine.getGameState().getCurrentStreak());
+//        System.out.println(engine.getGameState().getCurrentStreak());
         // score should increment by 2 * 2
         assertEquals(4, engine.getGameState().getTotalScore());
 
@@ -79,12 +81,12 @@ public class GameEngineTest {
         Language spanish = clm.getLanguage("spanish");
         Country pr = clm.getCountry("puerto rico");
         engine.getGameState().setCurrentLanguage(clm.getLanguage("english"));
-        System.out.println(engine.getGameState().getCurrentStreak());
+//        System.out.println(engine.getGameState().getCurrentStreak());
 
         engine.setSelectedLanguage(spanish);
-        System.out.println(engine.getGameState().getCurrentStreak());
+//        System.out.println(engine.getGameState().getCurrentStreak());
         MoveResult mr = engine.moveToCountry("puerto rico");
-        System.out.println(engine.getGameState().getCurrentStreak());
+//        System.out.println(engine.getGameState().getCurrentStreak());
         GameState newState = engine.getGameState();
 
         assertTrue(mr.isSuccess());

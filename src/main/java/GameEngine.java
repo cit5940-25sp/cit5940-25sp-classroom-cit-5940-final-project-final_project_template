@@ -14,13 +14,20 @@ public class GameEngine {
 
     private GameState gameState;
     private boolean hardMode = false;
-    private Random random = new Random(); // Add this line
+    private Random random = new Random();
 
     private GameEngine(CountryLanguageManager dataService) {
         this.dataService = dataService;
         resetGame();
     }
 
+    /**
+     * Returns the singleton instance of the GameEngine.
+     * If the instance does not exist, it is created using the given data service.
+     *
+     * @param dataService the CountryLanguageManager used to initialize the engine
+     * @return the singleton GameEngine instance
+     */
     public static synchronized GameEngine getInstance(CountryLanguageManager dataService) {
         if (instance == null) {
             instance = new GameEngine(dataService);
@@ -28,7 +35,14 @@ public class GameEngine {
         return instance;
     }
 
-
+    /**
+     * Reset the GameEngine instance.
+     * This method is only for testing purpose. Production code should not use this method, as we
+     * maintain only one GameEngine instance throughout the game.
+     */
+    public static void resetInstance() {
+        instance = null;
+    }
 
     /**
      * reset the game with a random starting country
@@ -125,7 +139,7 @@ public class GameEngine {
     public boolean setSelectedLanguage(Language language) {
 
         int languageLimit;
-        if (!hardMode){
+        if (!hardMode) {
             languageLimit = 7;
         }   else {
             languageLimit = 4;
