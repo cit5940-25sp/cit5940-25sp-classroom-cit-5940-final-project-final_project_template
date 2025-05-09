@@ -42,15 +42,25 @@ public class GameModel extends Model implements Observable {
     }
 
 
-    public void initialData() {
+    /**
+     * Initializes the game data required for the game model.
+     * This method creates instances of GameStatus, MovieDate, and Autocomplete,
+     * and populates the autocomplete system with movie titles from the movie data.
+     */
+    public void initialData(){
+        // Create a new instance of GameStatus to manage the game state
         gameStatus = new GameStatus();
+        // Create a new instance of MovieDate to handle movie-related data
         movieData = new MovieDate();
+        // Create a new instance of Autocomplete with the specified number of suggestions
         autocomplete = new Autocomplete(SUGGESTION);
-        movies = movieData.getMovies();
-        for (Movie movie : movies) {
+        // Iterate through all movies in the movie data
+        for(Movie movie: movieData.getMovies()){
+            // Add each movie title to the autocomplete system with a weight of 1
             autocomplete.addWord(movie.getTitle(), 1);
         }
     }
+
 
     public Set<Movie> getMovies() {
         return movies;
