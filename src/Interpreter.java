@@ -52,6 +52,13 @@ public class Interpreter implements ASTVisitor<Object> {
     }
 
     @Override
+    public Object visitInputExpr(InputExpr ie) {
+        System.out.print("user input> ");
+        java.util.Scanner scanner = new java.util.Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    @Override
     public Object visitBlock(Block block) {
         for (Statement stmt : block.statements) {
             stmt.accept(this);  // 顺序执行语句
@@ -73,6 +80,34 @@ public class Interpreter implements ASTVisitor<Object> {
 
     @Override
     public Object visitFuncCall(FuncCall fc) {
+
+        // Handle built-in functions
+        if (fc.name.equals("abs")) {
+            if (fc.arguments.size() != 1) {
+                throw new RuntimeException("abs() expects 1 argument.");
+            }
+            int arg = (int) fc.arguments.get(0).accept(this);
+            return Math.abs(arg);
+        }
+
+        if (fc.name.equals("max")) {
+            if (fc.arguments.size() != 2) {
+                throw new RuntimeException("max() expects 2 arguments.");
+            }
+            int a = (int) fc.arguments.get(0).accept(this);
+            int b = (int) fc.arguments.get(1).accept(this);
+            return Math.max(a, b);
+        }
+
+        if (fc.name.equals("min")) {
+            if (fc.arguments.size() != 2) {
+                throw new RuntimeException("min() expects 2 arguments.");
+            }
+            int a = (int) fc.arguments.get(0).accept(this);
+            int b = (int) fc.arguments.get(1).accept(this);
+            return Math.min(a, b);
+        }
+
         FunctionDecl func = functionTable.get(fc.name);
         if (func == null) {
             throw new RuntimeException("Undefined function: " + fc.name);
