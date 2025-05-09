@@ -164,7 +164,12 @@ public class GameEngine {
     }
 
     public MoveResult moveToCountry(String countryName) {
-        Country country = dataService.getCountry(countryName.toLowerCase());
+        if (!gameState.hasMovesRemaining()) {
+            return new MoveResult(false, "Game over! You've used all 30 moves. Final score: " +
+                    gameState.getTotalScore());
+        }
+
+        Country country = dataService.getCountryFlexibleMatch(countryName);
 
         if (country == null) {
             return new MoveResult(false, "Country not found: " + countryName);
@@ -187,25 +192,34 @@ public class GameEngine {
 
         // After a successful move, check if there are any remaining valid moves for this language
         if (result.isSuccess()) {
-            boolean hasRemainingMoves = false;
-            for (Country otherCountry : dataService.getAllCountries()) {
-                if (!gameState.isCountryUsed(otherCountry) && otherCountry.hasLanguage(currentLang)) {
-                    hasRemainingMoves = true;
-                    break;
-                }
-            }
-
-            // If no remaining moves with this language, check if current country has any viable languages
-            if (!hasRemainingMoves) {
+            int remainingMoves = gameState.getRemainingMoves();
+            result = new MoveResult(true, result.getMessage() +
+                    "\nMoves remaining: " + remainingMoves + " of " + gameState.getMaxMoves(), result.getMove());
+            if (remainingMoves == 0) {
                 result = new MoveResult(true, result.getMessage() +
-                        "\nNo more countries available with " + currentLang.getName() + ".", result.getMove());
+                        "\nGame complete! You've used all your moves. Final score: " + gameState.getTotalScore(),
+                        result.getMove());
+            } else {
+                boolean hasRemainingMoves = false;
+                for (Country otherCountry : dataService.getAllCountries()) {
+                    if (!gameState.isCountryUsed(otherCountry) && otherCountry.hasLanguage(currentLang)) {
+                        hasRemainingMoves = true;
+                        break;
+                    }
+                }
 
-                // Also check if the current country has any viable languages left
-                if (!hasViableLanguages(gameState.getCurrentCountry())) {
+                // If no remaining moves with this language, check if current country has any viable languages
+                if (!hasRemainingMoves) {
                     result = new MoveResult(true, result.getMessage() +
-                            "\nNo viable languages left for " + gameState.getCurrentCountry().getName() +
-                            ". Refreshing to a new country.", result.getMove());
-                    refreshCountry();
+                            "\nNo more countries available with " + currentLang.getName() + ".", result.getMove());
+
+                    // Also check if the current country has any viable languages left
+                    if (!hasViableLanguages(gameState.getCurrentCountry())) {
+                        result = new MoveResult(true, result.getMessage() +
+                                "\nNo viable languages left for " + gameState.getCurrentCountry().getName() +
+                                ". Refreshing to a new country.", result.getMove());
+                        refreshCountry();
+                    }
                 }
             }
         }
