@@ -110,14 +110,24 @@ public class GameModel extends Model implements Observable {
     }
 
 
-    public List<String> getsuggestions(String prefix) {
+    /**
+     * Gets a list of suggestions based on the provided prefix.
+     *
+     * @param prefix The prefix used to generate suggestions.
+     * @return A list of strings representing the suggestions.
+     */
+    public List<String> getSuggestions(String prefix){
+        // Get a list of ITerm objects based on the prefix from the autocomplete system
         List<ITerm> list = autocomplete.getSuggestions(prefix);
+        // Initialize a new linked list to store the suggestion strings
         List<String> strings = new LinkedList<>();
-        for (ITerm term : list) {
+        // Iterate through the ITerm list and extract the term strings
+        for(ITerm term: list){
             strings.add(term.getTerm());
         }
         return strings;
     }
+
 
     public boolean inputMovie(String title) {
         return false;
