@@ -27,7 +27,7 @@ public class TwoNolanMoviesWin implements WinCondition {
      */
     @Override
     public String description() {
-        return "Win by guessing three movies directed by Christopher Nolan!";
+        return "Win by guessing two movies directed by Christopher Nolan!";
     }
 
     @Override
