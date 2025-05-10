@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
@@ -11,7 +12,11 @@ public class Main {
             Player player2 = new Player("Bob", winCondition2);
 
             MovieIndex movieIndex = new MovieIndex();
-            Screen screen = new DefaultTerminalFactory().createScreen();
+            TerminalSize size = new TerminalSize(125, 30);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(size);
+            Screen screen = terminalFactory.createScreen();
+
+//            Screen screen = new DefaultTerminalFactory().createScreen();
             screen.startScreen();
 
             GameView view = new GameView(screen);
