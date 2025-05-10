@@ -1,798 +1,300 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.input.*;
+import com.googlecode.lanterna.screen.*;
+import com.googlecode.lanterna.terminal.*;
+
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.Desktop;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.SwingUtilities;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JComponent;
-import javax.swing.JTextField;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.BorderFactory;
-import javax.swing.LayoutStyle;
-import javax.swing.KeyStroke;
-import javax.swing.ListSelectionModel;
-import javax.swing.Action;
-import javax.swing.AbstractAction;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.MouseInputAdapter;
+import java.util.*;
+import java.util.concurrent.*;
 
-public class GameView extends JFrame {
-    // for serializable classes
-    private static final long serialVersionUID = 1L;
+public class GameView {
+    private Terminal terminal;
+    private Screen screen;
+    private List<String> dictionary;
+    private StringBuilder currentInput = new StringBuilder();
+    private List<String> suggestions = new ArrayList<>();
+    private int cursorPosition = 0;
+    private MovieTrie movieTrie;
+    // Timer variables
+    private int                      secondsRemaining = 30;
+    private boolean                  timerRunning = true;
+    private ScheduledExecutorService scheduler;
 
-    private static final int DEF_WIDTH = 850; // width of the GUI
-    // window
-    private static final int DEF_HEIGHT = 400; // height of the GUI
-    // window
+    // Game State
+    private Player player1;
+    private Player player2;
+    private Movie currentMovie;
+    int round;
+    // Win
+    private Player winner;
+    // Move validation
+    private boolean isValidMove;
 
-    // URL prefix for searches
-    private static final String SEARCH_URL = "https://www.google.com/search?q=";
+    // History
+    Deque<HistoryEntry> historyEntries;
 
-    // Display top k results
-    private final int k;
-
-    // Indicates whether to display weights next to query matches
-    private boolean displayWeights   = true;
-
-    //List of all the matching terms
-    private List<String> matches;
-
-
-    /**
-     * Initializes the GUI, and the associated Autocomplete object
-     *
-     */
     public GameView() {
-        this.k = 10;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Autocomplete Me");
-        setPreferredSize(new Dimension(DEF_WIDTH, DEF_HEIGHT));
-        pack();
-        setLocationRelativeTo(null);
-        Container content = getContentPane();
-        GroupLayout layout = new GroupLayout(content);
-        content.setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+        historyEntries = new ArrayDeque<>();
+        currentMovie = new Movie("", -1);
+        round = 0;
+        player1 = new Player("", null);
+        player2 = new Player("", null);
+        isValidMove = true;
 
-        final AutocompletePanel ap = new AutocompletePanel();
+        try {
+            terminal = new DefaultTerminalFactory().createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.startScreen();
 
-        JLabel textLabel = new JLabel("Search query:");
-
-        // Create and add a listener to the Search button
-        JButton searchButton = new JButton("Search Google");
-        searchButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae)
-            {
-                searchOnline(ap.getSelectedText());
-            }
-        });
-
-//        // Create and add a listener to a "Show weights" checkbox
-//        JCheckBox checkbox =
-//                new JCheckBox("Show weights", null, displayWeights);
-//        checkbox.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent ae)
-//            {
-//                displayWeights = !displayWeights;
-//                ap.update();
-//            }
-//        });
-
-        // Define the layout of the window
-        layout.setHorizontalGroup(
-                layout.createSequentialGroup().addGroup(
-                                layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                        .addComponent(
-                                                textLabel,
-                                                GroupLayout.PREFERRED_SIZE,
-                                                GroupLayout.DEFAULT_SIZE,
-                                                GroupLayout.PREFERRED_SIZE)
-//                                        .addComponent(
-//                                                checkbox,
-//                                                GroupLayout.PREFERRED_SIZE,
-//                                                GroupLayout.DEFAULT_SIZE,
-//                                                GroupLayout.PREFERRED_SIZE)
-                        )
-                        .addPreferredGap(
-                                LayoutStyle.ComponentPlacement.RELATED,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE)
-                        .addComponent(ap, 0, GroupLayout.DEFAULT_SIZE, DEF_WIDTH)
-                        .addComponent(
-                                searchButton,
-                                GroupLayout.PREFERRED_SIZE,
-                                GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.DEFAULT_SIZE));
-
-        layout.setVerticalGroup(
-                layout.createSequentialGroup().addGroup(
-                        layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(
-                                        layout.createSequentialGroup().addComponent(textLabel)
-//                                                .addComponent(checkbox)
-                                )
-                                .addComponent(ap).addComponent(searchButton)));
-    }
-
-
-    /**
-     * The panel that interfaces with the Autocomplete object. It consists of a
-     * search bar that text can be entered into, and a drop-down list of
-     * suggestions auto-completing the user's query.
-     */
-    private class AutocompletePanel extends JPanel {
-        // for serializable classes
-        private static final long serialVersionUID = 1L;
-
-        private final JTextField  searchText;                            // the
-        // search
-        // bar
-        private MovieTrie              auto;                                  // the
-        // Autocomplete
-        // object
-        private String[]          results          = new String[k];      // an
-        // array
-        // of
-        // matches
-        //// private JList<String> suggestions; // a list of autocomplete
-        //// matches (Java 7)
-        private JList             suggestions;                           // a
-        // list
-        // of
-        // autocomplete
-        // matches
-        // (Java
-        // 6)
-        private JScrollPane       scrollPane;                            // the
-        // scroll
-        // bar
-        // on
-        // the
-        // side
-        // of
-        // the
-        private JPanel            suggestionsPanel;                      // the
-        // dropdown
-        // menu
-        // of
-        // suggestions
-        private int               extraMargin      = 5;                  // extra
-        // room
-        // to
-        // leave
-        // at
-        // the
-        // bottom
-        // of
-        // the
-        // suggestion
-        // drop-down
-        // below
-        // the
-        // last
-        // suggestion
-
-        // Note: can't use JList<String> in Java 6
-
-        // TODO: change how this is implemented so it is dynamic;
-        // shouldn't have to define a column number.
-
-        // Keep these next two values in sync! - used to keep the search box
-        // the same width as the drop-down
-        // DEF_COLUMNS should be the number of characters in suggListLen
-
-        // number of columns in the search text that is kept
-        private final int         DEF_COLUMNS      = 45;
-
-        // an example of one of the longest strings in the database
-        private final String      suggListLen      =
-                "<b>Harry Potter and the Deathly Hallows: Part 1 (2010)</b>";
-
-
-        /**
-         * Creates the Autocomplete object and the search bar and suggestion
-         * drop-down portions of the GUI
-         *
-         */
-        public AutocompletePanel() {
-            super();
-
-            auto = new MovieTrie();
-            auto.buildTrie();
-
-            GroupLayout layout = new GroupLayout(this);
-            this.setLayout(layout);
-
-            // create the search text, and allow the user to interact with it
-            searchText = new JTextField(DEF_COLUMNS);
-            searchText.setMaximumSize(
-                    new Dimension(
-                            searchText.getMaximumSize().width,
-                            searchText.getPreferredSize().height));
-            searchText.getInputMap().put(KeyStroke.getKeyStroke("UP"), "none");
-            searchText.getInputMap()
-                    .put(KeyStroke.getKeyStroke("DOWN"), "none");
-            searchText.addFocusListener(new FocusListener() {
-                @Override
-                public void focusGained(FocusEvent e)
-                {
-                    int pos = searchText.getText().length();
-                    searchText.setCaretPosition(pos);
-                }
-
-
-                public void focusLost(FocusEvent e)
-                {
-                }
-            });
-
-            // create the search text box
-            JPanel searchTextPanel = new JPanel();
-            searchTextPanel.add(searchText);
-            searchTextPanel
-                    .setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            searchTextPanel.setLayout(new GridLayout(1, 1));
-
-            // create the drop-down menu items
-            int fontsize = 13;
-            int cellHeight = 20;
-
-            // suggestions = new JList<String>(results);
-            suggestions = new JList(results);
-            suggestions
-                    .setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-            suggestions.setVisible(false);
-            suggestions.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            suggestions.setMaximumSize(
-                    new Dimension(
-                            searchText.getMaximumSize().width,
-                            suggestions.getPreferredSize().height));
-
-            // Set to make equal to the width of the textfield
-            suggestions.setPrototypeCellValue(suggListLen);
-            suggestions.setFont(
-                    suggestions.getFont().deriveFont(Font.PLAIN, fontsize));
-            suggestions.setFixedCellHeight(cellHeight);
-
-            // add arrow-key interactivity to the drop-down menu items
-            Action makeSelection = new AbstractAction() {
-                // for serializable classes
-                private static final long serialVersionUID = 1L;
-
-
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (!suggestions.isSelectionEmpty())
-                    {
-                        String selection =
-                                (String)suggestions.getSelectedValue();
-                        if (displayWeights)
-                            selection = selection
-                                    .substring(0, selection.indexOf("<td width="));
-                        selection = selection.replaceAll("\\<.*?>", "");
-                        searchText.setText(selection);
-                        getSuggestions(selection);
-                    }
-                    searchOnline(searchText.getText());
-                }
-            };
-            Action moveSelectionUp = new AbstractAction() {
-                // for serializable classes
-                private static final long serialVersionUID = 1L;
-
-
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (suggestions.getSelectedIndex() >= 0)
-                    {
-                        suggestions.requestFocusInWindow();
-                        suggestions.setSelectedIndex(
-                                suggestions.getSelectedIndex() - 1);
-                    }
-                }
-            };
-            Action moveSelectionDown = new AbstractAction() {
-                // for serializable classes
-                private static final long serialVersionUID = 1L;
-
-
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (suggestions.getSelectedIndex() != results.length)
-                    {
-                        suggestions.requestFocusInWindow();
-                        suggestions.setSelectedIndex(
-                                suggestions.getSelectedIndex() + 1);
-                    }
-                }
-            };
-            Action moveSelectionUpFocused = new AbstractAction() {
-                // for serializable classes
-                private static final long serialVersionUID = 1L;
-
-
-                public void actionPerformed(ActionEvent e)
-                {
-                    if (suggestions.getSelectedIndex() == 0)
-                    {
-                        suggestions.clearSelection();
-                        searchText.requestFocusInWindow();
-                        searchText.setSelectionEnd(0);
-                    }
-                    else if (suggestions.getSelectedIndex() >= 0)
-                    {
-                        suggestions.setSelectedIndex(
-                                suggestions.getSelectedIndex() - 1);
-                    }
-                }
-            };
-            suggestions.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-                    .put(KeyStroke.getKeyStroke("UP"), "moveSelectionUp");
-            suggestions.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-                    .put(KeyStroke.getKeyStroke("DOWN"), "moveSelectionDown");
-            suggestions.getActionMap().put("moveSelectionUp", moveSelectionUp);
-            suggestions.getActionMap()
-                    .put("moveSelectionDown", moveSelectionDown);
-            suggestions.getInputMap(JComponent.WHEN_FOCUSED)
-                    .put(KeyStroke.getKeyStroke("ENTER"), "makeSelection");
-            suggestions.getInputMap()
-                    .put(KeyStroke.getKeyStroke("UP"), "moveSelectionUpFocused");
-            suggestions.getActionMap()
-                    .put("moveSelectionUpFocused", moveSelectionUpFocused);
-            suggestions.getActionMap().put("makeSelection", makeSelection);
-
-            // Create the suggestion drop-down panel and scroll bar
-            suggestionsPanel = new JPanel();
-
-            scrollPane = new JScrollPane(suggestions);
-            scrollPane.setVisible(false);
-            int prefBarWidth =
-                    scrollPane.getVerticalScrollBar().getPreferredSize().width;
-            suggestions.setPreferredSize(
-                    new Dimension(searchText.getPreferredSize().width, 0));
-            scrollPane.setAutoscrolls(true);
-            scrollPane.setHorizontalScrollBarPolicy(
-                    JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            scrollPane.setVerticalScrollBarPolicy(
-                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
-            // resize widths and heights of all components to fit nicely
-            int preferredWidth =
-                    searchText.getPreferredSize().width + 2 * prefBarWidth;
-            int maxWidth = searchText.getMaximumSize().width + 2 * prefBarWidth;
-            int searchBarHeight = searchText.getPreferredSize().height;
-            int suggestionHeight = suggestions.getFixedCellHeight();
-            int maxSuggestionHeight = DEF_HEIGHT * 2;
-
-            suggestionsPanel.setPreferredSize(
-                    new Dimension(preferredWidth, suggestionHeight));
-            suggestionsPanel
-                    .setMaximumSize(new Dimension(maxWidth, maxSuggestionHeight));
-            suggestionsPanel
-                    .setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            suggestionsPanel.add(scrollPane);
-            suggestionsPanel.setLayout(new GridLayout(1, 1));
-
-            this.setPreferredSize(
-                    new Dimension(preferredWidth, this.getPreferredSize().height));
-            this.setMaximumSize(
-                    new Dimension(
-                            preferredWidth,
-                            searchBarHeight + maxSuggestionHeight));
-
-            searchTextPanel.setPreferredSize(
-                    new Dimension(preferredWidth, searchBarHeight));
-            searchTextPanel
-                    .setMaximumSize(new Dimension(maxWidth, searchBarHeight));
-            searchText.setMaximumSize(new Dimension(maxWidth, searchBarHeight));
-
-            // add mouse interactivity with the drop-down menu
-            suggestions.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent mouseEvent)
-                {
-                    JList theList = (JList)mouseEvent.getSource();
-                    if (mouseEvent.getClickCount() >= 1)
-                    {
-                        int index =
-                                theList.locationToIndex(mouseEvent.getPoint());
-                        if (index >= 0)
-                        {
-                            String selection = getSelectedText();
-                            searchText.setText(selection);
-                            String text = searchText.getText();
-                            getSuggestions(text);
-                            searchOnline(searchText.getText());
-                        }
-                    }
-                }
-
-
-                @Override
-                public void mouseEntered(MouseEvent mouseEvent)
-                {
-                    JList theList = (JList)mouseEvent.getSource();
-                    int index = theList.locationToIndex(mouseEvent.getPoint());
-                    theList.requestFocusInWindow();
-                    theList.setSelectedIndex(index);
-                }
-
-
-                @Override
-                public void mouseExited(MouseEvent mouseEvent)
-                {
-                    suggestions.clearSelection();
-                    searchText.requestFocusInWindow();
-                }
-            });
-            suggestions.addMouseMotionListener(new MouseInputAdapter() {
-                @Override
-
-                // Google a term when a user clicks on the dropdown menu
-                public void mouseClicked(MouseEvent mouseEvent)
-                {
-                    JList theList = (JList)mouseEvent.getSource();
-                    if (mouseEvent.getClickCount() >= 1)
-                    {
-                        int index =
-                                theList.locationToIndex(mouseEvent.getPoint());
-                        if (index >= 0)
-                        {
-                            String selection = getSelectedText();
-                            searchText.setText(selection);
-                            String text = searchText.getText();
-                            getSuggestions(text);
-                            searchOnline(searchText.getText());
-                        }
-                    }
-                }
-
-
-                @Override
-                public void mouseEntered(MouseEvent mouseEvent)
-                {
-                    JList theList = (JList)mouseEvent.getSource();
-                    int index = theList.locationToIndex(mouseEvent.getPoint());
-                    theList.requestFocusInWindow();
-                    theList.setSelectedIndex(index);
-                }
-
-
-                @Override
-                public void mouseMoved(MouseEvent mouseEvent)
-                {
-                    JList theList = (JList)mouseEvent.getSource();
-                    int index = theList.locationToIndex(mouseEvent.getPoint());
-                    theList.requestFocusInWindow();
-                    theList.setSelectedIndex(index);
-                }
-            });
-
-            // add a listener that allows updates each time the user types
-            searchText.getDocument()
-                    .addDocumentListener(new DocumentListener() {
-                        public void insertUpdate(DocumentEvent e)
-                        {
-                            changedUpdate(e);
-                        }
-
-
-                        public void removeUpdate(DocumentEvent e)
-                        {
-                            changedUpdate(e);
-                        }
-
-
-                        public void changedUpdate(DocumentEvent e)
-                        {
-                            String text = searchText.getText().trim();
-
-                            // updates the drop-down menu
-                            getSuggestions(text);
-                            updateListSize();
-                        }
-                    });
-
-            // When a user clicks on a suggestion, Google it
-            searchText.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e)
-                {
-                    String selection = getSelectedText();
-                    searchText.setText(selection);
-                    getSuggestions(selection);
-                    searchOnline(searchText.getText());
-                }
-            });
-
-            // Define the layout of the text box and suggestion dropdown
-            layout.setHorizontalGroup(
-                    layout.createSequentialGroup().addGroup(
-                            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(
-                                            searchTextPanel,
-                                            0,
-                                            GroupLayout.DEFAULT_SIZE,
-                                            GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(
-                                            suggestionsPanel,
-                                            GroupLayout.DEFAULT_SIZE,
-                                            GroupLayout.DEFAULT_SIZE,
-                                            GroupLayout.PREFERRED_SIZE))
-
+            dictionary = Arrays.asList(
+                    "java", "javascript", "python", "terminal", "program",
+                    "code", "compiler", "development", "interface", "application"
             );
 
-            layout.setVerticalGroup(
-                    layout.createSequentialGroup().addComponent(searchTextPanel)
-                            .addComponent(suggestionsPanel));
-        }
-
-
-        /**
-         * Re-populates the drop-down menu with the new suggestions, and resizes
-         * the containing panel vertically
-         */
-        private void updateListSize()
-        {
-            int rows = k;
-            if (suggestions.getModel().getSize() < k)
-            {
-                rows = suggestions.getModel().getSize();
-            }
-
-            int suggWidth = searchText.getPreferredSize().width;
-            int suggPanelWidth = suggestionsPanel.getPreferredSize().width;
-            int suggHeight = rows * suggestions.getFixedCellHeight();
-
-            suggestions.setPreferredSize(new Dimension(suggWidth, suggHeight));
-            suggestionsPanel.setPreferredSize(
-                    new Dimension(suggPanelWidth, suggHeight + extraMargin));
-            suggestionsPanel.setMaximumSize(
-                    new Dimension(suggPanelWidth, suggHeight + extraMargin));
-
-            // redraw the suggestion panel
-            suggestionsPanel.setVisible(false);
-            suggestionsPanel.setVisible(true);
-        }
-
-
-        // see getSuggestions for documentation
-        public void update()
-        {
-            getSuggestions(searchText.getText());
-        }
-
-
-        /**
-         * Makes a call to the implementation of Autocomplete to get suggestions
-         * for the currently entered text.
-         *
-         * @param text
-         *            string to search for
-         */
-        public void getSuggestions(String text) {
-
-            // don't search for suggestions if there is no input
-            if (text.equals("")) {
-                suggestions.setListData(new String[0]);
-                suggestions.clearSelection();
-                suggestions.setVisible(false);
-                scrollPane.setVisible(false);
-            } else {
-                text = text.trim();
-
-                int textLen = text.length();
-                // clear the previous match
-                matches = new ArrayList<String>();
-                matches = auto.getSuggestions(text);
-
-                String[] allResults = matches.toArray(new String[matches.size()]);
-
-                if (allResults == null)
-                {
-                    throw new NullPointerException("allMatches() is null");
+            // Initialize timer thread
+            scheduler = Executors.newScheduledThreadPool(1);
+            scheduler.scheduleAtFixedRate(() -> {
+                if (timerRunning && secondsRemaining > 0) {
+                    secondsRemaining--;
+                    updateScreen();
                 }
+            }, 1, 1, TimeUnit.SECONDS);
 
-                results = new String[Math.min(k, allResults.length)];
-                if (Math.min(k, allResults.length) > 0)
-                {
-                    for (int i = 0; i < results.length; i++)
-                    {
-
-                        // A bit of a hack to get the Term's query string
-                        // and weight from toString()
-//                        String next = allResults[i].toString();
-//
-//                        if (allResults[i] == null)
-//                        {
-//                            throw new NullPointerException(
-//                                    "allMatches() " + "returned an array with a null entry");
-//                        }
-//                        int tab = next.indexOf('\t');
-//                        if (tab < 0)
-//                        {
-//                            throw new RuntimeException(
-//                                    "allMatches() returned"
-//                                            + " an array with an entry without a tab:"
-//                                            + " '" + next + "'");
-//                        }
-//                        String weight = next.substring(0, tab).trim();
-                        String query = allResults[i];
-
-                        // truncate length if needed
-                        if (query.length() > suggListLen.length())
-                            query = query.substring(0, suggListLen.length());
-
-                        // create the table HTML
-                        results[i] = "<html><table width=\""
-                                + searchText.getPreferredSize().width + "\">"
-                                + "<tr><td align=left>"
-                                + query.substring(0, textLen) + "<b>"
-                                + query.substring(textLen) + "</b>";
-//                        if (displayWeights)
-//                        {
-//                            results[i] += "<td width=\"10%\" align=right>"
-//                                    + "<font size=-1><span id=\"weight\" "
-//                                    + "style=\"float:right;color:gray\">" + " "
-//                                    + "</font>";
-//                        }
-                        results[i] += "</table></html>";
-                    }
-                    suggestions.setListData(results);
-                    suggestions.setVisible(true);
-                    scrollPane.setVisible(true);
-                }
-                else
-                {
-                    // No suggestions
-                    suggestions.setListData(new String[0]);
-                    suggestions.clearSelection();
-                    suggestions.setVisible(false);
-                    scrollPane.setVisible(false);
-                }
-            }
-        }
-
-
-        // bring the clicked suggestion up to the Search bar and search it
-        public String getSelectedText()
-        {
-            if (!suggestions.isSelectionEmpty())
-            {
-                String selection = (String)suggestions.getSelectedValue();
-                if (displayWeights)
-                {
-                    selection =
-                            selection.substring(0, selection.indexOf("<td width="));
-                }
-                selection = selection.replaceAll("\\<.*?>", "");
-                selection = selection.replaceAll("^[ \t]+|[ \t]+$", "");
-                return selection;
-            }
-            else
-            {
-                return getSearchText();
-            }
-        }
-
-
-        public String getSearchText()
-        {
-            return searchText.getText();
-        }
-    }
-
-
-    /**
-     * Creates a URI from the user-defined string and searches the web with the
-     * selected search engine Opens the default web browser (or a new tab if it
-     * is already open)
-     *
-     * @param s
-     *            string to search online for
-     */
-    private void searchOnline(String s)
-    {
-
-        // create the URL
-        URI searchAddress = null;
-        try
-        {
-            URI tempAddress =
-                    new URI(SEARCH_URL + URLEncoder.encode(s.trim(), "UTF-8"));
-            searchAddress = new URI(tempAddress.toASCIIString()); // Hack to
-            // handle
-            // Unicode
-        }
-        catch (URISyntaxException e2)
-        {
-            e2.printStackTrace();
-            return;
-        }
-        catch (UnsupportedEncodingException e)
-        {
+//            movieTrie = new MovieTrie();
+//            movieTrie.buildTrie();
+        } catch (IOException e) {
             e.printStackTrace();
-            return;
-        }
-
-        // open the URL in the browser
-        try
-        {
-            Desktop.getDesktop().browse(searchAddress);
-        }
-        catch (IOException e1)
-        {
-            e1.printStackTrace();
         }
     }
 
+//    public void run() throws IOException {
+//        boolean running = true;
+//
+//        screen.clear();
+//        printString(0, 0, "> ");
+//        cursorPosition = 2;
+//        updateScreen();
+//
+//        while (running) {
+//            KeyStroke keyStroke = terminal.pollInput();
+//            if (keyStroke != null) {
+//                switch (keyStroke.getKeyType()) {
+//                    case Character:
+//                        handleCharacter(keyStroke.getCharacter());
+//                        break;
+//                    case Backspace:
+//                        handleBackspace();
+//                        break;
+//                    case Enter:
+//                        handleEnter();
+//                        break;
+//                    case EOF:
+//                    case Escape:
+//                        running = false;
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                updateScreen();
+//            }
+//            updateScreen();
+//
+//            // Small delay to prevent CPU hogging
+//            try {
+//                Thread.sleep(10);
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+//
+//        // Shutdown timer
+//        scheduler.shutdown();
+//        screen.close();
+//        terminal.close();
+//    }
 
-    /**
-     * Creates an AutocompleteGUI object and start it continuously running
-     *
-     * @param args
-     *            the filename from which the Autocomplete object is populated
-     *            and the integer k which defines the maximum number of objects
-     *            in the dropdown menu
-     */
-    public static void main(String[] args)
-    {
-//        final String filename = args[0];
-//        final int k = Integer.parseInt(args[1]);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run()
-            {
-                new GameView().setVisible(true);
+    private void display() {
+        // Game State
+        int col = 0;
+        int row = 15;
+        printString(col, row++, "===== GAME STATUS =====");
+        printString(col, row++, "Current Round: " + round);
+        printString(col, row++, "Current Movie: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
+        printString(col, row++, "Player 1: " + player1.getName());
+        printString(col, row++, "Movies Collected: " + player1.getMoviesPlayed().size());
+        printString(col, row++, "Player 2: " + player2.getName());
+        printString(col, row++, "Movies Collected: " + player2.getMoviesPlayed().size());
+        printString(col, row++, "=======================");
+
+        // Win
+        col = 40;
+        row = 8;
+        if (winner != null) {
+            printString(col, row++, "=== CONGRATULATIONS ===");
+            printString(col, row++, winner.getName() + " wins!");
+            printString(col, row++, "Number of movies collected: " + winner.getMoviesPlayed().size());
+            printString(col, row++, "=======================");
+        }
+
+        // Move validation
+        col = 40;
+        row = 2;
+        if (!isValidMove) {
+            printString(col, row++, "==== INVALID MOVE! ====");
+            printString(col, row++, "This move does not comply with the game rules.");
+            printString(col, row++, "=======================");}
+
+        // Sug
+        col = 2;
+        row = 2;
+        for (String suggestion : suggestions) {
+            printString(col, row++, suggestion);
+        }
+
+        // History
+        col = 40;
+        row = 15;
+        if (historyEntries.size() > 0) {
+            printString(col, row++, "======= HISTORY =======");
+            for (HistoryEntry historyEntry : historyEntries) {
+                printString(col, row++, historyEntry.toString());
             }
-        });
+            printString(col, row++, "=======================");
+        }
     }
 
+//    private void handleCharacter(char c) {
+//        currentInput.insert(cursorPosition - 2, c);
+//        cursorPosition++;
+//        updateSuggestions();
+//    }
+//
+//    private void handleBackspace() {
+//        if (cursorPosition > 2) {
+//            currentInput.deleteCharAt(cursorPosition - 3);
+//            cursorPosition--;
+//            updateSuggestions();
+//        }
+//    }
+//
+//    private void handleEnter() throws IOException {
+//        int currentRow = screen.getCursorPosition().getRow();
+//        currentRow += 1 + suggestions.size();
+//
+//        printString(0, currentRow, "> ");
+//        currentInput = new StringBuilder();
+//        cursorPosition = 2;
+//        suggestions.clear();
+//
+//        String inputMovieName = currentInput.toString();
+//
+//    }
+//
+//    private void updateSuggestions() {
+//        suggestions.clear();
+//        String prefix = currentInput.toString();
+//
+//        if (!prefix.isEmpty()) {
+//            suggestions = movieTrie.getSuggestions(prefix);
+//        }
+//    }
+
+    private void updateScreen() {
+        try {
+            synchronized (screen) {
+                screen.clear();
+
+                // Print timer at top right
+                String timerText = "Time: " + secondsRemaining + "s";
+                TerminalSize size = screen.getTerminalSize();
+                printString(size.getColumns() - timerText.length(), 0, timerText);
+
+                // Print current command line
+                printString(0, 0, "> " + currentInput.toString());
+
+                // Print suggestions
+                int row = 1;
+                for (String suggestion : suggestions) {
+                    printString(2, row++, suggestion);
+                }
+
+                display();
+                screen.setCursorPosition(new TerminalPosition(cursorPosition, 0));
+                screen.refresh();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void printString(int column, int row, String text) {
+        for (int i = 0; i < text.length(); i++) {
+            screen.setCharacter(column + i, row,
+                    new TextCharacter(text.charAt(i),
+                            TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            GameView app = new GameView();
+//            app.run();
+
+            Thread.sleep(3000);
+            Player player1 = new Player("p1", null);
+            Player player2 = new Player("p2", null);
+            Movie movie = new Movie("Avengers", 2012);
+            int round = 2;
+            app.displayGameState(player1, player2, movie, round);
+
+            Thread.sleep(3000);
+            app.displaySuggestions(Arrays.asList("aa", "ab", "ac", "ad", "ae", "af"));
+
+            Thread.sleep(3000);
+            app.displayInvalidMove();
+
+            Thread.sleep(3000);
+            app.displayWin(player2);
+
+            Thread.sleep(3000);
+            Deque<HistoryEntry> historyEntries1 = new ArrayDeque<>();
+            for (int i = 0; i < 5; i++) {
+                HistoryEntry historyEntry = new HistoryEntry(movie, "conn reason");
+                historyEntries1.add(historyEntry);
+            }
+            app.displayHistory(historyEntries1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void displayGameState(Player player1, Player player2, Movie currentMovie, int round) {
-        System.out.println("\n===== GAME STATUS =====");
-        System.out.println("Current Round: " + round);
-        System.out.println("Current Movie: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
-
-        System.out.println("\nPlayer 1: " + player1.getName());
-        System.out.println("Movies Collected: " + player1.getMoviesPlayed().size());
-
-        System.out.println("\nPlayer 2: " + player2.getName());
-        System.out.println("Movies Collected: " + player2.getMoviesPlayed().size());
-
-        System.out.println("===================\n");
+        this.player1 = player1;
+        this.player2 = player2;
+        this.currentMovie = currentMovie;
+        this.round = round;
+        updateScreen();
     }
 
     public void displayInvalidMove() {
-        System.out.println("\n❌ INVALID MOVE! ❌");
-        System.out.println("This move does not comply with the game rules.");
+        this.isValidMove = false;
+        updateScreen();
     }
 
     public void displayWin(Player winner) {
-        System.out.println("\n🎉 Congratulations " + winner.getName() + " wins! 🎉");
-        System.out.println("Number of movies collected: " + winner.getMoviesPlayed().size());
+        this.winner = winner;
+        updateScreen();
+    }
+
+    public void displaySuggestions(List<String> movieTitles) {
+        this.suggestions = movieTitles;
+    }
+
+    public void displayHistory(Deque<HistoryEntry> historyEntries) {
+        this.historyEntries = historyEntries;
+        updateScreen();
     }
 }
