@@ -8,6 +8,9 @@ public class Stuff implements Comparable<Stuff>{
     // The unique identifier of the stuff item
     private int id;
 
+    public Stuff(String name){
+        this.name = name;
+    }
     /**
      * Retrieves the job associated with the stuff item.
      * Currently, this method always returns an empty string.
