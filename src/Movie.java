@@ -2,6 +2,12 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a movie entity with various metadata fields such as title, release year, genres, crew, and vote count.
+ * Provides accessor and mutator methods, as well as utility for comparison by popularity.
+ *
+ * @author Jianing Yin
+ */
 public class Movie {
     private String id;
     private String title;
@@ -14,9 +20,18 @@ public class Movie {
     private Set<String> writers;
     private Set<String> cinematographers;
 
+    /**
+     * Default constructor.
+     */
     public Movie() {
     }
 
+    /**
+     * Constructs a Movie with a title and release year.
+     *
+     * @param title       Title of the movie
+     * @param releaseYear Year the movie was released
+     */
     public Movie(String title, int releaseYear) {
         this.title = title;
         this.releaseYear = releaseYear;
@@ -29,9 +44,16 @@ public class Movie {
         cinematographers = new HashSet<>();
     }
 
+    /**
+     * Comparator to sort movies in descending order of vote count.
+     *
+     * @return A comparator for Movie objects
+     */
     public static Comparator<Movie> byReverseWeightOrder() {
         return Comparator.comparingLong(Movie::getVoteCount).reversed();
     }
+
+    // Getters and setters
 
     public String getId() {
         return id;
@@ -77,6 +99,8 @@ public class Movie {
         return cinematographers;
     }
 
+    // Adders
+
     public void addGenre(String genre) {
         genres.add(genre);
     }
@@ -100,6 +124,8 @@ public class Movie {
     public void addCinematographer(String cinematographer) {
         cinematographers.add(cinematographer);
     }
+
+    // Setters
 
     public void setTitle(String title) {
         this.title = title;

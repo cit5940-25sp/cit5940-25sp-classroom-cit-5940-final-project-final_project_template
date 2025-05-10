@@ -2,7 +2,20 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
+/**
+ * Entry point of the movie connection game.
+ * <p>
+ * Initializes players, win conditions, movie index, terminal screen, and launches the game controller.
+ * </p>
+ *
+ * @author Jianing Yin
+ */
 public class Main {
+    /**
+     * The main method to start the movie game.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         try {
             WinCondition winCondition1 = new GenreWinCondition("Action");

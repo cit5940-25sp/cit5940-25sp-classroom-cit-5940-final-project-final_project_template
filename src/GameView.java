@@ -9,6 +9,13 @@ import java.util.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Handles all terminal-based display logic for the Movie Connection Game using Lanterna.
+ * Responsible for rendering game state, suggestions, connected movies, user input, and timer.
+ *
+ * @author Jianing Yin
+ */
+
 public class GameView {
     private final Screen screen;
     private final int maxHistory = 5;
@@ -19,18 +26,39 @@ public class GameView {
     private Timer timer;
     private List<String> connectedTitles = new ArrayList<>();
 
+    /**
+     * Sets the list of movie titles connected to the current movie.
+     * @param titles List of connected movie titles
+     */
     public void setConnectedMovieTitles(List<String> titles) {
         this.connectedTitles = titles;
     }
 
+    /**
+     * Injects the movie trie for providing autocomplete suggestions.
+     * @param trie A MovieTrie object
+     */
     public void setMovieTrie(MovieTrie trie) {
         this.movieTrie = trie;
     }
 
+    /**
+     * Constructs the GameView using the given Lanterna screen.
+     * @param screen Lanterna screen used for rendering
+     */
     public GameView(Screen screen) {
         this.screen = screen;
     }
 
+    /**
+     * Renders the current state of the game: round info, players, current movie,
+     * recent movie chain, autocomplete suggestions, and connected movie links.
+     * @param player1 First player
+     * @param player2 Second player
+     * @param currentMovie Current movie being linked from
+     * @param round Current round number
+     * @param errorMessage Message shown when invalid input is made
+     */
     public void displayGameState(Player player1, Player player2, Movie currentMovie, int round, String errorMessage) {
         try {
             screen.clear();
@@ -113,6 +141,11 @@ public class GameView {
         }
     }
 
+    /**
+     * Displays the final screen when a player wins, along with the final movie chain.
+     * @param winner The player who won
+     * @param history The full history of moves made in the game
+     */
     public void displayWin(Player winner, Deque<HistoryEntry> history) {
         try {
             screen.clear();
@@ -141,6 +174,10 @@ public class GameView {
         }
     }
 
+    /**
+     * Adds a new history entry to the recent history list for rendering.
+     * @param entry A HistoryEntry object to record
+     */
     public void addToHistory(HistoryEntry entry) {
         if (movieHistory.size() == maxHistory) {
             movieHistory.removeFirst();
@@ -148,6 +185,10 @@ public class GameView {
         movieHistory.addLast(entry);
     }
 
+    /**
+     * Updates the suggestions list based on the current user input prefix.
+     * @param prefix Partial movie title being typed by the user
+     */
     public void updateSuggestions(String prefix) {
         if (prefix == null || prefix.isEmpty() || movieTrie == null) {
             suggestions = List.of();
@@ -156,6 +197,11 @@ public class GameView {
         }
     }
 
+    /**
+     * Starts the countdown timer and updates the view on each tick.
+     * @param onTimeout Callback if timer runs out
+     * @param onTick Callback each second
+     */
     public void startTimer(Runnable onTimeout, Runnable onTick) {
         if (timer != null) timer.cancel();
         secondsRemaining = 30;
@@ -174,10 +220,17 @@ public class GameView {
         }, 1000, 1000);
     }
 
+    /**
+     * Stops the timer if it is running.
+     */
     public void stopTimer() {
         if (timer != null) timer.cancel();
     }
 
+    /**
+     * Displays a one-line message above the input area.
+     * @param message Prompt or info message to show
+     */
     public void displayPrompt(String message) {
         try {
             printString(0, screen.getTerminalSize().getRows() - 2, message);
@@ -187,10 +240,19 @@ public class GameView {
         }
     }
 
+    /**
+     * Reads a key press in a non-blocking manner.
+     * @return The KeyStroke object if available, null otherwise
+     * @throws IOException If screen input fails
+     */
     public KeyStroke readKeyStrokeNonBlocking() throws IOException {
         return screen.pollInput();
     }
 
+    /**
+     * Displays the current input line, typically as the user is typing.
+     * @param input The input string
+     */
     public void displayInputLine(String input) {
         try {
             int row = screen.getTerminalSize().getRows() - 1;
@@ -204,6 +266,12 @@ public class GameView {
         }
     }
 
+    /**
+     * Prints a string on the screen at the specified column and row.
+     * @param column Starting column
+     * @param row Starting row
+     * @param text Text to print
+     */
     private void printString(int column, int row, String text) {
         for (int i = 0; i < text.length(); i++) {
             screen.setCharacter(column + i, row,
@@ -213,6 +281,13 @@ public class GameView {
         }
     }
 
+    /**
+     * Draws a box (UI element border) on the screen.
+     * @param x Top-left x coordinate
+     * @param y Top-left y coordinate
+     * @param width Box width
+     * @param height Box height
+     */
     private void drawBox(int x, int y, int width, int height) {
         for (int i = 0; i < width; i++) {
             screen.setCharacter(x + i, y, new TextCharacter('-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
