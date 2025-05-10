@@ -18,7 +18,7 @@ public class GameControllerTest {
 
         Screen screen = new DefaultTerminalFactory().createScreen();
         screen.startScreen();
-        GameView gameView = new GameView(screen, movieIndex.getMovieTrie());
+        GameView gameView = new GameView(screen);
 
         GameController controller = new GameController(player1, player2, movieIndex, gameView);
 
@@ -42,7 +42,7 @@ public class GameControllerTest {
         populateMovieIndexWithTestData(movieIndex);
         Screen screen = new DefaultTerminalFactory().createScreen();
         screen.startScreen();
-        GameView gameView = new GameView(screen, movieIndex.getMovieTrie());
+        GameView gameView = new GameView(screen);
 
         GameController controller = new GameController(player1, player2, movieIndex, gameView);
 
@@ -91,6 +91,10 @@ public class GameControllerTest {
         @Override
         public boolean checkWin(Player player) {
             return player.getMoviesPlayed().size() >= requiredMovies;
+        }
+        @Override
+        public String getDescription() {
+            return "Win after playing " + requiredMovies + " movies";
         }
     }
 }

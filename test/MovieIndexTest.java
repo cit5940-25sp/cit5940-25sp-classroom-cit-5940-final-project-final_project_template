@@ -27,10 +27,10 @@ public class MovieIndexTest {
         index.addMovie(m3);
         index.addMovie(m4);
 
-        Set<Movie> connected = index.getConnectedMovies(m1);
-        assertTrue(connected.contains(m2));
-        assertTrue(connected.contains(m3));
-        assertFalse(connected.contains(m4));
+        Map<Movie, String> connected = index.getConnectedMoviesWithReason(m1);
+        assertTrue(connected.containsKey(m2));
+        assertTrue(connected.containsKey(m3));
+        assertFalse(connected.containsKey(m4));
     }
 
     @Test
