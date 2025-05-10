@@ -35,16 +35,16 @@ public class GameView {
             printString(45, 1, "Time: " + secondsRemaining + "s");
 
             drawBox(0, 4, 60, 3);
-            printString(2, 5, "🎬 Current: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
+            printString(2, 5, "[Movie] Current: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
             printString(2, 6, "Genres: " + String.join(", ", currentMovie.getGenres()));
 
             drawBox(0, 8, 60, 4);
-            printString(2, 9, "👤 Player 1: " + player1.getName());
+            printString(2, 9, "[P1] Player 1: " + player1.getName());
             printString(2, 10, "Movies: " + player1.getMoviesPlayed().size());
             printString(2, 11, "Win: " + player1.getWinCondition().getDescription());
 
             drawBox(0, 13, 60, 4);
-            printString(2, 14, "👤 Player 2: " + player2.getName());
+            printString(2, 14, "[P2] Player 2: " + player2.getName());
             printString(2, 15, "Movies: " + player2.getMoviesPlayed().size());
             printString(2, 16, "Win: " + player2.getWinCondition().getDescription());
 
@@ -71,7 +71,7 @@ public class GameView {
             }
 
             if (!errorMessage.isEmpty()) {
-                printString(0, screen.getTerminalSize().getRows() - 4, "❌ " + errorMessage);
+                printString(0, screen.getTerminalSize().getRows() - 4, "[X] " + errorMessage);
             }
 
             screen.refresh();
@@ -83,7 +83,7 @@ public class GameView {
     public void displayWin(Player winner, Deque<HistoryEntry> history) {
         try {
             screen.clear();
-            printString(0, 0, "🎉 Congratulations " + winner.getName() + " wins! 🎉");
+            printString(0, 0, "[Win] Congratulations " + winner.getName() + " wins!");
             printString(0, 2, "Number of movies collected: " + winner.getMoviesPlayed().size());
 
             printString(0, 4, "Final Movie Chain:");
