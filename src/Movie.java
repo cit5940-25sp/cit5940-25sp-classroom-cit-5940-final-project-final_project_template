@@ -30,6 +30,8 @@ public class Movie implements Comparable<Movie> {
         this.date = "";
     }
 
+
+
     /**
      * Retrieves the list of genres associated with the movie.
      *
