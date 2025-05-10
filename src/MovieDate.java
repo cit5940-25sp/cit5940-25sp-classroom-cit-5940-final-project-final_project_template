@@ -23,7 +23,8 @@ public class MovieDate {
         // Read all movie objects using the reader
         movies = reader.readMovies();
         // Initialize the TreeSet with a comparator to sort movies by title
-        movieByTitile = new TreeSet<>((m1, m2) -> m1.getTitle().compareTo(m2.getTitle()));
+        movieByTitile = new TreeSet<>((m1, m2) ->
+                m1.getTitle().toLowerCase().compareTo(m2.getTitle().toLowerCase()));
         // Add all movies to the sorted TreeSet
         for (Movie movie : movies) {
             movieByTitile.add(movie);
@@ -60,4 +61,3 @@ public class MovieDate {
         return movieByTitile;
     }
 }
-*
