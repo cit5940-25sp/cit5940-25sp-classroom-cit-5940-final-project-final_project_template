@@ -4,3 +4,4 @@ public interface Reader {
     List<Stuff> readStuff();
     List<Genre> readGenre();
 }
+*

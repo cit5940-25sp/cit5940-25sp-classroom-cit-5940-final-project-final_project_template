@@ -23,3 +23,4 @@ public class Stuff implements Comparable<Stuff>{
         return name;
     }
 }
+*
