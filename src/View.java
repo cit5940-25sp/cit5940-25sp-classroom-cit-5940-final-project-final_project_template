@@ -53,4 +53,3 @@ public class View {
         this.Control = Control;
     }
 }
-*
