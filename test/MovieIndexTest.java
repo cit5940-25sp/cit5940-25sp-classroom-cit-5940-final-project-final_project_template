@@ -33,5 +33,38 @@ public class MovieIndexTest {
         assertFalse(connected.contains(m4));
     }
 
-    //add test for getSuggestions
+    @Test
+    public void testGetSuggestions() {
+        MovieIndex index = new MovieIndex();
+
+        Movie m1 = new Movie("Iron Man", 2008);
+        Movie m2 = new Movie("Iron Giant", 1999);
+        Movie m3 = new Movie("Inside Out", 2015);
+        Movie m4 = new Movie("Avatar", 2009);
+
+        index.addMovie(m1);
+        index.addMovie(m2);
+        index.addMovie(m3);
+        index.addMovie(m4);
+
+        index.getMovieTrie().insert(index.getMovieTrie().getNormalizedString(m1.getTitle()), m1);
+        index.getMovieTrie().insert(index.getMovieTrie().getNormalizedString(m2.getTitle()), m2);
+        index.getMovieTrie().insert(index.getMovieTrie().getNormalizedString(m3.getTitle()), m3);
+        index.getMovieTrie().insert(index.getMovieTrie().getNormalizedString(m4.getTitle()), m4);
+
+
+        List<String> suggestions = index.getSuggestions("Iron");
+        assertTrue(suggestions.contains("Iron Man"));
+        assertTrue(suggestions.contains("Iron Giant"));
+
+        List<String> suggestions2 = index.getSuggestions("Ins");
+        assertTrue(suggestions2.contains("Inside Out"));
+
+        List<String> suggestions3 = index.getSuggestions("Ava");
+        assertTrue(suggestions3.contains("Avatar"));
+
+        List<String> suggestions4 = index.getSuggestions("xyz");
+        assertTrue(suggestions4.isEmpty());
+    }
+
 }

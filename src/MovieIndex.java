@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MovieIndex {
     private Map<String, Set<Movie>> actorMap;
@@ -7,7 +8,7 @@ public class MovieIndex {
     private Map<String, Set<Movie>> writerMap;
     private Map<String, Set<Movie>> cinematographerMap;
     private MovieTrie movieTrie;
-    private Set<Movie> allMovies = new HashSet<>();
+    private List<Movie> allMovies = new ArrayList<>();
 
     public MovieIndex() {
         // Initialize the maps
@@ -17,6 +18,8 @@ public class MovieIndex {
         writerMap = new HashMap<>();
         cinematographerMap = new HashMap<>();
         movieTrie = new MovieTrie();
+        movieTrie.buildTrie();
+        allMovies = movieTrie.getAllMovies();
     }
 
     private void addToMap(Map<String, Set<Movie>> map, String key, Movie movie) {
@@ -77,30 +80,20 @@ public class MovieIndex {
     public List<String> getSuggestions(String partialTitle) {
         List<String> suggestions = new ArrayList<>();
         // Use the movieTrie to get suggestions based on the partial title
-        // suggestions = movieTrie.getSuggestions(partialTitle);
+        suggestions = movieTrie.getSuggestions(partialTitle);
         return suggestions;
     }
 
-    public void getAllMovies() {
-        // create a set of all movies
-        for (Set<Movie> movies : actorMap.values()) {
-            allMovies.addAll(movies);
-        }
+    public List<Movie> getAllMovies() {
+        return allMovies;
     }
 
     public Movie getRandomMovie() {
-        // if there are no movies, return null
         if (allMovies.isEmpty()) {
             return null;
         }
-
-        // get a random index
-        int randomIndex = (int) (Math.random() * allMovies.size());
-
-        // convert the set to a list, so we can access the movie by index
-        List<Movie> movieList = new ArrayList<>(allMovies);
-
-        return movieList.get(randomIndex);
+        int index = ThreadLocalRandom.current().nextInt(allMovies.size());
+        return allMovies.get(index);
     }
 
     public Movie getMovieByTitle(String title) {
@@ -113,6 +106,10 @@ public class MovieIndex {
 
         // if no movie is found, return null
         return null;
+    }
+
+    public MovieTrie getMovieTrie() {
+        return movieTrie;
     }
 
 }
