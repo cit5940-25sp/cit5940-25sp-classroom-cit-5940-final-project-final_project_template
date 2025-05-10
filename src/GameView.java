@@ -14,9 +14,14 @@ public class GameView {
     private final int maxHistory = 5;
     private final Deque<HistoryEntry> movieHistory = new ArrayDeque<>();
     private MovieTrie movieTrie;
-    private List<String> suggestions;
+    private List<String> suggestions = new ArrayList<>();
     private int secondsRemaining = 30;
     private Timer timer;
+    private List<String> connectedTitles = new ArrayList<>();
+
+    public void setConnectedMovieTitles(List<String> titles) {
+        this.connectedTitles = titles;
+    }
 
     public void setMovieTrie(MovieTrie trie) {
         this.movieTrie = trie;
@@ -30,43 +35,71 @@ public class GameView {
         try {
             screen.clear();
 
-            drawBox(0, 0, 60, 3);
+            drawBox(0, 0, 70, 3);
             printString(2, 1, "Round: " + round);
-            printString(45, 1, "Time: " + secondsRemaining + "s");
+            printString(60, 1, "Time: " + secondsRemaining + "s");
 
-            drawBox(0, 4, 60, 3);
+            drawBox(0, 4, 70, 3);
             printString(2, 5, "[Movie] Current: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
             printString(2, 6, "Genres: " + String.join(", ", currentMovie.getGenres()));
 
-            drawBox(0, 8, 60, 4);
+            drawBox(0, 8, 70, 4);
             printString(2, 9, "[P1] Player 1: " + player1.getName());
             printString(2, 10, "Movies: " + player1.getMoviesPlayed().size());
             printString(2, 11, "Win: " + player1.getWinCondition().getDescription());
 
-            drawBox(0, 13, 60, 4);
+            drawBox(0, 13, 70, 4);
             printString(2, 14, "[P2] Player 2: " + player2.getName());
             printString(2, 15, "Movies: " + player2.getMoviesPlayed().size());
             printString(2, 16, "Win: " + player2.getWinCondition().getDescription());
 
-            drawBox(0, 18, 60, maxHistory + 2);
+            drawBox(0, 18, 70, maxHistory + 2);
             printString(2, 19, "Recent Movies:");
             int row = 20;
             for (HistoryEntry entry : movieHistory) {
                 Movie m = entry.getMovie();
                 String summary = String.format("%s (%d) [%s] [%s]",
-                        m.getTitle(),
-                        m.getReleaseYear(),
-                        String.join(", ", m.getGenres()),
-                        entry.getConnectionReason());
+                    m.getTitle(),
+                    m.getReleaseYear(),
+                    String.join(", ", m.getGenres()),
+                    entry.getConnectionReason());
+                if (summary.length() > 70) {
+                    summary = summary.substring(0, 67) + "…";
+                }
                 printString(2, row++, summary);
             }
 
             if (suggestions != null && !suggestions.isEmpty()) {
-                drawBox(62, 4, 30, suggestions.size() + 2);
-                printString(64, 5, "Suggestions:");
-                int sRow = 6;
-                for (String suggestion : suggestions) {
-                    printString(64, sRow++, suggestion);
+                int maxToShow = Math.min(10, suggestions.size());
+                int suggestionBoxHeight = maxToShow + 3;
+
+                drawBox(72, 0, 50, suggestionBoxHeight);
+                printString(74, 1, "Suggestions:");
+                int sRow = 2;
+
+                for (int i = 0; i < maxToShow; i++) {
+                    String suggestion = suggestions.get(i);
+                    if (suggestion.length() > 46) {
+                        suggestion = suggestion.substring(0, 46) + "…";
+                    }
+                    printString(74, sRow++, suggestion);
+                }
+            }
+
+            if (connectedTitles != null && !connectedTitles.isEmpty()) {
+                int connectedStartY = Math.max(2 + suggestions.size() + 2, 10);
+                int maxDisplay = 10;
+                int boxHeight = Math.min(connectedTitles.size(), maxDisplay) + 2;
+                drawBox(72, connectedStartY, 50, boxHeight);
+                printString(74, connectedStartY + 1, "Connected:");
+                int cRow = connectedStartY + 2;
+
+                for (int i = 0; i < Math.min(connectedTitles.size(), maxDisplay); i++) {
+                    String connected = connectedTitles.get(i);
+                    if (connected.length() > 46) {
+                        connected = connected.substring(0, 46) + "…";
+                    }
+                    printString(74, cRow++, connected);
                 }
             }
 
@@ -88,14 +121,19 @@ public class GameView {
 
             printString(0, 4, "Final Movie Chain:");
             int row = 5;
-            for (HistoryEntry entry : history) {
+            for (HistoryEntry entry : movieHistory) {
                 Movie m = entry.getMovie();
-                String title = m != null ? String.format("%s (%d) [%s] [%s]",
+                String summary = String.format("%s (%d) [%s] [%s]",
                         m.getTitle(),
                         m.getReleaseYear(),
                         String.join(", ", m.getGenres()),
-                        entry.getConnectionReason()) : "[Unknown Movie]";
-                printString(2, row++, title);
+                        entry.getConnectionReason());
+
+                if (summary.length() > 66) {
+                    summary = summary.substring(0, 65) + "…";
+                }
+
+                printString(2, row++, summary);
             }
             screen.refresh();
         } catch (IOException e) {

@@ -77,6 +77,16 @@ public class GameController {
         String input = null;
         StringBuilder inputBuilder = new StringBuilder();
         lastInvalidMessage = "";
+
+        List<String> connectedTitles = index.getConnectedMovieTitlesWithReason(currentMovie)
+            .stream()
+            .limit(10)
+            .map(str -> str.length() > 46 ? str.substring(0, 46) + "…" : str)  // 控制每行宽度
+            .toList();
+
+        view.setConnectedMovieTitles(connectedTitles);
+
+
         view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
         view.startTimer(
             () -> {
