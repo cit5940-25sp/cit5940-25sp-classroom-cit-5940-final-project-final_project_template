@@ -14,4 +14,9 @@ public class ActorWinCondition implements WinCondition {
         }
         return false;
     }
+
+    @Override
+    public String getDescription() {
+        return "Has a movie with actor: " + actor;
+    }
 }
