@@ -13,7 +13,7 @@ public class CSVReader implements Reader{
     private ParseJson parseJson;
     // TreeSet to store Movie objects, sorted according to their natural ordering
     private TreeSet<Movie> movies;
-
+    private TreeSet<Stuff> stuffs;
     /**
      * Constructs a new CSVReader object.
      * Initializes the movies TreeSet and creates a new ParseJson instance.
@@ -21,6 +21,7 @@ public class CSVReader implements Reader{
     public CSVReader(){
         // Initialize the TreeSet to store Movie objects
         movies = new TreeSet<>();
+        stuffs = new TreeSet<>();
         // Create a new instance of ParseJson for JSON parsing
         parseJson = new ParseJson();
         loadDate();
@@ -34,6 +35,10 @@ public class CSVReader implements Reader{
         loadFile("data/tmdb_5000_movies.csv");
         // Load extra information such as cast and crew from the additional CSV file
         loadExtraFile("data/tmdb_5000_credits.csv");
+    }
+
+    public TreeSet<Stuff> readStuffs(){
+        return stuffs;
     }
 
     /**
@@ -197,6 +202,9 @@ public class CSVReader implements Reader{
         // Iterate through each cast member and add them to the movie
         for (Stuff stuff : list) {
             movie.addStuff(stuff);
+            if(!stuffs.contains(stuff)){
+                stuffs.add(stuff);
+            }
         }
     }
 
@@ -212,6 +220,9 @@ public class CSVReader implements Reader{
         // Iterate through each crew member and add them to the movie
         for (Stuff stuff : list) {
             movie.addStuff(stuff);
+            if(!stuffs.contains(stuff)){
+                stuffs.add(stuff);
+            }
         }
     }
 
