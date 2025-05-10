@@ -1,4 +1,3 @@
-
 import java.util.*;
 import ast.*;
 
@@ -10,33 +9,40 @@ public class Parser {
         this.tokens = tokens;
     }
 
-    // Utility methods
+    // --- Utility Methods ---
+
+    // Check if we've reached the end of token list
     private boolean isAtEnd() {
         return peek().type == TokenType.EOF;
     }
 
+    // Look at current token without consuming it
     private Token peek() {
         return tokens.get(current);
     }
 
+    // Look at previous token
     private Token previous() {
         return tokens.get(current - 1);
     }
 
+    // Consume current token and move to the next
     private Token advance() {
         if (!isAtEnd()) current++;
         return previous();
     }
 
+    // Skip comment tokens
     private void skipNonCode() {
-        while (match(TokenType.COMMENT)) {
-        }
+        while (match(TokenType.COMMENT)) { }
     }
 
+    // Check if current token matches expected type
     private boolean check(TokenType type) {
         return !isAtEnd() && peek().type == type;
     }
 
+    // Try to match any of the given token types
     private boolean match(TokenType... types) {
         for (TokenType type : types) {
             if (check(type)) {
@@ -47,13 +53,16 @@ public class Parser {
         return false;
     }
 
+    // Consume a token of expected type, otherwise error
     private Token consume(TokenType type, String message) {
         skipNonCode();
         if (check(type)) return advance();
         throw new RuntimeException("Parse error: " + message + " at token '" + peek().lexeme + "'");
     }
 
-    // Parse program and functions
+    // --- Parse Program and Functions ---
+
+    // Parse the entire program (list of functions)
     public Program parseProgram() {
         tokens.add(new Token(TokenType.EOF, ""));
         List<FunctionDecl> functions = new ArrayList<>();
@@ -65,6 +74,7 @@ public class Parser {
         return ASTFactory.createProgram(functions);
     }
 
+    // Parse a single function definition
     private FunctionDecl parseFunction() {
         skipNonCode();
         consume(TokenType.FUNCTION, "Expected 'function' keyword.");
@@ -83,12 +93,12 @@ public class Parser {
         return ASTFactory.createFunctionDecl(name, params, body);
     }
 
+    // Parse a block of statements enclosed by '{' '}'
     private Block parseBlock() {
         consume(TokenType.LBRACE, "Expected '{' to begin block.");
         List<Statement> statements = new ArrayList<>();
         skipNonCode();
         while (!check(TokenType.RBRACE) && !isAtEnd()) {
-            skipNonCode();
             statements.add(parseStatement());
             skipNonCode();
         }
@@ -96,7 +106,9 @@ public class Parser {
         return ASTFactory.createBlock(statements);
     }
 
-    // Parse statements
+    // --- Parse Statements ---
+
+    // Parse a single statement
     private Statement parseStatement() {
         if (match(TokenType.VAR))     return parseVarDecl();
         if (match(TokenType.IF))      return parseIf();
@@ -107,6 +119,7 @@ public class Parser {
         return parseAssignment();
     }
 
+    // Parse a variable declaration (var x <- expr;)
     private Statement parseVarDecl() {
         List<Statement> decls = new ArrayList<>();
         do {
@@ -119,6 +132,7 @@ public class Parser {
         return decls.size() == 1 ? decls.get(0) : ASTFactory.createBlock(decls);
     }
 
+    // Parse an assignment (x <- expr;)
     private Statement parseAssignment() {
         String name = consume(TokenType.IDENTIFIER, "Expected variable name.").lexeme;
         consume(TokenType.ASSIGN, "Expected '<-' in assignment.");
@@ -127,18 +141,21 @@ public class Parser {
         return ASTFactory.createAssignment(name, expr);
     }
 
+    // Parse a print statement (print expr;)
     private Statement parsePrint() {
         Expression expr = parseExpression();
         consume(TokenType.SEMICOLON, "Expected ';' after print statement.");
         return ASTFactory.createPrintStmt(expr);
     }
 
+    // Parse a return statement (return expr;)
     private Statement parseReturn() {
         Expression expr = parseExpression();
         consume(TokenType.SEMICOLON, "Expected ';' after return statement.");
         return ASTFactory.createReturnStmt(expr);
     }
 
+    // Parse an if-elif-else statement
     private Statement parseIf() {
         consume(TokenType.LPAREN, "Expected '(' after 'if'.");
         Expression condition = parseExpression();
@@ -161,6 +178,7 @@ public class Parser {
         return ASTFactory.createIfStmt(condition, thenBranch, elifs, elseBranch);
     }
 
+    // Parse a while loop
     private Statement parseWhile() {
         consume(TokenType.LPAREN, "Expected '(' after 'while'.");
         Expression condition = parseExpression();
@@ -169,17 +187,19 @@ public class Parser {
         return ASTFactory.createWhileStmt(condition, body);
     }
 
+    // Parse a run-while loop (do-while style)
     private Statement parseRunWhile() {
         Block body = parseBlock();
         consume(TokenType.WHILE, "Expected 'while' after 'run' block.");
         consume(TokenType.LPAREN, "Expected '(' after 'while'.");
         Expression condition = parseExpression();
         consume(TokenType.RPAREN, "Expected ')' after run-while condition.");
-//        consume(TokenType.SEMICOLON, "Expected ';' after run-while statement.");
         return ASTFactory.createRunWhileStmt(body, condition);
     }
 
-    // Expression parsing
+    // --- Parse Expressions ---
+
+    // Parse an expression (start from lowest precedence)
     private Expression parseExpression() {
         return parseEquality();
     }
@@ -224,6 +244,7 @@ public class Parser {
         return expr;
     }
 
+    // Handle unary expressions like "-5"
     private Expression parseUnary() {
         if (match(TokenType.MINUS)) {
             String op = previous().lexeme;
@@ -233,6 +254,7 @@ public class Parser {
         return parsePrimary();
     }
 
+    // Parse primary expressions: literals, identifiers, calls, parentheses
     private Expression parsePrimary() {
         if (match(TokenType.INTEGER)) {
             return ASTFactory.createIntegerLiteral(Integer.parseInt(previous().lexeme));
@@ -254,11 +276,13 @@ public class Parser {
             }
             return ASTFactory.createVarRef(name);
         }
+
         if (match(TokenType.LPAREN)) {
             Expression expr = parseExpression();
             consume(TokenType.RPAREN, "Expected ')' after expression.");
             return expr;
         }
+
         throw new RuntimeException("Unexpected token: " + peek().lexeme);
     }
 }
