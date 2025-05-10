@@ -79,6 +79,15 @@ public class MovieIndex {
         return connectedMovies;
     }
 
+    public List<String> getConnectedMovieTitles(Movie movie) {
+        Set<Movie> connected = getConnectedMovies(movie);
+        List<String> titles = new ArrayList<>();
+        for (Movie m : connected) {
+            titles.add(m.getTitle() + " (" + m.getReleaseYear() + ") - " + String.join(", ", m.getGenres()));
+        }
+        return titles;
+    }
+
     public List<String> getSuggestions(String partialTitle) {
         List<String> suggestions = new ArrayList<>();
         // Use the movieTrie to get suggestions based on the partial title
