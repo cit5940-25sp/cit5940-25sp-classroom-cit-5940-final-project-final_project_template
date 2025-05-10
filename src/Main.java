@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             WinCondition winCondition1 = new GenreWinCondition("Action");
-            WinCondition winCondition2 = new GenreWinCondition("Action");
+            WinCondition winCondition2 = new CustomWinCondition(movies -> movies.size() >= 3, "3 Movies");
 
             Player player1 = new Player("Alice", winCondition1);
             Player player2 = new Player("Bob", winCondition2);
@@ -14,7 +14,8 @@ public class Main {
             Screen screen = new DefaultTerminalFactory().createScreen();
             screen.startScreen();
 
-            GameView view = new GameView(screen, movieIndex.getMovieTrie());
+            GameView view = new GameView(screen);
+            view.setMovieTrie(movieIndex.getMovieTrie());
 
             GameController controller = new GameController(player1, player2, movieIndex, view);
             controller.startGame();

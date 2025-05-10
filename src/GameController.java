@@ -20,6 +20,8 @@ public class GameController {
     private static final int TIME_LIMIT_SECONDS = 30;
     private Scanner inputScanner;
     private boolean gameEnded = false;
+    private String lastInvalidMessage = "";
+    private MovieTrie movieTrie;
 
     public GameController(Player p1, Player p2, MovieIndex movieIndex, GameView gameView) {
         this.player1 = p1;
@@ -30,6 +32,13 @@ public class GameController {
             throw new IllegalArgumentException("Players must have a WinCondition set.");
         }
         this.inputScanner = new Scanner(System.in);
+
+        this.movieTrie = new MovieTrie();
+        movieTrie.buildTrie();
+        for (Movie movie : index.getAllMovies()) {
+            movieTrie.insert(movieTrie.getNormalizedString(movie.getTitle()), movie);
+        }
+        this.view.setMovieTrie(movieTrie);
     }
 
     public void cleanup() {
@@ -67,16 +76,25 @@ public class GameController {
         if (gameEnded) return;
         String input = null;
         StringBuilder inputBuilder = new StringBuilder();
-        view.displayGameState(player1, player2, currentMovie, round);
+        lastInvalidMessage = "";
+        view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
         view.startTimer(
-            () -> endGame(getOpponent(currentPlayer)),
             () -> {
-                view.displayGameState(player1, player2, currentMovie, round);
+                lastInvalidMessage = "Time out or empty input";
+                view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                endGame(getOpponent(currentPlayer));
+            },
+            () -> {
+                view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
                 view.displayPrompt("Enter connected movie title: ");
-                view.displayInputLine(inputBuilder.toString());  // 👈 重新画输入框
+                view.displayInputLine(inputBuilder.toString());
             }
         );
-
 
         view.displayPrompt("Enter connected movie title: ");
         view.displayInputLine("");
@@ -113,11 +131,12 @@ public class GameController {
             e.printStackTrace();
         }
 
-
         view.stopTimer();
 
         if (input == null || input.trim().isEmpty()) {
-            view.displayInvalidMove(currentPlayer, "Time out or empty input");
+            lastInvalidMessage = "Time out or empty input";
+            view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -125,20 +144,26 @@ public class GameController {
         Movie nextMovie = index.getMovieByTitle(input.trim());
 
         if (nextMovie == null) {
-            view.displayInvalidMove(currentPlayer, "Movie not found");
+            lastInvalidMessage = "Movie not found";
+            view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
             endGame(getOpponent(currentPlayer));
             return;
         }
 
         if (usedMovies.contains(nextMovie)) {
-            view.displayInvalidMove(currentPlayer, "Movie already used");
+            lastInvalidMessage = "Movie already used";
+            view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
             endGame(getOpponent(currentPlayer));
             return;
         }
 
         String reason = findConnectionReason(currentMovie, nextMovie);
         if (reason == null) {
-            view.displayInvalidMove(currentPlayer, "No valid connection");
+            lastInvalidMessage = "No valid connection";
+            view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -200,6 +225,7 @@ public class GameController {
     private void endGame(Player winner) {
         if (gameEnded) return;
         gameEnded = true;
+        view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
         view.displayWin(winner, history);
     }
 }
