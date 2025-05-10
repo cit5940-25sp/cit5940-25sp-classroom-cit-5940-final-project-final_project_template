@@ -63,6 +63,9 @@ public class MovieDataLoader {
                         case "Original Music Composer" -> composers.add(name);
                         case "Writer" -> writers.add(name);
                         case "Director of Photography" -> cinematographers.add(name);
+                        default -> {
+                            // Ignore other crew members
+                        }
                     }
                 }
 
@@ -86,7 +89,9 @@ public class MovieDataLoader {
 
             for (CSVRecord record : parser) {
                 String id = record.get("id");
-                if (!movieMap.containsKey(id)) continue;
+                if (!movieMap.containsKey(id)) {
+                    continue; // Skip if movie not found in credits
+                }
 
                 Movie movie = movieMap.get(id);
                 movie.setVoteCount(Integer.parseInt(record.get("vote_count")));

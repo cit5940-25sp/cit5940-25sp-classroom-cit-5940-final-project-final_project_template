@@ -5,7 +5,8 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 /**
  * Entry point of the movie connection game.
  * <p>
- * Initializes players, win conditions, movie index, terminal screen, and launches the game controller.
+ * Initializes players, win conditions, movie index, terminal screen,
+ * and launches the game controller.
  * </p>
  *
  * @author Jianing Yin
@@ -19,17 +20,18 @@ public class Main {
     public static void main(String[] args) {
         try {
             WinCondition winCondition1 = new GenreWinCondition("Action");
-            WinCondition winCondition2 = new CustomWinCondition(movies -> movies.size() >= 3, "3 Movies");
+            WinCondition winCondition2 = new CustomWinCondition(
+                    movies -> movies.size() >= 3, "3 Movies");
 
             Player player1 = new Player("Alice", winCondition1);
             Player player2 = new Player("Bob", winCondition2);
 
             MovieIndex movieIndex = new MovieIndex();
             TerminalSize size = new TerminalSize(125, 30);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(size);
+            DefaultTerminalFactory terminalFactory =
+                    new DefaultTerminalFactory().setInitialTerminalSize(size);
             Screen screen = terminalFactory.createScreen();
 
-//            Screen screen = new DefaultTerminalFactory().createScreen();
             screen.startScreen();
 
             GameView view = new GameView(screen);

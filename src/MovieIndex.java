@@ -20,7 +20,8 @@ public class MovieIndex {
     private List<Movie> allMovies = new ArrayList<>();
 
     /**
-     * Constructs a new MovieIndex and builds the internal lookup structures using a {@link MovieTrie}.
+     * Constructs a new MovieIndex and builds the internal lookup structures
+     * using a {@link MovieTrie}.
      */
     public MovieIndex() {
         actorMap = new HashMap<>();
@@ -153,7 +154,9 @@ public class MovieIndex {
      * @return a randomly selected movie
      */
     public Movie getRandomMovie() {
-        if (allMovies.isEmpty()) return null;
+        if (allMovies.isEmpty()) {
+            return null;
+        }
 
         int index = ThreadLocalRandom.current().nextInt(allMovies.size());
         Movie randomMovie = allMovies.get(index);

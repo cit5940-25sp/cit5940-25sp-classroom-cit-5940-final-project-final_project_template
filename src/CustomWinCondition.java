@@ -14,7 +14,8 @@ public class CustomWinCondition implements WinCondition {
     /**
      * Constructs a custom win condition.
      *
-     * @param condition   a function that takes a list of movies and returns true if the win condition is met
+     * @param condition   a function that takes a list of movies
+     *                    and returns true if the win condition is met
      * @param description a human-readable description of the win condition
      */
     public CustomWinCondition(Function<List<Movie>, Boolean> condition, String description) {

@@ -59,7 +59,8 @@ public class GameView {
      * @param round Current round number
      * @param errorMessage Message shown when invalid input is made
      */
-    public void displayGameState(Player player1, Player player2, Movie currentMovie, int round, String errorMessage) {
+    public void displayGameState(Player player1, Player player2,
+                                 Movie currentMovie, int round, String errorMessage) {
         try {
             screen.clear();
 
@@ -68,7 +69,8 @@ public class GameView {
             printString(60, 1, "Time: " + secondsRemaining + "s");
 
             drawBox(0, 4, 70, 3);
-            printString(2, 5, "[Movie] Current: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
+            printString(2, 5, "[Movie] Current: " + currentMovie.getTitle() +
+                    " (" + currentMovie.getReleaseYear() + ")");
             printString(2, 6, "Genres: " + String.join(", ", currentMovie.getGenres()));
 
             drawBox(0, 8, 70, 4);
@@ -203,7 +205,9 @@ public class GameView {
      * @param onTick Callback each second
      */
     public void startTimer(Runnable onTimeout, Runnable onTick) {
-        if (timer != null) timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         secondsRemaining = 30;
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -224,7 +228,9 @@ public class GameView {
      * Stops the timer if it is running.
      */
     public void stopTimer() {
-        if (timer != null) timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 
     /**
@@ -257,7 +263,8 @@ public class GameView {
         try {
             int row = screen.getTerminalSize().getRows() - 1;
             String displayText = "> " + input;
-            printString(0, row, String.format("%-" + screen.getTerminalSize().getColumns() + "s", ""));
+            printString(0, row, String.format("%-" + screen.getTerminalSize().getColumns()
+                    + "s", ""));
             printString(0, row, displayText);
             screen.setCursorPosition(new TerminalPosition(displayText.length(), row));
             screen.refresh();
@@ -290,16 +297,24 @@ public class GameView {
      */
     private void drawBox(int x, int y, int width, int height) {
         for (int i = 0; i < width; i++) {
-            screen.setCharacter(x + i, y, new TextCharacter('-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
-            screen.setCharacter(x + i, y + height - 1, new TextCharacter('-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x + i, y, new TextCharacter(
+                    '-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x + i, y + height - 1, new TextCharacter(
+                    '-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
         }
         for (int j = 0; j < height; j++) {
-            screen.setCharacter(x, y + j, new TextCharacter('|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
-            screen.setCharacter(x + width - 1, y + j, new TextCharacter('|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x, y + j, new TextCharacter(
+                    '|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x + width - 1, y + j, new TextCharacter(
+                    '|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
         }
-        screen.setCharacter(x, y, new TextCharacter('+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
-        screen.setCharacter(x + width - 1, y, new TextCharacter('+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
-        screen.setCharacter(x, y + height - 1, new TextCharacter('+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
-        screen.setCharacter(x + width - 1, y + height - 1, new TextCharacter('+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x, y, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x + width - 1, y, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x, y + height - 1, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x + width - 1, y + height - 1, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
     }
 }

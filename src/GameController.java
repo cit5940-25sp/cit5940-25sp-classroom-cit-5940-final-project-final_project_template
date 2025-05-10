@@ -9,8 +9,8 @@ import static com.googlecode.lanterna.input.KeyType.Enter;
  * Controls the main logic of the movie-connection game, handling turns, player input,
  * move validation, and win condition checking.
  *
- * @author Jianing Yin
  * @author Vera Zhang
+ * @author Jianing Yin
  */
 public class GameController {
 

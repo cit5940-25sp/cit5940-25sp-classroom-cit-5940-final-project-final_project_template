@@ -3,7 +3,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a movie entity with various metadata fields such as title, release year, genres, crew, and vote count.
+ * Represents a movie entity with various metadata fields such as title,
+ * release year, genres, crew, and vote count.
  * Provides accessor and mutator methods, as well as utility for comparison by popularity.
  *
  * @author Jianing Yin

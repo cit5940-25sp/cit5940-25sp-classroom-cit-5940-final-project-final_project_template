@@ -6,7 +6,8 @@ import java.util.*;
 
 /**
  * Utility class for loading movie metadata from the TMDB API.
- * This includes fetching popular movies and retrieving detailed metadata such as genres, cast, crew, and vote counts.
+ * This includes fetching popular movies and retrieving detailed metadata such as
+ * genres, cast, crew, and vote counts.
  *
  * Each movie is represented as a {@link Movie} object with structured fields.
  *
