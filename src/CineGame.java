@@ -79,6 +79,7 @@ public class CineGame {
             // Handle user input through the controller
             control.runInput();
         }
+        model.gameOver();
     }
     public static void main(String[] args) {
         CineGame game = new CineGame();
