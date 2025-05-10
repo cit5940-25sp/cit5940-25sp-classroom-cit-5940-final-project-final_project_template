@@ -28,14 +28,6 @@ public class Genre implements Comparable<Genre>{
         return name;
     }
 
-    /**
-     * Sets the name of the genre.
-     *
-     * @param name the new name of the genre
-     */
-    public void setName(String name){
-        this.name = name;
-    }
 
     /**
      * Compares this genre with another genre for order.
@@ -51,6 +43,16 @@ public class Genre implements Comparable<Genre>{
         return Integer.compare(this.id, other.id);
     }
 
+    @Override
+    public boolean equals(Object other){
+        Genre genre = (Genre) other;
+        return compareTo(genre) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
     /**
      * Returns a string representation of the genre, which is its name.
      *
