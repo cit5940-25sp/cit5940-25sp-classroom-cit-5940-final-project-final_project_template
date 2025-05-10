@@ -56,34 +56,56 @@ public class MovieIndex {
         }
     }
 
-    public Set<Movie> getConnectedMovies(Movie movie) {
-        Set<Movie> connectedMovies = new HashSet<>();
+    public Map<Movie, String> getConnectedMoviesWithReason(Movie movie) {
+        Map<Movie, String> connected = new HashMap<>();
+
         for (String actor : movie.getActors()) {
-            connectedMovies.addAll(actorMap.getOrDefault(actor, new HashSet<>()));
+            for (Movie m : actorMap.getOrDefault(actor, Set.of())) {
+                if (!m.equals(movie) && !connected.containsKey(m)) {
+                    connected.put(m, "actor: " + actor);
+                }
+            }
         }
         for (String director : movie.getDirectors()) {
-            connectedMovies.addAll(directorMap.getOrDefault(director, new HashSet<>()));
+            for (Movie m : directorMap.getOrDefault(director, Set.of())) {
+                if (!m.equals(movie) && !connected.containsKey(m)) {
+                    connected.put(m, "director: " + director);
+                }
+            }
         }
         for (String composer : movie.getComposers()) {
-            connectedMovies.addAll(composerMap.getOrDefault(composer, new HashSet<>()));
+            for (Movie m : composerMap.getOrDefault(composer, Set.of())) {
+                if (!m.equals(movie) && !connected.containsKey(m)) {
+                    connected.put(m, "composer: " + composer);
+                }
+            }
         }
         for (String writer : movie.getWriters()) {
-            connectedMovies.addAll(writerMap.getOrDefault(writer, new HashSet<>()));
+            for (Movie m : writerMap.getOrDefault(writer, Set.of())) {
+                if (!m.equals(movie) && !connected.containsKey(m)) {
+                    connected.put(m, "writer: " + writer);
+                }
+            }
         }
         for (String cinematographer : movie.getCinematographers()) {
-            connectedMovies.addAll(
-                    cinematographerMap.getOrDefault(cinematographer, new HashSet<>()));
+            for (Movie m : cinematographerMap.getOrDefault(cinematographer, Set.of())) {
+                if (!m.equals(movie) && !connected.containsKey(m)) {
+                    connected.put(m, "cinematographer: " + cinematographer);
+                }
+            }
         }
-        // Remove the movie itself from the connected movies
-        connectedMovies.remove(movie);
-        return connectedMovies;
+
+        return connected;
     }
 
-    public List<String> getConnectedMovieTitles(Movie movie) {
-        Set<Movie> connected = getConnectedMovies(movie);
+
+    public List<String> getConnectedMovieTitlesWithReason(Movie movie) {
+        Map<Movie, String> connected = getConnectedMoviesWithReason(movie);  // ✅ 使用新方法
         List<String> titles = new ArrayList<>();
-        for (Movie m : connected) {
-            titles.add(m.getTitle() + " (" + m.getReleaseYear() + ") - " + String.join(", ", m.getGenres()));
+        for (Map.Entry<Movie, String> entry : connected.entrySet()) {
+            Movie m = entry.getKey();
+            String reason = entry.getValue();
+            titles.add(m.getTitle() + " (" + reason + ")");
         }
         return titles;
     }
@@ -105,7 +127,7 @@ public class MovieIndex {
         }
         int index = ThreadLocalRandom.current().nextInt(allMovies.size());
         Movie randomMovie = allMovies.get(index);
-        if (getConnectedMovies(randomMovie).isEmpty()) {
+        if (getConnectedMoviesWithReason(randomMovie).isEmpty()) {
             return getRandomMovie();
         }
         return randomMovie;
