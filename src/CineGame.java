@@ -1,4 +1,3 @@
-// Import the Scanner class to read user input from the standard input stream
 import java.util.Scanner;
 
 /**
@@ -87,6 +86,3 @@ public class CineGame {
         game.gameLoop();
     }
 }
-
-
-*
