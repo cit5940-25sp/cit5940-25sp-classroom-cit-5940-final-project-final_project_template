@@ -5,8 +5,13 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * Loads movie metadata from the TMDB API instead of CSV files.
- * This includes titles, vote counts, genres, cast, crew, and release year.
+ * Utility class for loading movie metadata from the TMDB API.
+ * This includes fetching popular movies and retrieving detailed metadata such as
+ * genres, cast, crew, and vote counts.
+ *
+ * Each movie is represented as a {@link Movie} object with structured fields.
+ *
+ * @author Jianing Yin
  */
 public class MovieDataLoaderAPI {
     private static final OkHttpClient CLIENT = new OkHttpClient();

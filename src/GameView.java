@@ -1,300 +1,320 @@
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.input.*;
-import com.googlecode.lanterna.screen.*;
-import com.googlecode.lanterna.terminal.*;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * Handles all terminal-based display logic for the Movie Connection Game using Lanterna.
+ * Responsible for rendering game state, suggestions, connected movies, user input, and timer.
+ *
+ * @author Jianing Yin
+ */
 
 public class GameView {
-    private Terminal terminal;
-    private Screen screen;
-    private List<String> dictionary;
-    private StringBuilder currentInput = new StringBuilder();
-    private List<String> suggestions = new ArrayList<>();
-    private int cursorPosition = 0;
+    private final Screen screen;
+    private final int maxHistory = 5;
+    private final Deque<HistoryEntry> movieHistory = new ArrayDeque<>();
     private MovieTrie movieTrie;
-    // Timer variables
-    private int                      secondsRemaining = 30;
-    private boolean                  timerRunning = true;
-    private ScheduledExecutorService scheduler;
+    private List<String> suggestions = new ArrayList<>();
+    private int secondsRemaining = 30;
+    private Timer timer;
+    private List<String> connectedTitles = new ArrayList<>();
 
-    // Game State
-    private Player player1;
-    private Player player2;
-    private Movie currentMovie;
-    int round;
-    // Win
-    private Player winner;
-    // Move validation
-    private boolean isValidMove;
+    /**
+     * Sets the list of movie titles connected to the current movie.
+     * @param titles List of connected movie titles
+     */
+    public void setConnectedMovieTitles(List<String> titles) {
+        this.connectedTitles = titles;
+    }
 
-    // History
-    Deque<HistoryEntry> historyEntries;
+    /**
+     * Injects the movie trie for providing autocomplete suggestions.
+     * @param trie A MovieTrie object
+     */
+    public void setMovieTrie(MovieTrie trie) {
+        this.movieTrie = trie;
+    }
 
-    public GameView() {
-        historyEntries = new ArrayDeque<>();
-        currentMovie = new Movie("", -1);
-        round = 0;
-        player1 = new Player("", null);
-        player2 = new Player("", null);
-        isValidMove = true;
+    /**
+     * Constructs the GameView using the given Lanterna screen.
+     * @param screen Lanterna screen used for rendering
+     */
+    public GameView(Screen screen) {
+        this.screen = screen;
+    }
 
+    /**
+     * Renders the current state of the game: round info, players, current movie,
+     * recent movie chain, autocomplete suggestions, and connected movie links.
+     * @param player1 First player
+     * @param player2 Second player
+     * @param currentMovie Current movie being linked from
+     * @param round Current round number
+     * @param errorMessage Message shown when invalid input is made
+     */
+    public void displayGameState(Player player1, Player player2,
+                                 Movie currentMovie, int round, String errorMessage) {
         try {
-            terminal = new DefaultTerminalFactory().createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.startScreen();
+            screen.clear();
 
-            dictionary = Arrays.asList(
-                    "java", "javascript", "python", "terminal", "program",
-                    "code", "compiler", "development", "interface", "application"
-            );
+            drawBox(0, 0, 70, 3);
+            printString(2, 1, "Round: " + round);
+            printString(60, 1, "Time: " + secondsRemaining + "s");
 
-            // Initialize timer thread
-            scheduler = Executors.newScheduledThreadPool(1);
-            scheduler.scheduleAtFixedRate(() -> {
-                if (timerRunning && secondsRemaining > 0) {
-                    secondsRemaining--;
-                    updateScreen();
+            drawBox(0, 4, 70, 3);
+            printString(2, 5, "[Movie] Current: " + currentMovie.getTitle() +
+                    " (" + currentMovie.getReleaseYear() + ")");
+            printString(2, 6, "Genres: " + String.join(", ", currentMovie.getGenres()));
+
+            drawBox(0, 8, 70, 4);
+            printString(2, 9, "[P1] Player 1: " + player1.getName());
+            printString(2, 10, "Movies: " + player1.getMoviesPlayed().size());
+            printString(2, 11, "Win: " + player1.getWinCondition().getDescription());
+
+            drawBox(0, 13, 70, 4);
+            printString(2, 14, "[P2] Player 2: " + player2.getName());
+            printString(2, 15, "Movies: " + player2.getMoviesPlayed().size());
+            printString(2, 16, "Win: " + player2.getWinCondition().getDescription());
+
+            drawBox(0, 18, 70, maxHistory + 2);
+            printString(2, 19, "Recent Movies:");
+            int row = 20;
+            for (HistoryEntry entry : movieHistory) {
+                Movie m = entry.getMovie();
+                String summary = String.format("%s (%d) [%s] [%s]",
+                        m.getTitle(),
+                        m.getReleaseYear(),
+                        String.join(", ", m.getGenres()),
+                        entry.getConnectionReason());
+                if (summary.length() > 70) {
+                    summary = summary.substring(0, 67) + "…";
                 }
-            }, 1, 1, TimeUnit.SECONDS);
+                printString(2, row++, summary);
+            }
 
-//            movieTrie = new MovieTrie();
-//            movieTrie.buildTrie();
+            if (suggestions != null && !suggestions.isEmpty()) {
+                int maxToShow = Math.min(10, suggestions.size());
+                int suggestionBoxHeight = maxToShow + 3;
+
+                drawBox(72, 0, 50, suggestionBoxHeight);
+                printString(74, 1, "Suggestions:");
+                int sRow = 2;
+
+                for (int i = 0; i < maxToShow; i++) {
+                    String suggestion = suggestions.get(i);
+                    if (suggestion.length() > 46) {
+                        suggestion = suggestion.substring(0, 46) + "…";
+                    }
+                    printString(74, sRow++, suggestion);
+                }
+            }
+
+            if (connectedTitles != null && !connectedTitles.isEmpty()) {
+                int connectedStartY = Math.max(2 + suggestions.size() + 2, 10);
+                int maxDisplay = 10;
+                int boxHeight = Math.min(connectedTitles.size(), maxDisplay) + 2;
+                drawBox(72, connectedStartY, 50, boxHeight);
+                printString(74, connectedStartY + 1, "Connected:");
+                int cRow = connectedStartY + 2;
+
+                for (int i = 0; i < Math.min(connectedTitles.size(), maxDisplay); i++) {
+                    String connected = connectedTitles.get(i);
+                    if (connected.length() > 46) {
+                        connected = connected.substring(0, 46) + "…";
+                    }
+                    printString(74, cRow++, connected);
+                }
+            }
+
+            if (!errorMessage.isEmpty()) {
+                printString(0, screen.getTerminalSize().getRows() - 4, "[X] " + errorMessage);
+            }
+
+            screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-//    public void run() throws IOException {
-//        boolean running = true;
-//
-//        screen.clear();
-//        printString(0, 0, "> ");
-//        cursorPosition = 2;
-//        updateScreen();
-//
-//        while (running) {
-//            KeyStroke keyStroke = terminal.pollInput();
-//            if (keyStroke != null) {
-//                switch (keyStroke.getKeyType()) {
-//                    case Character:
-//                        handleCharacter(keyStroke.getCharacter());
-//                        break;
-//                    case Backspace:
-//                        handleBackspace();
-//                        break;
-//                    case Enter:
-//                        handleEnter();
-//                        break;
-//                    case EOF:
-//                    case Escape:
-//                        running = false;
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                updateScreen();
-//            }
-//            updateScreen();
-//
-//            // Small delay to prevent CPU hogging
-//            try {
-//                Thread.sleep(10);
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//
-//        // Shutdown timer
-//        scheduler.shutdown();
-//        screen.close();
-//        terminal.close();
-//    }
-
-    private void display() {
-        // Game State
-        int col = 0;
-        int row = 15;
-        printString(col, row++, "===== GAME STATUS =====");
-        printString(col, row++, "Current Round: " + round);
-        printString(col, row++, "Current Movie: " + currentMovie.getTitle() + " (" + currentMovie.getReleaseYear() + ")");
-        printString(col, row++, "Player 1: " + player1.getName());
-        printString(col, row++, "Movies Collected: " + player1.getMoviesPlayed().size());
-        printString(col, row++, "Player 2: " + player2.getName());
-        printString(col, row++, "Movies Collected: " + player2.getMoviesPlayed().size());
-        printString(col, row++, "=======================");
-
-        // Win
-        col = 40;
-        row = 8;
-        if (winner != null) {
-            printString(col, row++, "=== CONGRATULATIONS ===");
-            printString(col, row++, winner.getName() + " wins!");
-            printString(col, row++, "Number of movies collected: " + winner.getMoviesPlayed().size());
-            printString(col, row++, "=======================");
-        }
-
-        // Move validation
-        col = 40;
-        row = 2;
-        if (!isValidMove) {
-            printString(col, row++, "==== INVALID MOVE! ====");
-            printString(col, row++, "This move does not comply with the game rules.");
-            printString(col, row++, "=======================");}
-
-        // Sug
-        col = 2;
-        row = 2;
-        for (String suggestion : suggestions) {
-            printString(col, row++, suggestion);
-        }
-
-        // History
-        col = 40;
-        row = 15;
-        if (historyEntries.size() > 0) {
-            printString(col, row++, "======= HISTORY =======");
-            for (HistoryEntry historyEntry : historyEntries) {
-                printString(col, row++, historyEntry.toString());
-            }
-            printString(col, row++, "=======================");
-        }
-    }
-
-//    private void handleCharacter(char c) {
-//        currentInput.insert(cursorPosition - 2, c);
-//        cursorPosition++;
-//        updateSuggestions();
-//    }
-//
-//    private void handleBackspace() {
-//        if (cursorPosition > 2) {
-//            currentInput.deleteCharAt(cursorPosition - 3);
-//            cursorPosition--;
-//            updateSuggestions();
-//        }
-//    }
-//
-//    private void handleEnter() throws IOException {
-//        int currentRow = screen.getCursorPosition().getRow();
-//        currentRow += 1 + suggestions.size();
-//
-//        printString(0, currentRow, "> ");
-//        currentInput = new StringBuilder();
-//        cursorPosition = 2;
-//        suggestions.clear();
-//
-//        String inputMovieName = currentInput.toString();
-//
-//    }
-//
-//    private void updateSuggestions() {
-//        suggestions.clear();
-//        String prefix = currentInput.toString();
-//
-//        if (!prefix.isEmpty()) {
-//            suggestions = movieTrie.getSuggestions(prefix);
-//        }
-//    }
-
-    private void updateScreen() {
+    /**
+     * Displays the final screen when a player wins, along with the final movie chain.
+     * @param winner The player who won
+     * @param history The full history of moves made in the game
+     */
+    public void displayWin(Player winner, Deque<HistoryEntry> history) {
         try {
-            synchronized (screen) {
-                screen.clear();
+            screen.clear();
+            printString(0, 0, "[Win] Congratulations " + winner.getName() + " wins!");
+            printString(0, 2, "Number of movies collected: " + winner.getMoviesPlayed().size());
 
-                // Print timer at top right
-                String timerText = "Time: " + secondsRemaining + "s";
-                TerminalSize size = screen.getTerminalSize();
-                printString(size.getColumns() - timerText.length(), 0, timerText);
+            printString(0, 4, "Final Movie Chain:");
+            int row = 5;
+            for (HistoryEntry entry : movieHistory) {
+                Movie m = entry.getMovie();
+                String summary = String.format("%s (%d) [%s] [%s]",
+                        m.getTitle(),
+                        m.getReleaseYear(),
+                        String.join(", ", m.getGenres()),
+                        entry.getConnectionReason());
 
-                // Print current command line
-                printString(0, 0, "> " + currentInput.toString());
-
-                // Print suggestions
-                int row = 1;
-                for (String suggestion : suggestions) {
-                    printString(2, row++, suggestion);
+                if (summary.length() > 66) {
+                    summary = summary.substring(0, 65) + "…";
                 }
 
-                display();
-                screen.setCursorPosition(new TerminalPosition(cursorPosition, 0));
-                screen.refresh();
+                printString(2, row++, summary);
             }
+            screen.refresh();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Adds a new history entry to the recent history list for rendering.
+     * @param entry A HistoryEntry object to record
+     */
+    public void addToHistory(HistoryEntry entry) {
+        if (movieHistory.size() == maxHistory) {
+            movieHistory.removeFirst();
+        }
+        movieHistory.addLast(entry);
+    }
+
+    /**
+     * Updates the suggestions list based on the current user input prefix.
+     * @param prefix Partial movie title being typed by the user
+     */
+    public void updateSuggestions(String prefix) {
+        if (prefix == null || prefix.isEmpty() || movieTrie == null) {
+            suggestions = List.of();
+        } else {
+            suggestions = movieTrie.getSuggestions(prefix);
+        }
+    }
+
+    /**
+     * Starts the countdown timer and updates the view on each tick.
+     * @param onTimeout Callback if timer runs out
+     * @param onTick Callback each second
+     */
+    public void startTimer(Runnable onTimeout, Runnable onTick) {
+        if (timer != null) {
+            timer.cancel();
+        }
+        secondsRemaining = 30;
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                secondsRemaining--;
+                if (secondsRemaining <= 0) {
+                    timer.cancel();
+                    onTimeout.run();
+                } else {
+                    onTick.run();
+                }
+            }
+        }, 1000, 1000);
+    }
+
+    /**
+     * Stops the timer if it is running.
+     */
+    public void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
+    }
+
+    /**
+     * Displays a one-line message above the input area.
+     * @param message Prompt or info message to show
+     */
+    public void displayPrompt(String message) {
+        try {
+            printString(0, screen.getTerminalSize().getRows() - 2, message);
+            screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Reads a key press in a non-blocking manner.
+     * @return The KeyStroke object if available, null otherwise
+     * @throws IOException If screen input fails
+     */
+    public KeyStroke readKeyStrokeNonBlocking() throws IOException {
+        return screen.pollInput();
+    }
+
+    /**
+     * Displays the current input line, typically as the user is typing.
+     * @param input The input string
+     */
+    public void displayInputLine(String input) {
+        try {
+            int row = screen.getTerminalSize().getRows() - 1;
+            String displayText = "> " + input;
+            printString(0, row, String.format("%-" + screen.getTerminalSize().getColumns()
+                    + "s", ""));
+            printString(0, row, displayText);
+            screen.setCursorPosition(new TerminalPosition(displayText.length(), row));
+            screen.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Prints a string on the screen at the specified column and row.
+     * @param column Starting column
+     * @param row Starting row
+     * @param text Text to print
+     */
     private void printString(int column, int row, String text) {
         for (int i = 0; i < text.length(); i++) {
             screen.setCharacter(column + i, row,
                     new TextCharacter(text.charAt(i),
-                            TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+                            TextColor.ANSI.WHITE,
+                            TextColor.ANSI.BLACK));
         }
     }
 
-    public static void main(String[] args) {
-        try {
-            GameView app = new GameView();
-//            app.run();
-
-            Thread.sleep(3000);
-            Player player1 = new Player("p1", null);
-            Player player2 = new Player("p2", null);
-            Movie movie = new Movie("Avengers", 2012);
-            int round = 2;
-            app.displayGameState(player1, player2, movie, round);
-
-            Thread.sleep(3000);
-            app.displaySuggestions(Arrays.asList("aa", "ab", "ac", "ad", "ae", "af"));
-
-            Thread.sleep(3000);
-            app.displayInvalidMove();
-
-            Thread.sleep(3000);
-            app.displayWin(player2);
-
-            Thread.sleep(3000);
-            Deque<HistoryEntry> historyEntries1 = new ArrayDeque<>();
-            for (int i = 0; i < 5; i++) {
-                HistoryEntry historyEntry = new HistoryEntry(movie, "conn reason");
-                historyEntries1.add(historyEntry);
-            }
-            app.displayHistory(historyEntries1);
-        } catch (Exception e) {
-            e.printStackTrace();
+    /**
+     * Draws a box (UI element border) on the screen.
+     * @param x Top-left x coordinate
+     * @param y Top-left y coordinate
+     * @param width Box width
+     * @param height Box height
+     */
+    private void drawBox(int x, int y, int width, int height) {
+        for (int i = 0; i < width; i++) {
+            screen.setCharacter(x + i, y, new TextCharacter(
+                    '-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x + i, y + height - 1, new TextCharacter(
+                    '-', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
         }
-    }
-
-    public void displayGameState(Player player1, Player player2, Movie currentMovie, int round) {
-        this.player1 = player1;
-        this.player2 = player2;
-        this.currentMovie = currentMovie;
-        this.round = round;
-        updateScreen();
-    }
-
-    public void displayInvalidMove() {
-        this.isValidMove = false;
-        updateScreen();
-    }
-
-    public void displayWin(Player winner) {
-        this.winner = winner;
-        updateScreen();
-    }
-
-    public void displaySuggestions(List<String> movieTitles) {
-        this.suggestions = movieTitles;
-    }
-
-    public void displayHistory(Deque<HistoryEntry> historyEntries) {
-        this.historyEntries = historyEntries;
-        updateScreen();
+        for (int j = 0; j < height; j++) {
+            screen.setCharacter(x, y + j, new TextCharacter(
+                    '|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+            screen.setCharacter(x + width - 1, y + j, new TextCharacter(
+                    '|', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        }
+        screen.setCharacter(x, y, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x + width - 1, y, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x, y + height - 1, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
+        screen.setCharacter(x + width - 1, y + height - 1, new TextCharacter(
+                '+', TextColor.ANSI.WHITE, TextColor.ANSI.BLACK));
     }
 }

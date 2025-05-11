@@ -27,10 +27,10 @@ public class MovieIndexTest {
         index.addMovie(m3);
         index.addMovie(m4);
 
-        Set<Movie> connected = index.getConnectedMovies(m1);
-        assertTrue(connected.contains(m2));
-        assertTrue(connected.contains(m3));
-        assertFalse(connected.contains(m4));
+        Map<Movie, String> connected = index.getConnectedMoviesWithReason(m1);
+        assertTrue(connected.containsKey(m2));
+        assertTrue(connected.containsKey(m3));
+        assertFalse(connected.containsKey(m4));
     }
 
     @Test
@@ -65,6 +65,11 @@ public class MovieIndexTest {
 
         List<String> suggestions4 = index.getSuggestions("xyz");
         assertTrue(suggestions4.isEmpty());
+
+        List<String> suggestions5 = index.getSuggestions("The Broadway Melody");
+        for (String suggestion : suggestions5) {
+            assertTrue(suggestion.contains("The Broadway Melody"));
+        }
     }
 
 }

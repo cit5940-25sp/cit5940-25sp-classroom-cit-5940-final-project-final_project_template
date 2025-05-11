@@ -10,13 +10,29 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Utility class for loading movie data from TMDB-style CSV files containing metadata and credits.
+ * It parses cast, crew, genres, and other relevant fields into structured {@link Movie} objects.
+ *
+ * The credits file should include `movie_id`, `title`, `cast`, and `crew`.
+ * The movies file should include `id`, `genres`, `vote_count`, and `release_date`.
+ *
+ * @author Jianing Yin
+ */
 public class MovieDataLoader {
 
+    /**
+     * Loads movies from the given credits and movies metadata CSV files.
+     *
+     * @param creditsFile Path to the credits CSV file
+     * @param moviesFile Path to the movies metadata CSV file
+     * @return A list of {@link Movie} objects populated with information from both files
+     */
     public static List<Movie> loadMovies(String creditsFile, String moviesFile) {
         Map<String, Movie> movieMap = new HashMap<>();
         Gson gson = new Gson();
 
-        // Step 1: Load Credits
+        // Step 1: Load credits
         try (BufferedReader br = new BufferedReader(new FileReader(creditsFile));
              CSVParser parser = new CSVParser(br, CSVFormat.DEFAULT.withHeader())) {
 
@@ -43,20 +59,13 @@ public class MovieDataLoader {
                     String job = crew.get("job").getAsString();
                     String name = crew.get("name").getAsString();
                     switch (job) {
-                        case "Director":
-                            directors.add(name);
-                            break;
-                        case "Original Music Composer":
-                            composers.add(name);
-                            break;
-                        case "Writer":
-                            writers.add(name);
-                            break;
-                        case "Director of Photography":
-                            cinematographers.add(name);
-                            break;
-                        default:
-                            break;
+                        case "Director" -> directors.add(name);
+                        case "Original Music Composer" -> composers.add(name);
+                        case "Writer" -> writers.add(name);
+                        case "Director of Photography" -> cinematographers.add(name);
+                        default -> {
+                            // Ignore other crew members
+                        }
                     }
                 }
 
@@ -74,14 +83,14 @@ public class MovieDataLoader {
             e.printStackTrace();
         }
 
-        // Step 2: Load Movies Metadata
+        // Step 2: Load movie metadata
         try (BufferedReader br = new BufferedReader(new FileReader(moviesFile));
              CSVParser parser = new CSVParser(br, CSVFormat.DEFAULT.withHeader())) {
 
             for (CSVRecord record : parser) {
                 String id = record.get("id");
                 if (!movieMap.containsKey(id)) {
-                    continue;
+                    continue; // Skip if movie not found in credits
                 }
 
                 Movie movie = movieMap.get(id);

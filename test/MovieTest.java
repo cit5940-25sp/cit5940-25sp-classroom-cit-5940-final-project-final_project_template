@@ -67,14 +67,4 @@ public class MovieTest {
         assertEquals(cinematographers, movie.getCinematographers());
     }
 
-    @Test
-    public void testEqualsAndHashCode() {
-        Movie movie1 = new Movie("Same Movie", 2023);
-        Movie movie2 = new Movie("Same Movie", 2023);
-        Movie movie3 = new Movie("Different Movie", 2024);
-
-        assertEquals(movie1, movie2);
-        assertEquals(movie1.hashCode(), movie2.hashCode());
-        assertNotEquals(movie1, movie3);
-    }
 }

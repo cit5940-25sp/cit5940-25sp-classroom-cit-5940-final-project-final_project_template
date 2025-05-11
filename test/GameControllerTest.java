@@ -1,61 +1,57 @@
+import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.*;
 
 public class GameControllerTest {
 
     @Test
-    public void testGameInitialization() {
-        // Create win conditions
-        WinCondition winCondition1 = new SimpleWinCondition(3); // Simple condition: collect 3 movies
+    public void testGameInitialization() throws Exception {
+        WinCondition winCondition1 = new SimpleWinCondition(3);
         WinCondition winCondition2 = new SimpleWinCondition(3);
 
-        // Create two players with win conditions
         Player player1 = new Player("Player 1", winCondition1);
         Player player2 = new Player("Player 2", winCondition2);
 
-        // Create movie index and populate with test data
         MovieIndex movieIndex = new MovieIndex();
         populateMovieIndexWithTestData(movieIndex);
 
-        // Create game view
-        GameView gameView = new GameView();
+        Screen screen = new DefaultTerminalFactory().createScreen();
+        screen.startScreen();
+        GameView gameView = new GameView(screen);
 
-        // Create game controller
         GameController controller = new GameController(player1, player2, movieIndex, gameView);
 
-        // Verify initial state
         assertNotNull("Controller should not be null", controller);
         assertEquals("Player 1 should be set correctly", player1, controller.player1);
         assertEquals("Player 2 should be set correctly", player2, controller.player2);
         assertEquals("MovieIndex should be set correctly", movieIndex, controller.index);
         assertEquals("Initial round should be 0", 0, controller.round);
         assertFalse("Game should not be ended initially", isGameEnded(controller));
+
+        screen.stopScreen(); // Clean up
     }
 
     @Test
-    public void testStartGame() {
-        // Setup similar to previous test
+    public void testStartGameSetup() throws Exception {
         WinCondition winCondition1 = new SimpleWinCondition(3);
         WinCondition winCondition2 = new SimpleWinCondition(3);
         Player player1 = new Player("Player 1", winCondition1);
         Player player2 = new Player("Player 2", winCondition2);
         MovieIndex movieIndex = new MovieIndex();
         populateMovieIndexWithTestData(movieIndex);
-        GameView gameView = new GameView();
+        Screen screen = new DefaultTerminalFactory().createScreen();
+        screen.startScreen();
+        GameView gameView = new GameView(screen);
 
         GameController controller = new GameController(player1, player2, movieIndex, gameView);
 
-        // Since startGame interacts with System.in, we won't call it directly
-        // but we can verify that setup is correct for starting a game
         assertNotNull("Controller should be ready to start game", controller);
 
-        // This is where we would test specific game mechanics if we mocked System.in
+        screen.stopScreen(); // Clean up
     }
 
-    // Helper method to populate MovieIndex with test data
     private void populateMovieIndexWithTestData(MovieIndex index) {
-        // Create some test movies
         Movie movie1 = new Movie("The Avengers", 2012);
         movie1.addActor("Robert Downey Jr.");
         movie1.addActor("Chris Evans");
@@ -71,15 +67,12 @@ public class GameControllerTest {
         movie3.addActor("Natalie Portman");
         movie3.addDirector("Kenneth Branagh");
 
-        // Add movies to index
         index.addMovie(movie1);
         index.addMovie(movie2);
         index.addMovie(movie3);
     }
 
-    // Helper method to check if game is ended (since the field is private)
     private boolean isGameEnded(GameController controller) {
-        // We're using reflection to access the private field
         try {
             java.lang.reflect.Field field = GameController.class.getDeclaredField("gameEnded");
             field.setAccessible(true);
@@ -90,17 +83,18 @@ public class GameControllerTest {
         }
     }
 
-    // Simple win condition implementation for testing
     private static class SimpleWinCondition implements WinCondition {
         private final int requiredMovies;
-
         public SimpleWinCondition(int requiredMovies) {
             this.requiredMovies = requiredMovies;
         }
-
         @Override
         public boolean checkWin(Player player) {
             return player.getMoviesPlayed().size() >= requiredMovies;
+        }
+        @Override
+        public String getDescription() {
+            return "Win after playing " + requiredMovies + " movies";
         }
     }
 }
