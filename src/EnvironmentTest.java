@@ -52,4 +52,30 @@ public class EnvironmentTest {
         }
     }
 
+    // === get ===
+    @Test
+    public void testGet1_getFromCurrentScope() {
+        Environment env = new Environment();
+        env.define("z", 11);
+        assertEquals(Integer.valueOf(11), env.get("z"));
+    }
+
+    @Test
+    public void testGet2_getFromParentScope() {
+        Environment parent = new Environment();
+        parent.define("z", 11);
+        Environment child = new Environment(parent);
+        assertEquals(Integer.valueOf(11), child.get("z"));
+    }
+
+    @Test
+    public void testGet3_undefinedVariableThrows() {
+        Environment env = new Environment();
+        try {
+            env.get("z");
+            fail("Expected RuntimeException was not thrown");
+        } catch (RuntimeException e) {
+            assertEquals("Undefined variable 'z'", e.getMessage());
+        }
+    }
 }
