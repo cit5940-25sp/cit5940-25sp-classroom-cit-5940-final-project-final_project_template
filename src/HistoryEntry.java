@@ -10,9 +10,9 @@
  */
 public class HistoryEntry {
     /** The movie associated with this history entry */
-    private Movie movie;
+    private final Movie movie;
     /** The reason explaining how this movie connects to the previous movie */
-    private String connectionReason;
+    private final String connectionReason;
 
     /**
      * Constructs a new HistoryEntry with the specified movie and connection reason.
@@ -21,7 +21,7 @@ public class HistoryEntry {
      * @param connectionReason The explanation of how this movie connects to the
      *                         previous movie
      */
-    public HistoryEntry(Movie movie, String connectionReason) {
+    public HistoryEntry(final Movie movie, final String connectionReason) {
         this.movie = movie;
         this.connectionReason = connectionReason;
     }
@@ -65,12 +65,22 @@ public class HistoryEntry {
      * @return true if the objects are equal, false otherwise
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj)
             return true;
         if (obj == null || getClass() != obj.getClass())
             return false;
         HistoryEntry that = (HistoryEntry) obj;
         return movie.equals(that.movie);
+    }
+
+    /**
+     * Returns a hash code value for this history entry.
+     *
+     * @return A hash code value for this object
+     */
+    @Override
+    public int hashCode() {
+        return movie.hashCode();
     }
 }

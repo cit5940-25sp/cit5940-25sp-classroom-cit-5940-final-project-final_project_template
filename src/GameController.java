@@ -22,39 +22,39 @@ import static com.googlecode.lanterna.input.KeyType.Enter;
 public class GameController {
 
     /** Player 1 */
-    public Player player1;
+    private final Player player1;
     /** Player 2 */
-    public Player player2;
+    private final Player player2;
     /** The player whose turn it is */
-    public Player currentPlayer;
+    private Player currentPlayer;
     /** The current movie being connected */
-    public Movie currentMovie;
+    private Movie currentMovie;
     /** Movie index, responsible for lookup and connection logic */
-    public MovieIndex index;
+    private final MovieIndex index;
     /** Current round number */
-    public int round;
+    private int round;
 
     /**
      * Records the usage count for each connection reason (to prevent infinite
      * loops)
      */
-    private Map<String, Integer> connectionUsageMap;
+    private final Map<String, Integer> connectionUsageMap;
     /** Set of movies that have already been used */
-    private Set<Movie> usedMovies;
+    private final Set<Movie> usedMovies;
     /** Game history (each step's movie and connection reason) */
-    private Deque<HistoryEntry> history;
+    private final Deque<HistoryEntry> history;
     /** View object responsible for UI display */
-    private GameView view;
+    private final GameView view;
     /** Time limit for each turn (seconds) */
     private static final int TIME_LIMIT_SECONDS = 30;
     /** Console input scanner */
-    private Scanner inputScanner;
+    private final Scanner inputScanner;
     /** Whether the game has ended */
     private boolean gameEnded = false;
     /** Message for the last invalid input */
     private String lastInvalidMessage = "";
     /** Movie title trie for autocomplete */
-    private MovieTrie movieTrie;
+    private final MovieTrie movieTrie;
 
     /**
      * Constructor, initializes the controller.
@@ -65,7 +65,8 @@ public class GameController {
      * @param gameView   View object
      * @throws IllegalArgumentException if a player does not have a win condition
      */
-    public GameController(Player p1, Player p2, MovieIndex movieIndex, GameView gameView) {
+    public GameController(final Player p1, final Player p2, final MovieIndex movieIndex,
+            final GameView gameView) {
         this.player1 = p1;
         this.player2 = p2;
         this.index = movieIndex;
@@ -84,6 +85,9 @@ public class GameController {
         }
 
         this.view.setMovieTrie(movieTrie);
+        this.connectionUsageMap = new HashMap<>();
+        this.usedMovies = new HashSet<>();
+        this.history = new ArrayDeque<>();
     }
 
     /**
@@ -106,9 +110,9 @@ public class GameController {
             return;
 
         this.round = 1;
-        this.usedMovies = new HashSet<>();
-        this.history = new ArrayDeque<>();
-        this.connectionUsageMap = new HashMap<>();
+        this.usedMovies.clear();
+        this.history.clear();
+        this.connectionUsageMap.clear();
         this.currentMovie = index.getRandomMovie();
 
         if (this.currentMovie == null) {
@@ -161,7 +165,7 @@ public class GameController {
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                     endGame(getOpponent(currentPlayer));
                 },
@@ -188,6 +192,8 @@ public class GameController {
                             }
                         }
                         case Character -> inputBuilder.append(key.getCharacter());
+                        default -> {
+                        }
                     }
                     view.updateSuggestions(inputBuilder.toString());
                     view.displayInputLine(inputBuilder.toString());
@@ -198,7 +204,7 @@ public class GameController {
                 Thread.sleep(50);
             }
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
         view.stopTimer();
@@ -209,7 +215,7 @@ public class GameController {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             endGame(getOpponent(currentPlayer));
             return;
@@ -222,7 +228,7 @@ public class GameController {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             endGame(getOpponent(currentPlayer));
             return;
@@ -234,7 +240,7 @@ public class GameController {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             endGame(getOpponent(currentPlayer));
             return;
@@ -247,7 +253,7 @@ public class GameController {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
             endGame(getOpponent(currentPlayer));
             return;
@@ -272,7 +278,7 @@ public class GameController {
      * @param player The current player
      * @return The other player
      */
-    private Player getOpponent(Player player) {
+    private Player getOpponent(final Player player) {
         return (player == player1) ? player2 : player1;
     }
 
@@ -284,7 +290,7 @@ public class GameController {
      * @param to   Target movie
      * @return Connection reason string, or null if no valid connection exists
      */
-    private String findConnectionReason(Movie from, Movie to) {
+    private String findConnectionReason(final Movie from, final Movie to) {
         String reason;
         reason = findSpecificReason("actor", from.getActors(), to.getActors());
         if (reason != null)
@@ -311,7 +317,7 @@ public class GameController {
      * @return If there is an intersection and not overused, returns the connection
      *         reason; otherwise null
      */
-    private String findSpecificReason(String category, Collection<String> c1, Collection<String> c2) {
+    private String findSpecificReason(final String category, final Collection<String> c1, final Collection<String> c2) {
         if (c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty())
             return null;
         for (String item : c2) {
@@ -332,7 +338,7 @@ public class GameController {
      * @param movie  The newly connected movie
      * @param reason The connection reason
      */
-    public void recordMove(Movie movie, String reason) {
+    public void recordMove(final Movie movie, final String reason) {
         if (gameEnded)
             return;
         usedMovies.add(movie);
@@ -348,7 +354,7 @@ public class GameController {
      *
      * @param winner The winning player
      */
-    private void endGame(Player winner) {
+    private void endGame(final Player winner) {
         if (gameEnded)
             return;
         gameEnded = true;
