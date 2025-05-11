@@ -5,6 +5,10 @@ import java.nio.file.*;
 import org.apache.commons.csv.*;
 
 /**
+ * Unit tests for the HistoryEntry class.
+ * This class tests the functionality of the HistoryEntry
+ * with various movies and connection reasons.
+ *
  * @author Vera Zhang
  */
 

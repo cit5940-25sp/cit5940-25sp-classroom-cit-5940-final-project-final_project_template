@@ -2,6 +2,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.List;
 
+/**
+ * Unit tests for the Player class.
+ * This class tests the functionality of the Player
+ * with various win conditions and movie additions.
+ *
+ * @author Vera Zhang
+ */
+
 // Dummy WinCondition implementation for testing
 class DummyWinCondition implements WinCondition {
     @Override
