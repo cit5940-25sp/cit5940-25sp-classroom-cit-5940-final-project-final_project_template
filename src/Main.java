@@ -30,6 +30,12 @@ public class Main {
                 ),
                 "Directed by Nolan"
             );
+//            Player player2 = PlayerFactory.createPlayerWithCustomCondition(
+//                "Bob",
+//                movies -> movies.size() > 3,
+//                "Collected more than 3 movies"
+//            );
+
 
             MovieIndex movieIndex = new MovieIndex();
             TerminalSize size = new TerminalSize(125, 30);
