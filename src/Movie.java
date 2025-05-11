@@ -1,3 +1,4 @@
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -133,8 +134,8 @@ public class Movie {
         this.title = title;
     }
 
-    public void setActors(Set<String> actors) {
-        this.actors = actors;
+    public void setActors(Collection<String> actors) {
+        this.actors = new HashSet<>(actors);
     }
 
     public void setCinematographers(Set<String> cinematographers) {
