@@ -8,6 +8,7 @@ import java.util.Set;
  * Provides accessor and mutator methods, as well as utility for comparison by popularity.
  *
  * @author Jianing Yin
+ * @author Vera Zhang
  */
 public class Movie {
     private String id;
@@ -148,8 +149,8 @@ public class Movie {
         this.directors = directors;
     }
 
-    public void setGenres(Set<String> genres) {
-        this.genres = genres;
+    public void setGenres(java.util.Collection<String> genres) {
+        this.genres = new HashSet<>(genres);
     }
 
     public void setReleaseYear(int releaseYear) {
