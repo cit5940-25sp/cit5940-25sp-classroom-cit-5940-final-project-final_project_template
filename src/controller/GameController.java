@@ -100,15 +100,26 @@ public class GameController {
      * @param movieTitle the title of the movie submitted by the player
      */
     public void processMove(String movieTitle) {
-        // TODO
-    }
+        Movie move = movieIndex.findMovieByTitle(movieTitle.trim());
+        if (move == null || usedMovies.contains(move.getTitle())) {
+            return;
+        }
+        List<Movie> played = currentPlayer.getPlayedMovies();
+        if (!played.isEmpty()) {
+            Movie last = played.get(played.size() - 1);
+            if (!linkStrategy.isValidLink(last, move)) {
+                return;
+            }
+        }
+        currentPlayer.addPlayedMovie(move);
+        usedMovies.add(move.getTitle());
 
     /**
      * Checks whether the game has ended.
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
-        return false;
+        return winCondition.checkWin(currentPlayer);
     }
 
     /**
