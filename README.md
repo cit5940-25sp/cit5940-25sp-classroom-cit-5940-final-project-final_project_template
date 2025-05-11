@@ -7,7 +7,12 @@
 A terminal-based movie connection game inspired by Cine2Nerdle, implemented in Java with the **Lanterna** library for a rich text-based UI. Two players take turns naming movies that connect based on shared actors, directors, genres, or custom rules, and the game ends when one player's win condition is satisfied.
 
 ---
+## 📐 Design Overview (UML)
 
+The following UML diagram illustrates the overall system architecture, including the relationships among `Player`, `WinCondition`, `PlayerFactory`, and various win condition strategies:
+
+![UML Diagram](./CIT5940FinalProject.jpg)
+---
 ## 📂 Project Structure
 
 ```
