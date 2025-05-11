@@ -21,4 +21,35 @@ public class EnvironmentTest {
         assertEquals(Integer.valueOf(99), child.get("x"));
         assertEquals(Integer.valueOf(10), parent.get("x"));
     }
+
+    // === assign ===
+    @Test
+    public void testAssign1_updateLocalValue() {
+        Environment env = new Environment();
+        env.define("x", 5);
+        env.assign("x", 20);
+        assertEquals(Integer.valueOf(20), env.get("x"));
+    }
+
+    @Test
+    public void testAssign2_updateParentValue() {
+        Environment parent = new Environment();
+        parent.define("x", 5);
+        Environment child = new Environment(parent);
+        child.assign("x", 30);
+        assertEquals(Integer.valueOf(30), child.get("x"));
+        assertEquals(Integer.valueOf(30), parent.get("x"));
+    }
+
+    @Test
+    public void testAssign3_undefinedVariableThrows() {
+        Environment env = new Environment();
+        try {
+            env.assign("y", 100);
+            fail("Expected RuntimeException was not thrown");
+        } catch (RuntimeException e) {
+            assertEquals("Undefined variable 'y'", e.getMessage());
+        }
+    }
+
 }
