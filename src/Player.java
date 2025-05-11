@@ -6,6 +6,7 @@ import java.util.List;
  * Each player has a name, a list of movies they have played,
  * and a win condition to determine whether they have won.
  *
+ * @author Vera Zhang
  * @author Jianing Yin
  */
 public class Player {
