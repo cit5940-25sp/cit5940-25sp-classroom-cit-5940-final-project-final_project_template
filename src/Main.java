@@ -19,12 +19,17 @@ public class Main {
      */
     public static void main(String[] args) {
         try {
-            WinCondition winCondition1 = new GenreWinCondition("Action");
-            WinCondition winCondition2 = new CustomWinCondition(
-                    movies -> movies.size() >= 3, "3 Movies");
-
-            Player player1 = new Player("Alice", winCondition1);
-            Player player2 = new Player("Bob", winCondition2);
+            Player player1 = PlayerFactory.createPlayerWithGenre("Alice", "Action");
+            Player player2 = PlayerFactory.createPlayerWithCustomCondition(
+                "Bob",
+                movies -> movies.stream().anyMatch(
+                    m -> m.getDirectors() != null &&
+                         m.getDirectors().stream().anyMatch(
+                             d -> d.toLowerCase().contains("nolan")
+                         )
+                ),
+                "Directed by Nolan"
+            );
 
             MovieIndex movieIndex = new MovieIndex();
             TerminalSize size = new TerminalSize(125, 30);
