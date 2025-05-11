@@ -40,17 +40,7 @@ public class MovieTrieTest {
         MovieTrie movieTrie = new MovieTrie();
         movieTrie.buildTrie();
         assertEquals(10, movieTrie.getSuggestions("a").size());
-//        movieTrie.getSuggestions("a").forEach(x -> System.out.println(x));
-//        System.out.println(movieTrie.getSuggestions("a"));
         movieTrie.setLimit(5000);
         assertEquals(308, movieTrie.getSuggestions("a").size());
-
     }
-
-//    @Test
-//    public void getAllMovieSuggestions() {
-//        MovieTrie movieTrie = new MovieTrie();
-//        movieTrie.buildTrie();
-//        movieTrie.getAllMovieSuggestions()
-//    }
 }

@@ -4,8 +4,8 @@ import java.util.*;
  * @author Ashley Wang
  */
 public class MovieTrie {
-    public static String CREDITS_FILENAME = "tmdb_5000_credits.csv";
-    public static String MOVIES_FILENAME = "tmdb_5000_movies.csv";
+    private static String creditsFilename = "tmdb_5000_credits.csv";
+    private static String moviesFilename = "tmdb_5000_movies.csv";
 
     private TrieNode root;
     private List<Movie> allMovies = new ArrayList<>();
@@ -24,7 +24,7 @@ public class MovieTrie {
     }
 
     public TrieNode buildTrie() {
-        allMovies = MovieDataLoader.loadMovies(CREDITS_FILENAME, MOVIES_FILENAME);
+        allMovies = MovieDataLoader.loadMovies(creditsFilename, moviesFilename);
         return root;
     }
 
@@ -40,7 +40,9 @@ public class MovieTrie {
     public boolean search(String word) {
         TrieNode node = root;
         for (char c : getNormalizedString(word).toCharArray()) {
-            if (!node.getChildren().containsKey(c)) return false;
+            if (!node.getChildren().containsKey(c)) {
+                return false;
+            }
             node = node.getChild(c);
         }
         return node.isEndOfWord();
@@ -50,7 +52,9 @@ public class MovieTrie {
         List<Movie> suggestions = new ArrayList<>();
         TrieNode node = root;
         for (char c : getNormalizedString(prefix).toCharArray()) {
-            if (!node.getChildren().containsKey(c)) return new ArrayList<>();
+            if (!node.getChildren().containsKey(c)) {
+                return new ArrayList<>();
+            }
             node = node.getChild(c);
         }
         dfs(node, suggestions);
@@ -76,7 +80,9 @@ public class MovieTrie {
         List<Movie> movies = new ArrayList<>();
         TrieNode node = root;
         for (char c : getNormalizedString(prefix).toCharArray()) {
-            if (!node.getChildren().containsKey(c)) return movies;
+            if (!node.getChildren().containsKey(c)) {
+                return movies;
+            }
             node = node.getChild(c);
         }
         dfsForMovies(node, movies);
