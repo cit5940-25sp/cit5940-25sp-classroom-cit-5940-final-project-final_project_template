@@ -1,9 +1,11 @@
 package controller;
 
+import java.util.*;
 import model.MovieIndex;
 import model.Player;
 import strategy.ILinkStrategy;
 import strategy.IWinCondition;
+import view.GameView;
 
 /**
  * Controls the main gameplay loop and manages game state transitions for the Movie Name Game.
@@ -14,6 +16,9 @@ public class GameController {
     private IWinCondition winCondition;
     private Player currentPlayer;
     private Player otherPlayer;
+    private Set<String> usedMovies;
+    private GameView view;
+    private Scanner scanner;
 
     /**
      * Constructs a GameController
