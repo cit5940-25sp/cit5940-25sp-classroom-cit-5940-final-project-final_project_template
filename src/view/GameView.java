@@ -108,4 +108,28 @@ public class GameView {
     public String getAsyncInput() {
         return asyncInputRef.get();
     }
+
+    public void displayError(String message) {
+        errorLabel.setText("Error: " + message);
+        gui.updateScreen();
+    }
+
+    public String getCurrentInputPrefix() {
+        return inputBox.getText();
+    }
+
+    public void updateTimer(int seconds) {
+        timerLabel.setText("Time left: " + seconds);
+        gui.updateScreen();
+    }
+
+    public void showFinalMessageAndWait(String message) {
+        renderGameState(message + " Press any key to exit.");
+        try {
+            gui.getScreen().readInput();
+            gui.getScreen().stopScreen();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
