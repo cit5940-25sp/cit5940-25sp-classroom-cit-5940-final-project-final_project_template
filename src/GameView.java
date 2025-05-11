@@ -34,12 +34,20 @@ public class GameView {
         this.connectedTitles = titles;
     }
 
+    public List<String> getConnectedTitles() {
+        return connectedTitles;
+    }
+
     /**
      * Injects the movie trie for providing autocomplete suggestions.
      * @param trie A MovieTrie object
      */
     public void setMovieTrie(MovieTrie trie) {
         this.movieTrie = trie;
+    }
+
+    public MovieTrie getMovieTrie() {
+        return movieTrie;
     }
 
     /**
@@ -185,6 +193,10 @@ public class GameView {
             movieHistory.removeFirst();
         }
         movieHistory.addLast(entry);
+    }
+
+    public Deque<HistoryEntry> getMovieHistory() {
+        return movieHistory;
     }
 
     /**
