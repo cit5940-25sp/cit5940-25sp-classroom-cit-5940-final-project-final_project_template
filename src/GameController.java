@@ -6,38 +6,64 @@ import java.util.*;
 import static com.googlecode.lanterna.input.KeyType.Enter;
 
 /**
- * Controls the main logic of the movie-connection game, handling turns, player input,
+ * Controls the main logic of the movie-connection game, handling turns, player
+ * input,
  * move validation, and win condition checking.
+ * <p>
+ * MVC Role: Controller. Responsible for coordinating players, the model
+ * (MovieIndex), and the view (GameView),
+ * implementing the main game loop, input handling, turn progression, and
+ * win/loss determination.
+ * </p>
  *
  * @author Vera Zhang
  * @author Jianing Yin
  */
 public class GameController {
 
+    /** Player 1 */
     public Player player1;
+    /** Player 2 */
     public Player player2;
+    /** The player whose turn it is */
     public Player currentPlayer;
+    /** The current movie being connected */
     public Movie currentMovie;
+    /** Movie index, responsible for lookup and connection logic */
     public MovieIndex index;
+    /** Current round number */
     public int round;
 
+    /**
+     * Records the usage count for each connection reason (to prevent infinite
+     * loops)
+     */
     private Map<String, Integer> connectionUsageMap;
+    /** Set of movies that have already been used */
     private Set<Movie> usedMovies;
+    /** Game history (each step's movie and connection reason) */
     private Deque<HistoryEntry> history;
+    /** View object responsible for UI display */
     private GameView view;
+    /** Time limit for each turn (seconds) */
     private static final int TIME_LIMIT_SECONDS = 30;
+    /** Console input scanner */
     private Scanner inputScanner;
+    /** Whether the game has ended */
     private boolean gameEnded = false;
+    /** Message for the last invalid input */
     private String lastInvalidMessage = "";
+    /** Movie title trie for autocomplete */
     private MovieTrie movieTrie;
 
     /**
-     * Initializes the game controller with two players, a movie index, and a game view.
+     * Constructor, initializes the controller.
      *
-     * @param p1         The first player
-     * @param p2         The second player
-     * @param movieIndex The movie index used to retrieve and connect movies
-     * @param gameView   The view responsible for displaying game state
+     * @param p1         Player 1
+     * @param p2         Player 2
+     * @param movieIndex Movie index (model)
+     * @param gameView   View object
+     * @throws IllegalArgumentException if a player does not have a win condition
      */
     public GameController(Player p1, Player p2, MovieIndex movieIndex, GameView gameView) {
         this.player1 = p1;
@@ -61,7 +87,7 @@ public class GameController {
     }
 
     /**
-     * Closes the input scanner and performs cleanup.
+     * Closes the input stream and cleans up resources.
      */
     public void cleanup() {
         if (inputScanner != null) {
@@ -70,10 +96,14 @@ public class GameController {
     }
 
     /**
-     * Starts a new game by initializing all relevant data and running the game loop.
+     * Starts a new game, initializes all relevant data, and enters the main loop.
+     * <p>
+     * Does nothing if the game has already ended.
+     * </p>
      */
     public void startGame() {
-        if (gameEnded) return;
+        if (gameEnded)
+            return;
 
         this.round = 1;
         this.usedMovies = new HashSet<>();
@@ -93,7 +123,7 @@ public class GameController {
     }
 
     /**
-     * Main game loop: continues until the game ends.
+     * The main game loop, runs until the game ends.
      */
     private void runGameLoop() {
         while (!gameEnded) {
@@ -102,40 +132,44 @@ public class GameController {
     }
 
     /**
-     * Handles a single player's turn including input collection, validation, and win checking.
+     * Handles a single player's turn, including input, validation, and win/loss
+     * checking.
+     * <p>
+     * Handles timeout, invalid input, win condition, etc.
+     * </p>
      */
     public void processTurn() {
-        if (gameEnded) return;
+        if (gameEnded)
+            return;
 
         String input = null;
         StringBuilder inputBuilder = new StringBuilder();
         lastInvalidMessage = "";
 
         List<String> connectedTitles = index.getConnectedMovieTitlesWithReason(currentMovie)
-            .stream()
-            .limit(10)
-            .map(str -> str.length() > 46 ? str.substring(0, 46) + "…" : str)
-            .toList();
+                .stream()
+                .limit(10)
+                .map(str -> str.length() > 46 ? str.substring(0, 46) + "…" : str)
+                .toList();
         view.setConnectedMovieTitles(connectedTitles);
 
         view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
         view.startTimer(
-            () -> {
-                lastInvalidMessage = "Time out or empty input";
-                view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                endGame(getOpponent(currentPlayer));
-            },
-            () -> {
-                view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-                view.displayPrompt("Enter connected movie title: ");
-                view.displayInputLine(inputBuilder.toString());
-            }
-        );
+                () -> {
+                    lastInvalidMessage = "Time out or empty input";
+                    view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    endGame(getOpponent(currentPlayer));
+                },
+                () -> {
+                    view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
+                    view.displayPrompt("Enter connected movie title: ");
+                    view.displayInputLine(inputBuilder.toString());
+                });
 
         view.displayPrompt("Enter connected movie title: ");
         view.displayInputLine("");
@@ -159,7 +193,8 @@ public class GameController {
                     view.displayInputLine(inputBuilder.toString());
                 }
 
-                if (input != null) break;
+                if (input != null)
+                    break;
                 Thread.sleep(50);
             }
         } catch (IOException | InterruptedException e) {
@@ -171,7 +206,11 @@ public class GameController {
         if (input == null || input.trim().isEmpty()) {
             lastInvalidMessage = "Time out or empty input";
             view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -180,7 +219,11 @@ public class GameController {
         if (nextMovie == null) {
             lastInvalidMessage = "Movie not found";
             view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -188,7 +231,11 @@ public class GameController {
         if (usedMovies.contains(nextMovie)) {
             lastInvalidMessage = "Movie already used";
             view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -197,7 +244,11 @@ public class GameController {
         if (reason == null) {
             lastInvalidMessage = "No valid connection";
             view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
-            try { Thread.sleep(2000); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             endGame(getOpponent(currentPlayer));
             return;
         }
@@ -216,45 +267,53 @@ public class GameController {
     }
 
     /**
-     * Returns the opponent of the given player.
+     * Gets the opponent of the current player.
      *
-     * @param player the current player
-     * @return the other player
+     * @param player The current player
+     * @return The other player
      */
     private Player getOpponent(Player player) {
         return (player == player1) ? player2 : player1;
     }
 
     /**
-     * Determines the reason for a valid connection between two movies.
+     * Determines the reason for a valid connection between two movies (e.g., actor,
+     * director, etc.).
      *
-     * @param from the source movie
-     * @param to   the target movie
-     * @return a string describing the connection reason or null if none found
+     * @param from Source movie
+     * @param to   Target movie
+     * @return Connection reason string, or null if no valid connection exists
      */
     private String findConnectionReason(Movie from, Movie to) {
         String reason;
         reason = findSpecificReason("actor", from.getActors(), to.getActors());
-        if (reason != null) return reason;
+        if (reason != null)
+            return reason;
         reason = findSpecificReason("director", from.getDirectors(), to.getDirectors());
-        if (reason != null) return reason;
+        if (reason != null)
+            return reason;
         reason = findSpecificReason("writer", from.getWriters(), to.getWriters());
-        if (reason != null) return reason;
+        if (reason != null)
+            return reason;
         reason = findSpecificReason("cinematographer", from.getCinematographers(), to.getCinematographers());
-        if (reason != null) return reason;
+        if (reason != null)
+            return reason;
         return findSpecificReason("composer", from.getComposers(), to.getComposers());
     }
 
     /**
-     * Checks whether two movie attribute collections (e.g., actors) intersect.
+     * Checks whether two sets of movie attributes (e.g., actors) intersect and
+     * returns the connection reason.
      *
-     * @param category the name of the attribute category
-     * @param c1       the first collection
-     * @param c2       the second collection
-     * @return the connection reason if a shared element exists, or null otherwise
+     * @param category Attribute category (e.g., actor, director, etc.)
+     * @param c1       First set of attributes
+     * @param c2       Second set of attributes
+     * @return If there is an intersection and not overused, returns the connection
+     *         reason; otherwise null
      */
     private String findSpecificReason(String category, Collection<String> c1, Collection<String> c2) {
-        if (c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty()) return null;
+        if (c1 == null || c2 == null || c1.isEmpty() || c2.isEmpty())
+            return null;
         for (String item : c2) {
             if (c1.contains(item)) {
                 String fullReason = category + ": " + item;
@@ -267,13 +326,15 @@ public class GameController {
     }
 
     /**
-     * Records a valid move by adding the movie to history and marking it as used.
+     * Records a valid movie connection, adds it to history, marks it as used, and
+     * updates player data.
      *
-     * @param movie  the movie being added
-     * @param reason the reason for the connection
+     * @param movie  The newly connected movie
+     * @param reason The connection reason
      */
     public void recordMove(Movie movie, String reason) {
-        if (gameEnded) return;
+        if (gameEnded)
+            return;
         usedMovies.add(movie);
         HistoryEntry entry = new HistoryEntry(movie, reason);
         history.addLast(entry);
@@ -283,12 +344,13 @@ public class GameController {
     }
 
     /**
-     * Ends the game, showing the final result.
+     * Ends the game and displays the final result.
      *
-     * @param winner the player who won
+     * @param winner The winning player
      */
     private void endGame(Player winner) {
-        if (gameEnded) return;
+        if (gameEnded)
+            return;
         gameEnded = true;
         view.displayGameState(player1, player2, currentMovie, round, lastInvalidMessage);
         view.displayWin(winner, history);
