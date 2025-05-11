@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.*;
+import java.util.concurrent.*;
+import model.Movie;
 import model.MovieIndex;
 import model.Player;
 import strategy.ILinkStrategy;
@@ -36,14 +38,61 @@ public class GameController {
             Player p1,
             Player p2
     ) {
-        // TODO
+        this.movieIndex = movieIndex;
+        this.linkStrategy = linkStrategy;
+        this.winCondition = winCondition;
+        this.currentPlayer = p1;
+        this.otherPlayer = p2;
+        this.usedMovies = new HashSet<>();
+        this.view = new GameView();
+        this.scanner = new Scanner(System.in);
     }
 
     /**
      * Runs the main game loop, alternating turns between players until a win or loss occurs.
      */
     public void runGame() {
-        // TODO
+        while (true) {
+            view.renderGameState("Current player: " + currentPlayer.getPlayerName());
+            view.renderInputPrompt();
+            String input = getTimedInput(30);
+
+            if (input == null) {
+                view.displayError("Time out! Turn forfeited.");
+                switchTurn();
+                continue;
+            }
+
+            Movie move = movieIndex.findMovieByTitle(input.trim());
+            if (move == null) {
+                view.displayError("Movie not found.");
+                continue;
+            }
+
+            if (usedMovies.contains(move.getTitle())) {
+                view.displayError("Movie already used.");
+                continue;
+            }
+
+            List<Movie> played = currentPlayer.getPlayedMovies();
+            if (!played.isEmpty()) {
+                Movie last = played.get(played.size() - 1);
+                if (!linkStrategy.isValidLink(last, move)) {
+                    view.displayError("Invalid link: " + linkStrategy.getReason(last, move));
+                    continue;
+                }
+            }
+
+            currentPlayer.addPlayedMovie(move);
+            usedMovies.add(move.getTitle());
+
+            if (winCondition.checkWin(currentPlayer)) {
+                view.renderGameState("Player " + currentPlayer.getPlayerName() + " wins!");
+                break;
+            }
+
+            switchTurn();
+        }
     }
 
     /**
