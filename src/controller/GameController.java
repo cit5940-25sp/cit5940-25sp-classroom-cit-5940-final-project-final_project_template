@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.*;
-import java.util.concurrent.*;
 import model.Movie;
 import model.MovieIndex;
 import model.Player;
@@ -22,7 +21,6 @@ public class GameController {
     private Player otherPlayer;
     private Set<String> usedMovies;
     private GameView view;
-    private Scanner scanner;
 
     /**
      * Constructs a GameController to manage the game with the provided index,
@@ -39,7 +37,8 @@ public class GameController {
             ILinkStrategy linkStrategy,
             IWinCondition winCondition,
             Player p1,
-            Player p2
+            Player p2,
+            GameView view
     ) {
         this.movieIndex = movieIndex;
         this.linkStrategy = linkStrategy;
@@ -47,8 +46,7 @@ public class GameController {
         this.currentPlayer = p1;
         this.otherPlayer = p2;
         this.usedMovies = new HashSet<>();
-        this.view = new GameView();
-        this.scanner = new Scanner(System.in);
+        this.view = view;
     }
 
     /**
@@ -91,7 +89,7 @@ public class GameController {
             usedMovies.add(move.getTitle());
 
             if (winCondition.checkWin(currentPlayer)) {
-                view.renderGameState("Player " + currentPlayer.getPlayerName() + " wins!");
+                view.showFinalMessageAndWait("Player " + currentPlayer.getPlayerName() + " wins!");
                 break;
             }
 
@@ -139,26 +137,34 @@ public class GameController {
     }
 
     /**
-     * Prompts the user for input with a time limit. Waits for the specified
-     * number of seconds for user input from the console. If the user does not
-     * provide input within the time limit, returns null.
+     * Gets user input with a countdown and suggestion updates. Returns input if
+     * Enter is pressed within the time limit; otherwise returns null.
      *
-     * @param seconds the time in seconds to wait for user input
-     * @return the user's input as a String, or null if time runs out or an
-     * error occurs
+     * @param seconds Time limit in seconds
+     * @return User input or null if time runs out
      */
     private String getTimedInput(int seconds) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> future = executor.submit(scanner::nextLine);
-        try {
-            return future.get(seconds, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            future.cancel(true);
-            return null;
-        } catch (Exception e) {
-            return null;
-        } finally {
-            executor.shutdownNow();
+        view.startInputListener();
+
+        for (int i = seconds; i >= 0; i--) {
+            String input = view.getAsyncInput();
+            if (input != null) {
+                return input;
+            }
+
+            String currentText = view.getCurrentInputPrefix();
+            List<String> suggestions = movieIndex.getAutocompleteSuggestions(currentText);
+            view.renderSuggestions(suggestions);
+
+            view.updateTimer(i);
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ignored) {
+            }
         }
+
+        view.displayError("Time out!");
+        return null;
     }
 }
