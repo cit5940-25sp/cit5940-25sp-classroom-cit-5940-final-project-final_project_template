@@ -37,4 +37,28 @@ public class Player {
 
         return (progress * 100.0) / objectiveAmount ;
     }
+
+    //added
+    // to add connection and for progress??
+    public boolean addConnection(String connection, String genre) {
+        linksUsed.put(connection, linksUsed.getOrDefault(connection, 0) + 1);
+
+        // Check if connection has been used more than 3 times
+        if (linksUsed.get(connection) > 3) {
+            return false;
+        }
+
+        // If genre matches objective, update progress
+        if (genre.equalsIgnoreCase(objectiveGenre)) {
+            progress++;
+        }
+        return true;
+    }
+
+    //added
+    //player status
+    public String getStatus() {
+        return username + " - " + progress + "/" + objectiveAmount + " " + objectiveGenre;
+    }
 }
+

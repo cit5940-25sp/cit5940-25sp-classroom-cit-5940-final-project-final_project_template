@@ -13,9 +13,7 @@ public class Movies {
         // get genre and make a HashSet with all the Staff. Make an AbstractMap.Entry<genre, staff>
 
         // allMovies.put("Movie Name, (year)", AbstractMap.Entry<genre, staff>)
-
     }
-
     /*
     Takes in the name of the previous movie and the current
     that was played and returns the name of the connection
@@ -25,8 +23,22 @@ public class Movies {
         return null;
     }
 
+
+    // useful for win conditions???
+
+    public List<String> getMoviesByGenre(String genre) {
+        List<String> moviesByGenre = new ArrayList<>();
+        for (Map.Entry<String, AbstractMap.Entry<String, HashSet<String>>> entry : allMovies.entrySet()) {
+            if (entry.getValue().getKey().equals(genre)) {
+                moviesByGenre.add(entry.getKey());
+            }
+        }
+        return moviesByGenre;
+    }
+
     // add getter genre
 
 
-
 }
+
+
