@@ -3,12 +3,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Player {
-    String username;
-    int progress;
-    String objectiveGenre;
-    int objectiveAmount;
+    private String username;
+    private int progress;
+    private String objectiveGenre;
+    private int objectiveAmount;
     //(e.g. actor name) and how many times (max 3)
-    HashMap<String, Integer> linksUsed;
+    private HashMap<String, Integer> linksUsed;
 
 
     public Player (String username, String objectiveGenre, int objectiveNumber) {
