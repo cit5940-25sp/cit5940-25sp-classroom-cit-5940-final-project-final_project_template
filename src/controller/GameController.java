@@ -10,9 +10,11 @@ import strategy.IWinCondition;
 import view.GameView;
 
 /**
- * Controls the main gameplay loop and manages game state transitions for the Movie Name Game.
+ * Controls the main gameplay loop and manages game state transitions for the
+ * Movie Name Game.
  */
 public class GameController {
+
     private MovieIndex movieIndex;
     private ILinkStrategy linkStrategy;
     private IWinCondition winCondition;
@@ -23,8 +25,9 @@ public class GameController {
     private Scanner scanner;
 
     /**
-     * Constructs a GameController
-     * to manage the game with the provided index, strategy, and players.
+     * Constructs a GameController to manage the game with the provided index,
+     * strategy, and players.
+     *
      * @param movieIndex the movie index for lookup operations
      * @param linkStrategy the strategy for determining valid links
      * @param winCondition the win condition to check for victory
@@ -49,7 +52,8 @@ public class GameController {
     }
 
     /**
-     * Runs the main game loop, alternating turns between players until a win or loss occurs.
+     * Runs the main game loop, alternating turns between players until a win or
+     * loss occurs.
      */
     public void runGame() {
         while (true) {
@@ -97,6 +101,7 @@ public class GameController {
 
     /**
      * Processes a player's move by validating the submitted movie title.
+     *
      * @param movieTitle the title of the movie submitted by the player
      */
     public void processMove(String movieTitle) {
@@ -113,9 +118,11 @@ public class GameController {
         }
         currentPlayer.addPlayedMovie(move);
         usedMovies.add(move.getTitle());
+    }
 
     /**
      * Checks whether the game has ended.
+     *
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
@@ -126,6 +133,32 @@ public class GameController {
      * Switches the turn to the other player.
      */
     public void switchTurn() {
-        // TODO
+        Player temp = currentPlayer;
+        currentPlayer = otherPlayer;
+        otherPlayer = temp;
+    }
+
+    /**
+     * Prompts the user for input with a time limit. Waits for the specified
+     * number of seconds for user input from the console. If the user does not
+     * provide input within the time limit, returns null.
+     *
+     * @param seconds the time in seconds to wait for user input
+     * @return the user's input as a String, or null if time runs out or an
+     * error occurs
+     */
+    private String getTimedInput(int seconds) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<String> future = executor.submit(scanner::nextLine);
+        try {
+            return future.get(seconds, TimeUnit.SECONDS);
+        } catch (TimeoutException e) {
+            future.cancel(true);
+            return null;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            executor.shutdownNow();
+        }
     }
 }
