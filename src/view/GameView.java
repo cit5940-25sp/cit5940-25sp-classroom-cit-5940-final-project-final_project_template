@@ -80,4 +80,32 @@ public class GameView {
 
         gui.updateScreen();
     }
+
+    public void startInputListener() {
+        asyncInputRef.set(null);
+        Thread listener = new Thread(() -> {
+            while (asyncInputRef.get() == null) {
+                try {
+                    KeyStroke key = gui.getScreen().readInput();
+                    if (key != null) {
+                        if (key.getKeyType() == KeyType.Enter) {
+                            asyncInputRef.set(inputBox.getText());
+                            break;
+                        } else {
+                            inputBox.handleKeyStroke(key);
+                            gui.updateScreen();
+                        }
+                    }
+                } catch (IOException ignored) {
+                }
+            }
+        });
+        
+        listener.setDaemon(true);
+        listener.start();
+    }
+
+    public String getAsyncInput() {
+        return asyncInputRef.get();
+    }
 }
