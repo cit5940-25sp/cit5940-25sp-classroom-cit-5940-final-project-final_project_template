@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Movies {
 
     private final HashMap<String, HashMap<String, List<String>>> allMovies = new HashMap<>();
+    //key is genre name and value is number of movies with that genre
     private final HashMap<String, Integer> allGenres = new HashMap<>();
 
         // load data: create a Movie object for each movie
@@ -124,6 +125,9 @@ public class Movies {
     }
 
     // add getter genre
+    public String getRandomMovie(){
+        return null;
+    }
 
 }
 

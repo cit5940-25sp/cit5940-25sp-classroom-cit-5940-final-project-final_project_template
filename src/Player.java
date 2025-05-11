@@ -50,7 +50,6 @@ public class Player {
         return (objectiveAmount - progress) == 0;
     }
     public double progressSoFar () {
-
         return (progress * 100.0) / objectiveAmount ;
     }
     public String getUsername() {
