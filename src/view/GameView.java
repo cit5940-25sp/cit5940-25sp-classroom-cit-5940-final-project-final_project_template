@@ -59,4 +59,25 @@ public class GameView {
             System.err.println("Error initializing Lanterna TUI: " + e.getMessage());
         }
     }
+
+    public void renderGameState(String info) {
+        gameStateLabel.setText(info);
+        errorLabel.setText("");
+        gui.updateScreen();
+    }
+
+    public void renderInputPrompt() {
+        inputBox.setText("");
+        errorLabel.setText("");
+        gui.updateScreen();
+    }
+
+    public void renderSuggestions(List<String> suggestions) {
+        suggestionsPanel.removeAllComponents();
+        for (String title : suggestions) {
+            suggestionsPanel.addComponent(new Label(title));
+        }
+
+        gui.updateScreen();
+    }
 }
