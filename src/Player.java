@@ -1,14 +1,17 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Player class represents a player in the game, tracking their progress, objectives, and connections used.
+ */
 public class Player {
-    private String username;       // The username of the player
-    private int progress;          // Progress towards the objective
-    private String objectiveGenre; // The target genre for the player
-    private int objectiveAmount;   // Number of movies needed to meet the objective
+    private String username;
+    private int progress;
+    private String objectiveGenre;
+    private int objectiveAmount;
 
-    // Tracks connections (e.g., actor names) and their usage count (max 3)
     //(e.g. actor name) and how many times (max 3)
     private HashMap<String, Integer> linksUsed;
 
@@ -19,6 +22,7 @@ public class Player {
      * @param objectiveGenre The target genre for the player's objective.
      * @param objectiveNumber The number of movies to complete the objective.
      */
+
     public Player (String username, String objectiveGenre, int objectiveNumber) {
         this.username = username;
         this.objectiveGenre = objectiveGenre;
@@ -29,6 +33,9 @@ public class Player {
 
     /**
      * Handles a movie play by recording connections and checking genre match.
+     * This method records the usage of each connection (actor) and updates the player's progress
+     * if the played movie's genre matches the player's objective genre.
+     *
      * @param connections List of connections (e.g., actors) between movies.
      * @param genres List of genres for the current movie.
      * @return True if a connection was successfully used, false otherwise.
@@ -53,6 +60,37 @@ public class Player {
     }
 
     /**
+     * Generates a visual representation of the usage count of each link (actor/connection).
+     * Each link is displayed with ❌ for each time it has been used (up to 3),
+     * and ▪️ for remaining unused slots. This provides a clear view of link usage.
+     *
+     * Example:
+     * - A link used 2 times: ❌❌▪️
+     * - A link used 0 times: ▪️▪️▪️
+     * @return A map where the key is the link (actor name) and the value is a visual representation of its usage.
+     */
+    public Map<String, String> getLinkUsageDisplay() {
+        Map<String, String> usageVisual = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : linksUsed.entrySet()) {
+            String name = entry.getKey();
+            int count = entry.getValue();
+            StringBuilder bar = new StringBuilder();
+
+            for (int i = 0; i < count; i++) {
+                bar.append("❌");
+            }
+            for (int i = count; i < 3; i++) {
+                bar.append("▪️");
+            }
+
+            usageVisual.put(name, bar.toString());
+        }
+
+        return usageVisual;
+    }
+
+    /**
      * Checks if the player has met their objective.
      * @return True if the player has completed their objective, false otherwise.
      */
@@ -65,7 +103,7 @@ public class Player {
      * @return The progress percentage towards the objective.
      */
     public double progressSoFar() {
-        return (progress * 100.0) / objectiveAmount ;
+        return (progress * 100.0) / objectiveAmount;
     }
 
     /**

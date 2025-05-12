@@ -2,26 +2,19 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * Movies class that handles loading, storing, and managing movie data.
- * It can read a list of movies from a file, track their genres, cast, and connections.
- */
 public class Movies {
-    // Stores all movies with their details (cast and genres)
     private final HashMap<String, HashMap<String, List<String>>> allMovies = new HashMap<>();
     //key is genre name and value is number of movies with that genre
     private final HashMap<String, Integer> allGenres = new HashMap<>();
 
-    /**
-     * Constructor that initializes the Movies object by loading data from the given file.
-     * @param filePath Path to the file containing movie data.
-     */
     public Movies(String filePath) {
         loadMovies(filePath);
     }
 
     /**
      * Loads movies from the specified file path and populates the movies and genres collections.
+     * This method processes each line of the file, extracting the movie title, cast, and genres.
+     * It ensures that the cast and genres are stored without duplicates using HashSet.
      * @param filePath Path to the file containing movie data.
      */
     public void loadMovies(String filePath) {
@@ -30,25 +23,29 @@ public class Movies {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|", -1);
 
-                // Extract movie name, cast, and genres
+                // Extract movie name, cast, and genres with trimming and formatting
                 String movieName = parts[0].trim().toLowerCase().replaceAll("^\"|\"$", "");
                 String castTemp = parts.length > 1 ? parts[1].trim().replaceAll("^\"|\"$", "") : "";
                 String genresTemp = parts.length > 2 ? parts[2].trim().replaceAll("^\"|\"$", "") : "";
 
-                // Process cast and genres
+                // Convert cast list to HashSet to remove duplicates and then back to List
                 List<String> castCrew = castTemp.isEmpty() ? new ArrayList<>() :
                         Arrays.stream(castTemp.split(","))
                                 .map(String::trim)
                                 .filter(s -> !s.isEmpty())
-                                .collect(Collectors.toList());
+                                .toList();
 
+                HashSet<String> castCrewHash = new HashSet<>(castCrew);
+                List<String> castCrewList = new ArrayList<>(castCrewHash);
+
+                // Convert genres list to HashSet to remove duplicates and then back to List
                 List<String> genres = genresTemp.isEmpty() ? new ArrayList<>() :
                         Arrays.stream(genresTemp.split(","))
                                 .map(String::trim)
                                 .filter(s -> !s.isEmpty())
-                                .collect(Collectors.toList());
+                                .toList();
 
-                // Add genres to the genre count map
+                // Populate genre count map (ensuring unique genres)
                 for (String g : genres) {
                     if (!allGenres.containsKey(g)) {
                         allGenres.put(g, 1);
@@ -57,10 +54,13 @@ public class Movies {
                     }
                 }
 
-                // Store movie details
+                HashSet<String> genresHash = new HashSet<>(genres);
+                List<String> genresList = new ArrayList<>(genresHash);
+
+                // Store the movie details (cast and genres)
                 HashMap<String, List<String>> details = new HashMap<>();
-                details.put("castAndCrew", castCrew);
-                details.put("genres", genres);
+                details.put("castAndCrew", castCrewList);
+                details.put("genres", genresList);
                 allMovies.put(movieName, details);
             }
         } catch (IOException e) {
@@ -69,23 +69,17 @@ public class Movies {
     }
 
     /**
-     * Retrieves a list of common cast members between two movies.
+     * Finds the list of common cast members between two movies.
+     * This method checks the cast of both movies and identifies shared cast members.
      * @param movie1 Title of the first movie.
      * @param movie2 Title of the second movie.
-     * @return List of common cast members, or an empty list if none exist.
+     * @return List of common cast members between the two movies, or an empty list if none exist.
      */
     public List<String> getConnection(String movie1, String movie2) {
         List<String> connections = new LinkedList<>();
 
-        HashMap<String, List<String>> details1 = allMovies.get(movie1.toLowerCase());
-        HashMap<String, List<String>> details2 = allMovies.get(movie2.toLowerCase());
-
-        if (details1 == null || details2 == null) {
-            return connections; // Return empty list if any movie is not found
-        }
-
-        List<String> cast1 = details1.getOrDefault("castAndCrew", new ArrayList<>());
-        List<String> cast2 = details2.getOrDefault("castAndCrew", new ArrayList<>());
+        List<String> cast1 = allMovies.get(movie1).get("castAndCrew");
+        List<String> cast2 = allMovies.get(movie2).get("castAndCrew");
         Set<String> set1 = new HashSet<>(cast1);
 
         for (String staff : cast2) {
@@ -104,14 +98,6 @@ public class Movies {
      */
     public List<String> getMovieGenres(String movieTitle) {
         return allMovies.getOrDefault(movieTitle, new HashMap<>()).getOrDefault("genres", new ArrayList<>());
-    }
-
-    /**
-     * Retrieves the list of all genres along with their counts.
-     * @return A map of genres and their corresponding movie counts.
-     */
-    public Map<String, Integer> getAllGenres() {
-        return new HashMap<>(allGenres);
     }
 
     /**
@@ -164,10 +150,6 @@ public class Movies {
         return lines;
     }
 
-    /**
-     * Main method for testing the Movies class.
-     * @param args Command line arguments (not used).
-     */
     public static void main(String[] args) {
         Movies movies = new Movies("src/tmdb_data.txt");
         Collection<String> output = movies.createAutocompleteFile(movies.getAllTitles());

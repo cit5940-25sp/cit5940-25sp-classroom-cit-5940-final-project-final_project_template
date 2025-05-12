@@ -1,21 +1,21 @@
-import java.util.AbstractMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Game class that manages the main game logic, player turns, and game progress.
+ * It tracks two players, their objectives, the list of movies played, and the current state of the game.
  */
 public class Game {
-    private Movies movies;     // The Movies instance to manage movie data
-    private Player player1;    // Player 1 in the game
-    private Player player2;    // Player 2 in the game
-    private String prevMovie;  // The previously played movie
-    private HashSet<String> moviesPlayed;  // Set of movies that have been played
-    private int roundsPlayed;   // Count of the total rounds played
-
-    // Movie and the links to the last movie played
+    private Movies movies;
+    private Player player1;
+    private Player player2;
+    private String prevMovie;
+    private HashSet<String> moviesPlayed;
+    private int roundsPlayed;
+    private boolean turn; // true for player1, false for player2
+    private String winner;
+    private String autocompleteFile;
     private LinkedList<AbstractMap.Entry<String, List<String>>> lastFivePlayed;
+
 
     /**
      * Initializes the Game object with two players and a movie database file.
@@ -25,110 +25,165 @@ public class Game {
      * @param objectiveGenre1 Objective genre for Player 1.
      * @param objectiveGenre2 Objective genre for Player 2.
      */
-    public void Game(String fileName, String player1Name, String player2Name,
-                     String objectiveGenre1, String objectiveGenre2) {
+    public Game(String fileName, String player1Name, String player2Name,
+                String objectiveGenre1, String objectiveGenre2) {
         this.movies = new Movies(fileName);
-
-        // initialize objectives based on level
-        this.player1 = new Player(player1Name, objectiveGenre1, 1);
-        this.player2 = new Player(player2Name, objectiveGenre2, 1);
-
-        // Set the initial movie as a random movie
-        prevMovie = movies.getRandomMovie();
+        this.autocompleteFile = "src/autocomplete.txt";
+        this.player1 = new Player(player1Name, objectiveGenre1, 2);
+        this.player2 = new Player(player2Name, objectiveGenre2, 2);
+        this.moviesPlayed = new HashSet<>();
+        this.lastFivePlayed = new LinkedList<>();
+        this.turn = true;
+        this.roundsPlayed = 0;
+        this.winner = null;
+        this.prevMovie = movies.getRandomMovie();
+        moviesPlayed.add(prevMovie);
     }
 
     /**
-     * Updates the game state after a player plays a movie.
-     * @param moviePlayed The movie chosen by the player.
-     * @param player The player number (1 or 2).
+     * Updates the game state with the movie played by the current player.
+     * Validates the move, updates player progress, and tracks game status.
+     * @param moviePlayed The movie chosen by the current player.
+     * @param player The username of the player making the move.
      * @return True if the move was valid, false otherwise.
      */
-    public boolean update(String moviePlayed, int player){
-        //check that movie hasn't been used before
+    public boolean update(String moviePlayed, String player) {
+        // Check that movie hasn't already been used
         if (moviesPlayed.contains(moviePlayed)) {
             return false;
         }
-        moviesPlayed.add(moviePlayed);
-        // get links with last movie played
+
+        // Validate the connection between the last movie and the new movie
         List<String> links = movies.getConnection(prevMovie, moviePlayed);
         if (links.isEmpty()) {
             return false;
         }
 
-        // update corresponding player
+        // Retrieve genres of the played movie
         List<String> genres = movies.getMovieGenres(moviePlayed);
         boolean valid = false;
-        if (player == 1) {
+
+        // Determine which player is making the move
+        if (player.equals(player1.getUsername())) {
             valid = player1.handleMovie(links, genres);
-        }
-        if (player == 2) {
+            if (player1.hasMetObjective()) {
+                winner = player1.getUsername(); // Declare player 1 as the winner
+            }
+        } else if (player.equals(player2.getUsername())) {
             valid = player2.handleMovie(links, genres);
+            if (player2.hasMetObjective()) {
+                winner = player2.getUsername(); // Declare player 2 as the winner
+            }
         }
-        // update prevMovie
-        // update lastFivePlayed
+
+        // If the move was valid, update game state
         if (valid) {
-            lastFivePlayed.add(new AbstractMap.SimpleEntry<>(moviePlayed, links));
+            moviesPlayed.add(moviePlayed);
+            lastFivePlayed.addFirst(new AbstractMap.SimpleEntry<>(moviePlayed, links));
+            // Maintain the list of last five played movies
             if (lastFivePlayed.size() > 5) {
                 lastFivePlayed.removeLast();
             }
-            prevMovie = moviePlayed;
-            roundsPlayed++;
 
+            prevMovie = moviePlayed; // Update the last played movie
+            roundsPlayed++;          // Increment the round count
+            turn = !turn;
         }
+
         return valid;
     }
 
     /**
-     * Returns the objective genre for Player 1.
+     * Checks if the game is over.
+     * @return True if a player has won, false otherwise.
+     */
+    public boolean isGameOver() {
+        return winner != null;
+    }
+
+    /**
+     * Gets the winner of the game.
+     * @return The username of the winning player, or null if no winner yet.
+     */
+    public String getWinner() {
+        return winner;
+    }
+
+    /**
+     * Determines whose turn it is to play.
+     * @return The username of the player whose turn it is.
+     */
+    public String getWhosTurn() {
+        return turn ? player1.getUsername() : player2.getUsername();
+    }
+
+    /**
+     * Gets the objective genre for Player 1.
      * @return Player 1's objective genre.
      */
-    public String gameConditionPlayer1(){
+    public String gameConditionPlayer1() {
         return player1.getObjectiveGenre();
     }
 
     /**
-     * Returns the objective genre for Player 2.
+     * Gets the objective genre for Player 2.
      * @return Player 2's objective genre.
      */
-    public String gameConditionPlayer2(){
+    public String gameConditionPlayer2() {
         return player2.getObjectiveGenre();
     }
 
     /**
-     * Returns the progress of Player 1 as a percentage.
+     * Retrieves Player 1's progress as a percentage.
      * @return Player 1's progress percentage.
      */
-    public double progressPlayer1(){
+    public double progressPlayer1() {
         return player1.progressSoFar();
     }
 
     /**
-     * Returns the progress of Player 2 as a percentage.
+     * Retrieves Player 2's progress as a percentage.
      * @return Player 2's progress percentage.
      */
-    public double progressPlayer2(){
-        return player1.progressSoFar();
+    public double progressPlayer2() {
+        return player2.progressSoFar();
     }
 
     /**
-     * Returns the username of Player 1.
+     * Gets Player 1's username.
      * @return Player 1's username.
      */
-    public String usernamePlayer1(){
+    public String usernamePlayer1() {
         return player1.getUsername();
     }
 
     /**
-     * Returns the username of Player 2.
+     * Gets Player 2's username.
      * @return Player 2's username.
      */
-    public String usernamePlayer2(){
+    public String usernamePlayer2() {
         return player2.getUsername();
     }
 
     /**
-     * Gets the last five played movies with their connections.
-     * @return A list of the last five movies and their connections.
+     * Provides a visual representation of link usage for Player 1.
+     * @return Map of Player 1's links and their usage display.
+     */
+    public Map<String, String> getPlayer1LinkUsageDisplay() {
+        return player1.getLinkUsageDisplay();
+    }
+
+    /**
+     * Provides a visual representation of link usage for Player 2.
+     * @return Map of Player 2's links and their usage display.
+     */
+    public Map<String, String> getPlayer2LinkUsageDisplay() {
+        return player2.getLinkUsageDisplay();
+    }
+
+    /**
+     * Retrieves the list of the last five movies played with their connections.
+     * @return A list of the last five played movies and their connections.
      */
     public LinkedList<AbstractMap.Entry<String, List<String>>> getLastFivePlayed() {
         return lastFivePlayed;
@@ -140,5 +195,21 @@ public class Game {
      */
     public int getRoundsPlayed() {
         return roundsPlayed;
+    }
+
+    /**
+     * Gets the filename of the autocomplete file.
+     * @return The path of the autocomplete file.
+     */
+    public String getAutocompleteFileName() {
+        return autocompleteFile;
+    }
+
+    /**
+     * Gets the current movie being played.
+     * @return The title of the current movie.
+     */
+    public String getCurrentMovie() {
+        return prevMovie;
     }
 }
