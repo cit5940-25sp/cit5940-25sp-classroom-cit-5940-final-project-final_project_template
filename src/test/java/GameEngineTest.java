@@ -95,4 +95,37 @@ public class GameEngineTest {
         assertEquals(1, newState.getCurrentStreak()); // starts new streak
         assertEquals(spanish, newState.getCurrentLanguage());
     }
+
+    @Test
+    public void refreshCountryTest() {
+        GameEngine.resetInstance();
+        clm = new CountryLanguageManager();
+        clm.addLanguage("spanish", 2);
+        clm.addLanguage("english", 1);
+
+        clm.addCountry("chile", "spanish");
+        clm.addCountry("colombia", "spanish", "english");
+        clm.addCountry("canada", "english");
+        clm.addCountry("puerto rico", "english");
+
+        engine = GameEngine.getInstance(clm);
+        MockRandom random = new MockRandom(new int[]{1}); // start w colombia
+        engine.resetGame(random);
+
+        Country before = engine.getGameState().getCurrentCountry();
+
+        // Mark all but puerto rico as used
+        for (Country country : clm.getAllCountries()) {
+            if (!country.equals(before) && !country.getName().equalsIgnoreCase("puerto rico")) {
+                engine.getGameState().setCurrentCountry(country);
+            }
+        }
+
+        engine.refreshCountry();
+        Country after = engine.getGameState().getCurrentCountry();
+
+        assertNotEquals(before, after);
+        assertEquals("puerto rico", after.getName().toLowerCase());
+        assertFalse(engine.hasViableLanguages(after));
+    }
 }

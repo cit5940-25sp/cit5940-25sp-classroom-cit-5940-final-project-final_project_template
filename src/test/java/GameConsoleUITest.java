@@ -160,6 +160,82 @@ public class GameConsoleUITest {
     }
 
 
+    @Test
+    public void testOnGameStateChangedDisplaysFullState_NormalMode() {
+        fixGameStateRemainingMoves();
+        gameEngine.setHardMode(false);
+        GameState gameState = gameEngine.getGameState();
+
+        // Simulate one move
+        Country start = dataService.getCountry("usa");
+        Language lang = dataService.getLanguage("english");
+        gameState.addMove(new GameMove(start, lang, 2));
+        gameState.setCurrentLanguage(lang);
+
+        TestGameConsoleUI ui = new TestGameConsoleUI(gameEngine, dataService);
+        ui.setTestInput("n\n"); // Don't play again
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Current Country: USA"));
+        assertTrue(output.contains("Game Mode: Normal"));
+        assertTrue(output.contains("Available Languages:"));
+        assertTrue(output.contains("Current Language: English"));
+        assertTrue(output.contains("Score:"));
+        assertTrue(output.contains("Move History:"));
+    }
+
+    @Test
+    public void testOnGameStateChangedDisplaysHardModeLanguageInfo() {
+        fixGameStateRemainingMoves();
+        gameEngine.setHardMode(true);
+        GameState gameState = gameEngine.getGameState();
+
+        Country country = dataService.getCountry("usa");
+        Language lang = dataService.getLanguage("english");
+        gameState.addMove(new GameMove(country, lang, 1));
+        gameState.setCurrentLanguage(lang);
+
+        TestGameConsoleUI ui = new TestGameConsoleUI(gameEngine, dataService);
+        ui.setTestInput("n\n");
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Game Mode: Hard"));
+        assertTrue(output.contains("Used:"));
+    }
+
+    @Test
+    public void testFeedbackGoodEffort() {
+        fixGameStateRemainingMoves();
+        gameEngine.setMaxMovesForTest(4);
+        GameState gameState = createEndGameState();
+        setStateScore(gameState, 7); // 7/4 = 1.75
+
+        TestGameConsoleUI ui = new TestGameConsoleUI(gameEngine, dataService);
+        ui.setTestInput("n\n");
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Good effort! Try to build longer streaks next time!"));
+    }
+
+    @Test
+    public void testFeedbackAmazingMaster() {
+        fixGameStateRemainingMoves();
+        gameEngine.setMaxMovesForTest(4);
+        GameState gameState = createEndGameState();
+        setStateScore(gameState, 13); // 13/4 = 3.25
+
+        TestGameConsoleUI ui = new TestGameConsoleUI(gameEngine, dataService);
+        ui.setTestInput("n\n");
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Amazing! You're a language connection master!"));
+    }
+
+
 
     // --- Helper methods ---
 
@@ -262,6 +338,62 @@ public class GameConsoleUITest {
                 super.onGameStateChanged(gameState);
             }
         }
+    }
+
+    @Test
+    public void testReplayGameInHardMode() {
+        fixGameStateRemainingMoves();
+        gameEngine.setMaxMovesForTest(2);
+        GameState gameState = createEndGameState();
+        setStateScore(gameState, 8); // triggers GAME OVER
+
+        String simulatedInput = "y\ny\n"; // Play again = yes, hard mode = yes
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        GameConsoleUI ui = new GameConsoleUI(gameEngine, dataService);
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Would you like to play again?"));
+        assertTrue(output.contains("Would you like to play in hard mode?"));
+        assertTrue(gameEngine.isHardMode(), "Game should be reset in hard mode");
+    }
+
+    @Test
+    public void testReplayGameInNormalMode() {
+        fixGameStateRemainingMoves();
+        gameEngine.setMaxMovesForTest(2);
+        GameState gameState = createEndGameState();
+        setStateScore(gameState, 6);
+
+        String simulatedInput = "y\nn\n"; // Play again = yes, hard mode = no
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        GameConsoleUI ui = new GameConsoleUI(gameEngine, dataService);
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Would you like to play again?"));
+        assertTrue(output.contains("Would you like to play in hard mode?"));
+        assertFalse(gameEngine.isHardMode(), "Game should be reset in normal mode");
+    }
+
+    @Test
+    public void testGameExitAfterNoReplay() {
+        fixGameStateRemainingMoves();
+        gameEngine.setMaxMovesForTest(2);
+        GameState gameState = createEndGameState();
+        setStateScore(gameState, 5);
+
+        String simulatedInput = "n\n"; // Don't play again
+        System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
+
+        TestGameConsoleUI ui = new TestGameConsoleUI(gameEngine, dataService);
+        ui.onGameStateChanged(gameState);
+
+        String output = outContent.toString();
+        assertTrue(output.contains("Thanks for playing LingoLink! Goodbye!"));
+        assertTrue(output.contains("TEST: Would have called System.exit(0) here"));
     }
 
 
