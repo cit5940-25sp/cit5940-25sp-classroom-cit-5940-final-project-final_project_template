@@ -163,8 +163,7 @@ public class GameController {
         if (gameOver) return "Error: Game is already over.";
         if (currentLinkStrategy == null) return "Error: No link strategy selected for this turn.";
         if (movieTitle == null || movieTitle.trim().isEmpty()) {
-            this.gameOver = true; this.winner = otherPlayer;
-            return "Error: Movie title was empty. " + currentPlayer.getPlayerName() + " loses. " + otherPlayer.getPlayerName() + " wins!";
+            return "EMPTY_INPUT";
         }
 
         Movie guessedMovie = movieIndex.findMovieByTitle(movieTitle.trim());
@@ -173,9 +172,9 @@ public class GameController {
 
 
         if (guessedMovie == null) {
-            this.gameOver = true; this.winner = otherPlayer;
-            return "Error: Movie '" + movieTitle.trim() + "' not found. " + currentPlayerName + " loses. " + otherPlayerName + " wins!";
+            return "NOT FOUND:" + movieTitle.trim();
         }
+
 
         if (gameMoveHistory.stream().anyMatch(move -> move.movie.getTitle().equalsIgnoreCase(guessedMovie.getTitle()))) {
             return "REPEATED_MOVE:" + guessedMovie.getTitle();

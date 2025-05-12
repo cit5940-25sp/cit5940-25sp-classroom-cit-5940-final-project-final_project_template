@@ -170,35 +170,36 @@ public class GameView {
 
     // --- Timer Methods ---
     private void startPlayerTurnTimer() {
-        stopPlayerTurnTimer(); // stop multi threading
-
-        playerMoveSecondsRemaining = TURN_DURATION_SECONDS;
+        if (playerTimerRunning.get()) return;
         playerTimerRunning.set(true);
 
         if (turnScheduler == null || turnScheduler.isShutdown()) {
             turnScheduler = Executors.newScheduledThreadPool(1);
         }
 
-        currentTimerTask = turnScheduler.scheduleAtFixedRate(() -> {
-            if (playerTimerRunning.get()) {
-                if (playerMoveSecondsRemaining > 0) {
-                    playerMoveSecondsRemaining--;
-                    try {
-                        updateScreen();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    stopPlayerTurnTimer();  // halt current task
-                    handleTimeoutLogic();
-                    try {
-                        updateScreen();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+        if (currentTimerTask == null || currentTimerTask.isCancelled()) {
+            currentTimerTask = turnScheduler.scheduleAtFixedRate(() -> {
+                if (playerTimerRunning.get()) {
+                    if (playerMoveSecondsRemaining > 0) {
+                        playerMoveSecondsRemaining--;
+                        try {
+                            updateScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        stopPlayerTurnTimer();
+                        handleTimeoutLogic();
+                        try {
+                            updateScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
-        }, 0, 1, TimeUnit.SECONDS);
+            }, 0, 1, TimeUnit.SECONDS);
+        }
     }
 
     private void stopPlayerTurnTimer() {
@@ -291,14 +292,20 @@ public class GameView {
             Player currentPlayer = gameController.getCurrentPlayer();
             String strategyName = selectedStrategy.getClass().getSimpleName();
 
-            if (currentPlayer.getConnectionUsage().getOrDefault(strategyName, 0) < 3) {
+            int usedTimes = currentPlayer.getConnectionUsage().getOrDefault(strategyName, 0);
+            if (usedTimes < 3) {
                 gameController.setCurrentLinkStrategy(selectedStrategy);
                 currentPhase = GamePhase.PLAYER_TURN_INPUT_MOVIE;
+
                 currentInput.setLength(0);
                 currentMovieSuggestions.clear();
                 selectedSuggestionIndex = -1;
                 feedbackMessage = "";
+
+                //  reset timer and start it
+                playerMoveSecondsRemaining = TURN_DURATION_SECONDS;
                 startPlayerTurnTimer();
+
             } else {
                 feedbackMessage = "Strategy [" + strategyName.replace("LinkStrategy", "") + "] used 3 times. Choose another.";
             }
@@ -306,6 +313,7 @@ public class GameView {
             feedbackMessage = "Invalid strategy number. Press 1-" + availableStrategies.size() + ".";
         }
     }
+
     private void handleMovieTitleInput(KeyStroke keyStroke) throws IOException {
         switch (keyStroke.getKeyType()) {
             case Character:
@@ -374,37 +382,63 @@ public class GameView {
             feedbackMessage = "No movie entered. Timer continues.";
             return;
         }
+
         List<String> playedTitles = gameController.getDetailedGameHistory().stream()
                 .map(move -> move.movie.getTitle().toLowerCase())
                 .collect(Collectors.toList());
 
         if (playedTitles.contains(guessedMovieTitle.toLowerCase())) {
             feedbackMessage = "Movie already played. Try another one.";
-            return; // ⏱ Timer continues!
+            return;
         }
 
-        stopPlayerTurnTimer();  // only stop if it's a valid new guess
-
+        // try processing move
         String resultMessageFromController = gameController.processPlayerMove(guessedMovieTitle);
 
-        currentPhase = GamePhase.SHOWING_MOVE_RESULT;
-        feedbackMessage = resultMessageFromController;
+        if (resultMessageFromController.equals("EMPTY_INPUT")) {
+            feedbackMessage = "No movie entered. Timer continues.";
+            return;
+        }
+
+        if (resultMessageFromController.startsWith("NOT FOUND")) {
+            feedbackMessage = "Movie not found in database. Try again.";
+            return;
+        }
+
+        if (resultMessageFromController.startsWith("REPEATED_MOVE")) {
+            feedbackMessage = "Movie already played. Try again.";
+            return;
+        }
+
 
         if (resultMessageFromController.startsWith("OK:") || resultMessageFromController.startsWith("VALID_MOVE_AND_WIN:")) {
-            Player actingPlayer = gameController.getCurrentPlayer();
-            if (resultMessageFromController.startsWith("VALID_MOVE_AND_WIN:")) {
-                actingPlayer = gameController.getWinner();
-            }
+            stopPlayerTurnTimer();
+            currentPhase = GamePhase.SHOWING_MOVE_RESULT;
+            feedbackMessage = resultMessageFromController;
+
+            Player actingPlayer = resultMessageFromController.startsWith("VALID_MOVE_AND_WIN:")
+                    ? gameController.getWinner()
+                    : gameController.getCurrentPlayer();
+
             ILinkStrategy usedStrategy = gameController.getCurrentLinkStrategy();
             if (actingPlayer != null && usedStrategy != null) {
                 actingPlayer.recordConnectionUsage(usedStrategy.getClass().getSimpleName());
             }
+
+            if (!gameController.isGameOver()) {
+                feedbackMessage += " (Press Enter to continue)";
+            }
+            return;
         }
 
-        if (!gameController.isGameOver()) {
-            feedbackMessage += " (Press Enter to continue)";
+
+        if (resultMessageFromController.startsWith("Error:")) {
+            stopPlayerTurnTimer();
+            feedbackMessage = resultMessageFromController;
+            currentPhase = GamePhase.GAME_OVER;
         }
     }
+
 
     // --- Drawing Methods (Revised for new requirements) ---
 
