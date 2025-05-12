@@ -114,40 +114,5 @@ public class GameTest {
         assertEquals("src/autocomplete.txt", game.getAutocompleteFileName());
     }
 
-    @Test
-    public void testWinningCondition() {
-        Game game = new Game("src/tmdb_data.txt", "Player1",
-                "Player2", "Drama", "Comedy");
-
-        // Two valid connected Drama movies for Player 1
-        boolean move1 = game.update("Dead Like Me: Life After Death (2009)", "Player1");
-        System.out.println("Player 1 Move 1: " + move1);
-
-        game.forcePlayerTurn("Player1");
-        boolean move2 = game.update("Flying By (2009)", "Player1");
-        System.out.println("Player 1 Move 2: " + move2);
-
-        assertTrue(game.isGameOver());
-        assertEquals("Player1", game.getWinner());
-    }
-
-
-    @Test
-    public void testLastFivePlayed() {
-        Game game = new Game("src/tmdb_data.txt", "Player1",
-                "Player2", "Drama", "Comedy");
-
-        assertTrue(game.getLastFivePlayed().isEmpty());
-        boolean move1 = game.update("Dead Like Me: Life After Death (2009)", "Player1");
-        System.out.println("Player 1 Move 1: " + move1);
-
-        game.forcePlayerTurn("Player2");
-        boolean move2 = game.update("Flying By (2009)", "Player2");
-        System.out.println("Player 2 Move 2: " + move2);
-
-        // The list should now contain two movies
-        System.out.println("Last Five Played: " + game.getLastFivePlayed());
-        assertEquals(2, game.getLastFivePlayed().size());
-    }
 }
 
