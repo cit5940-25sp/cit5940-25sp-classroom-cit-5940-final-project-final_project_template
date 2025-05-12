@@ -64,20 +64,18 @@ public class GameView {
     private ScheduledExecutorService turnScheduler;
 
     // --- UI Layout Constants (Inspired by TerminalWithSuggestions) ---
-    private int gameInfoLines = 3; // WinCond, Player, LinkFrom
-    private int interactionPromptRow;
-    private int interactionInputRow;
-    private int suggestionsStartRow;
-    private int feedbackRow;
-    private int historyStartRow;
+    // Game info will occupy the first few lines
+    private final int gameInfoLines = 3; // WinCond, Player, LinkFrom (Lines 0, 1, 2)
+    private int interactionPromptRow; // Calculated: gameInfoLines + 1 (e.g., Line 4, after a blank line 3 for spacing)
+    // Other rows (input, suggestions, feedback, history) are calculated relative to interactionPromptRow or screen bottom
 
     private final int MAX_SUGGESTIONS_DISPLAYED = 4;
     private final int MAX_HISTORY_DISPLAYED = 2;
 
     // Define a constant for the default white text color
     private static final TextColor DEFAULT_TEXT_COLOR = TextColor.ANSI.WHITE;
-    // Define a contrasting background for selected items, if needed, or use default black
-    private static final TextColor SELECTED_SUGGESTION_BG = TextColor.ANSI.CYAN; // Example
+    // Define a contrasting background for selected items
+    private static final TextColor SELECTED_SUGGESTION_BG = TextColor.ANSI.BLUE; // Example
 
 
     public GameView() throws IOException {
@@ -95,15 +93,13 @@ public class GameView {
                 e.printStackTrace();
             }
         });
-        calculateLayoutConstants();
+        calculateLayoutConstants(); // Initial calculation
     }
 
     private void calculateLayoutConstants() {
-        interactionPromptRow = gameInfoLines + 1;
-        interactionInputRow = interactionPromptRow;
-        suggestionsStartRow = interactionInputRow + 1;
-        feedbackRow = suggestionsStartRow + MAX_SUGGESTIONS_DISPLAYED + 1;
-        historyStartRow = feedbackRow + 2;
+        // interactionPromptRow is the primary anchor for the interactive part
+        interactionPromptRow = gameInfoLines + 1; // e.g., Line 4 (0-indexed)
+        // Other rows can be dynamically placed in updateScreen or helper methods
     }
 
 
@@ -189,7 +185,7 @@ public class GameView {
         }
     }
 
-    // --- Timer Methods ---
+    // --- Timer Methods (remain the same) ---
     private void startPlayerTurnTimer() {
         playerMoveSecondsRemaining = TURN_DURATION_SECONDS;
         playerTimerRunning.set(true);
@@ -229,7 +225,7 @@ public class GameView {
         }
     }
 
-    // --- Input Handling ---
+    // --- Input Handling (logic remains mostly the same, feedback clearing adjusted) ---
     private void handleKeyStroke(KeyStroke keyStroke) throws IOException {
         if (gameController == null && currentPhase != GamePhase.GAME_OVER) return;
 
@@ -419,10 +415,18 @@ public class GameView {
         TerminalSize size = screen.getTerminalSize();
         if(size == null) return;
 
-        calculateLayoutConstants();
+        calculateLayoutConstants(); // Ensure rows are up-to-date
 
         // 1. Draw Header (Game Info + Timer)
         drawHeaderAndTimer(size);
+
+        // Define dynamic rows based on interactionPromptRow
+        int currentPromptRow = interactionPromptRow;
+        int currentInputRow = currentPromptRow + 1; // Default for movie input
+        int currentSuggestionsStartRow = currentInputRow + 1; // Default for movie suggestions
+        int currentFeedbackRow = currentSuggestionsStartRow + MAX_SUGGESTIONS_DISPLAYED + 1;
+        int currentHistoryStartRow = currentFeedbackRow + 2;
+
 
         // 2. Draw Content based on Phase
         switch (currentPhase) {
@@ -431,36 +435,41 @@ public class GameView {
                 break;
 
             case GAME_OVER:
-                printStringCentered(size.getRows() / 2 - 1, " G A M E   O V E R ", DEFAULT_TEXT_COLOR); // Was RED_BRIGHT
-                printStringCentered(size.getRows() / 2, feedbackMessage, DEFAULT_TEXT_COLOR); // Was CYAN
+                printStringCentered(size.getRows() / 2 - 1, " G A M E   O V E R ", DEFAULT_TEXT_COLOR);
+                printStringCentered(size.getRows() / 2, feedbackMessage, DEFAULT_TEXT_COLOR);
                 printStringCentered(size.getRows() - 2, "Press ESC or Enter to exit.", DEFAULT_TEXT_COLOR);
                 break;
 
             case PLAYER_TURN_CHOOSE_LINK:
-                drawLinkStrategyChoicesLayout(interactionPromptRow);
-                drawGameHistoryLayout(size, historyStartRow);
-                drawFeedbackMessageLayout(size, feedbackRow);
+                // For strategy choice, the "input" area is the list itself, starting at currentPromptRow + 1
+                drawLinkStrategyChoicesLayout(currentPromptRow);
+                // Adjust feedback and history rows if strategy list is long
+                currentFeedbackRow = currentPromptRow + 1 + 5 + 1; // 5 strategies + 1 for spacing
+                currentHistoryStartRow = currentFeedbackRow + 2;
+                drawGameHistoryLayout(size, currentHistoryStartRow);
+                drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
 
             case PLAYER_TURN_INPUT_MOVIE:
-                drawMovieInputLayout(interactionPromptRow);
-                drawSuggestionsLayout(suggestionsStartRow);
-                drawGameHistoryLayout(size, historyStartRow);
-                drawFeedbackMessageLayout(size, feedbackRow);
+                drawMovieInputLayout(currentPromptRow); // Prompt at currentPromptRow, input at currentInputRow
+                drawSuggestionsLayout(currentSuggestionsStartRow); // Suggestions start below input line
+                drawGameHistoryLayout(size, currentHistoryStartRow);
+                drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
 
             case SHOWING_MOVE_RESULT:
-                printStringCentered(feedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR); // Was YELLOW
-                drawGameHistoryLayout(size, historyStartRow);
+                // Feedback is the main content.
+                printStringCentered(currentFeedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR);
+                drawGameHistoryLayout(size, currentHistoryStartRow);
                 break;
 
             case GAME_READY:
-                drawGameHistoryLayout(size, historyStartRow);
-                drawFeedbackMessageLayout(size, feedbackRow);
+                drawGameHistoryLayout(size, currentHistoryStartRow);
+                drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
 
             default:
-                printStringCentered(size.getRows()/2, "Unknown game state: " + currentPhase, DEFAULT_TEXT_COLOR); // Was RED
+                printStringCentered(size.getRows()/2, "Unknown game state: " + currentPhase, DEFAULT_TEXT_COLOR);
         }
         screen.refresh();
     }
@@ -472,18 +481,17 @@ public class GameView {
                 : "";
         int timerX = size.getColumns() - timerStr.length() - 1;
         if (timerX < 0) timerX = 0;
-        printString(timerX, 0, timerStr, DEFAULT_TEXT_COLOR); // Was YELLOW
+        printString(timerX, 0, timerStr, DEFAULT_TEXT_COLOR);
 
         if (gameController == null) return;
 
         String winCond = gameController.getCurrentWinConditionDescription();
         String winCondDisplay = "Win: " + (winCond != null ? winCond : "N/A");
-        int maxWinCondWidth = timerX - 1;
-        if (maxWinCondWidth < 10) maxWinCondWidth = size.getColumns() -1;
+        int maxWinCondWidth = timerX > 0 ? timerX - 1 : size.getColumns() -1; // Max width before timer starts or full if no timer
         if (winCondDisplay.length() > maxWinCondWidth && maxWinCondWidth > 3) {
             winCondDisplay = winCondDisplay.substring(0, maxWinCondWidth - 3) + "...";
         }
-        printString(0, 0, winCondDisplay, DEFAULT_TEXT_COLOR); // Was CYAN
+        printString(0, 0, winCondDisplay, DEFAULT_TEXT_COLOR);
 
         Player currentPlayer = gameController.getCurrentPlayer();
         if (currentPlayer != null) {
@@ -491,7 +499,7 @@ public class GameView {
             if (currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE && gameController.getCurrentLinkStrategy() != null) {
                 playerStatus += " (Link: " + gameController.getCurrentLinkStrategyName() + ")";
             }
-            printString(0, 1, playerStatus, DEFAULT_TEXT_COLOR); // Was GREEN
+            printString(0, 1, playerStatus, DEFAULT_TEXT_COLOR);
         }
 
         Movie lastMovie = gameController.getLastPlayedMovie();
@@ -501,7 +509,7 @@ public class GameView {
         } else {
             linkFromText += "(Game Start)";
         }
-        printString(0, 2, linkFromText, DEFAULT_TEXT_COLOR); // Was MAGENTA
+        printString(0, 2, linkFromText, DEFAULT_TEXT_COLOR);
     }
 
     private void drawLinkStrategyChoicesLayout(int promptRow) throws IOException {
@@ -517,42 +525,34 @@ public class GameView {
             String stratClassName = strategies.get(i).getClass().getSimpleName();
             String stratNameSimple = stratClassName.replace("LinkStrategy", "");
             int usesLeft = 3 - (currentPlayer.getConnectionUsage() != null ? currentPlayer.getConnectionUsage().getOrDefault(stratClassName, 0) : 0);
-            // All strategy text is white. Distinction for uses left can be through text itself.
-            TextColor color = DEFAULT_TEXT_COLOR; // Was YELLOW or RED_BRIGHT
+            TextColor color = DEFAULT_TEXT_COLOR;
             String text = String.format("  %d. %-15s (Uses: %d/3)", (i + 1), stratNameSimple, currentPlayer.getConnectionUsage().getOrDefault(stratClassName,0));
             printString(0, promptRow + 1 + i, text, color);
         }
     }
 
     private void drawMovieInputLayout(int promptRow) throws IOException {
-        interactionInputRow = promptRow + 1;
-        suggestionsStartRow = interactionInputRow + 1;
-        feedbackRow = suggestionsStartRow + MAX_SUGGESTIONS_DISPLAYED +1;
-        historyStartRow = feedbackRow + 2;
-
         printString(0, promptRow, "Enter Movie Title:", DEFAULT_TEXT_COLOR);
         String inputDisplay = "> " + currentInput.toString();
-        printString(0, interactionInputRow, inputDisplay, DEFAULT_TEXT_COLOR);
+        printString(0, promptRow + 1, inputDisplay, DEFAULT_TEXT_COLOR); // Movie input field is one line below its prompt
         if (screen != null) {
-            screen.setCharacter(("> ".length() + currentInput.length()), interactionInputRow,
+            screen.setCharacter(("> ".length() + currentInput.length()), promptRow + 1,
                     new TextCharacter('|', DEFAULT_TEXT_COLOR, TextColor.ANSI.BLACK));
         }
     }
 
-    private void drawSuggestionsLayout(int startRow) throws IOException {
+    private void drawSuggestionsLayout(int suggestionsHeaderRow) throws IOException {
         if (currentMovieSuggestions.isEmpty()) return;
 
-        printString(2, startRow -1, "Suggestions:", DEFAULT_TEXT_COLOR); // Was BLUE
+        printString(2, suggestionsHeaderRow, "Suggestions:", DEFAULT_TEXT_COLOR); // Header for suggestions
         for (int i = 0; i < currentMovieSuggestions.size() && i < MAX_SUGGESTIONS_DISPLAYED; i++) {
-            // Selected suggestion: White text on a contrasting background (e.g., BLUE or DARK_GREY)
-            // Non-selected: White text on black background
             TextColor fgColor = (i == selectedSuggestionIndex) ? TextColor.ANSI.WHITE : DEFAULT_TEXT_COLOR;
-            TextColor bgColor = (i == selectedSuggestionIndex) ? TextColor.ANSI.BLUE : TextColor.ANSI.BLACK; // Example: BLUE for selection
+            TextColor bgColor = (i == selectedSuggestionIndex) ? SELECTED_SUGGESTION_BG : TextColor.ANSI.BLACK;
             String suggestionText = "  " + currentMovieSuggestions.get(i);
 
             TerminalSize size = screen.getTerminalSize();
             if (size == null) return;
-            int row = startRow + i;
+            int row = suggestionsHeaderRow + 1 + i; // Suggestions start below their header
             if (row >= size.getRows()) continue;
 
             for(int j=0; j < suggestionText.length(); j++){
@@ -570,8 +570,9 @@ public class GameView {
         }
         TerminalSize size = screen.getTerminalSize();
         if (size == null) return;
+        // Clear suggestion lines below the current number of suggestions
         for (int i = currentMovieSuggestions.size(); i < MAX_SUGGESTIONS_DISPLAYED; i++) {
-            int row = startRow + i;
+            int row = suggestionsHeaderRow + 1 + i;
             if (row < size.getRows()) {
                 for (int k = 2; k < size.getColumns(); k++) {
                     screen.setCharacter(k, row, TextCharacter.DEFAULT_CHARACTER.withBackgroundColor(TextColor.ANSI.BLACK));
@@ -584,10 +585,10 @@ public class GameView {
         if (!feedbackMessage.isEmpty()) {
             int actualFeedbackRow = Math.min(row, size.getRows() - 1);
             if (actualFeedbackRow < 0) actualFeedbackRow = 0;
-            for (int i = 0; i < size.getColumns(); i++) {
+            for (int i = 0; i < size.getColumns(); i++) { // Clear the line
                 printString(i, actualFeedbackRow, " ", DEFAULT_TEXT_COLOR);
             }
-            printString(0, actualFeedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR); // Was RED or YELLOW
+            printString(0, actualFeedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR);
         }
     }
 
@@ -597,8 +598,8 @@ public class GameView {
         if (history.isEmpty()) return;
 
         int actualStartRow = Math.max(startRow, 0);
-        if (actualStartRow -1 >=0) {
-            printString(0, actualStartRow -1, "--- Recent Moves ---", DEFAULT_TEXT_COLOR); // Was BLUE
+        if (actualStartRow -1 >=0 && actualStartRow -1 < size.getRows()) { // Check header bounds
+            printString(0, actualStartRow -1, "--- Recent Moves ---", DEFAULT_TEXT_COLOR);
         }
 
         int count = 0;
@@ -607,7 +608,7 @@ public class GameView {
             int currentRow = actualStartRow + count;
             if (currentRow < size.getRows()) {
                 String historyLine = String.format("  %d. %s (%d)", history.size() - i, m.getTitle(), m.getYear());
-                printString(0, currentRow, historyLine, DEFAULT_TEXT_COLOR); // Was WHITE_BRIGHT
+                printString(0, currentRow, historyLine, DEFAULT_TEXT_COLOR);
             } else {
                 break;
             }
@@ -626,7 +627,7 @@ public class GameView {
             if (currentX >= 0 && currentX < terminalSize.getColumns()) {
                 try {
                     screen.setCharacter(currentX, y, new TextCharacter(
-                            text.charAt(i), color, TextColor.ANSI.BLACK // Keep background black
+                            text.charAt(i), color, TextColor.ANSI.BLACK
                     ));
                 } catch (Exception e) { /* ignore drawing error */ }
             } else { break; }
