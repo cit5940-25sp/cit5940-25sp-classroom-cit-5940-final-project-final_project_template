@@ -25,13 +25,16 @@ public class Movies {
                         Arrays.stream(castTemp.split(","))
                                 .map(String::trim)
                                 .filter(s -> !s.isEmpty())
-                                .collect(Collectors.toList());
+                                .toList();
+
+                HashSet<String> castCrewHash = new HashSet<>(castCrew);
+                List<String> castCrewList = new ArrayList<>(castCrewHash);
 
                 List<String> genres = genresTemp.isEmpty() ? new ArrayList<>() :
                         Arrays.stream(genresTemp.split(","))
                                 .map(String::trim)
                                 .filter(s -> !s.isEmpty())
-                                .collect(Collectors.toList());
+                                .toList();
 
                 for (String g : genres) {
                     if (!allGenres.containsKey(g)) {
@@ -41,9 +44,13 @@ public class Movies {
                     }
                 }
 
+                HashSet<String> genresHash = new HashSet<>(genres);
+                List<String> genresList = new ArrayList<>(genresHash);
+
+
                 HashMap<String, List<String>> details = new HashMap<>();
-                details.put("castAndCrew", castCrew);
-                details.put("genres", genres);
+                details.put("castAndCrew", castCrewList);
+                details.put("genres", genresList);
                 allMovies.put(movieName, details);
             }
         } catch (IOException e) {

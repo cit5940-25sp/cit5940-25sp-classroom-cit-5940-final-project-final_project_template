@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
     private String username;
@@ -47,12 +48,33 @@ public class Player {
         return usedConnectionThisTurn;
     }
 
+    public Map<String, String> getLinkUsageDisplay() {
+        Map<String, String> usageVisual = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : linksUsed.entrySet()) {
+            String name = entry.getKey();
+            int count = entry.getValue();
+            StringBuilder bar = new StringBuilder();
+
+            for (int i = 0; i < count; i++) {
+                bar.append("❌");
+            }
+            for (int i = count; i < 3; i++) {
+                bar.append("▪️");
+            }
+
+            usageVisual.put(name, bar.toString());
+        }
+
+        return usageVisual;
+    }
+
     public boolean hasMetObjective() {
         return (objectiveAmount - progress) == 0;
     }
 
     public double progressSoFar() {
-        return (progress * 100.0) / objectiveAmount ;
+        return (progress * 100.0) / objectiveAmount;
     }
 
     public String getUsername() {

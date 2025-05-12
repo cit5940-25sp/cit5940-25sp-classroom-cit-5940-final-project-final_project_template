@@ -1,7 +1,4 @@
-import java.util.AbstractMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Game {
     private Movies movies;
@@ -19,8 +16,8 @@ public class Game {
                 String objectiveGenre1, String objectiveGenre2) {
         this.movies = new Movies(fileName);
         this.autocompleteFile = "src/autocomplete.txt";
-        this.player1 = new Player(player1Name, objectiveGenre1, 5);
-        this.player2 = new Player(player2Name, objectiveGenre2, 5);
+        this.player1 = new Player(player1Name, objectiveGenre1, 2);
+        this.player2 = new Player(player2Name, objectiveGenre2, 2);
         this.moviesPlayed = new HashSet<>();
         this.lastFivePlayed = new LinkedList<>();
         this.turn = true;
@@ -109,6 +106,14 @@ public class Game {
 
     public String usernamePlayer2() {
         return player2.getUsername();
+    }
+
+    public Map<String, String> getPlayer1LinkUsageDisplay() {
+        return player1.getLinkUsageDisplay();
+    }
+
+    public Map<String, String> getPlayer2LinkUsageDisplay() {
+        return player2.getLinkUsageDisplay();
     }
 
     public LinkedList<AbstractMap.Entry<String, List<String>>> getLastFivePlayed() {

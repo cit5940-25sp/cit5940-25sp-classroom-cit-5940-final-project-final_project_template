@@ -29,7 +29,7 @@ public class RunGame {
             long start = System.currentTimeMillis();
 
             while (AutocompleteGUI.getSelectedMovie() == null &&
-                    (System.currentTimeMillis() - start) < 30_000) {
+                    (System.currentTimeMillis() - start) < 100_000) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -39,7 +39,6 @@ public class RunGame {
 
             String movie = AutocompleteGUI.getSelectedMovie();
 
-            // ❌ Time ran out
             if (movie == null) {
                 String loser = game.getWhosTurn();
                 String winner = loser.equals(game.usernamePlayer1()) ? game.usernamePlayer2() : game.usernamePlayer1();
@@ -55,15 +54,25 @@ public class RunGame {
                 System.out.println(game.usernamePlayer1() + " progress: " + game.progressPlayer1() + "%");
                 System.out.println(game.usernamePlayer2() + " progress: " + game.progressPlayer2() + "%");
 
+                System.out.println("\nLink usage:");
+                System.out.println(game.usernamePlayer1() + "'s links:");
+                for (var entry : game.getPlayer1LinkUsageDisplay().entrySet()) {
+                    System.out.println("- " + entry.getKey() + ": " + entry.getValue());
+                }
+
+                System.out.println(game.usernamePlayer2() + "'s links:");
+                for (var entry : game.getPlayer2LinkUsageDisplay().entrySet()) {
+                    System.out.println("- " + entry.getKey() + ": " + entry.getValue());
+                }
+
                 if (game.isGameOver()) {
                     System.out.println("🎉 Game ended: " + game.getWinner() + " has won!");
                     break;
                 }
             } else {
-                // ❌ Invalid move — opponent wins
                 String loser = game.getWhosTurn();
                 String winner = loser.equals(game.usernamePlayer1()) ? game.usernamePlayer2() : game.usernamePlayer1();
-                System.out.println("❌ Invalid move by " + loser + " (duplicate or no connection)");
+                System.out.println("❌ Invalid move by " + loser);
                 System.out.println("🎉 Game ended: " + winner + " has won!");
                 break;
             }
@@ -104,5 +113,4 @@ public class RunGame {
             System.out.print("Username cannot be empty. Please enter a valid name: ");
         }
     }
-
 }
