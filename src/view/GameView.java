@@ -9,7 +9,6 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.TerminalResizeListener;
 import controller.GameController;
 import model.*;
 import strategy.*;
@@ -375,9 +374,19 @@ public class GameView {
             feedbackMessage = "No movie entered. Timer continues.";
             return;
         }
-        stopPlayerTurnTimer();
+        List<String> playedTitles = gameController.getDetailedGameHistory().stream()
+                .map(move -> move.movie.getTitle().toLowerCase())
+                .collect(Collectors.toList());
+
+        if (playedTitles.contains(guessedMovieTitle.toLowerCase())) {
+            feedbackMessage = "Movie already played. Try another one.";
+            return; // ⏱ Timer continues!
+        }
+
+        stopPlayerTurnTimer();  // only stop if it's a valid new guess
 
         String resultMessageFromController = gameController.processPlayerMove(guessedMovieTitle);
+
         currentPhase = GamePhase.SHOWING_MOVE_RESULT;
         feedbackMessage = resultMessageFromController;
 

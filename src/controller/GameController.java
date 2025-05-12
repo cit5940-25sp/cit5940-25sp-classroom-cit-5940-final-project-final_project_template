@@ -178,9 +178,9 @@ public class GameController {
         }
 
         if (gameMoveHistory.stream().anyMatch(move -> move.movie.getTitle().equalsIgnoreCase(guessedMovie.getTitle()))) {
-            this.gameOver = true; this.winner = otherPlayer;
-            return "Error: '" + guessedMovie.getTitle() + "' has already been played. " + currentPlayerName + " loses. " + otherPlayerName + " wins!";
+            return "REPEATED_MOVE:" + guessedMovie.getTitle();
         }
+
 
         Movie lastPlayedMovieFull = gameMoveHistory.isEmpty() ? null : gameMoveHistory.get(gameMoveHistory.size() - 1).movie;
         String linkReason = "N/A (First player move)";
