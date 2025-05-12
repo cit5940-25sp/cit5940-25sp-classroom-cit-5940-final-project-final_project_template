@@ -28,46 +28,42 @@ public class Player {
 
     // update progress if genre matches objectivegenre
 
-    public boolean handleMovie (List<String> connections, List<String> genres) {
-        boolean hasConnection = false;
+    public boolean handleMovie(List<String> connections, List<String> genres) {
+        boolean usedConnectionThisTurn = false;
+
         for (String connection : connections) {
-            if (linksUsed.containsKey(connection)) {
-                if (linksUsed.get(connection) < 3) {
-                    hasConnection = true;
-                }
-            } else {
-                linksUsed.put(connection, 1);
-            }
-        }
-        if (hasConnection) {
-            for (String genre : genres) {
-                if (genre.equals(objectiveGenre)) {
-                    progress++;
-                }
+            int count = linksUsed.getOrDefault(connection, 0);
+            if (count < 3) {
+                linksUsed.put(connection, count + 1);
+                usedConnectionThisTurn = true;
             }
         }
 
-    return hasConnection;
+        if (usedConnectionThisTurn &&
+                genres.stream().anyMatch(genre -> genre.equalsIgnoreCase(objectiveGenre))) {
+            progress++;
+        }
 
+        return usedConnectionThisTurn;
     }
 
-    public boolean hasMetObjective () {
+    public boolean hasMetObjective() {
         return (objectiveAmount - progress) == 0;
     }
-    public double progressSoFar () {
+
+    public double progressSoFar() {
         return (progress * 100.0) / objectiveAmount ;
     }
+
     public String getUsername() {
         return username;
     }
+
     public String getObjectiveGenre() {
         return objectiveGenre;
     }
 
-    //added
-    //player status
     public String getStatus() {
         return username + " - " + progress + "/" + objectiveAmount + " " + objectiveGenre;
     }
 }
-
