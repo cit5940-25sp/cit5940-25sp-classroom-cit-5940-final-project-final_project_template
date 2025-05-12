@@ -14,3 +14,10 @@ This is an example of a project directory for you to start working from. Please 
 |--- test
     |----- *Test.java (unit test files)
 ```
+
+making a change
+
+Here's a small edit!
+🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 🌶 
+😂 😂 😂 😂 😂 😂 😂 😂 
+asdjflkasjdfkl
