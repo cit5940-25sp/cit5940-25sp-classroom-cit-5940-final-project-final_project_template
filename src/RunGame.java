@@ -7,40 +7,65 @@ public class RunGame {
 
     Timer timer;
 
-
     public static void main(String[] args) {
-        // TODO: get player 1 to input username
-        String player1Name = "";
+        String player1Name = promptForUsername(1);
         String genre1 = promptForWinCondition();
         System.out.println(player1Name + " selected: " + genre1);
 
-        String player2Name = "";
+        String player2Name = promptForUsername(2);
         String genre2 = promptForWinCondition();
         System.out.println(player2Name + " selected: " + genre2);
 
-        Game game = new Game("fileName", player1Name, player2Name, genre1, genre2);
+        Game game = new Game("src/tmdb_data.txt", player1Name, player2Name, genre1, genre2);
+
+        System.out.println("Starting movie: " + game.getCurrentMovie());
 
         while (true) {
-            System.out.println("It's" + game.getWhosTurn() + "'s turn!");
+            System.out.println("It's " + game.getWhosTurn() + "'s turn!");
 
-            // TODO: integrate autocomplete into this!!!!!!!
-            String movie = "";
+            AutocompleteGUI.setSelectedMovie(null);
+            AutocompleteGUI.main(new String[] {"src/autocomplete.txt", "5"});
+
+            long start = System.currentTimeMillis();
+
+            while (AutocompleteGUI.getSelectedMovie() == null &&
+                    (System.currentTimeMillis() - start) < 30_000) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            String movie = AutocompleteGUI.getSelectedMovie();
+
+            // ❌ Time ran out
+            if (movie == null) {
+                String loser = game.getWhosTurn();
+                String winner = loser.equals(game.usernamePlayer1()) ? game.usernamePlayer2() : game.usernamePlayer1();
+                System.out.println("⏰ Time's up! " + loser + " failed to make a move.");
+                System.out.println("🎉 Game ended: " + winner + " has won!");
+                break;
+            }
+
             boolean worked = game.update(movie, game.getWhosTurn());
 
-            // TODO: figure out timer
             if (worked) {
-                // TODO: make a nice display for these things
-                System.out.println("Both users' na\n" +
-                        "mes, win conditions, and progress\n" +
-                        "History of most recent five movies played (including links between them, title,\n" +
-                        "release year, and genres)\n" +
-                        "Number of rounds played");
-            } else {
-                if (game.getWhosTurn().equals(game.usernamePlayer1())) {
-                    System.out.println("Game ended: " + game.usernamePlayer2() + " has won!");
-                } else {
-                    System.out.println("Game ended: " + game.usernamePlayer1() + " has won!");
+                System.out.println("✅ Valid move!");
+                System.out.println(game.usernamePlayer1() + " progress: " + game.progressPlayer1() + "%");
+                System.out.println(game.usernamePlayer2() + " progress: " + game.progressPlayer2() + "%");
+
+                if (game.isGameOver()) {
+                    System.out.println("🎉 Game ended: " + game.getWinner() + " has won!");
+                    break;
                 }
+            } else {
+                // ❌ Invalid move — opponent wins
+                String loser = game.getWhosTurn();
+                String winner = loser.equals(game.usernamePlayer1()) ? game.usernamePlayer2() : game.usernamePlayer1();
+                System.out.println("❌ Invalid move by " + loser + " (duplicate or no connection)");
+                System.out.println("🎉 Game ended: " + winner + " has won!");
+                break;
             }
         }
     }
@@ -63,6 +88,20 @@ public class RunGame {
             }
 
             System.out.println("Invalid genre. Please choose one of: Action, Comedy, Horror, Romance, Drama.");
+        }
+    }
+
+    public static String promptForUsername(int playerNumber) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter username for Player " + playerNumber + ": ");
+
+        String username;
+        while (true) {
+            username = scanner.nextLine().trim();
+            if (!username.isEmpty()) {
+                return username;
+            }
+            System.out.print("Username cannot be empty. Please enter a valid name: ");
         }
     }
 
