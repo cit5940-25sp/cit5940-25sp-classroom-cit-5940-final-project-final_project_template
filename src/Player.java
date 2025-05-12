@@ -3,18 +3,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Player class represents a player in the game, tracking their progress, objectives, and connections used.
- */
 public class Player {
     private String username;
     private int progress;
     private String objectiveGenre;
     private int objectiveAmount;
-
     //(e.g. actor name) and how many times (max 3)
     private HashMap<String, Integer> linksUsed;
-
 
     /**
      * Constructor that initializes a new Player with specified username and objective.
@@ -22,7 +17,6 @@ public class Player {
      * @param objectiveGenre The target genre for the player's objective.
      * @param objectiveNumber The number of movies to complete the objective.
      */
-
     public Player (String username, String objectiveGenre, int objectiveNumber) {
         this.username = username;
         this.objectiveGenre = objectiveGenre;
