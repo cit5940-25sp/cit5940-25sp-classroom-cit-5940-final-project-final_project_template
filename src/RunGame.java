@@ -1,7 +1,4 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Timer;
+import java.util.*;
 
 public class RunGame {
 
@@ -22,6 +19,21 @@ public class RunGame {
 
         while (true) {
             System.out.println("It's " + game.getWhosTurn() + "'s turn!");
+            LinkedList<Map.Entry<String, List<String>>> lastFive = game.getLastFivePlayed();
+
+            for(Map.Entry<String, List<String>> entry : lastFive) {
+                if (!(entry.getKey()).equals((lastFive.getLast()).getKey())) {
+                    System.out.println("        " + (String)entry.getKey());
+                    System.out.println("            |");
+
+                    for(String link : entry.getValue()) {
+                        System.out.println("        " + link);
+                    }
+
+                    System.out.println("            |");
+                }
+            }
+            System.out.println(((Map.Entry)lastFive.getLast()).getValue());
 
             AutocompleteGUI.setSelectedMovie(null);
             AutocompleteGUI.main(new String[] {"src/autocomplete.txt", "5"});
