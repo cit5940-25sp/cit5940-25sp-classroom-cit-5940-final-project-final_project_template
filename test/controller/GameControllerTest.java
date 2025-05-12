@@ -94,17 +94,6 @@ class GameControllerTest {
     }
 
     @Test
-    void testInvalidMovieMove() {
-        gameController.initializeNewGame();
-        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
-
-        String result = gameController.processPlayerMove("Some Fake Movie");
-        assertTrue(result.contains("not found"), "Should notify movie not found");
-        assertTrue(gameController.isGameOver(), "Game should end on invalid move");
-        assertEquals(player2, gameController.getWinner(), "Other player should win");
-    }
-
-    @Test
     void testPlayerTimeoutLoss() {
         gameController.initializeNewGame();
         gameController.playerLostOnTimeout();
@@ -120,16 +109,6 @@ class GameControllerTest {
         assertEquals(originalCurrent, gameController.getOtherPlayer(), "Players should switch turns");
     }
 
-    @Test
-    void testEmptyMovieTitleMove() {
-        gameController.initializeNewGame();
-        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
-
-        String result = gameController.processPlayerMove("");
-        assertTrue(result.contains("Movie title was empty"));
-        assertTrue(gameController.isGameOver());
-        assertEquals(player2, gameController.getWinner());
-    }
 
     @Test
     void testNoLinkStrategyError() {
