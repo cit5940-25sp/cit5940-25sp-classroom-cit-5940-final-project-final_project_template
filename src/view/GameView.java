@@ -30,21 +30,21 @@ import java.util.stream.Collectors;
 
 /**
  * Provides a Text-based User Interface (TUI) for the Movie Name Game using Lanterna.
- * Layout inspired by the TerminalWithSuggestions example: game info at top,
- * then an input line, then suggestions/options, then feedback/history.
+ * Timer logic now directly calls a synchronized updateScreen, similar to TerminalWithSuggestions.
+ * Timer continues on empty Enter, and timeout results in game over.
  * All text displayed in white color.
  * Loads data from local CSV files using MovieDataLoader.
  */
 public class GameView {
 
     private Terminal terminal;
-    private Screen screen;
+    private Screen screen; // screen is an instance variable
     private GameController gameController;
     private MovieIndex movieIndex;
 
-    private StringBuilder currentInput = new StringBuilder(); // For movie title input
+    private StringBuilder currentInput = new StringBuilder();
     private List<String> currentMovieSuggestions = new ArrayList<>();
-    private int selectedSuggestionIndex = -1; // For UP/DOWN navigation of movie suggestions
+    private int selectedSuggestionIndex = -1;
 
     private enum GamePhase {
         LOADING_DATA,
@@ -55,27 +55,23 @@ public class GameView {
         GAME_OVER
     }
     private volatile GamePhase currentPhase = GamePhase.LOADING_DATA;
-    private volatile String feedbackMessage = ""; // For errors, results, etc.
+    private volatile String feedbackMessage = "";
 
-    // Timer related fields
+    // Timer variables
     private static final int TURN_DURATION_SECONDS = 30;
     private volatile int playerMoveSecondsRemaining = TURN_DURATION_SECONDS;
-    private AtomicBoolean playerTimerRunning = new AtomicBoolean(false);
+    private AtomicBoolean playerTimerRunning = new AtomicBoolean(false); // Controls if timer logic runs
     private ScheduledExecutorService turnScheduler;
 
-    // --- UI Layout Constants (Inspired by TerminalWithSuggestions) ---
-    // Game info will occupy the first few lines
-    private final int gameInfoLines = 3; // WinCond, Player, LinkFrom (Lines 0, 1, 2)
-    private int interactionPromptRow; // Calculated: gameInfoLines + 1 (e.g., Line 4, after a blank line 3 for spacing)
-    // Other rows (input, suggestions, feedback, history) are calculated relative to interactionPromptRow or screen bottom
+    // UI Layout Constants
+    private final int gameInfoLines = 3;
+    private int interactionPromptRow;
 
     private final int MAX_SUGGESTIONS_DISPLAYED = 4;
     private final int MAX_HISTORY_DISPLAYED = 2;
 
-    // Define a constant for the default white text color
     private static final TextColor DEFAULT_TEXT_COLOR = TextColor.ANSI.WHITE;
-    // Define a contrasting background for selected items
-    private static final TextColor SELECTED_SUGGESTION_BG = TextColor.ANSI.BLUE; // Example
+    private static final TextColor SELECTED_SUGGESTION_BG = TextColor.ANSI.BLUE;
 
 
     public GameView() throws IOException {
@@ -83,25 +79,25 @@ public class GameView {
         screen = new TerminalScreen(terminal);
         screen.startScreen();
         screen.setCursorPosition(null);
-        turnScheduler = Executors.newScheduledThreadPool(1);
+        turnScheduler = Executors.newScheduledThreadPool(1); // Initialize scheduler
 
         terminal.addResizeListener((term, newSize) -> {
             try {
-                screen.doResizeIfNecessary();
-                updateScreen();
+                // Ensure screen operations are synchronized if updateScreen is also synchronized
+                synchronized (screen) { // Or use a dedicated lock object
+                    screen.doResizeIfNecessary();
+                }
+                updateScreen(); // Redraw after resize
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        calculateLayoutConstants(); // Initial calculation
+        calculateLayoutConstants();
     }
 
     private void calculateLayoutConstants() {
-        // interactionPromptRow is the primary anchor for the interactive part
-        interactionPromptRow = gameInfoLines + 1; // e.g., Line 4 (0-indexed)
-        // Other rows can be dynamically placed in updateScreen or helper methods
+        interactionPromptRow = gameInfoLines + 1;
     }
-
 
     public boolean initializeGame(String moviesCsvPath, String creditsCsvPath) {
         currentPhase = GamePhase.LOADING_DATA;
@@ -155,13 +151,17 @@ public class GameView {
         while (running) {
             if (gameController != null && gameController.isGameOver() && currentPhase != GamePhase.GAME_OVER) {
                 currentPhase = GamePhase.GAME_OVER;
-                feedbackMessage = gameController.getWinner() != null ?
-                        gameController.getWinner().getPlayerName() + " wins!" : "Game Over!";
-                feedbackMessage += " (" + gameController.getCurrentWinConditionDescription() + ")";
+                if (feedbackMessage.isEmpty() || !feedbackMessage.contains("wins!")) {
+                    feedbackMessage = gameController.getWinner() != null ?
+                            gameController.getWinner().getPlayerName() + " wins!" : "Game Over!";
+                    if (gameController.getCurrentWinConditionDescription() != null && !feedbackMessage.contains("wins by default")) {
+                        feedbackMessage += " (" + gameController.getCurrentWinConditionDescription() + ")";
+                    }
+                }
                 stopPlayerTurnTimer();
             }
 
-            updateScreen();
+            updateScreen(); // Main loop also calls updateScreen to reflect non-timer state changes
 
             if (currentPhase == GamePhase.GAME_OVER) {
                 KeyStroke key = terminal.readInput();
@@ -185,47 +185,70 @@ public class GameView {
         }
     }
 
-    // --- Timer Methods (remain the same) ---
+    // --- Timer Methods (Revised to match TerminalWithSuggestions style) ---
     private void startPlayerTurnTimer() {
-        playerMoveSecondsRemaining = TURN_DURATION_SECONDS;
-        playerTimerRunning.set(true);
-        if (turnScheduler == null || turnScheduler.isShutdown() || turnScheduler.isTerminated()) {
-            turnScheduler = Executors.newScheduledThreadPool(1);
-        }
-        turnScheduler.scheduleAtFixedRate(() -> {
-            if (playerTimerRunning.get()) {
-                if (playerMoveSecondsRemaining > 0) {
-                    playerMoveSecondsRemaining--;
-                } else {
-                    if (playerTimerRunning.compareAndSet(true, false)) {
-                        handleTimeoutLogic();
+        // Start timer only if it's not already running for the current turn's input phase
+        if (playerTimerRunning.compareAndSet(false, true)) {
+            playerMoveSecondsRemaining = TURN_DURATION_SECONDS; // Reset time for the new turn
+
+            if (turnScheduler == null || turnScheduler.isShutdown() || turnScheduler.isTerminated()) {
+                turnScheduler = Executors.newScheduledThreadPool(1);
+            }
+
+            // Schedule the task to run every second
+            turnScheduler.scheduleAtFixedRate(() -> {
+                if (playerTimerRunning.get()) { // Check the flag; stopPlayerTurnTimer() sets this to false
+                    if (playerMoveSecondsRemaining > 0) {
+                        playerMoveSecondsRemaining--;
+                        try {
+                            // Directly call updateScreen from the timer thread
+                            // updateScreen() method MUST BE SYNCHRONIZED
+                            updateScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace(); // Log error, but timer continues if possible
+                        }
+                    } else {
+                        // Time is up, ensure this logic runs only once
+                        if (playerTimerRunning.compareAndSet(true, false)) { // Attempt to stop the timer flag
+                            handleTimeoutLogic(); // Update game state (phase, feedback, tell controller)
+                            try {
+                                // Update screen one last time after timeout logic has set messages
+                                updateScreen();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
-            }
-        }, 0, 1, TimeUnit.SECONDS);
+            }, 0, 1, TimeUnit.SECONDS); // Start immediately, repeat every 1 second
+        }
+        // If timer is already running (e.g. after an empty input), do nothing here.
+        // playerMoveSecondsRemaining continues from its current value.
     }
 
     private void stopPlayerTurnTimer() {
-        playerTimerRunning.set(false);
+        playerTimerRunning.set(false); // This signals the scheduled task to stop its work
     }
 
     private void handleTimeoutLogic() {
-        if (currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE || currentPhase == GamePhase.PLAYER_TURN_CHOOSE_LINK) {
-            String playerName = (gameController != null && gameController.getCurrentPlayer() != null)
-                    ? gameController.getCurrentPlayer().getPlayerName() : "Player";
-            feedbackMessage = "Time's up! " + playerName + "'s turn forfeited.";
-            currentMovieSuggestions.clear();
-            selectedSuggestionIndex = -1;
+        // This logic is called when the timer hits 0.
+        if (gameController != null) {
+            String currentPlayerName = gameController.getCurrentPlayer() != null ? gameController.getCurrentPlayer().getPlayerName() : "Player";
+            String otherPlayerName = gameController.getOtherPlayer() != null ? gameController.getOtherPlayer().getPlayerName() : "Opponent";
 
-            if (gameController != null) {
-                gameController.switchTurn();
-            }
-            currentPhase = GamePhase.PLAYER_TURN_CHOOSE_LINK;
-            currentInput.setLength(0);
+            feedbackMessage = "Time's up! " + currentPlayerName + " loses. " + otherPlayerName + " wins!";
+            gameController.playerLostOnTimeout(); // Controller sets gameOver = true and winner = otherPlayer
+            // currentPhase will be set to GAME_OVER by the main game loop when it detects gameController.isGameOver()
+        } else {
+            feedbackMessage = "Time's up! Game controller error.";
+            currentPhase = GamePhase.GAME_OVER; // Fallback if controller is null
         }
+        currentInput.setLength(0); // Clear input related state
+        currentMovieSuggestions.clear();
+        selectedSuggestionIndex = -1;
     }
 
-    // --- Input Handling (logic remains mostly the same, feedback clearing adjusted) ---
+    // --- Input Handling ---
     private void handleKeyStroke(KeyStroke keyStroke) throws IOException {
         if (gameController == null && currentPhase != GamePhase.GAME_OVER) return;
 
@@ -236,10 +259,10 @@ public class GameView {
             return;
         }
 
-        if (currentPhase == GamePhase.PLAYER_TURN_CHOOSE_LINK || currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE) {
-            if (keyStroke.getKeyType() == KeyType.Character || keyStroke.getKeyType() == KeyType.Backspace) {
-                feedbackMessage = "";
-            }
+        if (currentPhase == GamePhase.PLAYER_TURN_CHOOSE_LINK ||
+                (currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE &&
+                        (keyStroke.getKeyType() == KeyType.Character || keyStroke.getKeyType() == KeyType.Backspace)) ) {
+            feedbackMessage = "";
         }
 
         switch (currentPhase) {
@@ -300,7 +323,7 @@ public class GameView {
                 currentMovieSuggestions.clear();
                 selectedSuggestionIndex = -1;
                 feedbackMessage = "";
-                startPlayerTurnTimer();
+                startPlayerTurnTimer(); // Timer starts for the movie input phase
             } else {
                 feedbackMessage = "Strategy [" + strategyName.replace("LinkStrategy", "") + "] used 3 times. Choose another.";
             }
@@ -326,7 +349,8 @@ public class GameView {
                 }
                 break;
             case Enter:
-                stopPlayerTurnTimer();
+                // Timer is NOT stopped here if input is empty.
+                // It's stopped in processPlayerGuessedMovie if input is non-empty.
                 String finalGuess;
                 if (selectedSuggestionIndex != -1 && selectedSuggestionIndex < currentMovieSuggestions.size()) {
                     finalGuess = currentMovieSuggestions.get(selectedSuggestionIndex);
@@ -377,106 +401,97 @@ public class GameView {
         if (gameController == null) return;
 
         if (guessedMovieTitle.isEmpty()) {
-            feedbackMessage = "No movie entered.";
-            currentPhase = GamePhase.PLAYER_TURN_INPUT_MOVIE;
-            startPlayerTurnTimer();
-            return;
+            feedbackMessage = "No movie entered. Timer continues.";
+            // DO NOT change phase, DO NOT stop timer. Let the current timer run.
+            // DO NOT call startPlayerTurnTimer() as that would reset it.
+            return; // Player gets to try again within the remaining time.
         }
 
-        String result = gameController.processPlayerMove(guessedMovieTitle);
+        // A non-empty guess is being processed. Stop the timer for this attempt.
+        stopPlayerTurnTimer();
+
+        String resultMessageFromController = gameController.processPlayerMove(guessedMovieTitle);
         currentPhase = GamePhase.SHOWING_MOVE_RESULT;
+        feedbackMessage = resultMessageFromController;
 
-        if ("OK".equals(result)) {
-            feedbackMessage = "'" + guessedMovieTitle + "' - Valid link!";
-            Player currentPlayer = gameController.getCurrentPlayer();
-            ILinkStrategy usedStrategy = gameController.getCurrentLinkStrategy();
-            if (currentPlayer != null && usedStrategy != null) {
-                currentPlayer.recordConnectionUsage(usedStrategy.getClass().getSimpleName());
+        if (resultMessageFromController.startsWith("OK:") || resultMessageFromController.startsWith("VALID_MOVE_AND_WIN:")) {
+            Player actingPlayer = gameController.getCurrentPlayer();
+            if (resultMessageFromController.startsWith("VALID_MOVE_AND_WIN:")) {
+                actingPlayer = gameController.getWinner();
             }
-        } else if ("VALID_MOVE_AND_WIN".equals(result)) {
-            Player winner = gameController.getWinner();
             ILinkStrategy usedStrategy = gameController.getCurrentLinkStrategy();
-            if (winner != null && usedStrategy != null) {
-                winner.recordConnectionUsage(usedStrategy.getClass().getSimpleName());
+            if (actingPlayer != null && usedStrategy != null) {
+                actingPlayer.recordConnectionUsage(usedStrategy.getClass().getSimpleName());
             }
-            feedbackMessage = "'" + guessedMovieTitle + "' - Winning link!";
-        } else {
-            feedbackMessage = result;
         }
-        feedbackMessage += " (Press Enter)";
+
+        if (!gameController.isGameOver()) {
+            feedbackMessage += " (Press Enter to continue)";
+        }
+        // If gameController.isGameOver() is true, the main loop will handle the GAME_OVER phase.
     }
 
 
-    // --- Drawing Methods (Revised for TerminalWithSuggestions style and white text) ---
+    // --- Drawing Methods (updateScreen is now synchronized) ---
 
-    private synchronized void updateScreen() throws IOException {
+    private synchronized void updateScreen() throws IOException { // Made synchronized
         if (screen == null) return;
         screen.clear();
         TerminalSize size = screen.getTerminalSize();
         if(size == null) return;
 
-        calculateLayoutConstants(); // Ensure rows are up-to-date
+        calculateLayoutConstants();
 
         // 1. Draw Header (Game Info + Timer)
         drawHeaderAndTimer(size);
 
         // Define dynamic rows based on interactionPromptRow
         int currentPromptRow = interactionPromptRow;
-        int currentInputRow = currentPromptRow + 1; // Default for movie input
-        int currentSuggestionsStartRow = currentInputRow + 1; // Default for movie suggestions
+        int currentInputRow = currentPromptRow + 1;
+        int currentSuggestionsStartRow = currentInputRow + 1;
         int currentFeedbackRow = currentSuggestionsStartRow + MAX_SUGGESTIONS_DISPLAYED + 1;
         int currentHistoryStartRow = currentFeedbackRow + 2;
 
-
-        // 2. Draw Content based on Phase
         switch (currentPhase) {
             case LOADING_DATA:
                 printStringCentered(size.getRows() / 2, feedbackMessage.isEmpty() ? "Loading..." : feedbackMessage, DEFAULT_TEXT_COLOR);
                 break;
-
             case GAME_OVER:
                 printStringCentered(size.getRows() / 2 - 1, " G A M E   O V E R ", DEFAULT_TEXT_COLOR);
                 printStringCentered(size.getRows() / 2, feedbackMessage, DEFAULT_TEXT_COLOR);
                 printStringCentered(size.getRows() - 2, "Press ESC or Enter to exit.", DEFAULT_TEXT_COLOR);
                 break;
-
             case PLAYER_TURN_CHOOSE_LINK:
-                // For strategy choice, the "input" area is the list itself, starting at currentPromptRow + 1
                 drawLinkStrategyChoicesLayout(currentPromptRow);
-                // Adjust feedback and history rows if strategy list is long
-                currentFeedbackRow = currentPromptRow + 1 + 5 + 1; // 5 strategies + 1 for spacing
+                currentFeedbackRow = currentPromptRow + 1 + 5 + 1;
                 currentHistoryStartRow = currentFeedbackRow + 2;
                 drawGameHistoryLayout(size, currentHistoryStartRow);
                 drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
-
             case PLAYER_TURN_INPUT_MOVIE:
-                drawMovieInputLayout(currentPromptRow); // Prompt at currentPromptRow, input at currentInputRow
-                drawSuggestionsLayout(currentSuggestionsStartRow); // Suggestions start below input line
+                drawMovieInputLayout(currentPromptRow);
+                drawSuggestionsLayout(currentSuggestionsStartRow);
                 drawGameHistoryLayout(size, currentHistoryStartRow);
                 drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
-
             case SHOWING_MOVE_RESULT:
-                // Feedback is the main content.
                 printStringCentered(currentFeedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR);
                 drawGameHistoryLayout(size, currentHistoryStartRow);
                 break;
-
             case GAME_READY:
                 drawGameHistoryLayout(size, currentHistoryStartRow);
                 drawFeedbackMessageLayout(size, currentFeedbackRow);
                 break;
-
             default:
                 printStringCentered(size.getRows()/2, "Unknown game state: " + currentPhase, DEFAULT_TEXT_COLOR);
         }
         screen.refresh();
     }
 
+    // ... (Other drawing helper methods: drawHeaderAndTimer, drawLinkStrategyChoicesLayout, drawMovieInputLayout, drawSuggestionsLayout, drawFeedbackMessageLayout, drawGameHistoryLayout, printString, printStringCentered - remain the same as previous version with white text)
     private void drawHeaderAndTimer(TerminalSize size) throws IOException {
         if (size == null) return;
-        String timerStr = (playerTimerRunning.get() && (currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE || currentPhase == GamePhase.PLAYER_TURN_CHOOSE_LINK))
+        String timerStr = (playerTimerRunning.get() && (currentPhase == GamePhase.PLAYER_TURN_INPUT_MOVIE /*|| currentPhase == GamePhase.PLAYER_TURN_CHOOSE_LINK*/)) // Timer primarily for movie input
                 ? "Time: " + String.format("%2d", playerMoveSecondsRemaining) + "s"
                 : "";
         int timerX = size.getColumns() - timerStr.length() - 1;
@@ -487,7 +502,7 @@ public class GameView {
 
         String winCond = gameController.getCurrentWinConditionDescription();
         String winCondDisplay = "Win: " + (winCond != null ? winCond : "N/A");
-        int maxWinCondWidth = timerX > 0 ? timerX - 1 : size.getColumns() -1; // Max width before timer starts or full if no timer
+        int maxWinCondWidth = timerX > 0 ? timerX - 1 : size.getColumns() -1;
         if (winCondDisplay.length() > maxWinCondWidth && maxWinCondWidth > 3) {
             winCondDisplay = winCondDisplay.substring(0, maxWinCondWidth - 3) + "...";
         }
@@ -525,16 +540,15 @@ public class GameView {
             String stratClassName = strategies.get(i).getClass().getSimpleName();
             String stratNameSimple = stratClassName.replace("LinkStrategy", "");
             int usesLeft = 3 - (currentPlayer.getConnectionUsage() != null ? currentPlayer.getConnectionUsage().getOrDefault(stratClassName, 0) : 0);
-            TextColor color = DEFAULT_TEXT_COLOR;
             String text = String.format("  %d. %-15s (Uses: %d/3)", (i + 1), stratNameSimple, currentPlayer.getConnectionUsage().getOrDefault(stratClassName,0));
-            printString(0, promptRow + 1 + i, text, color);
+            printString(0, promptRow + 1 + i, text, DEFAULT_TEXT_COLOR);
         }
     }
 
     private void drawMovieInputLayout(int promptRow) throws IOException {
         printString(0, promptRow, "Enter Movie Title:", DEFAULT_TEXT_COLOR);
         String inputDisplay = "> " + currentInput.toString();
-        printString(0, promptRow + 1, inputDisplay, DEFAULT_TEXT_COLOR); // Movie input field is one line below its prompt
+        printString(0, promptRow + 1, inputDisplay, DEFAULT_TEXT_COLOR);
         if (screen != null) {
             screen.setCharacter(("> ".length() + currentInput.length()), promptRow + 1,
                     new TextCharacter('|', DEFAULT_TEXT_COLOR, TextColor.ANSI.BLACK));
@@ -544,7 +558,7 @@ public class GameView {
     private void drawSuggestionsLayout(int suggestionsHeaderRow) throws IOException {
         if (currentMovieSuggestions.isEmpty()) return;
 
-        printString(2, suggestionsHeaderRow, "Suggestions:", DEFAULT_TEXT_COLOR); // Header for suggestions
+        printString(2, suggestionsHeaderRow, "Suggestions:", DEFAULT_TEXT_COLOR);
         for (int i = 0; i < currentMovieSuggestions.size() && i < MAX_SUGGESTIONS_DISPLAYED; i++) {
             TextColor fgColor = (i == selectedSuggestionIndex) ? TextColor.ANSI.WHITE : DEFAULT_TEXT_COLOR;
             TextColor bgColor = (i == selectedSuggestionIndex) ? SELECTED_SUGGESTION_BG : TextColor.ANSI.BLACK;
@@ -552,7 +566,7 @@ public class GameView {
 
             TerminalSize size = screen.getTerminalSize();
             if (size == null) return;
-            int row = suggestionsHeaderRow + 1 + i; // Suggestions start below their header
+            int row = suggestionsHeaderRow + 1 + i;
             if (row >= size.getRows()) continue;
 
             for(int j=0; j < suggestionText.length(); j++){
@@ -570,7 +584,6 @@ public class GameView {
         }
         TerminalSize size = screen.getTerminalSize();
         if (size == null) return;
-        // Clear suggestion lines below the current number of suggestions
         for (int i = currentMovieSuggestions.size(); i < MAX_SUGGESTIONS_DISPLAYED; i++) {
             int row = suggestionsHeaderRow + 1 + i;
             if (row < size.getRows()) {
@@ -582,10 +595,10 @@ public class GameView {
     }
 
     private void drawFeedbackMessageLayout(TerminalSize size, int row) throws IOException {
-        if (!feedbackMessage.isEmpty()) {
+        if (!feedbackMessage.isEmpty() && currentPhase != GamePhase.SHOWING_MOVE_RESULT) {
             int actualFeedbackRow = Math.min(row, size.getRows() - 1);
             if (actualFeedbackRow < 0) actualFeedbackRow = 0;
-            for (int i = 0; i < size.getColumns(); i++) { // Clear the line
+            for (int i = 0; i < size.getColumns(); i++) {
                 printString(i, actualFeedbackRow, " ", DEFAULT_TEXT_COLOR);
             }
             printString(0, actualFeedbackRow, feedbackMessage, DEFAULT_TEXT_COLOR);
@@ -598,7 +611,7 @@ public class GameView {
         if (history.isEmpty()) return;
 
         int actualStartRow = Math.max(startRow, 0);
-        if (actualStartRow -1 >=0 && actualStartRow -1 < size.getRows()) { // Check header bounds
+        if (actualStartRow -1 >=0 && actualStartRow -1 < size.getRows()) {
             printString(0, actualStartRow -1, "--- Recent Moves ---", DEFAULT_TEXT_COLOR);
         }
 
@@ -616,7 +629,6 @@ public class GameView {
         }
     }
 
-    // --- Low-level Drawing Helpers ---
     private void printString(int x, int y, String text, TextColor color) throws IOException {
         if (screen == null || text == null) return;
         TerminalSize terminalSize = screen.getTerminalSize();

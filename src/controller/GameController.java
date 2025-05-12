@@ -128,6 +128,23 @@ public class GameController {
         }
     }
 
+    /**
+     * Handles the scenario where the current player runs out of time.
+     * The current player loses, and the other player wins.
+     * This method is called by the GameView when its timer expires.
+     */
+    public void playerLostOnTimeout() {
+        if (this.gameOver) {
+            // Game has already ended (e.g., by a winning move just before timeout was processed)
+            return;
+        }
+
+        System.out.println("Controller: Player " + (currentPlayer != null ? currentPlayer.getPlayerName() : "N/A") + " timed out.");
+        this.gameOver = true;
+        this.winner = this.otherPlayer; // The other player wins by default
+        // The GameView will set the feedback message based on this state.
+    }
+
     public MovieIndex getMovieIndex() { return movieIndex; }
     public void setCurrentLinkStrategy(ILinkStrategy strategy) { this.currentLinkStrategy = strategy; }
     public String getCurrentLinkStrategyName() { return (this.currentLinkStrategy != null) ? this.currentLinkStrategy.getClass().getSimpleName().replace("LinkStrategy", "") : "None"; }

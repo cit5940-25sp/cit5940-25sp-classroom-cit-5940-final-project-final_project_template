@@ -8,7 +8,7 @@ import model.Player;
  */
 public class GenreWinCondition implements IWinCondition {
     private String genre;
-    private static final int WIN_COUNT = 3;
+    private static final int WIN_COUNT = 1;
 
     /**
      * Constructs a {@code GenreWinCondition} that checks if the player has named
@@ -49,6 +49,6 @@ public class GenreWinCondition implements IWinCondition {
      */
     @Override
     public String getDescription() {
-        return "You win! - by naming " + WIN_COUNT + " number of movies in the genre: " + genre;
+        return "Player wins by naming " + WIN_COUNT + " number of movies in the genre: " + genre;
     }
 }

@@ -8,7 +8,7 @@ import model.Player;
  */
 public class YearWinCondition implements IWinCondition {
     private int targetYear;
-    private static final int WIN_COUNT = 3;
+    private static final int WIN_COUNT = 1;
 
     /**
      * Constructs a YearWinCondition for the given year.
