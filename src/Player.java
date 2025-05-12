@@ -28,7 +28,7 @@ public class Player {
 
     // update progress if genre matches objectivegenre
 
-    public boolean handleMovie (List<String> connections, String genre) {
+    public boolean handleMovie (List<String> connections, List<String> genres) {
         boolean hasConnection = false;
         for (String connection : connections) {
             if (linksUsed.containsKey(connection)) {
@@ -39,9 +39,14 @@ public class Player {
                 linksUsed.put(connection, 1);
             }
         }
-        if (hasConnection && genre.equals(objectiveGenre)) {
-            progress++;
+        if (hasConnection) {
+            for (String genre : genres) {
+                if (genre.equals(objectiveGenre)) {
+                    progress++;
+                }
+            }
         }
+
     return hasConnection;
 
     }
