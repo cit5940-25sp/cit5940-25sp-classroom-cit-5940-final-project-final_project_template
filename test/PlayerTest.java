@@ -58,4 +58,23 @@ public class PlayerTest {
 
         assertTrue(player2.hasMetObjective());
     }
+
+    @Test
+    public void handleMovieNoConnectionsTest() {
+        List<String> connections = Collections.emptyList();
+        List<String> genres = Arrays.asList("Horror");
+
+        boolean result = player1.handleMovie(connections, genres);
+        assertFalse(result);
+    }
+
+    @Test
+    public void handleMovieDifferentGenreTest() {
+        List<String> connections = Arrays.asList("Emma Stone");
+        List<String> genres = Arrays.asList("Comedy");
+
+        boolean result = player1.handleMovie(connections, genres);
+        assertTrue(result);
+        assertEquals(0.0, player1.progressSoFar());
+    }
 }

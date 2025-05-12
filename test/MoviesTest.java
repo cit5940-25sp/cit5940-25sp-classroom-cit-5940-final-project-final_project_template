@@ -1,50 +1,72 @@
 import org.junit.Test;
 import java.util.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class MoviesTest {
 
-    Movies movies;
+    Movies movies = new Movies("src/tmdb_data.txt");
 
     @Test
     public void loadMoviesTest() {
-        movies = new Movies("src/tmdb_data.txt");
         int actualSize = movies.getAllTitles().size();
         assertEquals(4803, actualSize);
     }
 
     @Test
     public void containsMovieTest() {
-        movies = new Movies("src/tmdb_data.txt");
         Set<String> titles = movies.getAllTitles();
-        assertTrue(titles.contains("Crazy, Stupid, Love. (2011)"));
+        assertTrue(titles.contains("crazy, stupid, love. (2011)"));
     }
 
     @Test
     public void containsGenreTest() {
-        movies = new Movies("src/tmdb_data.txt");
-        List<String> genres = movies.getMovieGenres("Superbad (2007)");
+        List<String> genres = movies.getMovieGenres("superbad (2007)");
         assertTrue(genres.contains("Comedy"));
     }
 
     @Test
     public void validConnectionTest() {
-        movies = new Movies("src/tmdb_data.txt");
-        String movie1 = "Crazy, Stupid, Love. (2011)";
-        String movie2 = "Superbad (2007)";
+        String movie1 = "crazy, stupid, love. (2011)";
+        String movie2 = "superbad (2007)";
         List<String> actual = movies.getConnection(movie1, movie2);
-        List<String> expected = new ArrayList<>(Arrays.asList("Emma Stone", "Charlie Hartsock"));
+        List<String> expected = new ArrayList<>(Arrays.asList("Charlie Hartsock", "Emma Stone"));
         assertEquals(expected, actual);
     }
 
     @Test
+    public void createAutocompleteFileTest() {
+        Collection<String> output = movies.createAutocompleteFile(movies.getAllTitles());
+        assertNotNull(output);
+    }
+
+    @Test
+    public void getMovieGenresEmptyMovieTest() {
+        List<String> genres = movies.getMovieGenres("Nonexistent Movie (2000)");
+        assertTrue(genres.isEmpty());
+    }
+
+    @Test
     public void invalidConnectionTest() {
-        movies = new Movies("src/tmdb_data.txt");
         // movies have no connections
-        String movie1 = "Crazy, Stupid, Love. (2011)";
-        String movie2 = "Beetlejuice (1988)";
+        String movie1 = "crazy, stupid, love. (2011)";
+        String movie2 = "beetlejuice (1988)";
         List<String> actual = movies.getConnection(movie1, movie2);
         assertTrue(actual.isEmpty());
     }
 
+    @Test
+    public void getRandomMovieTest() {
+        String randomMovie = movies.getRandomMovie();
+        assertNotNull(randomMovie);
+        assertTrue(movies.getAllTitles().contains(randomMovie));
+    }
+
+    @Test
+    public void getMovieGenresTest() {
+        List<String> genres = movies.getMovieGenres("superbad (2007)");
+        assertTrue(genres.contains("Comedy"));
+
+        List<String> missingGenres = movies.getMovieGenres("nonexistent movie (2000)");
+        assertTrue(missingGenres.isEmpty());
+    }
 }
