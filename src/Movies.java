@@ -80,35 +80,7 @@ public class Movies {
         }
     }
     /*
-    use all genres map to return a TreeMap with 3 elements. Keys should be:
-    "easy", "intermediate" and "hard". the values should be the lists with the
-    genres according to each level
-     */
 
-    public TreeMap<String, List<String>> getAllGenres() {
-
-        TreeMap<Integer, String> orderedGenres = new TreeMap<>();
-        allGenres.forEach((k, v) -> {
-            orderedGenres.put(v, k);
-        });
-
-        int hard = orderedGenres.size();
-        int easy = hard / 3;
-        int intermediate = easy * 2;
-
-        String[] genres = new String[hard];
-
-        for (Map.Entry<Integer, String> entry : orderedGenres.descendingMap().entrySet()) {
-
-        }
-
-
-
-
-        TreeMap<String, List<String>> allGenres = new TreeMap<>();
-
-        return null;
-    }
 
 
 
