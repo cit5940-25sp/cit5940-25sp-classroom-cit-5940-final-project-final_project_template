@@ -51,4 +51,21 @@ public class GenreWinCondition implements IWinCondition {
     public String getDescription() {
         return "Player wins by naming " + WIN_COUNT + " number of movies in the genre: " + genre;
     }
+
+    /**
+     * Returns the player's progress towards winning with this genre condition.
+     */
+    @Override
+    public String getPlayerProgress(Player player) {
+        if (player == null || player.getPlayedMovies() == null) return "0/" + WIN_COUNT;
+        long count = player.getPlayedMovies().stream()
+                .filter(movie -> movie.getGenres().stream()
+                        .anyMatch(g -> g.equalsIgnoreCase(genre)))
+                .count();
+        return count + "/" + WIN_COUNT + " " + genre;
+    }
+
+    // Helper for GameController if needed, though getPlayerProgress is more direct
+    public String getTargetGenreForProgress() { return this.genre; }
+    public int getWinCountForProgress() { return WIN_COUNT; }
 }

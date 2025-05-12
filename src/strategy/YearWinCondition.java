@@ -45,4 +45,20 @@ public class YearWinCondition implements IWinCondition {
     public String getDescription() {
         return "Player wins by naming movies released in " + targetYear + " " + WIN_COUNT + " times.";
     }
+
+    /**
+     * Returns the player's progress towards winning with this year condition.
+     */
+    @Override
+    public String getPlayerProgress(Player player) {
+        if (player == null || player.getPlayedMovies() == null) return "0/" + WIN_COUNT;
+        long count = player.getPlayedMovies().stream()
+                .filter(movie -> movie.getYear() == targetYear)
+                .count();
+        return count + "/" + WIN_COUNT + " from " + targetYear;
+    }
+
+    // Helper for GameController if needed
+    public int getTargetYearForProgress() { return this.targetYear; }
+    public int getWinCountForProgress() { return WIN_COUNT; }
 }
