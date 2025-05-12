@@ -1,0 +1,187 @@
+package controller;
+
+import model.Movie;
+import model.MovieIndex;
+import model.Person;
+import model.PersonRole;
+import model.Player;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import strategy.ActorLinkStrategy;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class GameControllerTest {
+
+    private GameController gameController;
+    private Player player1;
+    private Player player2;
+    private Movie inception;
+    private Movie revenant;
+    private Person leo;
+
+    @BeforeEach
+    void setUp() {
+        player1 = new Player("Alice");
+        player2 = new Player("Bob");
+
+        // Create shared actor with proper role
+        leo = new Person("Leonardo DiCaprio", PersonRole.ACTOR);
+
+        // Setup movies
+        inception = new Movie("Inception", 2010);
+        inception.addActor(leo);
+        inception.addGenre("Sci-Fi");
+
+        revenant = new Movie("The Revenant", 2015);
+        revenant.addActor(leo);
+        revenant.addGenre("Drama");
+
+        MovieIndex movieIndex = new MovieIndex(Arrays.asList(inception, revenant));
+        gameController = new GameController(movieIndex, player1, player2);
+    }
+
+    @Test
+    void testGameInitialization() {
+        Movie initial = gameController.initializeNewGame();
+        assertNotNull(initial, "Initial movie should not be null");
+        assertFalse(gameController.isGameOver(), "Game should not be over after initialization");
+        assertNotNull(gameController.getCurrentWinConditionDescription(), "Win condition should be set");
+    }
+
+    @Test
+    void testValidMoveWithActorLink() {
+        Movie initial = gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+
+        // Decide what movie to guess based on which one was picked first
+        String initialTitle = initial.getTitle();
+        String moveTitle;
+
+        if (initialTitle.equals("Inception")) {
+            moveTitle = "The Revenant";
+        } else if (initialTitle.equals("The Revenant")) {
+            moveTitle = "Inception";
+        } else {
+            fail("Unexpected initial movie: " + initialTitle);
+            return;
+        }
+
+        String result = gameController.processPlayerMove(moveTitle);
+        System.out.println("Result: " + result);
+        assertTrue(result.startsWith("OK:") || result.startsWith("VALID_MOVE_AND_WIN:"), "Move should be valid");
+    }
+
+
+    @Test
+    void testRepeatedMovieMove() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+        String firstMove = gameController.processPlayerMove("The Revenant");
+
+        gameController.switchTurn();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+        String result = gameController.processPlayerMove("The Revenant");
+
+        if (firstMove.startsWith("VALID_MOVE_AND_WIN")) {
+            assertEquals("Error: Game is already over.", result);
+        } else {
+            assertEquals("REPEATED_MOVE:The Revenant", result, "Should detect repeated movie");
+        }
+    }
+
+    @Test
+    void testInvalidMovieMove() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+
+        String result = gameController.processPlayerMove("Some Fake Movie");
+        assertTrue(result.contains("not found"), "Should notify movie not found");
+        assertTrue(gameController.isGameOver(), "Game should end on invalid move");
+        assertEquals(player2, gameController.getWinner(), "Other player should win");
+    }
+
+    @Test
+    void testPlayerTimeoutLoss() {
+        gameController.initializeNewGame();
+        gameController.playerLostOnTimeout();
+
+        assertTrue(gameController.isGameOver(), "Game should be over after timeout");
+        assertEquals(player2, gameController.getWinner(), "Other player should win after timeout");
+    }
+
+    @Test
+    void testSwitchTurn() {
+        Player originalCurrent = gameController.getCurrentPlayer();
+        gameController.switchTurn();
+        assertEquals(originalCurrent, gameController.getOtherPlayer(), "Players should switch turns");
+    }
+
+    @Test
+    void testEmptyMovieTitleMove() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+
+        String result = gameController.processPlayerMove("");
+        assertTrue(result.contains("Movie title was empty"));
+        assertTrue(gameController.isGameOver());
+        assertEquals(player2, gameController.getWinner());
+    }
+
+    @Test
+    void testNoLinkStrategyError() {
+        gameController.initializeNewGame(); // No strategy set
+
+        String result = gameController.processPlayerMove("The Revenant");
+        assertTrue(result.contains("No link strategy selected"));
+        assertFalse(gameController.isGameOver());
+    }
+
+    @Test
+    void testGameOverMoveAttempt() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+        gameController.processPlayerMove("The Revenant");
+
+        gameController.playerLostOnTimeout(); // Simulate end
+        String result = gameController.processPlayerMove("Inception");
+        assertEquals("Error: Game is already over.", result);
+    }
+
+    @Test
+    void testGetLastPlayedMovie() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+        gameController.processPlayerMove("The Revenant");
+
+        Movie last = gameController.getLastPlayedMovieFromHistory();
+        assertNotNull(last);
+        assertEquals("The Revenant", last.getTitle());
+    }
+
+    @Test
+    void testGetPlayerProgressAndStrategyName() {
+        gameController.initializeNewGame();
+        gameController.setCurrentLinkStrategy(new ActorLinkStrategy());
+
+        assertEquals("Actor", gameController.getCurrentLinkStrategyName());
+        assertNotNull(gameController.getPlayerProgress(player1));
+    }
+
+    @Test
+    void testGameMoveHistoryImmutable() {
+        gameController.initializeNewGame();
+        List<GameController.GameMove> history = gameController.getDetailedGameHistory();
+        assertThrows(UnsupportedOperationException.class, () -> history.add(null));
+    }
+
+    @Test
+    void testConstructorNullChecks() {
+        assertThrows(IllegalArgumentException.class, () -> new GameController(null, player1, player2));
+        assertThrows(IllegalArgumentException.class, () -> new GameController(new MovieIndex(Arrays.asList()), null, player2));
+        assertThrows(IllegalArgumentException.class, () -> new GameController(new MovieIndex(Arrays.asList()), player1, null));
+    }
+}
