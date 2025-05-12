@@ -47,11 +47,11 @@ public class Player {
         return usedConnectionThisTurn;
     }
 
-    public boolean hasMetObjective () {
+    public boolean hasMetObjective() {
         return (objectiveAmount - progress) == 0;
     }
 
-    public double progressSoFar () {
+    public double progressSoFar() {
         return (progress * 100.0) / objectiveAmount ;
     }
 

@@ -17,7 +17,7 @@ public class Movies {
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|", -1);
 
-                String movieName = parts[0].trim().replaceAll("^\"|\"$", "");
+                String movieName = parts[0].trim().toLowerCase().replaceAll("^\"|\"$", "");
                 String castTemp = parts.length > 1 ? parts[1].trim().replaceAll("^\"|\"$", "") : "";
                 String genresTemp = parts.length > 2 ? parts[2].trim().replaceAll("^\"|\"$", "") : "";
 
@@ -95,12 +95,12 @@ public class Movies {
     public Collection<String> createAutocompleteFile(Collection<String> movieTitles) {
         List<String> lines = new ArrayList<>();
 
-        try (BufferedWriter buff = new BufferedWriter(new FileWriter("autocomplete.txt"))) {
+        try (BufferedWriter buff = new BufferedWriter(new FileWriter("src/autocomplete.txt"))) {
             buff.write(String.valueOf(movieTitles.size()));
             buff.newLine();
 
             for (String title : movieTitles) {
-                String toWrite = "0 " + title;
+                String toWrite = "0\t" + title;
                 buff.write(toWrite);
                 buff.newLine();
                 lines.add(toWrite);
@@ -111,5 +111,11 @@ public class Movies {
         }
 
         return lines;
+    }
+
+    public static void main(String[] args) {
+        Movies movies = new Movies("src/tmdb_data.txt");
+        Collection<String> output = movies.createAutocompleteFile(movies.getAllTitles());
+        System.out.println(output);
     }
 }
