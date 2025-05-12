@@ -2,25 +2,40 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Movies class that handles loading, storing, and managing movie data.
+ * It can read a list of movies from a file, track their genres, cast, and connections.
+ */
 public class Movies {
+    // Stores all movies with their details (cast and genres)
     private final HashMap<String, HashMap<String, List<String>>> allMovies = new HashMap<>();
     //key is genre name and value is number of movies with that genre
     private final HashMap<String, Integer> allGenres = new HashMap<>();
 
+    /**
+     * Constructor that initializes the Movies object by loading data from the given file.
+     * @param filePath Path to the file containing movie data.
+     */
     public Movies(String filePath) {
         loadMovies(filePath);
     }
 
+    /**
+     * Loads movies from the specified file path and populates the movies and genres collections.
+     * @param filePath Path to the file containing movie data.
+     */
     public void loadMovies(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\|", -1);
 
+                // Extract movie name, cast, and genres
                 String movieName = parts[0].trim().toLowerCase().replaceAll("^\"|\"$", "");
                 String castTemp = parts.length > 1 ? parts[1].trim().replaceAll("^\"|\"$", "") : "";
                 String genresTemp = parts.length > 2 ? parts[2].trim().replaceAll("^\"|\"$", "") : "";
 
+                // Process cast and genres
                 List<String> castCrew = castTemp.isEmpty() ? new ArrayList<>() :
                         Arrays.stream(castTemp.split(","))
                                 .map(String::trim)
@@ -33,6 +48,7 @@ public class Movies {
                                 .filter(s -> !s.isEmpty())
                                 .collect(Collectors.toList());
 
+                // Add genres to the genre count map
                 for (String g : genres) {
                     if (!allGenres.containsKey(g)) {
                         allGenres.put(g, 1);
@@ -41,6 +57,7 @@ public class Movies {
                     }
                 }
 
+                // Store movie details
                 HashMap<String, List<String>> details = new HashMap<>();
                 details.put("castAndCrew", castCrew);
                 details.put("genres", genres);
@@ -51,10 +68,11 @@ public class Movies {
         }
     }
 
-    /*
-    Takes in the name of the previous movie and the current
-    that was played and returns the name of the connection
-    returns null if there are no connections
+    /**
+     * Retrieves a list of common cast members between two movies.
+     * @param movie1 Title of the first movie.
+     * @param movie2 Title of the second movie.
+     * @return List of common cast members, or an empty list if none exist.
      */
     public List<String> getConnection(String movie1, String movie2) {
         List<String> connections = new LinkedList<>();
@@ -79,19 +97,35 @@ public class Movies {
         return connections;
     }
 
-
+    /**
+     * Retrieves the list of genres for a given movie.
+     * @param movieTitle Title of the movie.
+     * @return List of genres or an empty list if the movie is not found.
+     */
     public List<String> getMovieGenres(String movieTitle) {
         return allMovies.getOrDefault(movieTitle, new HashMap<>()).getOrDefault("genres", new ArrayList<>());
     }
 
+    /**
+     * Retrieves the list of all genres along with their counts.
+     * @return A map of genres and their corresponding movie counts.
+     */
     public Map<String, Integer> getAllGenres() {
         return new HashMap<>(allGenres);
     }
 
+    /**
+     * Returns the set of all movie titles loaded in the system.
+     * @return Set of movie titles.
+     */
     public Set<String> getAllTitles() {
         return allMovies.keySet();
     }
 
+    /**
+     * Selects a random movie title from the loaded movies.
+     * @return A random movie title or null if no movies are loaded.
+     */
     public String getRandomMovie() {
         List<String> titles = new ArrayList<>(allMovies.keySet());
 
@@ -104,6 +138,11 @@ public class Movies {
         return titles.get(rand.nextInt(titles.size()));
     }
 
+    /**
+     * Creates an autocomplete file containing all movie titles for fast searching.
+     * @param movieTitles Collection of movie titles to be written to the file.
+     * @return Collection of written lines in the file.
+     */
     public Collection<String> createAutocompleteFile(Collection<String> movieTitles) {
         List<String> lines = new ArrayList<>();
 
@@ -125,6 +164,10 @@ public class Movies {
         return lines;
     }
 
+    /**
+     * Main method for testing the Movies class.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         Movies movies = new Movies("src/tmdb_data.txt");
         Collection<String> output = movies.createAutocompleteFile(movies.getAllTitles());
