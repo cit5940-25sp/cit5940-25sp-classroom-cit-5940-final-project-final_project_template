@@ -29,7 +29,7 @@ public class RunGame {
             long start = System.currentTimeMillis();
 
             while (AutocompleteGUI.getSelectedMovie() == null &&
-                    (System.currentTimeMillis() - start) < 100_000) {
+                    (System.currentTimeMillis() - start) < 30_000) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

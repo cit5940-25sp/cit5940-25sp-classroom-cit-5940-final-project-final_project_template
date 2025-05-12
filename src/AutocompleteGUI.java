@@ -55,6 +55,9 @@ public class AutocompleteGUI
     private static final String SEARCH_URL       =
         "https://www.google.com/search?q=";
 
+    private JLabel timerLabel = new JLabel("Time left: 30s");
+
+
     // Display top k results
     private final int           k;
 
@@ -279,6 +282,7 @@ public class AutocompleteGUI
 
             // create the search text box
             JPanel searchTextPanel = new JPanel();
+            searchTextPanel.add(timerLabel);
             searchTextPanel.add(searchText);
             searchTextPanel
                 .setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -585,6 +589,23 @@ public class AutocompleteGUI
             layout.setVerticalGroup(
                 layout.createSequentialGroup().addComponent(searchTextPanel)
                     .addComponent(suggestionsPanel));
+
+            new javax.swing.Timer(1000, new ActionListener() {
+                int secondsLeft = 30;
+
+                public void actionPerformed(ActionEvent e) {
+                    timerLabel.setText("⏳ Time left: " + secondsLeft + "s");
+                    if (secondsLeft <= 5) {
+                        timerLabel.setForeground(Color.RED); // warning color
+                    }
+                    if (secondsLeft == 0) {
+                        ((javax.swing.Timer) e.getSource()).stop();
+                        AutocompleteGUI.setSelectedMovie(null); // signal time expired
+                        SwingUtilities.getWindowAncestor(AutocompletePanel.this).dispose(); // close window
+                    }
+                    secondsLeft--;
+                }
+            }).start();
         }
 
 

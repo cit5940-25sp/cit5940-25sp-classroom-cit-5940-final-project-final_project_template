@@ -11,7 +11,12 @@ public class Player {
     //(e.g. actor name) and how many times (max 3)
     private HashMap<String, Integer> linksUsed;
 
-
+    /**
+     * Constructor that initializes a new Player with specified username and objective.
+     * @param username The username of the player.
+     * @param objectiveGenre The target genre for the player's objective.
+     * @param objectiveNumber The number of movies to complete the objective.
+     */
     public Player (String username, String objectiveGenre, int objectiveNumber) {
         this.username = username;
         this.objectiveGenre = objectiveGenre;
@@ -20,15 +25,15 @@ public class Player {
         this.progress = 0;
     }
 
-    /*
-    return true if user still plays, false if user has lost
+    /**
+     * Handles a movie play by recording connections and checking genre match.
+     * This method records the usage of each connection (actor) and updates the player's progress
+     * if the played movie's genre matches the player's objective genre.
+     *
+     * @param connections List of connections (e.g., actors) between movies.
+     * @param genres List of genres for the current movie.
+     * @return True if a connection was successfully used, false otherwise.
      */
-    // add connection to connection map or increase number
-    // of times that connection was used.
-    // return false if connection was used more than 3 times
-
-    // update progress if genre matches objectivegenre
-
     public boolean handleMovie(List<String> connections, List<String> genres) {
         boolean usedConnectionThisTurn = false;
 
@@ -48,6 +53,16 @@ public class Player {
         return usedConnectionThisTurn;
     }
 
+    /**
+     * Generates a visual representation of the usage count of each link (actor/connection).
+     * Each link is displayed with ❌ for each time it has been used (up to 3),
+     * and ▪️ for remaining unused slots. This provides a clear view of link usage.
+     *
+     * Example:
+     * - A link used 2 times: ❌❌▪️
+     * - A link used 0 times: ▪️▪️▪️
+     * @return A map where the key is the link (actor name) and the value is a visual representation of its usage.
+     */
     public Map<String, String> getLinkUsageDisplay() {
         Map<String, String> usageVisual = new HashMap<>();
 
@@ -69,22 +84,42 @@ public class Player {
         return usageVisual;
     }
 
+    /**
+     * Checks if the player has met their objective.
+     * @return True if the player has completed their objective, false otherwise.
+     */
     public boolean hasMetObjective() {
         return (objectiveAmount - progress) == 0;
     }
 
+    /**
+     * Calculates the player’s progress as a percentage.
+     * @return The progress percentage towards the objective.
+     */
     public double progressSoFar() {
         return (progress * 100.0) / objectiveAmount;
     }
 
+    /**
+     * Gets the player's username.
+     * @return The username of the player.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Gets the player's objective genre.
+     * @return The objective genre of the player.
+     */
     public String getObjectiveGenre() {
         return objectiveGenre;
     }
 
+    /**
+     * Provides a status string for the player.
+     * @return The status of the player including progress.
+     */
     public String getStatus() {
         return username + " - " + progress + "/" + objectiveAmount + " " + objectiveGenre;
     }
