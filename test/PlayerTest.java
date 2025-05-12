@@ -77,4 +77,12 @@ public class PlayerTest {
         assertTrue(result);
         assertEquals(0.0, player1.progressSoFar());
     }
+
+//    @Test
+//    public void hasMetObjectiveTest() {
+//        for (int i = 0; i < 5; i++) {
+//            player1.handleMovie(Arrays.asList("Emma Stone"), Arrays.asList("Horror"));
+//        }
+//        assertTrue(player1.hasMetObjective());
+//    }
 }

@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,15 +6,6 @@ public class Movies {
     private final HashMap<String, HashMap<String, List<String>>> allMovies = new HashMap<>();
     //key is genre name and value is number of movies with that genre
     private final HashMap<String, Integer> allGenres = new HashMap<>();
-
-        // load data: create a Movie object for each movie
-        // in the file and put it in the HashSet
-        // look for name and year and append it in format "Movie Name, (year)"
-
-        // get genre and make a HashSet with all the Staff. Make an AbstractMap.Entry<genre, staff>
-
-        // allMovies.put("Movie Name, (year)", AbstractMap.Entry<genre, staff>)
-
 
     public Movies(String filePath) {
         loadMovies(filePath);
@@ -79,10 +67,6 @@ public class Movies {
             throw new RuntimeException(e);
         }
     }
-    /*
-
-
-
 
     /**
      * Finds the list of common cast members between two movies.
@@ -94,18 +78,41 @@ public class Movies {
     public List<String> getConnection(String movie1, String movie2) {
         List<String> connections = new LinkedList<>();
 
-        List<String> cast1 = allMovies.get(movie1).get("castAndCrew");
-        List<String> cast2 = allMovies.get(movie2).get("castAndCrew");
+        // Convert titles to lowercase for case-insensitive matching
+        movie1 = movie1.trim().toLowerCase();
+        movie2 = movie2.trim().toLowerCase();
+
+        // Ensure both movies exist in the map
+        HashMap<String, List<String>> details1 = allMovies.get(movie1);
+        HashMap<String, List<String>> details2 = allMovies.get(movie2);
+
+        if (details1 == null || details2 == null) {
+            System.out.println("Connection Error: One or both movies not found.");
+            return connections;
+        }
+
+        List<String> cast1 = details1.getOrDefault("castAndCrew", new ArrayList<>());
+        List<String> cast2 = details2.getOrDefault("castAndCrew", new ArrayList<>());
+
+        // Ensure both cast lists are populated
+        if (cast1.isEmpty() || cast2.isEmpty()) {
+            System.out.println("Connection Error: One or both movies have no cast.");
+            return connections;
+        }
+
         Set<String> set1 = new HashSet<>(cast1);
 
+        // Find common cast members between the two movies
         for (String staff : cast2) {
             if (set1.contains(staff)) {
                 connections.add(staff);
             }
         }
 
+        System.out.println("Connection Found: " + connections);
         return connections;
     }
+
 
     /**
      * Retrieves the list of genres for a given movie.

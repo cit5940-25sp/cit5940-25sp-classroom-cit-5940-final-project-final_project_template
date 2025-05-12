@@ -1,98 +1,118 @@
-import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.*;
 
 public class GameTest {
 
-    // testing all connections
-
     @Test
-    public void testAnyConnection() {
-        Movie movie1 = new Movie("Movie A");
-        Movie movie2 = new Movie("Movie B");
-
-        Person actor = new Person("Actor A", Set.of("ACTOR"));
-        Person director = new Person("Director A", Set.of("DIRECTOR"));
-        Person writer = new Person("Writer A", Set.of("WRITER"));
-        Person composer = new Person("Composer A", Set.of("COMPOSER"));
-        Person cinematographer = new Person("Cinematographer A", Set.of("CINEMATOGRAPHER"));
-
-        movie1.addPerson(actor);
-        movie2.addPerson(actor);
-
-        movie1.addPerson(director);
-        movie2.addPerson(director);
-
-        movie1.addPerson(writer);
-        movie2.addPerson(writer);
-
-        movie1.addPerson(composer);
-        movie2.addPerson(composer);
-
-        movie1.addPerson(cinematographer);
-        movie2.addPerson(cinematographer);
-
-        Map<String, List<String>> common = ConnectionFinder.findCommonConnections(movie1, movie2);
-
-        // Check all connection types
-        assertTrue(common.containsKey("ACTOR"));
-        assertTrue(common.containsKey("DIRECTOR"));
-        assertTrue(common.containsKey("WRITER"));
-        assertTrue(common.containsKey("COMPOSER"));
-        assertTrue(common.containsKey("CINEMATOGRAPHER"));
-
-        // Ensure each type has only one person
-        assertEquals(1, common.get("ACTOR").size());
-        assertEquals(1, common.get("DIRECTOR").size());
-        assertEquals(1, common.get("WRITER").size());
-        assertEquals(1, common.get("COMPOSER").size());
-        assertEquals(1, common.get("CINEMATOGRAPHER").size());
+    public void testGameInitialization() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertNotNull(game);
+        assertEquals("Player1", game.usernamePlayer1());
+        assertEquals("Player2", game.usernamePlayer2());
+        assertNotNull(game.getCurrentMovie());
     }
 
-    // test for no connections
-
     @Test
-    public void testNoConnection() {
-        Movie movie1 = new Movie("Movie A");
-        Movie movie2 = new Movie("Movie B");
-
-        movie1.addPerson(new Person("Actor A", Set.of("ACTOR")));
-        movie2.addPerson(new Person("Actor B", Set.of("ACTOR")));
-
-        Map<String, List<String>> common = ConnectionFinder.findCommonConnections(movie1, movie2);
-        assertTrue(common.isEmpty());
+    public void testPlayerTurn() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertEquals("Player1", game.getWhosTurn());
+        game.forcePlayerTurn("Player2");
+        assertEquals("Player2", game.getWhosTurn());
     }
 
-    // test for repeats
     @Test
-    public void testNoRepeatMovies() {
-        GameState gameState = new GameState();
-        String movieTitle = "Unique Movie";
-
-        gameState.addUsedMovie(movieTitle.toLowerCase());
-
-        assertTrue(gameState.isMovieUsed(movieTitle.toLowerCase()));
-        assertFalse(gameState.isMovieUsed("Another Movie".toLowerCase()));
+    public void testGameConditions() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertEquals("Comedy", game.gameConditionPlayer1());
+        assertEquals("Drama", game.gameConditionPlayer2());
     }
 
-    //
     @Test
-    public void testGameFlow() {
-        GameState gameState = new GameState();
-        Player player1 = new Player("Player 1");
-        Player player2 = new Player("Player 2");
-        gameState.setPlayers(player1, player2);
+    public void testPlayerProgress() {
+        Game game = new Game("src/tmdb_data.txt", "Player1", "Player2", "Drama", "Comedy");
 
-        GameController controller = new GameController(gameState);
+        // Ensure initial progress is zero
+        assertEquals(0.0, game.progressPlayer1(), 0.001);
+        assertEquals(0.0, game.progressPlayer2(), 0.001);
 
-        controller.processTurn("Valid Movie 1");
-        assertEquals(player2, gameState.getCurrentPlayer());
+        // Use a Drama movie for Player 1's objective
+        boolean move1 = game.update("Dead Like Me: Life After Death (2009)", "Player1");
+        System.out.println("Player 1 Move 1: " + move1);
+        System.out.println("Player 1 Progress: " + game.progressPlayer1());
 
-        controller.processTurn("Valid Movie 2");
-        assertEquals(player1, gameState.getCurrentPlayer());
+        // Validate progress
+        assertTrue(move1);
+        assertTrue(game.progressPlayer1() > 0.0);
+        assertEquals(0.0, game.progressPlayer2(), 0.001);
 
-        controller.processTurn("Valid Movie 1");
-        assertEquals(player1, gameState.getCurrentPlayer()); // Stays player 1
+        // Use a Comedy movie for Player 2's objective
+        game.forcePlayerTurn("Player2");
+        boolean move2 = game.update("Flying By (2009)", "Player2");
+        System.out.println("Player 2 Move 2: " + move2);
+        System.out.println("Player 2 Progress: " + game.progressPlayer2());
+
+        // Validate progress
+        assertTrue(move2);
+        assertTrue(game.progressPlayer2() > 0.0);
     }
+
+
+
+    @Test
+    public void testInvalidMoveAlreadyPlayed() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        String movie = game.getCurrentMovie();
+        assertFalse(game.update(movie, "Player1"));
+    }
+
+    @Test
+    public void testInvalidMoveNoConnection() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertFalse(game.update("Nonexistent Movie", "Player1"));
+    }
+
+    @Test
+    public void testForcedPlayerTurn() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        game.forcePlayerTurn("Player2");
+        assertEquals("Player2", game.getWhosTurn());
+    }
+
+    @Test
+    public void testGetLastFivePlayedEmpty() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertTrue(game.getLastFivePlayed().isEmpty());
+    }
+
+    @Test
+    public void testPlayerLinkUsageDisplay() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertNotNull(game.getPlayer1LinkUsageDisplay());
+        assertNotNull(game.getPlayer2LinkUsageDisplay());
+    }
+
+    @Test
+    public void testRoundsPlayed() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertEquals(0, game.getRoundsPlayed());
+    }
+
+    @Test
+    public void testAutocompleteFileName() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertEquals("src/autocomplete.txt", game.getAutocompleteFileName());
+    }
+
 }
 

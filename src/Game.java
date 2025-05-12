@@ -43,48 +43,79 @@ public class Game {
      * @return True if the move was valid, false otherwise.
      */
     public boolean update(String moviePlayed, String player) {
+        System.out.println("Attempting Move - Player: " + player + ", Movie: " + moviePlayed);
+
         // Check that movie hasn't already been used
         if (moviesPlayed.contains(moviePlayed)) {
+            System.out.println("Move Failed: Movie already played.");
             return false;
         }
-
         // Validate the connection between the last movie and the new movie
         List<String> links = movies.getConnection(prevMovie, moviePlayed);
         if (links.isEmpty()) {
+            System.out.println("Move Failed: No connection between movies.");
             return false;
         }
-
         // Retrieve genres of the played movie
         List<String> genres = movies.getMovieGenres(moviePlayed);
+        System.out.println("Movie Genres: " + genres);
         boolean valid = false;
-
         // Determine which player is making the move
         if (player.equals(player1.getUsername())) {
             valid = player1.handleMovie(links, genres);
+            System.out.println("Player 1 Progress: " + player1.progressSoFar());
             if (player1.hasMetObjective()) {
                 winner = player1.getUsername();
             }
         } else if (player.equals(player2.getUsername())) {
             valid = player2.handleMovie(links, genres);
+            System.out.println("Player 2 Progress: " + player2.progressSoFar());
             if (player2.hasMetObjective()) {
                 winner = player2.getUsername();
             }
         }
-
         // If the move was valid, update game state
         if (valid) {
+            System.out.println("Move Successful.");
             moviesPlayed.add(moviePlayed);
             lastFivePlayed.addFirst(new AbstractMap.SimpleEntry<>(moviePlayed, links));
             if (lastFivePlayed.size() > 5) {
                 lastFivePlayed.removeLast();
             }
-
             prevMovie = moviePlayed; // Update the last played movie
-            roundsPlayed++;          // Increment the round count
+            roundsPlayed++;
             turn = !turn;
+        } else {
+            System.out.println("Move Failed: Invalid player or genre mismatch.");
         }
 
         return valid;
+    }
+
+    /**
+     * Checks if it's the specified player's turn
+     * @param player The username to check
+     * @return True if it's the player's turn, false otherwise
+     */
+    private boolean isPlayerTurn(String player) {
+        if (turn && player.equals(player1.getUsername())) {
+            return true;
+        } else if (!turn && player.equals(player2.getUsername())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Forces the next turn to be for the specified player (for testing purposes)
+     * @param player The username of the player to force turn for
+     */
+    public void forcePlayerTurn(String player) {
+        if (player.equals(player1.getUsername())) {
+            turn = true;
+        } else if (player.equals(player2.getUsername())) {
+            turn = false;
+        }
     }
 
     /**
