@@ -124,6 +124,19 @@ public class GameConsoleUI implements IGameObserver {
         }
     }
 
+
+    /**
+     * Callback method invoked whenever the game state changes.
+     * This method displays the updated game state to the console,
+     * including the current country, game mode, moves taken and remaining,
+     * available languages, selected language stats, and the player's score.
+     * If the move history exists, it is printed as well.
+     * Additionally, if the game has ended (no moves remaining),
+     * it provides final feedback based on performance and prompts the user
+     * to play again or exit the game.
+     *
+     * @param gameState the updated state of the game
+     */
     @Override
     public void onGameStateChanged(GameState gameState) {
         System.out.println("\n--- Game State ---");

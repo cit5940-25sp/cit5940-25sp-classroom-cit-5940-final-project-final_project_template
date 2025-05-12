@@ -137,6 +137,19 @@ public class GameEngine {
     }
 
 
+    /**
+     * Sets the selected language for the current game session.
+     * This method verifies if the given language has not exceeded the allowed usage
+     * limit based on the current game mode (7 uses in regular mode, 4 in hard mode).
+     * If the language is still allowed, it becomes the new current language. Selecting
+     * a new language resets the current streak.
+     * <p>
+     * After setting the language, all observers are notified of the game state change.
+     *
+     * @param language the language to be selected
+     * @return {@code true} if the language was successfully selected;
+     *         {@code false} if the language has already reached its usage limit
+     */
     public boolean setSelectedLanguage(Language language) {
 
         int languageLimit;
@@ -164,6 +177,16 @@ public class GameEngine {
         return true;
     }
 
+
+    /**
+     * Attempts to move to the specified country using the currently selected language.
+     * Validates move conditions, updates the game state, awards points if successful,
+     * and notifies observers. If the selected language or country has no further valid
+     * options, the game may refresh to a new country.
+     *
+     * @param countryName the name of the country to move to
+     * @return a {@link MoveResult} indicating the outcome and message
+     */
     public MoveResult moveToCountry(String countryName) {
         if (!gameState.hasMovesRemaining()) {
             return new MoveResult(false, "Game over! You've used all 30 moves. Final score: " +
