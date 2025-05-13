@@ -14,14 +14,10 @@ import org.json.JSONObject;
 /**
  * TMDBApiLoader is responsible for fetching and parsing movie data from
  * The Movie Database (TMDB) API.
- * <p>
  * It supports:
- * <ul>
- *   <li>Fetching a single movie by its TMDB ID, including title, year,
- *       genres, cast, and crew</li>
- *   <li>Fetching multiple movies by a list of TMDB IDs</li>
- * </ul>
- * <p>
+ *   Fetching a single movie by its TMDB ID, including title, year,
+ *       genres, cast, and crew
+ *   Fetching multiple movies by a list of TMDB IDs
  * This class uses a {@link HttpService} to perform HTTP GET requests,
  * which can be overridden in unit tests to return stubbed JSON data
  * without real network calls.

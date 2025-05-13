@@ -39,7 +39,12 @@ public class CinematographerLinkStrategy implements ILinkStrategy {
         Set<Person> common = from.getCinematographers().stream()
                 .filter(to.getCinematographers()::contains)
                 .collect(Collectors.toSet());
-        String name = common.iterator().next().getName();
-        return "Shared cinematographer: " + name;
+
+        if (!common.isEmpty()) {
+            String name = common.iterator().next().getName();
+            return "Shared cinematographer: " + name;
+        } else {
+            return "No shared cinematographers.";
+        }
     }
 }

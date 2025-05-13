@@ -375,6 +375,7 @@ public class GameView {
             selectedSuggestionIndex = -1;
         }
     }
+
     private void processPlayerGuessedMovie(String guessedMovieTitle) throws IOException {
         if (gameController == null) return;
 
@@ -431,12 +432,10 @@ public class GameView {
             return;
         }
 
-
         if (resultMessageFromController.startsWith("Error:")) {
-            stopPlayerTurnTimer();
             feedbackMessage = resultMessageFromController;
-            currentPhase = GamePhase.GAME_OVER;
         }
+
     }
 
 

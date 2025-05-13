@@ -64,12 +64,7 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        // Primarily, equality is based on the name.
-        // Case-insensitive comparison for names might be more robust depending on data source.
-        // For now, using case-sensitive as per typical string equality.
         return Objects.equals(name, person.name);
-        // If role must also match for equality:
-        // return Objects.equals(name, person.name) && role == person.role;
     }
 
     /**
@@ -81,9 +76,6 @@ public class Person {
      */
     @Override
     public int hashCode() {
-        // Hash code based primarily on the name.
         return Objects.hash(name);
-        // If role must also be part of hash code:
-        // return Objects.hash(name, role);
     }
 }

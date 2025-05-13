@@ -1,9 +1,6 @@
 import view.GameView; // Assuming GameView is in the view package
 
 import java.io.IOException;
-// Removed unused imports for TMDB API loading
-// import java.util.Arrays;
-// import java.util.List;
 
 /**
  * Main application class for the Movie Name Game.
@@ -27,8 +24,6 @@ public class MovieNameGame {
             System.out.println("GameView created.");
 
             // 2. Define the paths to your CSV data files.
-            //    IMPORTANT: Ensure these paths are correct relative to where you run the application.
-            //    This assumes a 'data' subdirectory exists in your project's root or working directory.
             String moviesCsvPath = "data/tmdb_5000_movies.csv";
             String creditsCsvPath = "data/tmdb_5000_credits.csv";
             System.out.println("Attempting to initialize game using CSV files:");
@@ -37,7 +32,6 @@ public class MovieNameGame {
 
 
             // 3. Initialize the game data, controller, and initial state within GameView
-            //    CORRECTED: Pass the CSV file paths to the initializeGame method.
             boolean initialized = gameView.initializeGame(moviesCsvPath, creditsCsvPath);
             System.out.println("Game initialization result: " + (initialized ? "Success" : "Failed"));
 
@@ -49,7 +43,6 @@ public class MovieNameGame {
                 System.out.println("Game loop finished.");
             } else {
                 // Initialization failed, GameView should display an error.
-                // Wait briefly so the user might see the error in the terminal if it closes quickly.
                 System.err.println("Game initialization failed. See TUI for details. Exiting.");
                 try { Thread.sleep(3000); } catch (InterruptedException ignored) {}
             }

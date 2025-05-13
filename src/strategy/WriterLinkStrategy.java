@@ -37,7 +37,12 @@ public class WriterLinkStrategy implements ILinkStrategy {
         Set<Person> common = from.getWriters().stream()
                 .filter(to.getWriters()::contains)
                 .collect(Collectors.toSet());
-        String name = common.iterator().next().getName();
-        return "Shared writer: " + name;
+
+        if (!common.isEmpty()) {
+            String name = common.iterator().next().getName();
+            return "Shared writer: " + name;
+        } else {
+            return "No shared writers.";
+        }
     }
 }

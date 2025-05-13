@@ -57,8 +57,4 @@ public class YearWinCondition implements IWinCondition {
                 .count();
         return count + "/" + WIN_COUNT + " from " + targetYear;
     }
-
-    // Helper for GameController if needed
-    public int getTargetYearForProgress() { return this.targetYear; }
-    public int getWinCountForProgress() { return WIN_COUNT; }
 }

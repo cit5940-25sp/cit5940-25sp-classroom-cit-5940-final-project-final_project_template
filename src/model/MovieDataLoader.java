@@ -41,7 +41,6 @@ public class MovieDataLoader {
 
                 // Skip lines with missing fields
                 if (fields.length < requiredFieldCount) {
-                    System.err.println("⚠️ Skipping malformed movie line: " + line);
                     continue;
                 }
 
@@ -61,8 +60,7 @@ public class MovieDataLoader {
 
                     movieIdToMovie.put(id, movie);
                 } catch (Exception e) {
-                    System.err.println("⚠️ Failed to parse movie line: " + line);
-                    e.printStackTrace();
+                    continue;
                 }
             }
         }
@@ -79,7 +77,6 @@ public class MovieDataLoader {
 
                 // Skip lines with missing fields
                 if (fields.length < requiredFieldCount) {
-                    System.err.println("⚠️ Skipping malformed credit line: " + line);
                     continue;
                 }
 
@@ -114,8 +111,7 @@ public class MovieDataLoader {
                         }
                     }
                 } catch (Exception e) {
-                    System.err.println("⚠️ Failed to parse credit line: " + line);
-                    e.printStackTrace();
+                    continue;
                 }
             }
         }

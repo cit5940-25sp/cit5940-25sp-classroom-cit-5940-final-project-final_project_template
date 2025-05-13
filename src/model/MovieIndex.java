@@ -37,14 +37,11 @@ public class MovieIndex {
 
             String title = movie.getTitle();
 
-            // Index by title (handle potential duplicates if necessary, though map replaces)
+            // Index by title
             if (!titleToMovie.containsKey(title)) {
                 titleToMovie.put(title, movie);
                 allTitlesSorted.add(title); // Add to the sorted set
-            } else {
-                System.err.println("Warning: Duplicate movie title found during indexing: " + title + ". Keeping first encountered entry.");
             }
-
 
             // Index by people involved (Actors, Directors, etc.)
             indexPeople(movie.getActors(), movie);

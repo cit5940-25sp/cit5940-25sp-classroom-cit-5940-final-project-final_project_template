@@ -65,7 +65,4 @@ public class GenreWinCondition implements IWinCondition {
         return count + "/" + WIN_COUNT + " " + genre;
     }
 
-    // Helper for GameController if needed, though getPlayerProgress is more direct
-    public String getTargetGenreForProgress() { return this.genre; }
-    public int getWinCountForProgress() { return WIN_COUNT; }
 }

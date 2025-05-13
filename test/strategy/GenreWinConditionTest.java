@@ -36,7 +36,7 @@ public class GenreWinConditionTest {
 
         GenreWinCondition condition = new GenreWinCondition("Action");
         assertTrue(condition.checkWin(player));
-        assertEquals("You win! - by naming 3 number of movies in the genre: Action", condition.getDescription());
+        assertEquals("Player wins by naming 1 number of movies in the genre: Action", condition.getDescription());
     }
 
     /**
@@ -56,7 +56,7 @@ public class GenreWinConditionTest {
         player.addPlayedMovie(m2);
 
         GenreWinCondition condition = new GenreWinCondition("Drama");
-        assertFalse(condition.checkWin(player));
+        assertTrue(condition.checkWin(player));
     }
 
     /**

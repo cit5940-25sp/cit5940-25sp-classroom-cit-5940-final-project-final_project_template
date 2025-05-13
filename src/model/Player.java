@@ -40,8 +40,6 @@ public class Player {
      * @return a list of movies
      */
     public List<Movie> getPlayedMovies() {
-        // Return a copy to prevent external modification if needed,
-        // but for checking win conditions, direct access might be fine.
         return playedMovies;
     }
 
