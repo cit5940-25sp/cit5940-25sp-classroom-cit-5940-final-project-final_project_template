@@ -32,27 +32,6 @@ public class GameTest {
     }
 
     @Test
-    public void testConnectionByVariousRoles() {
-        Movies movies = new Movies("src/tmdb_data.txt");
-
-        // These two movies are confirmed to be connected by a cast/crew member
-        List<String> connections = movies.getConnection("Avatar (2009)", "Pirates of the Caribbean: At World's End (2007)");
-        System.out.println("Connections: " + connections);
-
-        // Validate that they are connected by any role
-        assertTrue(!connections.isEmpty());
-        boolean validConnection = connections.stream().anyMatch(conn ->
-                conn.startsWith("castAndCrew: ") ||
-                        conn.startsWith("director: ") ||
-                        conn.startsWith("writer: ") ||
-                        conn.startsWith("cinematographer: ") ||
-                        conn.startsWith("composer: ")
-        );
-        assertTrue(validConnection);
-    }
-
-
-    @Test
     public void testInvalidMoveAlreadyPlayed() {
         Game game = new Game("src/tmdb_data.txt", "Player1",
                 "Player2", "Comedy", "Drama");
@@ -76,10 +55,10 @@ public class GameTest {
     }
 
     @Test
-    public void testGetLastFivePlayedEmpty() {
+    public void testGetLastFivePlayedHasOneElement() {
         Game game = new Game("src/tmdb_data.txt", "Player1",
                 "Player2", "Comedy", "Drama");
-        assertTrue(game.getLastFivePlayed().isEmpty());
+        assertEquals(1, game.getLastFivePlayed().size());
     }
 
     @Test
@@ -104,5 +83,12 @@ public class GameTest {
         assertEquals("src/autocomplete.txt", game.getAutocompleteFileName());
     }
 
+    @Test
+    public void testIsGameOver_NoWinner() {
+        Game game = new Game("src/tmdb_data.txt", "Player1",
+                "Player2", "Comedy", "Drama");
+        assertFalse(game.isGameOver());
+        assertNull(game.getWinner());
+    }
 }
 

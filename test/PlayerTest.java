@@ -78,11 +78,20 @@ public class PlayerTest {
         assertEquals(0.0, player1.progressSoFar());
     }
 
-//    @Test
-//    public void hasMetObjectiveTest() {
-//        for (int i = 0; i < 5; i++) {
-//            player1.handleMovie(Arrays.asList("Emma Stone"), Arrays.asList("Horror"));
-//        }
-//        assertTrue(player1.hasMetObjective());
-//    }
+    @Test
+    public void testGetLinkUsageDisplay_Empty() {
+        Map<String, String> usageDisplay = player1.getLinkUsageDisplay();
+        assertTrue(usageDisplay.isEmpty());
+    }
+
+    @Test
+    public void testGetLinkUsageDisplay_MultipleLinks() {
+        player1.handleMovie(Arrays.asList("Emma Stone", "Ryan Gosling"), Arrays.asList("Horror"));
+        player1.handleMovie(Arrays.asList("Emma Stone"), Arrays.asList("Horror"));
+
+        Map<String, String> usageDisplay = player1.getLinkUsageDisplay();
+        assertEquals("❌❌▪️", usageDisplay.get("Emma Stone"));
+        assertEquals("❌▪️▪️", usageDisplay.get("Ryan Gosling"));
+    }
+
 }

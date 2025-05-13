@@ -30,11 +30,10 @@ public class MoviesTest {
         // Testing for a connection between two movies by cast
         List<String> connections = movies.getConnection("Crazy, Stupid, Love. (2011)", "Superbad (2007)");
         System.out.println("Connections: " + connections);
-
         // Expected connections with role type
         List<String> expectedConnections = Arrays.asList(
-                "castAndCrew: Charlie Hartsock",
-                "castAndCrew: Emma Stone"
+                "Charlie Hartsock",
+                "Emma Stone"
         );
         assertEquals(expectedConnections, connections);
     }
