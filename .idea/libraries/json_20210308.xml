@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="json-20210308">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/json-20210307.jar!/" />
+      <root url="jar://$PROJECT_DIR$/opencsv-5.7.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
