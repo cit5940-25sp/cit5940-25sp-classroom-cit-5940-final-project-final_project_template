@@ -19,8 +19,8 @@ public class RunGame {
 
         while (true) {
             System.out.println("It's " + game.getWhosTurn() + "'s turn!");
-            LinkedList<Map.Entry<String, List<String>>> lastFive = game.getLastFivePlayed();
 
+            LinkedList<Map.Entry<String, List<String>>> lastFive = game.getLastFivePlayed();
             for(Map.Entry<String, List<String>> entry : lastFive) {
                 if (!(entry.getKey()).equals((lastFive.getLast()).getKey())) {
                     System.out.println("        " + (String)entry.getKey());
@@ -33,7 +33,7 @@ public class RunGame {
                     System.out.println("            |");
                 }
             }
-            System.out.println(((Map.Entry)lastFive.getLast()).getValue());
+            System.out.println("        " + ((Map.Entry)lastFive.getLast()).getKey());
 
             AutocompleteGUI.setSelectedMovie(null);
             AutocompleteGUI.main(new String[] {"src/autocomplete.txt", "5"});
@@ -41,7 +41,7 @@ public class RunGame {
             long start = System.currentTimeMillis();
 
             while (AutocompleteGUI.getSelectedMovie() == null &&
-                    (System.currentTimeMillis() - start) < 30_000) {
+                    (System.currentTimeMillis() - start) < 300_000) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -63,9 +63,8 @@ public class RunGame {
 
             if (worked) {
                 System.out.println("✅ Valid move!");
-                System.out.println(game.usernamePlayer1() + " progress: " + game.progressPlayer1() + "%");
-                System.out.println(game.usernamePlayer2() + " progress: " + game.progressPlayer2() + "%");
-
+                System.out.println(game.usernamePlayer1() + "'s progress: " + game.progressPlayer1() + "%" +
+                        "           " + game.usernamePlayer2() + "'s progress: " + game.progressPlayer2() + "%");
                 System.out.println("\nLink usage:");
                 System.out.println(game.usernamePlayer1() + "'s links:");
                 for (var entry : game.getPlayer1LinkUsageDisplay().entrySet()) {

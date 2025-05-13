@@ -591,7 +591,7 @@ public class AutocompleteGUI
                     .addComponent(suggestionsPanel));
 
             new javax.swing.Timer(1000, new ActionListener() {
-                int secondsLeft = 30;
+                int secondsLeft = 300;
 
                 public void actionPerformed(ActionEvent e) {
                     timerLabel.setText("⏳ Time left: " + secondsLeft + "s");

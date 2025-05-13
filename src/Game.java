@@ -24,8 +24,8 @@ public class Game {
                 String objectiveGenre1, String objectiveGenre2) {
         this.movies = new Movies(fileName);
         this.autocompleteFile = "src/autocomplete.txt";
-        this.player1 = new Player(player1Name, objectiveGenre1, 2);
-        this.player2 = new Player(player2Name, objectiveGenre2, 2);
+        this.player1 = new Player(player1Name, objectiveGenre1, 5);
+        this.player2 = new Player(player2Name, objectiveGenre2, 5);
         this.moviesPlayed = new HashSet<>();
         this.lastFivePlayed = new LinkedList<>();
         this.turn = true;
@@ -33,6 +33,7 @@ public class Game {
         this.winner = null;
         this.prevMovie = movies.getRandomMovie();
         moviesPlayed.add(prevMovie);
+        lastFivePlayed.add(new AbstractMap.SimpleEntry<>(prevMovie, new ArrayList<>()));
     }
 
     /**
@@ -43,40 +44,34 @@ public class Game {
      * @return True if the move was valid, false otherwise.
      */
     public boolean update(String moviePlayed, String player) {
-        System.out.println("Attempting Move - Player: " + player + ", Movie: " + moviePlayed);
 
         // Check that movie hasn't already been used
         if (moviesPlayed.contains(moviePlayed)) {
-            System.out.println("Move Failed: Movie already played.");
+            System.out.println(moviePlayed + " has already been played.");
             return false;
         }
         // Validate the connection between the last movie and the new movie
         List<String> links = movies.getConnection(prevMovie, moviePlayed);
         if (links.isEmpty()) {
-            System.out.println("Move Failed: No connection between movies.");
             return false;
         }
         // Retrieve genres of the played movie
         List<String> genres = movies.getMovieGenres(moviePlayed);
-        System.out.println("Movie Genres: " + genres);
         boolean valid = false;
         // Determine which player is making the move
         if (player.equals(player1.getUsername())) {
             valid = player1.handleMovie(links, genres);
-            System.out.println("Player 1 Progress: " + player1.progressSoFar());
             if (player1.hasMetObjective()) {
                 winner = player1.getUsername();
             }
         } else if (player.equals(player2.getUsername())) {
             valid = player2.handleMovie(links, genres);
-            System.out.println("Player 2 Progress: " + player2.progressSoFar());
             if (player2.hasMetObjective()) {
                 winner = player2.getUsername();
             }
         }
         // If the move was valid, update game state
         if (valid) {
-            System.out.println("Move Successful.");
             moviesPlayed.add(moviePlayed);
             lastFivePlayed.addFirst(new AbstractMap.SimpleEntry<>(moviePlayed, links));
             if (lastFivePlayed.size() > 5) {
@@ -85,8 +80,6 @@ public class Game {
             prevMovie = moviePlayed; // Update the last played movie
             roundsPlayed++;
             turn = !turn;
-        } else {
-            System.out.println("Move Failed: Invalid player or genre mismatch.");
         }
 
         return valid;
