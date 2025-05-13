@@ -14,6 +14,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for the {@link GameController} class.
+ * Verifies correct game initialization, player moves, win/loss conditions,
+ * and error handling logic.
+ */
 class GameControllerTest {
 
     private GameController gameController;
@@ -23,6 +28,10 @@ class GameControllerTest {
     private Movie revenant;
     private Person leo;
 
+    /**
+     * Initializes a fresh GameController and two sample movies (with a shared actor)
+     * before each test.
+     */
     @BeforeEach
     void setUp() {
         player1 = new Player("Alice");
@@ -44,6 +53,9 @@ class GameControllerTest {
         gameController = new GameController(movieIndex, player1, player2);
     }
 
+    /**
+     * Verifies that the game initializes correctly with a non-null initial movie and win condition.
+     */
     @Test
     void testGameInitialization() {
         Movie initial = gameController.initializeNewGame();
@@ -52,6 +64,9 @@ class GameControllerTest {
         assertNotNull(gameController.getCurrentWinConditionDescription(), "Win condition should be set");
     }
 
+    /**
+     * Verifies a valid move using the ActorLinkStrategy between two movies sharing the same actor.
+     */
     @Test
     void testValidMoveWithActorLink() {
         Movie initial = gameController.initializeNewGame();
@@ -75,7 +90,9 @@ class GameControllerTest {
         assertTrue(result.startsWith("OK:") || result.startsWith("VALID_MOVE_AND_WIN:"), "Move should be valid");
     }
 
-
+    /**
+     * Verifies that a repeated movie submission by the other player is correctly flagged.
+     */
     @Test
     void testRepeatedMovieMove() {
         gameController.initializeNewGame();
@@ -93,6 +110,9 @@ class GameControllerTest {
         }
     }
 
+    /**
+     * Simulates a player timeout and checks that the game ends with the other player declared the winner.
+     */
     @Test
     void testPlayerTimeoutLoss() {
         gameController.initializeNewGame();
@@ -102,6 +122,9 @@ class GameControllerTest {
         assertEquals(player2, gameController.getWinner(), "Other player should win after timeout");
     }
 
+    /**
+     * Ensures that calling switchTurn correctly swaps the current and other player.
+     */
     @Test
     void testSwitchTurn() {
         Player originalCurrent = gameController.getCurrentPlayer();
@@ -109,7 +132,9 @@ class GameControllerTest {
         assertEquals(originalCurrent, gameController.getOtherPlayer(), "Players should switch turns");
     }
 
-
+    /**
+     * Verifies that making a move without selecting a link strategy results in an appropriate error.
+     */
     @Test
     void testNoLinkStrategyError() {
         gameController.initializeNewGame(); // No strategy set
@@ -119,6 +144,9 @@ class GameControllerTest {
         assertFalse(gameController.isGameOver());
     }
 
+    /**
+     * Verifies that once the game is over, further move attempts are rejected.
+     */
     @Test
     void testGameOverMoveAttempt() {
         gameController.initializeNewGame();
@@ -130,6 +158,9 @@ class GameControllerTest {
         assertEquals("Error: Game is already over.", result);
     }
 
+    /**
+     * Ensures the last played movie returned by the controller matches the last submitted valid movie.
+     */
     @Test
     void testGetLastPlayedMovie() {
         gameController.initializeNewGame();
@@ -141,6 +172,9 @@ class GameControllerTest {
         assertEquals("The Revenant", last.getTitle());
     }
 
+    /**
+     * Verifies accessors for current link strategy name and player progress do not return null.
+     */
     @Test
     void testGetPlayerProgressAndStrategyName() {
         gameController.initializeNewGame();
@@ -150,6 +184,9 @@ class GameControllerTest {
         assertNotNull(gameController.getPlayerProgress(player1));
     }
 
+    /**
+     * Verifies that the move history returned by the controller is immutable.
+     */
     @Test
     void testGameMoveHistoryImmutable() {
         gameController.initializeNewGame();
@@ -157,6 +194,9 @@ class GameControllerTest {
         assertThrows(UnsupportedOperationException.class, () -> history.add(null));
     }
 
+    /**
+     * Ensures the constructor of GameController throws exceptions when passed null arguments.
+     */
     @Test
     void testConstructorNullChecks() {
         assertThrows(IllegalArgumentException.class, () -> new GameController(null, player1, player2));
