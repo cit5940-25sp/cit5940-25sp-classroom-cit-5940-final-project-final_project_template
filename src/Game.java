@@ -55,6 +55,8 @@ public class Game {
         if (links.isEmpty()) {
             System.out.println("Move Failed: No connection between movies.");
             return false;
+        } else {
+            System.out.println("Connection Found: " + links);
         }
         // Retrieve genres of the played movie
         List<String> genres = movies.getMovieGenres(moviePlayed);

@@ -78,38 +78,31 @@ public class Movies {
     public List<String> getConnection(String movie1, String movie2) {
         List<String> connections = new LinkedList<>();
 
-        // Convert titles to lowercase for case-insensitive matching
         movie1 = movie1.trim().toLowerCase();
         movie2 = movie2.trim().toLowerCase();
 
-        // Ensure both movies exist in the map
         HashMap<String, List<String>> details1 = allMovies.get(movie1);
         HashMap<String, List<String>> details2 = allMovies.get(movie2);
 
         if (details1 == null || details2 == null) {
-            System.out.println("Connection Error: One or both movies not found.");
-            return connections;
+            return connections; // One or both movies do not exist
         }
 
-        List<String> cast1 = details1.getOrDefault("castAndCrew", new ArrayList<>());
-        List<String> cast2 = details2.getOrDefault("castAndCrew", new ArrayList<>());
+        // Check for connections by shared cast, director, writer, cinematographer, or composer
+        String[] connectionTypes = {"castAndCrew", "director", "writer", "cinematographer", "composer"};
 
-        // Ensure both cast lists are populated
-        if (cast1.isEmpty() || cast2.isEmpty()) {
-            System.out.println("Connection Error: One or both movies have no cast.");
-            return connections;
-        }
+        for (String type : connectionTypes) {
+            List<String> list1 = details1.getOrDefault(type, new ArrayList<>());
+            List<String> list2 = details2.getOrDefault(type, new ArrayList<>());
 
-        Set<String> set1 = new HashSet<>(cast1);
+            Set<String> set1 = new HashSet<>(list1);
 
-        // Find common cast members between the two movies
-        for (String staff : cast2) {
-            if (set1.contains(staff)) {
-                connections.add(staff);
+            for (String person : list2) {
+                if (set1.contains(person)) {
+                    connections.add(type + ": " + person);
+                }
             }
         }
-
-        System.out.println("Connection Found: " + connections);
         return connections;
     }
 

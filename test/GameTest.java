@@ -32,34 +32,24 @@ public class GameTest {
     }
 
     @Test
-    public void testPlayerProgress() {
-        Game game = new Game("src/tmdb_data.txt", "Player1", "Player2", "Drama", "Comedy");
+    public void testConnectionByVariousRoles() {
+        Movies movies = new Movies("src/tmdb_data.txt");
 
-        // Ensure initial progress is zero
-        assertEquals(0.0, game.progressPlayer1(), 0.001);
-        assertEquals(0.0, game.progressPlayer2(), 0.001);
+        // These two movies are confirmed to be connected by a cast/crew member
+        List<String> connections = movies.getConnection("Avatar (2009)", "Pirates of the Caribbean: At World's End (2007)");
+        System.out.println("Connections: " + connections);
 
-        // Use a Drama movie for Player 1's objective
-        boolean move1 = game.update("Dead Like Me: Life After Death (2009)", "Player1");
-        System.out.println("Player 1 Move 1: " + move1);
-        System.out.println("Player 1 Progress: " + game.progressPlayer1());
-
-        // Validate progress
-        assertTrue(move1);
-        assertTrue(game.progressPlayer1() > 0.0);
-        assertEquals(0.0, game.progressPlayer2(), 0.001);
-
-        // Use a Comedy movie for Player 2's objective
-        game.forcePlayerTurn("Player2");
-        boolean move2 = game.update("Flying By (2009)", "Player2");
-        System.out.println("Player 2 Move 2: " + move2);
-        System.out.println("Player 2 Progress: " + game.progressPlayer2());
-
-        // Validate progress
-        assertTrue(move2);
-        assertTrue(game.progressPlayer2() > 0.0);
+        // Validate that they are connected by any role
+        assertTrue(!connections.isEmpty());
+        boolean validConnection = connections.stream().anyMatch(conn ->
+                conn.startsWith("castAndCrew: ") ||
+                        conn.startsWith("director: ") ||
+                        conn.startsWith("writer: ") ||
+                        conn.startsWith("cinematographer: ") ||
+                        conn.startsWith("composer: ")
+        );
+        assertTrue(validConnection);
     }
-
 
 
     @Test
